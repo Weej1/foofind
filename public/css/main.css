@@ -1,0 +1,60 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: "lucida sans", verdana, arial, helvetica, sans-serif;
+    font-size: 85%;
+}
+h1 {
+    font-size: 2.3em;
+    padding: 10px 10px 0;
+}
+p {
+    padding: 0 10px 1em;
+}
+#container_home {
+    position: relative;
+    clear: both;
+    text-align: center;
+    display: block;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #999;
+    min-height: 300px;
+    width: 676px;
+    top: 80px;
+    margin: auto;
+
+}
+* html #container {
+    height: 100%;
+}
+
+
+
+#footer{
+    clear: both;
+    margin: 20px;
+    position: relative;
+    text-align: center;
+}
+
+
+
+input, input.text,input.title,textarea,input.file,select {
+       
+}
+
+input,input.text:focus,input.title:focus,textarea:focus,select:focus {
+       
+}
+
+html form {
+    display: inline;
+}

@@ -1,0 +1,46 @@
+<div id="container_search">
+
+    <a href="/"><h1>FooFind.com</h1></a>
+
+
+    
+<?echo $this->form;?>
+
+    <div class="search_info"><?=$this->list['total']; ?> files found , retrieved in <?=$this->list['time']; ?> secs. </div>
+
+ <?php //echo $this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+
+<? var_dump($this->list['matches']); ?>
+
+
+
+<?php
+
+//Zend_Debug::dump($this->paginator);
+        die ();
+
+if ($this->list): ?>
+
+
+       <?php foreach ($this->paginator as $key => $val): ?>
+        <div class="file_excerpt">
+
+	  
+            <div><?php var_dump($val ); ?></div>
+
+
+        </div>
+
+        <?php endforeach; ?>
+
+
+<?php else: ?>
+
+    <h3><? echo 'No results.';?></h3>
+
+<?php endif;?>
+
+
+ <?php //echo $this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+
+</div><!-- end of container_search --->
