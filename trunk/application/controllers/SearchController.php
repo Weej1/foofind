@@ -1,10 +1,8 @@
 <?php
 
-class SearchController extends Zend_Controller_Action
-{
+class SearchController extends Zend_Controller_Action {
 
-    public function init()
-    {
+    public function init() {
         /* Initialize action controller here */
     }
 
@@ -18,18 +16,14 @@ class SearchController extends Zend_Controller_Action
         $form = $this->_getSearchForm();
 
         
-        //$listToolsForm->setMethod('post');
 
-        // collect the data from the user
+        // filter the data from the user (xss, etc)
         $f = new Zend_Filter_StripTags ( );
         $q = $f->filter ( $q );
 
         $form->getElement('q')->setValue($q); 
        
-        //Zend_Debug::dump($q);
-        //Zend_Debug::dump($form);
-
-
+        
         // assign the form to the view
         $this->view->form = $form;
 
@@ -43,20 +37,35 @@ class SearchController extends Zend_Controller_Action
 
         //$this->view->list = $cl;
 
-
          $result = $cl->Query( $q, 'idx_files' );
        
 
 
-         if ( $result === false ) {
-             echo "Query failed: " . $cl->GetLastError() . ".\n";
-        }
-        else {
-         if ( $cl->GetLastWarning() ) {
-         echo "WARNING: " . $cl->GetLastWarning() . " ";
-         }
+        if ( $result === false ) {
+      echo "Query failed: " . $cl->GetLastError() . ".\n";
+  }
+  else {
+      if ( $cl->GetLastWarning() ) {
+          echo "WARNING: " . $cl->GetLastWarning() . "";
+      }
 
-     $this->view->list = $result;
+      if ( ! empty($result["matches"]) ) {
+          foreach ( $result["matches"] as $doc => $docinfo ) {
+               //var_dump($this->_listFilenames($doc)->toArray());
+               //var_dump($this->_listSources($doc)->toArray());
+               
+              $this->chufa[$doc]['filenames'] = $this->_listFilenames($doc)->toArray();
+              $this->chufa[$doc]['sources'] = $this->_listSources($doc)->toArray();
+              //var_dump($this->chufa[$doc]);
+
+          }
+
+        
+      }
+  
+      //var_dump($this->chufa);
+     $this->view->list = $this->chufa;
+
   }
 
 
@@ -65,18 +74,17 @@ class SearchController extends Zend_Controller_Action
 
 
                 // fetch alllllll from model
-               // $this->view->list = $this->_listAction();
+                //$this->view->list = $this->_listAction($id);
 
 
-                //paginator
-//                $page = $this->_getParam('page');
-//                $paginator = Zend_Paginator::factory($this->view->list);
-//                $paginator->setDefaultScrollingStyle('Elastic');
-//                $paginator->setItemCountPerPage(10);
-//                $paginator->setCurrentPageNumber($page);
-//
-//                $this->view->paginator=$paginator;
+                  //paginator
+                $page = $this->_getParam('page');
+                $paginator = Zend_Paginator::factory($this->view->list);
+                $paginator->setDefaultScrollingStyle('Elastic');
+                $paginator->setItemCountPerPage(10);
+                $paginator->setCurrentPageNumber($page);
 
+                $this->view->paginator=$paginator;
 
 
 
@@ -85,11 +93,16 @@ class SearchController extends Zend_Controller_Action
 
 
 
-        protected  function _listAction() {
+        protected  function _listFilenames($id) {
                 $searchModel = new Model_Search();
-                return $searchModel->fetchFiles();
+                return $searchModel->fetchFilenames($id);
 }
 
+
+        protected function _listSources($id){
+                $searchModel = new Model_Search();
+                return $searchModel->fetchSources($id);
+        }
 
 
 
