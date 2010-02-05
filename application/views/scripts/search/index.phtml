@@ -26,11 +26,11 @@ if ($this->list): ?>
         <div class="file_excerpt">
 
 	  <?php //var_dump($val ); ?>
-            <span>Filename:<?=$val['filenames'][0]['Filename'] ?></span>
+            <span><a href="<?=$val['sources'][0]['Uri'] ?>"><?=$val['filenames'][0]['Filename'] ?></a></span>
             <span>Extension:<?=$val['filenames'][0]['Extension'] ?></span>
 
             <span>Type:<?=$val['sources'][0]['Type'] ?></span>
-            <span>Uri:<?=$val['sources'][0]['Uri'] ?></span>
+           
 
 
         </div>
