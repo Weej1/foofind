@@ -37,8 +37,18 @@ p {
 }
 
 
+
+.file_excerpt {
+ display: block;
+ margin: 10px;
+ 
+}
+
+
+
 .file_excerpt span{
  display: block;
+ padding: 2px;
 }
 
 
