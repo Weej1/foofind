@@ -1,5 +1,77 @@
 <?php
 
+class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
+	public function __construct($table, $conditions = array())
+	{
+		if(!is_array($conditions))
+			$conditions = array( $conditions );
+ 
+		$this->conditions = $conditions;
+ 
+		$this->table	  = $table;
+ 
+        	$this->cl = new SphinxClient();
+        	$this->cl->SetServer( "trasiego", 3312 );
+        	$this->cl->SetMatchMode( SPH_MATCH_ANY  );
+		$this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
+		$this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
+		$this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "@weight DESC, isources DESC");
+		$this->count = 0;
+	}
+ 
+	public function getItems($offset, $itemCountPerPage)
+	{
+		$this->cl->SetLimits( $offset, $itemCountPerPage);
+	        $result = $this->cl->Query( $this->conditions[0], $this->table );
+		if ( $result === false ) {
+      			echo "Query failed: " . $this->cl->GetLastError() . ".\n";
+ 		} else {
+			if ( $this->cl->GetLastWarning() ) {
+		          echo "WARNING: " . $this->cl->GetLastWarning() . "";
+		      }
+
+	      		if ( ! empty($result["matches"]) ) {
+        			foreach ( $result["matches"] as $doc => $docinfo )
+				{ 
+					$id = $docinfo["attrs"]["idfile"];
+        	    			$docs[$id]['filenames'] = $this->_listFilenames($id)->toArray();
+              				$docs[$id]['sources'] = $this->_listSources($id)->toArray();
+              				$docs[$id]['metadata'] = $this->_listMetadata($id)->toArray();
+				}
+				return $docs;
+			}
+		}
+		return null;
+		
+      	}
+  
+	public function count()
+	{
+		$this->cl->SetLimits(0, 1);
+                $result = $this->cl->Query( $this->conditions[0], $this->table );
+		return $result["total_found"];
+	}
+
+
+
+        protected  function _listFilenames($id) {
+                $searchModel = new Model_Search();
+                return $searchModel->fetchFilenames($id);
+}
+
+        protected  function _listMetadata($id) {
+                $searchModel = new Model_Search();
+                return $searchModel->fetchMetadata($id);
+}
+
+        protected function _listSources($id){
+                $searchModel = new Model_Search();
+                return $searchModel->fetchSources($id);
+        }
+
+
+}
+
 class SearchController extends Zend_Controller_Action {
 
     public function init() {
@@ -15,6 +87,7 @@ class SearchController extends Zend_Controller_Action {
         $q = $this->_getParam('q');
         $form = $this->_getSearchForm();
 
+        $page = $this->_getParam('page');
         
 
         // filter the data from the user (xss, etc)
@@ -31,43 +104,9 @@ class SearchController extends Zend_Controller_Action {
 
         require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
 
-        $cl = new SphinxClient();
-        $cl->SetServer( "trasiego", 3312 );
-        $cl->SetMatchMode( SPH_MATCH_ANY  );
+	
 
-        //$this->view->list = $cl;
-
-         $result = $cl->Query( $q, 'idx_files' );
-       
-
-
-        if ( $result === false ) {
-      echo "Query failed: " . $cl->GetLastError() . ".\n";
-  }
-  else {
-      if ( $cl->GetLastWarning() ) {
-          echo "WARNING: " . $cl->GetLastWarning() . "";
-      }
-
-      if ( ! empty($result["matches"]) ) {
-          foreach ( $result["matches"] as $doc => $docinfo ) {
-               //var_dump($this->_listFilenames($doc)->toArray());
-               //var_dump($this->_listSources($doc)->toArray());
-               
-              $this->chufa[$doc]['filenames'] = $this->_listFilenames($doc)->toArray();
-              $this->chufa[$doc]['sources'] = $this->_listSources($doc)->toArray();
-              //var_dump($this->chufa[$doc]);
-
-          }
-
-        
-      }
-  
-     // var_dump($result[total_found]);
-     $this->view->counts = $result[total_found];
-     $this->view->list = $this->chufa;
-
-  }
+ // }
 
 
 
@@ -79,9 +118,8 @@ class SearchController extends Zend_Controller_Action {
 
 
                   //paginator
-                $page = $this->_getParam('page');
-                $paginator = Zend_Paginator::factory($this->view->list);
-                $paginator->setDefaultScrollingStyle('Elastic');
+                $paginator = new Zend_Paginator(new Sphinx_Paginator('idx_files',$q));  //::factory($this->view->list);
+                //$paginator->setDefaultScrollingStyle('Elastic');
                 $paginator->setItemCountPerPage(10);
                 $paginator->setCurrentPageNumber($page);
 
@@ -90,22 +128,6 @@ class SearchController extends Zend_Controller_Action {
 
 
     }
-
-
-
-
-        protected  function _listFilenames($id) {
-                $searchModel = new Model_Search();
-                return $searchModel->fetchFilenames($id);
-}
-
-
-        protected function _listSources($id){
-                $searchModel = new Model_Search();
-                return $searchModel->fetchSources($id);
-        }
-
-
 
 
         /**
@@ -118,13 +140,6 @@ class SearchController extends Zend_Controller_Action {
                 
                 return $form;
         }
-
-
-        
-
-      
-
-
 
 }
 
