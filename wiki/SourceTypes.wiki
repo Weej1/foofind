@@ -6,3 +6,10 @@
   * 2->ed2k
   * 3->bittorrent
   * 4->http link Jamendo
+
+= Content Type =
+  * 1->audio
+  * 2->video
+  * 3->book
+  * 4->torrent_gnutella
+  * 5->image
