@@ -63,7 +63,8 @@ class SearchController extends Zend_Controller_Action {
         
       }
   
-      //var_dump($this->chufa);
+     // var_dump($result[total_found]);
+     $this->view->counts = $result[total_found];
      $this->view->list = $this->chufa;
 
   }

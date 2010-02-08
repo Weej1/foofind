@@ -6,7 +6,7 @@
     
 <?echo $this->form;?>
 
-    <div class="search_info"><?=count($this->list); ?> files found , retrieved in <?=$this->list['time']; ?> secs. </div>
+    <div class="search_info"><?=$this->counts; ?> files found , retrieved in <?=$this->list['time']; ?> secs. </div>
 
  <?php echo $this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 
@@ -26,7 +26,7 @@ if ($this->list): ?>
         <div class="file_excerpt">
 
 	  <?php //var_dump($val ); ?>
-            <span><a href="<?=$val['sources'][0]['Uri'] ?>"><?=$val['filenames'][0]['Filename'] ?></a></span>
+            <span><a href="/<?=$val['sources'][0]['Uri'] ?>"><?=$val['filenames'][0]['Filename'] ?></a></span>
             <span>Extension:<?=$val['filenames'][0]['Extension'] ?></span>
 
             <span>Type:<?=$val['sources'][0]['Type'] ?></span>
