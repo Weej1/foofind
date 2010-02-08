@@ -28,6 +28,8 @@
         // List of directories and files to exclude during the deployemnt process on the production server
         var $exclude = array (
                 '/public/.htaccess',
+		'/public/sas.php',
+		'/application/configs/application.ini',
 		'/nbproject/',
 		'/tests/'
         );
