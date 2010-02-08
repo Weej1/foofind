@@ -18,6 +18,15 @@ class Model_Search extends Zend_Db_Table_Abstract {
 
 
 
+   public function fetchMetadata($id) {
+          $id = ( int ) $id;
+          $table = new Model_Search ( );
+          $select = $table->select ()->where ( 'IdFile = ?', $id );
+          $result = $table->fetchRow ( $select )->findDependentRowset('Metadata');
+          return $result;
+   }
+
+
 
    public function fetchFilenames($id) {
                 $id = ( int ) $id;
@@ -55,7 +64,7 @@ class Filename extends Zend_Db_Table_Abstract  {
 
         protected $_referenceMap    = array(
     'Filename' => array(
-        'columns'           => array('IdFilename'),
+        'columns'           => array('IdFile'),
         'refTableClass'     => 'Model_Search',
         'refColumns'        => array('IdFile')
     )
@@ -69,7 +78,7 @@ class Metadata extends Zend_Db_Table_Abstract  {
 
         protected $_referenceMap    = array(
     'Metadata' => array(
-        'columns'           => array('IdFilename'),
+        'columns'           => array('IdFile'),
         'refTableClass'     => 'Model_Search',
         'refColumns'        => array('IdFile')
     )

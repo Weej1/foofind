@@ -6,7 +6,7 @@
     
 <?echo $this->form;?>
 
-    <div class="search_info"><?=$this->counts; ?> files found , retrieved in <?=$this->list['time']; ?> secs. </div>
+    <div class="search_info"> files found , retrieved in <?=$this->list['time']; ?> secs. </div>
 
  <?php echo $this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 
@@ -19,20 +19,27 @@
 //Zend_Debug::dump($this->paginator);
        // die ();
 
-if ($this->list): ?>
+if (count($this->paginator)): ?>
 
 
        <?php foreach ($this->paginator as $key => $val): ?>
         <div class="file_excerpt">
 
-	  <?php //var_dump($val ); ?>
             <span><a href="/<?=$val['sources'][0]['Uri'] ?>"><?=$val['filenames'][0]['Filename'] ?></a></span>
-            <span>Extension:<?=$val['filenames'][0]['Extension'] ?></span>
 
-            <span>Type:<?=$val['sources'][0]['Type'] ?></span>
-           
+	<ul>
+            <?php foreach ($val['filenames'] as $filename): ?>
+		<li><?=$filename['IdFile']?> | <?=$filename['Filename'] ?> | .<?=$filename['Extension'] ?></li>
+            <?php endforeach; ?>
 
+            <?php foreach ($val['sources'] as $source): ?>
+		<li><?=$source['IdFile']?> | Type:<?=$source['Type'] ?> | Uri:<?=$source['Uri'] ?> | Sources:<?=$source['Sources'] ?></li>
+	    <?php endforeach; ?>
 
+            <?php foreach ($val['metadata'] as $md): ?>
+		<li><?=$md['IdFile']?> | <?=$md['KeyMD'] ?>:<?=$md['ValueMD'] ?></li>
+	    <?php endforeach; ?>
+	</ul>
         </div>
 
         <?php endforeach; ?>
