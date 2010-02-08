@@ -9,9 +9,15 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 		$this->conditions = $conditions;
  
 		$this->table	  = $table;
- 
+
+             
+
+                $sphinxConf =  new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+                $sphinxServer = $sphinxConf->sphinx->server;
+
+
         	$this->cl = new SphinxClient();
-        	$this->cl->SetServer( "trasiego", 3312 );
+        	$this->cl->SetServer( $sphinxServer, 3312 );
         	$this->cl->SetMatchMode( SPH_MATCH_ANY  );
 		$this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
 		$this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
@@ -104,7 +110,7 @@ class SearchController extends Zend_Controller_Action {
 
         require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
 
-	
+
 
  // }
 
