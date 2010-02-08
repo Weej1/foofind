@@ -3,33 +3,32 @@
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 	public function __construct($table, $conditions = array())
 	{
-		if(!is_array($conditions))
+		if(!is_array($conditions) AND !is_null($conditions))
 			$conditions = array( $conditions );
  
-		$this->conditions = $conditions;
- 
-		$this->table	  = $table;
-
-             
-
-                $sphinxConf =  new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-                $sphinxServer = $sphinxConf->sphinx->server;
+                        $this->conditions = $conditions;
+                        $this->table	  = $table;
 
 
-        	$this->cl = new SphinxClient();
-        	$this->cl->SetServer( $sphinxServer, 3312 );
-        	$this->cl->SetMatchMode( SPH_MATCH_ANY  );
-		$this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
-		$this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
-		$this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "@weight DESC, isources DESC");
-		$this->count = 0;
+                        $sphinxConf =  new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+                        $sphinxServer = $sphinxConf->sphinx->server;
+
+                        require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
+
+                        $this->cl = new SphinxClient();
+                        $this->cl->SetServer( $sphinxServer, 3312 );
+                        $this->cl->SetMatchMode( SPH_MATCH_ANY  );
+                        $this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
+                        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
+                        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "@weight DESC, isources DESC");
+                        $this->count = 0;
 	}
  
 	public function getItems($offset, $itemCountPerPage)
 	{
 		$this->cl->SetLimits( $offset, $itemCountPerPage);
 	        $result = $this->cl->Query( $this->conditions[0], $this->table );
-		if ( $result === false ) {
+		if ( $result === false  ) {
       			echo "Query failed: " . $this->cl->GetLastError() . ".\n";
  		} else {
 			if ( $this->cl->GetLastWarning() ) {
@@ -108,28 +107,24 @@ class SearchController extends Zend_Controller_Action {
 
 
 
-        require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
+        $SphinxPaginator = new Sphinx_Paginator('idx_files',$q);
+        // var_dump($SphinxPaginator);
 
+        if ($SphinxPaginator !== null) {
+             
+        //paginator
+        $paginator = new Zend_Paginator($SphinxPaginator);  //::factory($this->view->list);
 
+       
 
- // }
+         //$paginator->setDefaultScrollingStyle('Elastic');
+        $paginator->setItemCountPerPage(10);
+        $paginator->setCurrentPageNumber($page);
 
+        $this->view->paginator=$paginator;
+        }
 
-
-
-
-
-                // fetch alllllll from model
-                //$this->view->list = $this->_listAction($id);
-
-
-                  //paginator
-                $paginator = new Zend_Paginator(new Sphinx_Paginator('idx_files',$q));  //::factory($this->view->list);
-                //$paginator->setDefaultScrollingStyle('Elastic');
-                $paginator->setItemCountPerPage(10);
-                $paginator->setCurrentPageNumber($page);
-
-                $this->view->paginator=$paginator;
+       
 
 
 

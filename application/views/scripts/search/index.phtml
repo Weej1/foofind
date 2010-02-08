@@ -8,19 +8,20 @@
 
     <div class="search_info"> files found , retrieved in <?=$this->list['time']; ?> secs. </div>
 
- <?php echo $this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+ 
 
-<?// var_dump($this->list['matches']); ?>
+<? //var_dump($this->paginator); ?>
 
 
 
 <?php
 
 //Zend_Debug::dump($this->paginator);
-       // die ();
+// die ();
 
 if (count($this->paginator)): ?>
 
+        <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 
        <?php foreach ($this->paginator as $key => $val): ?>
         <div class="file_excerpt">
@@ -44,14 +45,15 @@ if (count($this->paginator)): ?>
 
         <?php endforeach; ?>
 
-
+        <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+    
 <?php else: ?>
 
-    <h3><? echo 'No results.';?></h3>
+    <h3><? echo 'No results. :-( ';?></h3>
 
 <?php endif;?>
 
 
- <?php echo $this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+ 
 
 </div><!-- end of container_search --->
