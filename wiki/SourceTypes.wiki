@@ -11,5 +11,11 @@
   * 1->audio
   * 2->video
   * 3->book
-  * 4->torrent_gnutella
+  * 4->torrent
   * 5->image
+  * 6->aplication
+  * 7->archive
+  * 8->rom
+  * 9->document
+  * 10->Spreadsheet
+  * 10->Presentation
