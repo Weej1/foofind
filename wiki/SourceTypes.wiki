@@ -6,6 +6,9 @@
   * 2->ed2k
   * 3->bittorrent
   * 4->http link Jamendo
+  * 5->Tiger Hash
+  * 6->MD5 Hash
+  * 7->BTH Hash
 
 = Content Type =
   * 1->audio
