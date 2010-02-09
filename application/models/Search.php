@@ -1,23 +1,26 @@
 <?php
-/**
- * Nolotiro_User - a model class representing a single user
- *
- * This is the DbTable class for the users table.
- *
- * */
-class Model_Search extends Zend_Db_Table_Abstract {
 
-    protected $_name = 'ff_file';
-    protected $_primary = "IdFile";
+class Model_Search extends Zend_Db_Table_Abstract 
+{
 
-    protected $_dependentTables = array('ff_filename' ,'ff_metadata', 'ff_sources');
+    class Filename extends Zend_Db_Table_Abstract  {
+        protected $_name = 'ff_filename';
+        protected $_primary = "IdFilename";
+	
+    };
 
-
-        /** Model_Table_Page */
-        protected $_table;
-
+    public function fetchFilenames($ids) 
+    {
+	$table = new Filename();
+        return $table->fetchAll('IdFile in (?)', $ids);
+    }
 
 
+
+}
+
+/*
+class Model_Metadata extends Zend_Db_Table_Abstract {
    public function fetchMetadata($id) {
           $id = ( int ) $id;
           $table = new Model_Search ( );
@@ -28,17 +31,6 @@ class Model_Search extends Zend_Db_Table_Abstract {
 
 
 
-   public function fetchFilenames($id) {
-                $id = ( int ) $id;
-
-                $table = new Model_Search ( );
-                $select = $table->select ()->where ( 'IdFile = ?', $id );
-
-                $result = $table->fetchRow ( $select )->findDependentRowset('Filename');
-
-                return $result;
-
-        }
 
 
 
@@ -100,3 +92,4 @@ class Sources extends Zend_Db_Table_Abstract  {
 
 
 }
+*/

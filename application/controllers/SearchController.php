@@ -1,27 +1,26 @@
 <?php
-
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 	public function __construct($table, $conditions = array())
 	{
+
 		if(!is_array($conditions) AND !is_null($conditions))
 			$conditions = array( $conditions );
  
-                        $this->conditions = $conditions;
-                        $this->table	  = $table;
+                $this->conditions = $conditions;
+                $this->table	  = $table;
 
 
-                        $sphinxConf =  new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-                        $sphinxServer = $sphinxConf->sphinx->server;
+                $sphinxConf =  new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+                $sphinxServer = $sphinxConf->sphinx->server;
 
-                        require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
-
-                        $this->cl = new SphinxClient();
-                        $this->cl->SetServer( $sphinxServer, 3312 );
-                        $this->cl->SetMatchMode( SPH_MATCH_ANY  );
-                        $this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
-                        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
-                        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "@weight DESC, isources DESC");
-                        $this->count = 0;
+                require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
+                $this->cl = new SphinxClient();
+                $this->cl->SetServer( $sphinxServer, 3312 );
+                $this->cl->SetMatchMode( SPH_MATCH_ANY  );
+                $this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
+                $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
+                $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "@weight DESC, isources DESC");
+                $this->tcount = 0;
 	}
  
 	public function getItems($offset, $itemCountPerPage)
@@ -34,15 +33,33 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 			if ( $this->cl->GetLastWarning() ) {
 		          echo "WARNING: " . $this->cl->GetLastWarning() . "";
 		      }
+			$this->tcount = $result["total_found"];
+			$this->time = $result["time"];
 
 	      		if ( ! empty($result["matches"]) ) {
-        			foreach ( $result["matches"] as $doc => $docinfo )
+        			$ids='';
+				foreach ( $result["matches"] as $doc => $docinfo )
 				{ 
-					$id = $docinfo["attrs"]["idfile"];
-        	    			$docs[$id]['filenames'] = $this->_listFilenames($id)->toArray();
-              				$docs[$id]['sources'] = $this->_listSources($id)->toArray();
-              				$docs[$id]['metadata'] = $this->_listMetadata($id)->toArray();
+					$ids .= ','.$docinfo["attrs"]["idfile"];
+					$docs[$id]['filenames'] = array();
+					$docs[$id]['metadata'] = array();
+					$docs[$id]['sources'] = array();
 				}
+				
+				$ids = substr($ids, 1);
+			
+				$filenames = new Zend_Db_Table('ff_filename');	
+				foreach ($filenames->fetchAll("IdFile in ($ids)") as $row)
+					$docs[$row['IdFile']]['filenames'] []=$row;
+				
+				$sources = new Zend_Db_Table('ff_sources');	
+				foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
+					$docs[$row['IdFile']]['sources'] []=$row;
+
+				$metadata = new Zend_Db_Table('ff_metadata');
+				foreach ($metadata->fetchAll("IdFile in ($ids)") as $row)
+					$docs[$row['IdFile']]['metadata'] []=$row;
+
 				return $docs;
 			}
 		}
@@ -52,28 +69,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
   
 	public function count()
 	{
-		$this->cl->SetLimits(0, 1);
-                $result = $this->cl->Query( $this->conditions[0], $this->table );
-		return $result["total_found"];
+		return $this->tcount;
 	}
-
-
-
-        protected  function _listFilenames($id) {
-                $searchModel = new Model_Search();
-                return $searchModel->fetchFilenames($id);
-}
-
-        protected  function _listMetadata($id) {
-                $searchModel = new Model_Search();
-                return $searchModel->fetchMetadata($id);
-}
-
-        protected function _listSources($id){
-                $searchModel = new Model_Search();
-                return $searchModel->fetchSources($id);
-        }
-
 
 }
 
@@ -82,9 +79,6 @@ class SearchController extends Zend_Controller_Action {
     public function init() {
         /* Initialize action controller here */
     }
-
-
-
 
     public function indexAction() {
 
@@ -105,31 +99,20 @@ class SearchController extends Zend_Controller_Action {
         // assign the form to the view
         $this->view->form = $form;
 
-
-
         $SphinxPaginator = new Sphinx_Paginator('idx_files',$q);
-        // var_dump($SphinxPaginator);
 
         if ($SphinxPaginator !== null) {
-             
-        //paginator
-        $paginator = new Zend_Paginator($SphinxPaginator);  //::factory($this->view->list);
+	        //paginator
+	        $paginator = new Zend_Paginator($SphinxPaginator);  
+	         //$paginator->setDefaultScrollingStyle('Elastic');
+	        $paginator->setItemCountPerPage(10);
+	        $paginator->setCurrentPageNumber($page);
 
-       
-
-         //$paginator->setDefaultScrollingStyle('Elastic');
-        $paginator->setItemCountPerPage(10);
-        $paginator->setCurrentPageNumber($page);
-
-        $this->view->paginator=$paginator;
+		$paginator->getCurrentItems();
+		$this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time);
+	        $this->view->paginator=$paginator;
         }
-
-       
-
-
-
     }
-
 
         /**
          *

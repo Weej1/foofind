@@ -2,33 +2,19 @@
 
     <a href="/"><h1>FooFind.com</h1></a>
 
-
-    
 <?echo $this->form;?>
 
-    <div class="search_info"> files found , retrieved in <?=$this->list['time']; ?> secs. </div>
+<?php if (count($this->paginator)): ?>
 
- 
-
-<? //var_dump($this->paginator); ?>
-
-
-
-<?php
-
-//Zend_Debug::dump($this->paginator);
-// die ();
-
-if (count($this->paginator)): ?>
-
-        <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+    <div class="search_info"><?=$this->info['total'] ?> files found , retrieved in <?=$this->info['time']; ?> secs. </div>
+    
+    <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 
        <?php foreach ($this->paginator as $key => $val): ?>
         <div class="file_excerpt">
-
             <span><a href="/<?=$val['sources'][0]['Uri'] ?>"><?=$val['filenames'][0]['Filename'] ?></a></span>
 
-	<ul>
+	<ul style='display:none'>
             <?php foreach ($val['filenames'] as $filename): ?>
 		<li><?=$filename['IdFile']?> | <?=$filename['Filename'] ?> | .<?=$filename['Extension'] ?></li>
             <?php endforeach; ?>
