@@ -16,7 +16,7 @@ class IndexController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
         
-
+        
                 
                 if ($this->getRequest ()->isGet ()) {
 
@@ -26,7 +26,18 @@ class IndexController extends Zend_Controller_Action
 
                               // filter the input
                               $f = new Zend_Filter_StripTags ( );
-                              $form->setAction('/search');
+                              $q = $f->filter ( $this->_request->getPost ( 'q' ) );
+
+                              $form->setAction('/search/'.$q);
+
+
+                              $form->loadDefaultDecoratorsIsDisabled(false);
+                              foreach($form->getElements() as $element) {
+                                $element->removeDecorator('DtDdWrapper');
+                                $element->removeDecorator('Label');
+                                
+                                }
+
 
 
                         }
