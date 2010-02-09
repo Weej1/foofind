@@ -31,9 +31,6 @@ class Model_Metadata extends Zend_Db_Table_Abstract {
 
 
 
-
-
-
  public function fetchSources($id) {
                 $id = ( int ) $id;
 
