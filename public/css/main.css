@@ -8,12 +8,15 @@ html, body {
 }
 
 body {
-    font-family: "lucida sans", verdana, arial, helvetica, sans-serif;
+    font-family: arial, sans-serif;
     font-size: 85%;
 }
-h1 {
+.logo_home {
     font-size: 2.3em;
-    padding: 10px 10px 0;
+    height: 130px;
+    width: 270px;
+    background: transparent url(../images/foofind.gif) no-repeat scroll 0 0;
+
 }
 p {
     padding: 0 10px 1em;
@@ -21,13 +24,13 @@ p {
 #container_home {
     position: relative;
     clear: both;
-    text-align: center;
+   
     display: block;
     padding: 30px;
     background-color: #fff;
     /*border: 1px solid #999;*/
     min-height: 300px;
-    width: 676px;
+   
     top: 80px;
     margin: auto;
 
@@ -61,14 +64,36 @@ p {
 
 
 
-input, input.text,input.title,textarea,input.file,select {
-       
-}
 
-input,input.text:focus,input.title:focus,textarea:focus,select:focus {
-       
-}
 
 html form {
+    
+}
+
+
+.home_form{
+    /*text-align: center;*/
+    width: 400px;
+
+}
+
+
+
+.home_form input{
+    /* float: left;*/
+     border: 1px solid gray;
+     padding: 6px;
+     margin: 0 0 25px;
+
+     /*clear:left;*/
+    
+}
+
+.search_input {
+   
+}
+
+
+.home_form dd {
     display: inline;
 }
