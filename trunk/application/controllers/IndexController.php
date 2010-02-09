@@ -26,9 +26,7 @@ class IndexController extends Zend_Controller_Action
 
                               // filter the input
                               $f = new Zend_Filter_StripTags ( );
-                              $q = $f->filter ( $this->_request->getPost ( 'q' ) );
-
-                              $form->setAction('/search/'.$q);
+                              $form->setAction('/search');
 
 
                         }

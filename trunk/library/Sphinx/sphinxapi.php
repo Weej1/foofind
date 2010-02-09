@@ -57,6 +57,7 @@ define ( "SPH_RANK_WORDCOUNT",		3 );	///< simple word-count weighting, rank is a
 define ( "SPH_RANK_PROXIMITY",		4 );
 define ( "SPH_RANK_MATCHANY",		5 );
 define ( "SPH_RANK_FIELDMASK",		6 );
+define ( "SPH_RANK_ENTITY",		7 );
 
 /// known sort modes
 define ( "SPH_SORT_RELEVANCE",		0 );
