@@ -4,11 +4,12 @@
 
 <?echo $this->form;?>
 
-<?php if (count($this->paginator)): ?>
+<?php if (is_object($this->paginator)): ?>
 
     <div class="search_info"><?=$this->info['total'] ?> files found , retrieved in <?=$this->info['time']; ?> secs. </div>
     
-    <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+
+        <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 
        <?php foreach ($this->paginator as $key => $val): ?>
         <div class="file_excerpt">
@@ -33,13 +34,12 @@
 
         <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
     
+
+
 <?php else: ?>
 
     <h3><? echo 'No results. :-( ';?></h3>
 
 <?php endif;?>
-
-
- 
 
 </div><!-- end of container_search --->
