@@ -1,5 +1,6 @@
 <?php
 
+
 class IndexController extends Zend_Controller_Action
 {
 
@@ -10,43 +11,32 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction() {
 
-
-       
-
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
-        
-        
-                
-                if ($this->getRequest ()->isGet ()) {
 
-                        // now check to see if the form submitted exists, and
-                        // if the values passed in are valid for this form
-                        if ($form->isValid ( $request->getPost () )) {
+        // now check to see if the form submitted exists, and
+        // if the values passed in are valid for this form
+        if ($form->isValid ( $request->getPost () )) {
 
-                              // filter the input
-                              $f = new Zend_Filter_StripTags ( );
-                              $q = $f->filter ( $this->_request->getPost ( 'q' ) );
+              // filter the input
+              $f = new Zend_Filter_StripTags ( );
+              $q = $f->filter ( $this->_request->getPost ( 'q' ) );
 
-                              $form->setAction('/search/'.$q);
+              $form->setAction('/search/'.$q);
 
 
-                              $form->loadDefaultDecoratorsIsDisabled(false);
-                              foreach($form->getElements() as $element) {
-                                $element->removeDecorator('DtDdWrapper');
-                                $element->removeDecorator('Label');
-                                
-                                }
+              $form->loadDefaultDecoratorsIsDisabled(false);
+              foreach($form->getElements() as $element) {
+                $element->removeDecorator('DtDdWrapper');
+                $element->removeDecorator('Label');
 
-
-
-                        }
                 }
-                // assign the form to the view
-                $this->view->form = $form;
 
 
-              
+
+        }
+        // assign the form to the view
+        $this->view->form = $form;
 
     }
 
