@@ -20,7 +20,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "@weight DESC, isources DESC");
-
+        $this->cl->SetMaxQueryTime(200);
         $this->tcount = 0;
     }
     
@@ -42,20 +42,23 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 $this->time = $result["time"];
 
                 if ( ! empty($result["matches"]) ) {
-                        $ids='';
+                        $ids=$idsfn='';
                         foreach ( $result["matches"] as $doc => $docinfo )
                         {
-                                $ids .= ','.$docinfo["attrs"]["idfile"];
-                                $docs[$id]['filenames'] = array();
+                            
+                                $id = $docinfo["attrs"]["idfile"];
+                                $ids .= ",$id";
+                                $idsfn .= ",$doc";
                                 $docs[$id]['metadata'] = array();
                                 $docs[$id]['sources'] = array();
                         }
 
                         $ids = substr($ids, 1);
+                        $idsfn = substr($idsfn, 1);
 
                         $filenames = new Zend_Db_Table('ff_filename');
-                        foreach ($filenames->fetchAll("IdFile in ($ids)") as $row)
-                                $docs[$row['IdFile']]['filenames'] []=$row;
+                        foreach ($filenames->fetchAll("IdFilename in ($idsfn)") as $row)
+                                $docs[$row['IdFile']]['filename'] = $row;
 
                         $sources = new Zend_Db_Table('ff_sources');
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
@@ -63,7 +66,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
                         $metadata = new Zend_Db_Table('ff_metadata');
                         foreach ($metadata->fetchAll("IdFile in ($ids)") as $row)
-                                $docs[$row['IdFile']]['metadata'] []=$row;
+                                $docs[$row['IdFile']]['metadata'][$row['KeyMD']]=$row;
 
                         return $docs;
                 }
@@ -84,7 +87,7 @@ class SearchController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        global $contentTypes;
+        global $content;
 
         $request = $this->getRequest ();
         $q = $this->_getParam('q');
@@ -103,7 +106,7 @@ class SearchController extends Zend_Controller_Action {
 
         if ($type!=null)
         {
-            $temp = $contentTypes[$type];
+            $temp = $content['types'][$type];
             if ($temp) {
                 $type = $temp['crcExt'];
             } else {
@@ -126,6 +129,7 @@ class SearchController extends Zend_Controller_Action {
 
                 $paginator->getCurrentItems();
                 $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time);
+                $this->view->content = $content;
                 $this->view->paginator=$paginator;
         }
     }
