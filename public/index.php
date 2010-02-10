@@ -6,6 +6,10 @@ include_once 'sas.php';
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
+// Define path to foofind directory
+defined('FOOFIND_PATH')
+    || define('FOOFIND_PATH', realpath(dirname(__FILE__) . '/../'));
+
 // Define application environment
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));

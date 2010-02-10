@@ -5,6 +5,7 @@
 
 html, body {
     height: 100%;
+    
 }
 
 body {
@@ -24,16 +25,47 @@ p {
 #container_home {
     position: relative;
     clear: both;
-   
     display: block;
-    padding: 30px;
+    padding-top: 100px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
     background-color: #fff;
-    /*border: 1px solid #999;*/
     min-height: 300px;
-   
     margin: auto;
 
 }
+
+
+.container_form {
+    position: relative;
+    clear: both;
+    display: block;
+    text-align: left;
+    width: 480px;
+    background-color: #fff;
+    border: 1px solid #999;
+    /*min-height: 300px;*/
+    margin: auto;
+
+}
+
+
+.logo{
+    clear: both;
+    display: block;
+    margin: 0 auto;
+    padding: 20px 0;
+    width: 270px;
+}
+
+
+.content {
+    text-align: center;
+}
+
+
+
 * html #container {
     height: 100%;
 }
@@ -45,7 +77,6 @@ p {
  margin: 10px;
  
 }
-
 
 
 .file_excerpt span{
@@ -65,34 +96,50 @@ p {
 
 
 
-html form {
+ html form {
+     
+    width: 400px;
     
+}
+
+html  fieldset{
+    padding: 20px;
+    text-align: left;
 }
 
 
 .home_form{
     /*text-align: center;*/
-    width: 400px;
+    width: 700px;
 
 }
 
 
 
-.home_form input{
-    /* float: left;*/
+html  input,select,textarea{
+    
      border: 1px solid gray;
-     padding: 6px;
-     margin: 0 0 25px;
-
-     /*clear:left;*/
+     padding: 4px;
+     margin: 0 0 6px;
+     color: gray;
+     font-weight: bold;
+     font-size: 1.2em;
     
 }
 
-.search_input {
-   
+
+
+html dd{
+    margin-bottom: 10px;
 }
 
 
 .home_form dd {
     display: inline;
+}
+
+
+.errors{
+    color: red;
+    padding-left: 20px;
 }
