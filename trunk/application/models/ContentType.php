@@ -16,10 +16,10 @@ $content = array(
                     )
         ),
     'info' => array(
-        'audio:artist' => '%1 interpreta',
-        'audio:title' => 'la canción %1',
-        'audio:album' => 'del álbum %1',
-        'audio:seconds' => 'con una duración de %1 segundos.'
+        'audio:artist' => '%1 plays',
+        'audio:title' => '%1',
+        'audio:album' => 'from album %1',
+        'audio:seconds' => 'with %1 seconds length.'
     )
 );
 
