@@ -1,7 +1,6 @@
 <div id="container_search">
 
     <a href="/"><h1>FooFind.com</h1></a>
-
 <?echo $this->form;?>
 
 <?php if (is_object($this->paginator)): ?>
@@ -13,20 +12,22 @@
 
        <?php foreach ($this->paginator as $key => $val): ?>
         <div class="file_excerpt">
-            <span><a href="/<?=$val['sources'][0]['Uri'] ?>"><?=$val['filenames'][0]['Filename'] ?></a></span>
+            <span><a href="/<?=$val['sources'][0]['Uri'] ?>"><?=$val['filename']['Filename'] ?></a></span>
 
-	<ul style='display:none'>
-            <?php foreach ($val['filenames'] as $filename): ?>
-		<li><?=$filename['IdFile']?> | <?=$filename['Filename'] ?> | .<?=$filename['Extension'] ?></li>
-            <?php endforeach; ?>
-
+	<ul>
             <?php foreach ($val['sources'] as $source): ?>
 		<li><?=$source['IdFile']?> | Type:<?=$source['Type'] ?> | Uri:<?=$source['Uri'] ?> | Sources:<?=$source['Sources'] ?></li>
 	    <?php endforeach; ?>
 
-            <?php foreach ($val['metadata'] as $md): ?>
-		<li><?=$md['IdFile']?> | <?=$md['KeyMD'] ?>:<?=$md['ValueMD'] ?></li>
-	    <?php endforeach; ?>
+            <?php
+                foreach ($this->content['info'] as $md => $text):
+		  $info = $val['metadata'][$md];
+                  if ($info) {
+                      echo str_replace('%1', "<b>".strtolower($info['ValueMD'])."</b>", $text).' ';
+                  } else {
+                      #echo $md['KeyMD'].":".$md['ValueMD'];
+                  }
+                endforeach; ?>
 	</ul>
         </div>
 

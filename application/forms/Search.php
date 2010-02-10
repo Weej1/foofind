@@ -9,7 +9,7 @@ require_once ( APPLICATION_PATH . '/models/ContentType.php' );
 class Form_Search extends Zend_Form {
 
         public function init() {
-                global $contentTypes;
+                global $content;
                 // set the method for the display form to POST
                 $this->setMethod ( 'get' );
                 
@@ -24,7 +24,7 @@ class Form_Search extends Zend_Form {
                     $this->removeDecorator('DtDdWrapper');
 
                 $options = array(''=>'All');
-                foreach ($contentTypes as $type => $info)
+                foreach ($content['types'] as $type => $info)
                     $options[$type] = $type;
 
                 $typeCombo = $this->addElement("select", 'type', array('multiOptions'=>$options));
