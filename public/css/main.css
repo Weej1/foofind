@@ -41,9 +41,26 @@ p {
     padding-bottom: 30px;
     background-color: #fff;
     min-height: 300px;
-    margin: auto;
+   
 
 }
+
+
+#container_search {
+    position: relative;
+    text-align: left;
+    clear: both;
+    display: block;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    background-color: #fff;
+    min-height: 300px;
+
+
+}
+
 
 
 .container_form {
@@ -71,6 +88,7 @@ p {
 
 .content {
     text-align: center;
+    
 }
 
 
@@ -103,9 +121,10 @@ p {
 
 #footer_main{
     font-size: 12px;
-    padding-top: 8%;
-    padding-bottom:  1%;
+    padding-top: 4%;
+    padding-bottom:  2%;
     text-align: center;
+    position:relative;
 }
 
 
@@ -124,7 +143,7 @@ html  fieldset{
 
 .home_form{
     
-    width: 700px;
+   
     margin-top:  30px;
 
 }
