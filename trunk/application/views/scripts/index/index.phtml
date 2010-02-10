@@ -1,6 +1,17 @@
 <center id="container_home">
-    <div title="foofind" class="logo_home"></div>
+    <div title="foofind" class="logo_home"><p><?=$this->totalFilesIndexed; ?> files indexed</p></div>
     <div class="home_form">
         <?echo $this->form;?>
     </div>
+
+    <div id="footer_home" >
+
+    <div id="footer-navigation" >
+        <a href="<?php echo $this->url(array('controller'=>'page'),'default',true) ?>">Submit links</a>
+        <a href="<?php echo $this->url(array('controller'=>'page'),'default',true) ?>">Terms</a>
+        <a href="<?php echo $this->url(array('controller'=>'page'),'default',true) ?>">Privacy</a>
+        <a href="http://code.google.com/p/foofind/">Developers</a>
+    </div>
+
+</div>
 </center>

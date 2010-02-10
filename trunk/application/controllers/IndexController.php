@@ -14,6 +14,15 @@ class IndexController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
 
+
+       $files_total_indexed = new Zend_Db_Table('ff_file');
+      
+
+       $totalFilesIndexed = $this->fetchIndexFilesCount();
+
+       $this->view->totalFilesIndexed = $totalFilesIndexed[0]['files'];
+
+
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form
         if ($form->isValid ( $request->getPost () )) {
@@ -58,5 +67,21 @@ class IndexController extends Zend_Controller_Action
 
 
 
-}
 
+
+
+public function fetchIndexFilesCount()
+
+    {
+
+         $files = new Zend_Db_Table('ff_files');
+        $query = "SELECT SQL_CACHE COUNT(IdFile) as files FROM ff_file ";
+        $result = $files->getAdapter()->query($query);
+        
+
+        return $result->fetchAll();
+
+    }
+
+
+        }
