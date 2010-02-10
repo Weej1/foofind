@@ -19,6 +19,15 @@ body {
     background: transparent url(../images/foofind.gif) no-repeat scroll 0 0;
 
 }
+
+.logo_home p{
+    font-size: 0.4em;
+    text-align: right;
+    color: #999;
+    padding-top: 100px;
+}
+
+
 p {
     padding: 0 10px 1em;
 }
@@ -85,9 +94,9 @@ p {
 }
 
 
-#footer{
+#footer_home{
     clear: both;
-    margin: 20px;
+    margin-top:  40px;
     position: relative;
     text-align: center;
 }
@@ -109,8 +118,9 @@ html  fieldset{
 
 
 .home_form{
-    /*text-align: center;*/
+    
     width: 700px;
+    margin-top:  30px;
 
 }
 
@@ -118,12 +128,12 @@ html  fieldset{
 
 html  input,select,textarea{
     
-     border: 1px solid gray;
+   /*  border: 1px solid gray;*/
      padding: 4px;
      margin: 0 0 6px;
-     color: gray;
+    /* color: gray;
      font-weight: bold;
-     font-size: 1.2em;
+     font-size: 1.2em;*/
     
 }
 
