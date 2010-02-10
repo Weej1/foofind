@@ -51,7 +51,7 @@ class IndexController extends Zend_Controller_Action
 
     /**
          *
-         * @return Form_Contact
+         * @return Form_Search
          */
         protected function _getSearchForm() {
                 require_once APPLICATION_PATH . '/forms/Search.php';
@@ -66,15 +66,15 @@ class IndexController extends Zend_Controller_Action
 
 
 
-public function fetchIndexFilesCount() {
+        public function fetchIndexFilesCount() {
 
-        $files = new Zend_Db_Table('ff_files');
-        $query = "SELECT SQL_CACHE COUNT(IdFile) as files FROM ff_file ";
-        $result = $files->getAdapter()->query($query);
-        
-        return $result->fetchAll();
+                $files = new Zend_Db_Table('ff_files');
+                $query = "SELECT SQL_CACHE COUNT(IdFile) as files FROM ff_file ";
+                $result = $files->getAdapter()->query($query)->fetchAll();
 
-    }
+                return $result;
+
+            }
 
 
 
