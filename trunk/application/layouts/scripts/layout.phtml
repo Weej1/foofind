@@ -1,4 +1,4 @@
-<?=$this->doctype() ?>
+<? echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,29 +13,28 @@
 
     <div id="header-navigation" style="float: right">
 
-        <a href="<?php echo $this->url(array('controller'=>'contact'),'default',true) ?>">contact</a>
+        <a href="<?php echo $this->url(array('controller'=>'page'),'default',true) ?>">About Foo Find</a>
 
     </div>
 
 </div>
 
-<?php echo $this->layout()->content ?>
+<div class="content">
+    <?php echo $this->layout()->content ?>
+</div>
+
 
 <div id="footer" >
 
     <div id="footer-navigation" >
-
-        <a href="<?php echo $this->url(array('controller'=>'contact'),'default',true) ?>">contact</a>
-        <a href="<?php echo $this->url(array('controller'=>'contact'),'default',true) ?>">contact</a>
-        <a href="<?php echo $this->url(array('controller'=>'contact'),'default',true) ?>">contact</a>
-
+        <a href="<?php echo $this->url(array('controller'=>'page'),'default',true) ?>">Submit links</a>
+        <a href="<?php echo $this->url(array('controller'=>'page'),'default',true) ?>">Terms</a>
+        <a href="<?php echo $this->url(array('controller'=>'page'),'default',true) ?>">Privacy</a>
+        <a href="http://code.google.com/p/foofind/">Developers</a>
     </div>
 
 </div>
 
 
-
-
 </body>
-
 </html>

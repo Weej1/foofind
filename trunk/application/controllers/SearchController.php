@@ -1,6 +1,5 @@
 <?php
 
-require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
 
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function __construct($table, $conditions = array())
@@ -10,6 +9,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
         $this->conditions = $conditions;
         $this->table      = $table;
+
+        require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
 
         $sphinxConf =  new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
         $sphinxServer = $sphinxConf->sphinx->server;
@@ -102,7 +103,7 @@ class SearchController extends Zend_Controller_Action {
         $type = $f->filter ( $type );
 
         $form->getElement('q')->setValue($q);
-        $form->getElement('type')->setValue($type);
+        //$form->getElement('type')->setValue($type);
 
         if ($type!=null)
         {
