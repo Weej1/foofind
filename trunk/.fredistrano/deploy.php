@@ -29,6 +29,7 @@
         var $exclude = array (
                 '/public/.htaccess',
 		'/public/sas.php',
+		'/public/images/captcha',
 		'/application/configs/application.ini',
 		'/nbproject/',
 		'/tests/'
@@ -37,6 +38,9 @@
         // Directories list on which the write permission will applied during the finalization step of the deployment process
         // log, cache, upload directories, etc...
         var $writable = array (
+
+		'/public/images/captcha/'
+
         );
 
  }// DEPLOY_CONFIG
