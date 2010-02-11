@@ -40,10 +40,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
-        $this->cl->SetMatchMode( SPH_MATCH_ALL  );
+        $this->cl->SetMatchMode( SPH_MATCH_ALL );
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
-        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC" );
-        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "@weight DESC, isources DESC");
+        $this->cl->SetSelect("*, sum(isources*@weight/fnCount) as fileWeight");
+        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC, fnWeight DESC, isources DESC" );
+        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "isources DESC, fileWeight DESC, ");
         $this->cl->SetMaxQueryTime(200);
         $this->tcount = 0;
     }
@@ -78,6 +79,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 if ( ! empty($result["matches"]) ) {
                         $ids= array();
                         $idfns = array();
+                        
                         foreach ( $result["matches"] as $doc => $docinfo )
                         {
                             $id = $docinfo["attrs"]["idfile"];
@@ -129,9 +131,29 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $sources = new Zend_Db_Table('ff_sources');
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
                         {
+                               /* * 1->gnutella
+    * 2->ed2k
+    * 3->bittorrent
+    * 4->http link Jamendo
+    * 5->Tiger Hash
+    * 6->MD5 Hash
+    * 7->BTH Hash*/
                             // TODO: choose better source for each file
                             // TODO: create e-link
-                            $docs[$row['IdFile']]['source'] = $row;
+                            $id = $row['IdFile'];
+                            switch ($row['Type'])
+                            {
+                                case 1:
+                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xl=".$docs[$id]['attrs']['size']."&xt=urn:sha1:".$row['Uri'];
+                                    break;
+                                case 2:
+                                    $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
+                                    break;
+                                case 3:
+                                    $link = $row['Uri'];
+                                    break;
+                            }
+                            $docs[$row['IdFile']]['link'] = $link;
                         }
 
                         // get metadata for files
@@ -180,7 +202,7 @@ class SearchController extends Zend_Controller_Action {
         $request = $this->getRequest ();
         $q = $this->_getParam('q');
         $type = $this->_getParam('type');
-        $page = $this->_getParam('page');
+        $page = $this->_getParam('page', 1);
         $form = $this->_getSearchForm();
 
 
@@ -218,7 +240,8 @@ class SearchController extends Zend_Controller_Action {
                 $paginator->setCurrentPageNumber($page);
 
                 $paginator->getCurrentItems();
-                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time);
+                $this->view->info = array('total'=>ceil($SphinxPaginator->tcount/1000)*1000, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => $page*10);
+
                 $this->view->paginator=$paginator;
         }
     }
