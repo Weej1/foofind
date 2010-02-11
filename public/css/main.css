@@ -84,9 +84,19 @@ p {
 .contentype{
     position: relative;
     float: left;
-    left: 40px;
-    top: -10px;
+    left: 36px;
+    top: -5px;
     display: block;
+}
+
+.navtype{
+    padding-right: 5px;
+}
+
+
+
+.actual{
+    color:black;
 }
 
 
