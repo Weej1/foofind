@@ -7,18 +7,24 @@
 
 
 
-<?=$this->form;?>
+<? echo $this->form;
+
+//var_dump($_GET['type']);
+
+?>
+
+
+  
 
     <div class="contentype">
 
-        <a href="/search/?q=<?=$this->info['q']?>&type=" >All</a>
-        <a href="/search/?q=<?=$this->info['q']?>&type=Audio" >Audio</a>
-        <a href="/search/?q=<?=$this->info['q']?>&type=Video" >Video</a>
-        <a href="/search/?q=<?=$this->info['q']?>&type=Image" >Image</a>
-        <a href="/search/?q=<?=$this->info['q']?>&type=Document" >Document</a>
-        <a href="/search/?q=<?=$this->info['q']?>&type=Software" >Software</a>
-        <a href="/search/?q=<?=$this->info['q']?>&type=Archive" >Archive</a>
-
+        <a class="<?=(preg_match("/^/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=" >All</a>
+        <a class="<?=(preg_match("/^Audio/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Audio" >Audio</a>
+        <a class="<?=(preg_match("/^Video/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Video" >Video</a>
+        <a class="<?=(preg_match("/^Image/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Image" >Image</a>
+        <a class="<?=(preg_match("/^Document/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Document" >Document</a>
+        <a class="<?=(preg_match("/^Software/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Software" >Software</a>
+        <a class="<?=(preg_match("/^Archive/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Archive" >Archive</a>
 
     </div>
  
