@@ -22,6 +22,7 @@ class Form_Search extends Zend_Form {
 
                     $this->removeDecorator('HtmlTag');
                     $this->removeDecorator('DtDdWrapper');
+                    $this->removeDecorator('dd');
 
 //                $options = array(''=>'All');
 //                foreach ($content['types'] as $type => $info)

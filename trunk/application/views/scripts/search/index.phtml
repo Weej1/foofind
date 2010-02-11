@@ -1,8 +1,14 @@
 <div id="container_search">
 
-    <a href="/"><h1>FooFind.com</h1></a>
+
+    <h1>
+        <a href="/" ><img border="0" src="../images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - Foodind" /> </a></h1>
+
+
+
 <?echo $this->form;?>
 
+ <hr />
 <?php if (is_object($this->paginator)): ?>
 
     <div class="search_info"><?=$this->info['total'] ?> files found , retrieved in <?=$this->info['time']; ?> secs. </div>
@@ -13,7 +19,7 @@
             <span><?=$val['info']?></span>
             <span>Sources: <?=$val['sources']?></span>
             <cite><?=$val['source']['Uri']?></cite>
-            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="#">Report</a>
+            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/complaint">Report</a>
         </li>
         <?php endforeach; ?>
     </ul>
