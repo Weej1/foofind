@@ -1,5 +1,28 @@
 <?php
 
+function formatSize($bytes)
+{
+    $size = $bytes / 1024;
+    if($size < 1024)
+    {
+        $size = number_format($size, 2);
+        $size .= ' KB';
+    }
+    else
+    {
+        if ($size / 1024 < 1024)
+        {
+            $size = number_format($size / 1024, 2);
+            $size .= ' MB';
+        }
+        else if ($size / 1024 / 1024 < 1024)
+        {
+            $size = number_format($size / 1024 / 1024, 2);
+            $size .= ' GB';
+        }
+    }
+    return $size;
+}
 
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function __construct($table, $conditions = array())
@@ -27,11 +50,21 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     
     public function getItems($offset, $itemCountPerPage)
     {
+        global $content;
+
         $this->cl->SetLimits( $offset, $itemCountPerPage);
         $type = $this->conditions['type'];
-        if ($type) {
-            $this->cl->SetFilter('crcextension', $type);
+        $typeCrcs = null;
+        if ($type)
+        {
+            $temp = $content['types'][$type];
+            if ($temp) {
+                $typeCrcs = $temp['crcExt'];
+            }
         }
+
+        if ($typeCrcs) $this->cl->SetFilter('crcextension', $typeCrcs);
+
         $result = $this->cl->Query( $this->conditions['query'], $this->table );
         if ( $result === false  ) {
                 echo "Query failed: " . $this->cl->GetLastError() . ".\n";
@@ -43,31 +76,86 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 $this->time = $result["time"];
 
                 if ( ! empty($result["matches"]) ) {
-                        $ids=$idsfn='';
+                        $ids= array();
+                        $idfns = array();
                         foreach ( $result["matches"] as $doc => $docinfo )
                         {
-                            
-                                $id = $docinfo["attrs"]["idfile"];
-                                $ids .= ",$id";
-                                $idsfn .= ",$doc";
-                                $docs[$id]['metadata'] = array();
-                                $docs[$id]['sources'] = array();
+                            $id = $docinfo["attrs"]["idfile"];
+                            $ids []= $id;
+                            $idfns []= $doc;
+
+                            $docs[$id]['attrs'] = $docinfo["attrs"];
+                            $docs[$id]['idfilename'] = $doc;
+                            $md[$id] = array();
+
+                            if ($type==null)
+                            {
+                                try {
+                                    $docs[$id]['type'] = $content['assoc'][$docinfo["attrs"]["contentType"]];
+                                } catch (Exception $ex) {
+                                    $docs[$id]['type'] = null;
+                                    $docs[$id]['type_prop'] = array();
+                                }
+                            } else {
+                                $docs[$id]['type'] = $type;
+                            }
                         }
 
-                        $ids = substr($ids, 1);
-                        $idsfn = substr($idsfn, 1);
+                        $ids = join($ids, ",");
+                        
+                        // Browse filenames
+                        $fn_model = new Zend_Db_Table('ff_filename');
+                        $filenames = $fn_model->fetchAll("IdFilename in (".join($idfns,',').")");
 
-                        $filenames = new Zend_Db_Table('ff_filename');
-                        foreach ($filenames->fetchAll("IdFilename in ($idsfn)") as $row)
-                                $docs[$row['IdFile']]['filename'] = $row;
+                        foreach ($filenames as $row)
+                        {
+                            $id = $row['IdFile'];
 
+                            // try to guess type from extensionss
+                            if ($docs[$id]['type']==null)
+                            {
+                                try {$docs[$id]['type_prop'] []= $content['extAssoc'][$row['Extension']];}
+                                catch (Exception $ex) {};
+                            }
+
+                            // If is the filename returned by sphinx, get filename
+                            if ($docs[$id]['idfilename']==$row['IdFilename'])
+                            {
+                                $docs[$id]['filename'] = $row['Filename'];
+                            }
+                        }
+
+                        // get sources for files
                         $sources = new Zend_Db_Table('ff_sources');
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
-                                $docs[$row['IdFile']]['sources'] []=$row;
+                        {
+                            // TODO: choose better source for each file
+                            // TODO: create e-link
+                            $docs[$row['IdFile']]['source'] = $row;
+                        }
 
+                        // get metadata for files
                         $metadata = new Zend_Db_Table('ff_metadata');
                         foreach ($metadata->fetchAll("IdFile in ($ids)") as $row)
-                                $docs[$row['IdFile']]['metadata'][$row['KeyMD']]=$row;
+                            $md[$row['IdFile']][$row['KeyMD']]=$row['ValueMD'];
+
+                        // choose better type for each file and get description for file
+                        foreach ($docs as $id => $doc)
+                        {
+                            if ($doc['type']==null && count($doc['type_prop'])>0)
+                            {
+                                // TODO: count each option and choose better
+                                $docs[$id]['type'] = $doc['type_prop'][0];
+                            }
+
+                            if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
+                            $docs[$id]['sources'] = $doc['attrs']['isources'];
+                            try { 
+                                $func = 'format'.$docs[$id]['type'];
+                                if ($func) $docs[$id]['info'] = $func($md[$id]);}
+                            catch (Exception $ex) {}
+
+                        }
 
                         return $docs;
                 }
@@ -88,7 +176,6 @@ class SearchController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        global $content;
 
         $request = $this->getRequest ();
         $q = $this->_getParam('q');
@@ -103,18 +190,13 @@ class SearchController extends Zend_Controller_Action {
         $type = $f->filter ( $type );
 
         $form->getElement('q')->setValue($q);
-        //$form->getElement('type')->setValue($type);
 
-        if ($type!=null)
-        {
-            $temp = $content['types'][$type];
-            if ($temp) {
-                $type = $temp['crcExt'];
-            } else {
-                $type = null;
-            }
+        $form->loadDefaultDecoratorsIsDisabled(false);
+        foreach($form->getElements() as $element) {
+            $element->removeDecorator('DtDdWrapper');
+            $element->removeDecorator('Label');
         }
-        
+                
         // assign the form to the view
         $this->view->form = $form;
         $this->view->q = $q;
@@ -130,7 +212,6 @@ class SearchController extends Zend_Controller_Action {
 
                 $paginator->getCurrentItems();
                 $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time);
-                $this->view->content = $content;
                 $this->view->paginator=$paginator;
         }
     }
