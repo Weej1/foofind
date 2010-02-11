@@ -6,35 +6,19 @@
 <?php if (is_object($this->paginator)): ?>
 
     <div class="search_info"><?=$this->info['total'] ?> files found , retrieved in <?=$this->info['time']; ?> secs. </div>
-    
-
-        <?//=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
-
+    <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
-        <div class="file_excerpt">
-            <span><a href="/<?=$val['sources'][0]['Uri'] ?>"><?=$val['filename']['Filename'] ?></a></span>
-
-	<ul>
-            <?php foreach ($val['sources'] as $source): ?>
-		<li><?=$source['IdFile']?> | Type:<?=$source['Type'] ?> | Uri:<?=$source['Uri'] ?> | Sources:<?=$source['Sources'] ?></li>
-	    <?php endforeach; ?>
-
-            <?php
-                foreach ($this->content['info'] as $md => $text):
-		  $info = $val['metadata'][$md];
-                  if ($info) {
-                      echo str_replace('%1', "<b>".strtolower($info['ValueMD'])."</b>", $text).' ';
-                  } else {
-                      #echo $md['KeyMD'].":".$md['ValueMD'];
-                  }
-                endforeach; ?>
-	</ul>
-        </div>
-
+        <li class="file_excerpt">
+            <h3><a href="<?=$val['source']['Uri'] ?>"><?=$val['filename'] ?></a></h3>
+            <span><?=$val['info']?></span>
+            <span>Sources: <?=$val['sources']?></span>
+            <cite><?=$val['source']['Uri']?></cite>
+            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="#">Report</a>
+        </li>
         <?php endforeach; ?>
+    </ul>
 
         <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
-    
 
 
 <?php else: ?>
