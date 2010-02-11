@@ -2,16 +2,29 @@
 
 
     <h1>
-        <a href="/" ><img border="0" src="../images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - Foodind" /> </a></h1>
+        <a href="/" ><img border="0" src="../images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - foodind" /> </a>
+    </h1>
 
 
 
-<?echo $this->form;?>
+<?=$this->form;?>
 
+    <div class="contentype">
+
+        <a href="/search/?q=<?=$this->info['q']?>&type=" >All</a>
+        <a href="/search/?q=<?=$this->info['q']?>&type=Audio" >Audio</a>
+        <a href="/search/?q=<?=$this->info['q']?>&type=Video" >Video</a>
+        <a href="/search/?q=<?=$this->info['q']?>&type=Image" >Image</a>
+        <a href="/search/?q=<?=$this->info['q']?>&type=Document" >Document</a>
+        <a href="/search/?q=<?=$this->info['q']?>&type=Software" >Software</a>
+        <a href="/search/?q=<?=$this->info['q']?>&type=Archive" >Archive</a>
+
+
+    </div>
  
 <?php if (is_object($this->paginator)): ?>
 
-    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=$this->info['total'] ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)</div>
+    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)</div>
 
     <hr />
     <ul>

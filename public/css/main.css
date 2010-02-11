@@ -77,7 +77,18 @@ p {
     display: block;
     width: auto;
     padding-left: 210px; /*reserve the a logo space to fix it*/
+    top: -10px;
 }
+
+
+.contentype{
+    position: relative;
+    float: left;
+    left: 40px;
+    top: -10px;
+    display: block;
+}
+
 
 .container_form {
     position: relative;
@@ -175,15 +186,25 @@ html  fieldset{
 
 html  input,select,textarea{
 
-    /*  border: 1px solid gray;*/
     padding: 4px;
-    margin: 0 0 6px;
-    /* color: gray;
-     font-weight: bold;
-     font-size: 1.2em;*/
+    margin: 0px;
+    
 
 }
 
+
+html input[type="text"] {
+    font-weight: bold;
+     font-size: 1.1em;
+    border: 1px solid gray;
+
+}
+
+
+html input[type="submit"] {
+    border: 1px solid gray;
+    color: black;
+}
 
 
 html dd, dl{
@@ -232,6 +253,7 @@ cite{
 
 h3 {
     font-size: 1em;
+    font-weight: normal;
 }
 
 #header{
