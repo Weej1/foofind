@@ -11,16 +11,16 @@
  
 <?php if (is_object($this->paginator)): ?>
 
-    <div class="search_info"><?=$this->info['total'] ?> files found , retrieved in <?=$this->info['time']; ?> secs. </div>
+    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=$this->info['total'] ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)</div>
 
     <hr />
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
-            <h3><a href="<?=$val['source']['Uri'] ?>"><?=$val['filename'] ?></a></h3>
+            <h3><a href="<?=$val['link'] ?>"><?=$val['filename'] ?></a></h3>
             <span><?=$val['info']?></span>
             <span>Sources: <?=$val['sources']?></span>
-            <cite><?=$val['source']['Uri']?></cite>
+            <cite><?=$val['link']?></cite>
             <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/complaint">Report</a>
         </li>
         <?php endforeach; ?>

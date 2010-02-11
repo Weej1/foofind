@@ -18,6 +18,11 @@ function formatLength($text)
         return sprintf("%2d:%02d", $mins, $secs);
 }
 
+function format($md)
+{
+    return "";
+}
+
 function formatAudio($md)
 {
     $res = '';
