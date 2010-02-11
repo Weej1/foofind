@@ -205,14 +205,6 @@ class SearchController extends Zend_Controller_Action {
         $page = $this->_getParam('page', 1);
         $form = $this->_getSearchForm();
 
-
-         $form->loadDefaultDecoratorsIsDisabled(false);
-              foreach($form->getElements() as $element) {
-                $element->removeDecorator('DtDdWrapper');
-                $element->removeDecorator('Label');
-
-                }
-
         // filter the data from the user (xss, etc)
         $f = new Zend_Filter_StripTags ( );
         $q = $f->filter ( $q );
