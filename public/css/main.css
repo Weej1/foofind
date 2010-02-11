@@ -5,7 +5,7 @@
 
 html, body {
     height: 100%;
-    
+
 }
 
 body {
@@ -41,7 +41,7 @@ p {
     padding-bottom: 30px;
     background-color: #fff;
     min-height: 300px;
-   
+
 
 }
 
@@ -49,19 +49,35 @@ p {
 #container_search {
     position: relative;
     text-align: left;
-    clear: both;
+    clear: left;
+
     display: block;
-    padding-top: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
+    padding: 35px;
+
     background-color: #fff;
     min-height: 300px;
 
+}
 
+#container_search h1{
+    position: relative;
+   
+    top:-22px;
+    left:5px;
+    float: left;
+    height: 77px;
+    width: 175px;
+    z-index: 100; /*over the form*/
+    background: transparent;
 }
 
 
+#container_search form{
+    position: relative;
+    display: block;
+    width: auto;
+    padding-left: 210px; /*reserve the a logo space to fix it*/
+}
 
 .container_form {
     position: relative;
@@ -88,7 +104,7 @@ p {
 
 .content {
     text-align: center;
-    
+
 }
 
 
@@ -100,15 +116,15 @@ p {
 
 
 .file_excerpt {
- display: block;
- margin: 10px;
- 
+    display: block;
+    margin: 10px;
+
 }
 
 
 .file_excerpt span{
- display: block;
- padding: 2px;
+    display: block;
+    padding: 2px;
 }
 
 
@@ -129,11 +145,18 @@ p {
 
 
 
- html form {
-     
+html form {
+
     width: 400px;
-    
+    display: block;
+
 }
+
+
+html ul {
+    list-style: none;
+}
+
 
 html  fieldset{
     padding: 20px;
@@ -142,8 +165,8 @@ html  fieldset{
 
 
 .home_form{
-    
-   
+
+
     margin-top:  30px;
 
 }
@@ -151,20 +174,21 @@ html  fieldset{
 
 
 html  input,select,textarea{
-    
-   /*  border: 1px solid gray;*/
-     padding: 4px;
-     margin: 0 0 6px;
+
+    /*  border: 1px solid gray;*/
+    padding: 4px;
+    margin: 0 0 6px;
     /* color: gray;
      font-weight: bold;
      font-size: 1.2em;*/
-    
+
 }
 
 
 
-html dd{
+html dd, dl{
     margin-bottom: 10px;
+    display: inline;
 }
 
 
@@ -176,4 +200,41 @@ html dd{
 .errors{
     color: red;
     padding-left: 20px;
+}
+
+
+.search_info{
+    display: block;
+    float:right;
+    position: relative;
+    text-align: right;
+    top:6px;
+    margin-bottom:  0px;
+    margin-right: 5px;
+}
+
+
+hr {
+    position: relative;
+    border:none;
+    border-top:1px solid #cd0069;
+    height:1px;
+    top: -10px;
+    /*margin-bottom:15px;*/
+   clear: left;
+}
+
+
+cite{
+    color:green;
+    font-style: normal;
+}
+
+
+#header{
+    z-index: 300;
+    position: relative;
+    float: right;
+    right: 30px;
+    top: 10px;
 }

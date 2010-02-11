@@ -9,6 +9,8 @@ protected function _initDoctype()
     {
         $this->bootstrap('view');
         $view = $this->getResource('view');
+        $view->setEncoding('UTF-8');
+
         $view->doctype('XHTML1_STRICT');
 
     }
