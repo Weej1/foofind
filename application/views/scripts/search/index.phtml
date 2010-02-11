@@ -8,10 +8,12 @@
 
 <?echo $this->form;?>
 
- <hr />
+ 
 <?php if (is_object($this->paginator)): ?>
 
     <div class="search_info"><?=$this->info['total'] ?> files found , retrieved in <?=$this->info['time']; ?> secs. </div>
+
+    <hr />
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
