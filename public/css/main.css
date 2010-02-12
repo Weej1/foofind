@@ -168,6 +168,7 @@ p {
     text-align: center;
     position:relative;
     z-index: 100;
+    clear: both;
 }
 
 
