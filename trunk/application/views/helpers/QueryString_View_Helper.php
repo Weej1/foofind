@@ -9,7 +9,7 @@ class QueryString_View_Helper extends Zend_View_Helper_Abstract
         $this->params = $new_params;
     }
 
-    public function qs($add, $delete)
+    public function qs($add, $delete=array())
     {
         $res = '';
         foreach ($this->params as $key => $val)
