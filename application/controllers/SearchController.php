@@ -74,6 +74,26 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 $this->cl->SetFilter('types', $srcs['types']);
         }
 
+        $size = $this->conditions['size'];
+        if ($size)
+        {
+            switch ($size)
+            {
+                case 1:
+                    $this->cl->SetFilterRange('size', 0, 1048576);
+                    break;
+                case 2:
+                    $this->cl->SetFilterRange('size', 0, 10485760);
+                    break;
+                case 3:
+                    $this->cl->SetFilterRange('size', 0, 104857600);
+                    break;
+                case 4:
+                    $this->cl->SetFilterRange('size', 0, 104857600, true);
+                    break;
+            }
+        }
+
         $result = $this->cl->Query( $this->conditions['query'], $this->table );
         if ( $result === false  ) {
                 echo "Query failed: " . $this->cl->GetLastError() . ".\n";
@@ -214,6 +234,7 @@ class SearchController extends Zend_Controller_Action {
         $page = $this->_getParam('page', 1);
         $src = $this->_getParam('src');
         $opt = $this->_getParam('opt')=='1';
+        $size = $this->_getParam('size');
         $form = $this->_getSearchForm();
 
         // filter the data from the user (xss, etc)
@@ -221,6 +242,7 @@ class SearchController extends Zend_Controller_Action {
         $q = $f->filter ( $q );
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
+        $size = $f->filter ( $size );
 
         $form->getElement('q')->setValue($q);
 
@@ -240,12 +262,12 @@ class SearchController extends Zend_Controller_Action {
        
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
         $helper = new QueryString_View_Helper();
-        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt));
+        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size));
         
         $this->view->registerHelper($helper, 'qs');
 
 
-        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type));
+        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size));
 
         if ($SphinxPaginator !== null) {
                 //paginator

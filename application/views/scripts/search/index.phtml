@@ -12,7 +12,7 @@
 
 
     <div class="contentype">
-        <a class="<?=(preg_match("/^-?$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array(), array('type'=>1, 'page'=>1)) ?>" >All</a>
+        <a class="<?=(preg_match("/^$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array(), array('type'=>1, 'page'=>1)) ?>" >All</a>
         <a class="<?=(preg_match("/^Audio$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Audio'), array('page'=>1)) ?>" >Audio</a>
         <a class="<?=(preg_match("/^Video$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Video'), array('page'=>1)) ?>" >Video</a>
         <a class="<?=(preg_match("/^Image$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Image'), array('page'=>1)) ?>" >Image</a>
@@ -27,12 +27,20 @@
     <a href="#" id="show_options" active="false"></a>
     <div id="options">
         <ul class="sourcetype">
-            <li><a class="<?=(preg_match("/^-?$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('src'=>1, 'page'=>1)) ?>" >All sources</a></li>
+            <li><a class="<?=(preg_match("/^$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('src'=>1, 'page'=>1)) ?>" >All sources</a></li>
             <li><a class="<?=(preg_match("/^torrent$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'torrent', 'opt'=>1), array('page'=>1)) ?>" >BitTorrent</a></li>
             <li><a class="<?=(preg_match("/^emule$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'emule', 'opt'=>1), array('page'=>1)) ?>" >Emule</a></li>
             <li><a class="<?=(preg_match("/^limewire$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'limewire', 'opt'=>1), array('page'=>1)) ?>" >Limewire</a></li>
             <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'dd', 'opt'=>1), array('page'=>1)) ?>" >Direct Download</a></li>
             <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'jamendo', 'opt'=>1), array('page'=>1)) ?>" >Jamendo</a></li>
+        </ul>
+        <br>
+        <ul class="size">
+            <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" >All size</a></li>
+            <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 1MB</a></li>
+            <li><a class="<?=(preg_match("/^2$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 10MB</a></li>
+            <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 100MB</a></li>
+            <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" >Larger than 100MB</a></li>
         </ul>
     </div>
 <?php if ($this->info['total']>0): ?>
