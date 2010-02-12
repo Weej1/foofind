@@ -216,7 +216,7 @@ html input[type="text"] {
 
 
 html input[type="submit"] {
-    border: 1px solid gray;
+   /* border: 1px solid gray;*/
     color: black;
 }
 
