@@ -225,6 +225,11 @@ class SearchController extends Zend_Controller_Action {
         $form->getElement('q')->setValue($q);
 
         $form->loadDefaultDecoratorsIsDisabled(false);
+
+        $form->addElement("hidden", "type", array("value"=>$type));
+        $form->addElement("hidden", "src", array("value"=>$src));
+        $form->addElement("hidden", "opt", array("value"=>$opt));
+        
         foreach($form->getElements() as $element) {
             $element->removeDecorator('DtDdWrapper');
             $element->removeDecorator('Label');
@@ -239,6 +244,7 @@ class SearchController extends Zend_Controller_Action {
         
         $this->view->registerHelper($helper, 'qs');
 
+
         $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type));
 
         if ($SphinxPaginator !== null) {
@@ -249,7 +255,7 @@ class SearchController extends Zend_Controller_Action {
                 $paginator->setCurrentPageNumber($page);
 
                 $paginator->getCurrentItems();
-                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => $page*10);
+                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10));
                 $this->view->paginator = $paginator;
         }
 

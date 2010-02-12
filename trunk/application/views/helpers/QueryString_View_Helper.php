@@ -9,15 +9,20 @@ class QueryString_View_Helper extends Zend_View_Helper_Abstract
         $this->params = $new_params;
     }
 
-    public function qs($override)
+    public function qs($add, $delete)
     {
         $res = '';
         foreach ($this->params as $key => $val)
         {
             $pair = '&'.$key.'='.$val;
             try {
-                $o = $override[$key];
-                if ($o) $pair = '&'.$key.'='.$o;
+                $del = $delete[$key];
+                if ($del) $pair = '';
+            } catch (Exception $ex) {}
+            
+            try {
+                $new = $add[$key];
+                if ($new) $pair = '&'.$key.'='.$new;
             } catch (Exception $ex) {}
             $res .= $pair;
         }
