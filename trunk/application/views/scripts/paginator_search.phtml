@@ -1,17 +1,8 @@
-<?php 
-$q =  $_GET["q"];
-$type = $_GET["type"];
-
-?>
-
-
 <?php if ($this->pageCount): ?>
-
-
 <div class="pagination">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo '/search/?q='.$q.'&type='. $type.'&page='. $this->previous; ?>">
+  <a href="<?php echo $this->qs(array('page'=>$this->previous)); ?>">
     &lt; <?=$this->translate('Previous'); ?>
   </a> |
 <?php else: ?>
@@ -21,9 +12,7 @@ $type = $_GET["type"];
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?>
   <?php if ($page != $this->current): ?>
-    <a href="<?php echo '/search/?q='.$q.'&type='. $type.'&page='. $page; ?>">
-        <?php echo $page; ?>
-    </a> |
+    <a href="<?php echo $this->qs(array('page'=>$page)) ?>"><?php echo $page; ?></a> |
   <?php else: ?>
     <?php echo $page; ?> |
   <?php endif; ?>
@@ -31,7 +20,7 @@ $type = $_GET["type"];
 
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo '/search/?q='.$q.'&type='. $type.'&page='.  $this->next; ?>"><?=$this->translate('Next'); ?> &gt;</a>
+  <a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><?=$this->translate('Next'); ?> &gt;</a>
 <?php else: ?>
   <span class="disabled"><?=$this->translate('Next'); ?> &gt;</span>
 <?php endif; ?>
