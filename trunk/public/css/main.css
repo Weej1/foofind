@@ -109,6 +109,7 @@ p {
     clear: both;
     display: block;
     text-align: left;
+    padding: 20px;
     width: 480px;
     background-color: #fff;
     border: 1px solid #999;
@@ -192,26 +193,23 @@ html  fieldset{
 
 .home_form{
 
-
     margin-top:  30px;
 
 }
 
 
-
-html  input,select,textarea{
-
-    padding: 4px;
-    margin: 0px;
-    
+html textarea {
+    font-weight: bold;
+    border: 1px solid gray;
 
 }
 
 
 html input[type="text"] {
     font-weight: bold;
-     font-size: 1.1em;
+    font-size: 1.1em;
     border: 1px solid gray;
+    padding: 4px;
 
 }
 
@@ -219,6 +217,7 @@ html input[type="text"] {
 html input[type="submit"] {
    /* border: 1px solid gray;*/
     color: black;
+    padding: 2px;
 }
 
 
