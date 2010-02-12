@@ -35,10 +35,13 @@ class PageController extends Zend_Controller_Action
        }
 
 
-       public function apiAction(){
+       public function licensesAction(){
 
        }
 
+        public function apiAction(){
+
+       }
 
 
        public function contactAction(){
