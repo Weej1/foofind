@@ -141,7 +141,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         {
                             // TODO: choose better source for each file
                             // TODO: create e-link
-                            var_dump($srcs);
                             if ($srcs && !in_array($row['Type'],$srcs['types'])) continue;
                             $id = $row['IdFile'];
                             switch ($row['Type'])
@@ -221,6 +220,7 @@ class SearchController extends Zend_Controller_Action {
         $f = new Zend_Filter_StripTags ( );
         $q = $f->filter ( $q );
         $type = $f->filter ( $type );
+        $src = $f->filter ( $src );
 
         $form->getElement('q')->setValue($q);
 
@@ -232,7 +232,12 @@ class SearchController extends Zend_Controller_Action {
                 
         // assign the form to the view
         $this->view->form = $form;
-        $this->view->q = $q;
+       
+        require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
+        $helper = new QueryString_View_Helper();
+        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt));
+        
+        $this->view->registerHelper($helper, 'qs');
 
         $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type));
 
@@ -245,8 +250,7 @@ class SearchController extends Zend_Controller_Action {
 
                 $paginator->getCurrentItems();
                 $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => $page*10);
-
-                $this->view->paginator=$paginator;
+                $this->view->paginator = $paginator;
         }
 
         $jquery = $this->view->jQuery();

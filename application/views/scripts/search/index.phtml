@@ -12,31 +12,30 @@
 
 
     <div class="contentype">
-        <a class="<?=(preg_match("/^$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=" >All</a>
-        <a class="<?=(preg_match("/^Audio$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Audio" >Audio</a>
-        <a class="<?=(preg_match("/^Video$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Video" >Video</a>
-        <a class="<?=(preg_match("/^Image$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Image" >Image</a>
-        <a class="<?=(preg_match("/^Document$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Document" >Document</a>
-        <a class="<?=(preg_match("/^Software$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Software" >Software</a>
-        <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=Archive" >Archive</a>
+        <a class="<?=(preg_match("/^-?$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'-', 'page'=>1)) ?>" >All</a>
+        <a class="<?=(preg_match("/^Audio$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Audio', 'page'=>1)) ?>" >Audio</a>
+        <a class="<?=(preg_match("/^Video$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Video', 'page'=>1)) ?>" >Video</a>
+        <a class="<?=(preg_match("/^Image$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Image', 'page'=>1)) ?>" >Image</a>
+        <a class="<?=(preg_match("/^Document$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Document', 'page'=>1)) ?>" >Document</a>
+        <a class="<?=(preg_match("/^Software$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Software', 'page'=>1)) ?>" >Software</a>
+        <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive', 'page'=>1)) ?>" >Archive</a>
     </div>
  
-<?php if (is_object($this->paginator)): ?>
-
     <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)</div>
 
     <hr />
     <a href="#" id="show_options" active="false"></a>
     <div id="options">
         <ul class="sourcetype">
-            <li><a class="<?=(preg_match("/^$/", $_GET['src']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&src=&opt=1" >All sources</a></li>
-            <li><a class="<?=(preg_match("/^torrent$/", $_GET['src']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&src=torrent&opt=1" >BitTorrent</a></li>
-            <li><a class="<?=(preg_match("/^emule$/", $_GET['src']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&src=emule&opt=1" >Emule</a></li>
-            <li><a class="<?=(preg_match("/^limewire$/", $_GET['src']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&src=limewire&opt=1" >Limewire</a></li>
-            <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&src=dd&opt=1" >Direct Download</a></li>
-            <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&src=jamendo&opt=1" >Jamendo</a></li>
+            <li><a class="<?=(preg_match("/^-?$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'-', 'opt'=>1, 'page'=>1)) ?>" >All sources</a></li>
+            <li><a class="<?=(preg_match("/^torrent$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'torrent', 'opt'=>1, 'page'=>1)) ?>" >BitTorrent</a></li>
+            <li><a class="<?=(preg_match("/^emule$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'emule', 'opt'=>1, 'page'=>1)) ?>" >Emule</a></li>
+            <li><a class="<?=(preg_match("/^limewire$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'limewire', 'opt'=>1, 'page'=>1)) ?>" >Limewire</a></li>
+            <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'dd', 'opt'=>1, 'page'=>1)) ?>" >Direct Download</a></li>
+            <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'jamendo', 'opt'=>1, 'page'=>1)) ?>" >Jamendo</a></li>
         </ul>
     </div>
+<?php if ($this->info['total']>0): ?>
     <div>
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
@@ -54,7 +53,6 @@
     <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 <?php else: ?>
     <h3><? echo 'No results. :-( ';?></h3>
-
 <?php endif;?>
 
 </div><!-- end of container_search --->
