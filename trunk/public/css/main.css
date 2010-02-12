@@ -162,10 +162,11 @@ p {
 
 #footer_main{
     font-size: 12px;
-    padding-top: 4%;
+    /*padding-top: 4%;*/
     padding-bottom:  2%;
     text-align: center;
     position:relative;
+    z-index: 100;
 }
 
 
@@ -283,4 +284,21 @@ h3 {
     float:left;
     display:none;
     height:1000px;
+}
+
+#menu_page {
+    width:150px;
+    float:left;
+    padding-top:  10px;
+    padding-left: 25px;
+   
+}
+
+#menu_page.ul{
+    list-style-position: inside;
+}
+
+#container_page{
+    padding-top:  10px;
+    z-index: 300;
 }
