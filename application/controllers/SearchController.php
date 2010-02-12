@@ -44,8 +44,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
         $this->cl->SetSelect("*, sum(isources*@weight/fnCount) as fileWeight");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC, fnWeight DESC, isources DESC" );
-        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "isources DESC, fileWeight DESC, ");
-        $this->cl->SetMaxQueryTime(200);
+        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC");
+        $this->cl->SetMaxQueryTime(500);
         $this->tcount = 0;
     }
     
@@ -65,6 +65,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         }
 
         if ($typeCrcs) $this->cl->SetFilter('crcextension', $typeCrcs);
+
+        $src = $this->conditions['src'];
+        if ($src)
+        {
+            $srcs = $content['sources'][$src];
+            if ($srcs)
+                $this->cl->SetFilter('types', $srcs['types']);
+        }
 
         $result = $this->cl->Query( $this->conditions['query'], $this->table );
         if ( $result === false  ) {
@@ -131,29 +139,31 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $sources = new Zend_Db_Table('ff_sources');
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
                         {
-                               /* * 1->gnutella
-    * 2->ed2k
-    * 3->bittorrent
-    * 4->http link Jamendo
-    * 5->Tiger Hash
-    * 6->MD5 Hash
-    * 7->BTH Hash*/
                             // TODO: choose better source for each file
                             // TODO: create e-link
+                            var_dump($srcs);
+                            if ($srcs && !in_array($row['Type'],$srcs['types'])) continue;
                             $id = $row['IdFile'];
                             switch ($row['Type'])
                             {
-                                case 1:
-                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xl=".$docs[$id]['attrs']['size']."&xt=urn:sha1:".$row['Uri'];
+                                case 1: //GNUTELLA
+                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:sha1:".$row['Uri'];
                                     break;
-                                case 2:
+                                case 2: //ED2K
                                     $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     break;
-                                case 3:
+                                case 6: //MD5 HASH
+                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:md5:".$row['Uri'];
+                                    break;
+                                case 7: //BTH HASH
+                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:bth:".$row['Uri'];
+                                    break;
+                                default:
                                     $link = $row['Uri'];
                                     break;
+
                             }
-                            $docs[$row['IdFile']]['link'] = $link;
+                            $docs[$id]['link'] = $link;
                         }
 
                         // get metadata for files
@@ -182,7 +192,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         return $docs;
                 }
         }
-        return null;
+        return array();
     }
 
     public function count()
@@ -203,6 +213,8 @@ class SearchController extends Zend_Controller_Action {
         $q = $this->_getParam('q');
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
+        $src = $this->_getParam('src');
+        $opt = $this->_getParam('opt')=='1';
         $form = $this->_getSearchForm();
 
         // filter the data from the user (xss, etc)
@@ -222,7 +234,7 @@ class SearchController extends Zend_Controller_Action {
         $this->view->form = $form;
         $this->view->q = $q;
 
-        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'type'=>$type));
+        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type));
 
         if ($SphinxPaginator !== null) {
                 //paginator
@@ -232,10 +244,35 @@ class SearchController extends Zend_Controller_Action {
                 $paginator->setCurrentPageNumber($page);
 
                 $paginator->getCurrentItems();
-                $this->view->info = array('total'=>ceil($SphinxPaginator->tcount/1000)*1000, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => $page*10);
+                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => $page*10);
 
                 $this->view->paginator=$paginator;
         }
+
+        $jquery = $this->view->jQuery();
+        $jquery->enable(); // enable jQuery Core Library
+
+        // get current jQuery handler based on noConflict settings
+        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+        $onload = '("#show_options").click(function() '
+                  . '{'
+                  . '   active = $("#show_options").attr("active")=="true";'
+                  . '   switchOptions(active, true);'
+                  . '});'
+                  . ' switchOptions('.($opt?'false':'true').', false);';
+        
+        $function = 'function switchOptions(active, fade) {'
+                  . '   if (active) {'
+                  . '       $("#options").toggle(false);'
+                  . '       $("#show_options").text("Show options...");'
+                  . '   } else {'
+                  . '       if (fade) $("#options").fadeIn(); else $("#options").toggle(true);'
+                  . '       $("#show_options").text("Hide options");'
+                  . '   } $("#show_options").attr("active", !active);'
+                  . '}';
+        $jquery->addJavascript($function);
+        $jquery->addOnload($jqHandler . $onload);
+
     }
 
         /**

@@ -97,8 +97,12 @@ p {
 
 .actual{
     color:black;
+    text-decoration: none;
 }
 
+#options .actual {
+    font-weight: bold;
+}
 
 .container_form {
     position: relative;
@@ -272,4 +276,11 @@ h3 {
     float: right;
     right: 30px;
     top: 10px;
+}
+
+#options {
+    width:150px;
+    float:left;
+    display:none;
+    height:1000px;
 }
