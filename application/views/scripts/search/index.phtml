@@ -7,13 +7,9 @@
 
 
 <? echo $this->form;
-
 //var_dump($_GET['type']);
-
 ?>
 
-
-  
 
     <div class="contentype">
         <a class="<?=(preg_match("/^$/", $_GET['type']))?"actual":""?>" href="/search/?q=<?=$this->info['q']?>&type=" >All</a>
