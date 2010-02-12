@@ -185,6 +185,7 @@ html ul {
     list-style: none;
 }
 
+html ul.level1 {margin-right: -3px;} 
 
 html  fieldset{
     padding: 20px;
@@ -234,7 +235,7 @@ html dd, dl{
 
 
 .errors{
-    color: red;
+    color: #cd0069;
     padding-left: 20px;
 }
 
