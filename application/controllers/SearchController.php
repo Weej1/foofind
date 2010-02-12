@@ -80,13 +80,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             switch ($size)
             {
                 case 1:
-                    $this->cl->SetFilterRange('size', 0, 1048576);
+                    $this->cl->SetFilterRange('size', 1, 1048576);
                     break;
                 case 2:
-                    $this->cl->SetFilterRange('size', 0, 10485760);
+                    $this->cl->SetFilterRange('size', 1, 10485760);
                     break;
                 case 3:
-                    $this->cl->SetFilterRange('size', 0, 104857600);
+                    $this->cl->SetFilterRange('size', 1, 104857600);
                     break;
                 case 4:
                     $this->cl->SetFilterRange('size', 0, 104857600, true);
