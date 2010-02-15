@@ -24,6 +24,16 @@ function formatSize($bytes)
     return $size;
 }
 
+function show_matches($text, $words)
+{
+    $res = $text;
+    foreach ($words as $w)
+    {
+        $res = preg_replace("/($w)/i", "<b>$1</b>", $res);
+    }
+    return $res;
+}
+
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function __construct($table, $conditions = array())
     {
@@ -94,7 +104,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             }
         }
 
-        $result = $this->cl->Query( $this->conditions['query'], $this->table );
+        $query = $this->conditions['query'];
+        $result = $this->cl->Query( $query, $this->table );
+
+        $words = explode(" ", $query);
+
         if ( $result === false  ) {
                 echo "Query failed: " . $this->cl->GetLastError() . ".\n";
         } else {
@@ -151,7 +165,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             // If is the filename returned by sphinx, get filename
                             if ($docs[$id]['idfilename']==$row['IdFilename'])
                             {
-                                $docs[$id]['filename'] = $row['Filename'];
+                                $docs[$id]['rfilename'] = $row['Filename'];
+                                $docs[$id]['filename'] = show_matches($row['Filename'], $words);
                             }
                         }
 
@@ -166,29 +181,45 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             switch ($row['Type'])
                             {
                                 case 1: //GNUTELLA
+                                    $source = "Gnutella";
+                                    $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:sha1:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:sha1:".$row['Uri'];
                                     break;
                                 case 2: //ED2K
+                                    $source = "ED2K";
+                                    $rlink = "ed2k://|file|".$docs[$id]['rfilename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     break;
+                                case 3:
+                                    $source = "BitTorrent";
+                                    $link = $row['Uri'];
+                                    break;
                                 case 6: //MD5 HASH
+                                    $source = "Gnutella";
+                                    $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:md5:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:md5:".$row['Uri'];
                                     break;
                                 case 7: //BTH HASH
+                                    $source = "BitTorrent";
+                                    $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:bth:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:bth:".$row['Uri'];
                                     break;
                                 default:
-                                    $link = $row['Uri'];
+                                    $source = null;
+                                    $link = show_matches($row['Uri'], $words);
+                                    $rlink = $row['Uri'];
                                     break;
 
                             }
+                            $docs[$id]['rlink'] = $rlink;
                             $docs[$id]['link'] = $link;
+                            if ($source) $docs[$id]['sources'][$source] += $row['Sources'];
                         }
 
                         // get metadata for files
                         $metadata = new Zend_Db_Table('ff_metadata');
                         foreach ($metadata->fetchAll("IdFile in ($ids)") as $row)
-                            $md[$row['IdFile']][$row['KeyMD']]=$row['ValueMD'];
+                            $md[$row['IdFile']][$row['KeyMD']]=show_matches($row['ValueMD'], $words);
 
                         // choose better type for each file and get description for file
                         foreach ($docs as $id => $doc)
@@ -200,12 +231,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
 
                             if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
-                            $docs[$id]['sources'] = $doc['attrs']['isources'];
+                            $docs[$id]['isources'] = $doc['attrs']['isources'];
                             try { 
                                 $func = 'format'.$docs[$id]['type'];
                                 if ($func) $docs[$id]['info'] = $func($md[$id]);}
                             catch (Exception $ex) {}
-
                         }
 
                         return $docs;

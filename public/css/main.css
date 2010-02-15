@@ -1,17 +1,17 @@
 * {
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
 }
 
 html, body {
     height: 100%;
-
 }
 
 body {
     font-family: arial, sans-serif;
-    font-size: 85%;
+    font-size: 13px;
 }
+
 .logo_home {
     font-size: 2.3em;
     height: 130px;
@@ -27,10 +27,10 @@ body {
     padding-top: 100px;
 }
 
-
 p {
     padding: 0 10px 1em;
 }
+
 #container_home {
     position: relative;
     clear: both;
@@ -45,14 +45,14 @@ p {
 
 }
 
-
 #container_search {
     position: relative;
     text-align: left;
     clear: left;
 
     display: block;
-    padding: 35px;
+    padding: 15px;
+    padding-top: 35px;
 
     background-color: #fff;
     min-height: 300px;
@@ -161,14 +161,13 @@ p {
 
 .file_excerpt {
     display: block;
-    margin: 10px;
-
+    margin-top: 6px;
+    margin-bottom: 7px;
 }
-
 
 .file_excerpt span{
     display: block;
-    padding: 2px;
+    max-width:90%;
 }
 
 
@@ -287,7 +286,7 @@ cite{
 }
 
 h3 {
-    font-size: 1em;
+    font-size: 16px;
     font-weight: normal;
 }
 
@@ -300,11 +299,20 @@ h3 {
 }
 
 #options {
-    width:200px;
+    width:13em;
     float:left;
     display:none;
     height:1000px;
 }
+
+#options div {
+    margin-right: 10px;
+    padding:3px;
+}
+
+/*#options #common {
+    border-right: 1px solid #cd0069;
+}*/
 
 #menu_page {
     width:150px;
