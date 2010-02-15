@@ -2,27 +2,25 @@
 <div class="pagination">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->qs(array('page'=>$this->previous)); ?>">
-    &lt; <?=$this->translate('Previous'); ?>
-  </a> |
+<a href="<?php echo $this->qs(array('page'=>$this->previous)); ?>"><span id="prev"><?=$this->translate('Previous');?></span></a>
 <?php else: ?>
-  <span class="disabled">&lt; <?=$this->translate('Previous'); ?></span> |
+ <span id="prev"><?=$this->translate('Previous'); ?></span>
 <?php endif; ?>
 
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?>
   <?php if ($page != $this->current): ?>
-    <a href="<?php echo $this->qs(array('page'=>$page)) ?>"><?php echo $page; ?></a> |
+<a href="<?php echo $this->qs(array('page'=>$page)) ?>"><span id="norm" ><?php echo $page; ?></span></a>
   <?php else: ?>
-    <?php echo $page; ?> |
+<span id="current"><?php echo $page; ?></span>
   <?php endif; ?>
 <?php endforeach; ?>
 
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><?=$this->translate('Next'); ?> &gt;</a>
+<a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><span id="next"> <?=$this->translate('Next'); ?>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 <?php else: ?>
-  <span class="disabled"><?=$this->translate('Next'); ?> &gt;</span>
+<span class="disabled"><?=$this->translate('Next'); ?></span>
 <?php endif; ?>
 </div>
 <?php endif; ?>
