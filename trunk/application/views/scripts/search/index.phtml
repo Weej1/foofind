@@ -26,31 +26,37 @@
     <hr />
     <a href="#" id="show_options" active="false"></a>
     <div id="options">
-        <ul class="sourcetype">
-            <li><a class="<?=(preg_match("/^$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('src'=>1, 'page'=>1)) ?>" >All sources</a></li>
-            <li><a class="<?=(preg_match("/^torrent$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'torrent', 'opt'=>1), array('page'=>1)) ?>" >BitTorrent</a></li>
-            <li><a class="<?=(preg_match("/^emule$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'emule', 'opt'=>1), array('page'=>1)) ?>" >Emule</a></li>
-            <li><a class="<?=(preg_match("/^limewire$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'limewire', 'opt'=>1), array('page'=>1)) ?>" >Limewire</a></li>
-            <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'dd', 'opt'=>1), array('page'=>1)) ?>" >Direct Download</a></li>
-            <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'jamendo', 'opt'=>1), array('page'=>1)) ?>" >Jamendo</a></li>
-        </ul>
-        <br>
-        <ul class="size">
-            <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" >All size</a></li>
-            <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 1MB</a></li>
-            <li><a class="<?=(preg_match("/^2$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 10MB</a></li>
-            <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 100MB</a></li>
-            <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" >Larger than 100MB</a></li>
-        </ul>
+        <div id="common">
+            <ul class="sourcetype">
+                <li><a class="<?=(preg_match("/^$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('src'=>1, 'page'=>1)) ?>" >All sources</a></li>
+                <li><a class="<?=(preg_match("/^torrent$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'torrent', 'opt'=>1), array('page'=>1)) ?>" >BitTorrent</a></li>
+                <li><a class="<?=(preg_match("/^emule$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'emule', 'opt'=>1), array('page'=>1)) ?>" >Emule</a></li>
+                <li><a class="<?=(preg_match("/^limewire$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'limewire', 'opt'=>1), array('page'=>1)) ?>" >Limewire</a></li>
+                <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'dd', 'opt'=>1), array('page'=>1)) ?>" >Direct Download</a></li>
+                <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'jamendo', 'opt'=>1), array('page'=>1)) ?>" >Jamendo</a></li>
+            </ul>
+            <br>
+            <ul class="size">
+                <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" >All size</a></li>
+                <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 1MB</a></li>
+                <li><a class="<?=(preg_match("/^2$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 10MB</a></li>
+                <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 100MB</a></li>
+                <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" >Larger than 100MB</a></li>
+            </ul>
+        </div>
     </div>
 <?php if ($this->info['total']>0): ?>
     <div>
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
-            <h3><a href="<?=$val['link'] ?>"><?=$val['filename'] ?></a></h3>
+            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a></h3>
             <span><?=$val['info']?></span>
-            <span>Sources: <?=$val['sources']?></span>
+            <?php if ($val["sources"]): ?><span>Sources:
+                <?php foreach ($val["sources"] as $k => $v): ?>
+                    <?= "$k($v)" ?>
+                <?php endforeach; ?></span>
+            <?php endif; ?>
             <cite><?=$val['link']?></cite>
             <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/complaint">Report</a>
         </li>

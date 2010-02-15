@@ -29,11 +29,11 @@ function formatAudio($md)
     if ($artist = $md["audio:artist"]) $res .= "Artist: $artist. ";
     if ($title = $md["audio:title"]) $res .= "Title: $title. ";
     if ($album = $md["audio:album"]) {
-        $res .= "Album: $album ";
+        $res .= "Album: $album";
         if (($year = $md["audio:year"]) && is_numeric($year) && $year>1901 && $year<2100)
-            $res .= "($year). ";
+            $res .= " ($year). ";
         else
-            $res .= ".";
+            $res .= ". ";
     }
     if ($genre = $md["audio:genre"]) $res .= "Genre: $genre. ";
     if (($len = $md["audio:seconds"]) || ($len = $md["audio:duration"])) $res .= "Length: ".formatLength($len).". ";
