@@ -10,6 +10,13 @@ class PageController extends Zend_Controller_Action
         public function init(){
             $this->_helper->layout()->setLayout('page');
 
+
+             $request = $this->getRequest ();
+
+             $requesttitle .= ' '.$this->_getParam('q');
+             $this->view->headTitle()->append(' - ');
+             $this->view->headTitle()->append($requesttitle);
+
             $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
             $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
@@ -65,9 +72,8 @@ class PageController extends Zend_Controller_Action
                                 $email = $f->filter ( $this->_request->getPost ( 'email' ) );
                                 $message = $f->filter ( $this->_request->getPost ( 'message' ) );
 
-                                //get the username if its nolotiro user
-                                $user_info = $this->view->user->username;
-                                $user_info .= $_SERVER ['REMOTE_ADDR'];
+                                
+                                $user_info = $_SERVER ['REMOTE_ADDR'];
                                 $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];
 
                                 $mail = new Zend_Mail ('utf-8');
@@ -123,8 +129,7 @@ class PageController extends Zend_Controller_Action
                                 $email = $f->filter ( $this->_request->getPost ( 'email' ) );
                                 $message = $f->filter ( $this->_request->getPost ( 'message' ) );
 
-                                //get the username if its nolotiro user
-                                $user_info = $this->view->user->username;
+                                
                                 $user_info .= $_SERVER ['REMOTE_ADDR'];
                                 $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];
 

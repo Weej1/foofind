@@ -253,12 +253,19 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 class SearchController extends Zend_Controller_Action {
 
     public function init() {
-        /* Initialize action controller here */
+
+        $request = $this->getRequest ();
+
+        $requesttitle .= ' '.$this->_getParam('q');
+        $this->view->headTitle()->append(' - ');
+        $this->view->headTitle()->append($requesttitle);
+
+
     }
 
     public function indexAction() {
 
-        $request = $this->getRequest ();
+        
         $q = $this->_getParam('q');
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
