@@ -81,6 +81,24 @@ p {
 }
 
 
+
+#container_page form{
+    position: relative;
+    display: block;
+    width: auto;
+    padding-left: 0px;
+    margin-left:  172px;
+    margin-top: 10px;
+    
+}
+
+
+#container_page h2{
+    margin-left: 170px;
+    padding-bottom: 10px;
+}
+
+
 .contentype{
     position: relative;
     float: left;
@@ -231,12 +249,13 @@ html dd, dl{
 
 .home_form dd {
     display: inline;
+    
 }
 
 
 .errors{
     color: #cd0069;
-    padding-left: 20px;
+    padding-left: 0px;
 }
 
 
@@ -302,4 +321,16 @@ h3 {
 #container_page{
     padding-top:  10px;
     z-index: 300;
+}
+
+
+.success {
+	background: #E6EFC2;
+	color: #264409;
+	border-color: #C6D880;
+        padding: .8em;
+	margin-bottom: 1em;
+	margin-top: 1em;
+	border: 1px solid #ddd;
+
 }

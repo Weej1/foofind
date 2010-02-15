@@ -1,5 +1,19 @@
 <center id="container_home">
     <div title="foofind" class="logo_home"><p><?=$this->totalFilesIndexed; ?> files indexed</p></div>
+
+    <?
+if (count ( $this->mensajes ) > 0) {
+	echo '<div class="success">';
+	foreach ( $this->mensajes as $msg ) {
+		echo $msg . '<br>';
+	}
+	echo '</div>';
+}
+?>
+
+
+
+
     <div class="home_form">
         <?echo $this->form;?>
     </div>
