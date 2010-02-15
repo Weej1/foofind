@@ -6,9 +6,7 @@
     </h1>
 
 
-<? echo $this->form;
-//var_dump($_GET['type']);
-?>
+<? echo $this->form; ?>
 
 
     <div class="contentype">
@@ -54,11 +52,11 @@
             <span><?=$val['info']?></span>
             <?php if ($val["sources"]): ?><span>Sources:
                 <?php foreach ($val["sources"] as $k => $v): ?>
-                    <?= "$k($v)" ?>
+                    <?= "$k($v) " ?>
                 <?php endforeach; ?></span>
             <?php endif; ?>
             <cite><?=$val['link']?></cite>
-            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/complaint">Report</a>
+            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/page/complaint">Report</a>
         </li>
         <?php endforeach; ?>
     </ul>
