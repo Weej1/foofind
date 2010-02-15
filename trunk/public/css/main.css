@@ -61,7 +61,7 @@ p {
 
 #container_search h1{
     position: relative;
-   
+
     top:-22px;
     left:5px;
     float: left;
@@ -89,7 +89,7 @@ p {
     padding-left: 0px;
     margin-left:  172px;
     margin-top: 10px;
-    
+
 }
 
 
@@ -202,7 +202,7 @@ html ul {
     list-style: none;
 }
 
-html ul.level1 {margin-right: -3px;} 
+html ul.level1 {margin-right: -3px;}
 
 html  fieldset{
     padding: 20px;
@@ -234,7 +234,7 @@ html input[type="text"] {
 
 
 html input[type="submit"] {
-   /* border: 1px solid gray;*/
+    /* border: 1px solid gray;*/
     color: black;
     padding: 2px;
 }
@@ -248,7 +248,7 @@ html dd, dl{
 
 .home_form dd {
     display: inline;
-    
+
 }
 
 
@@ -276,7 +276,7 @@ hr {
     height:1px;
     top: -10px;
     /*margin-bottom:15px;*/
-   clear: left;
+    clear: left;
 }
 
 
@@ -319,7 +319,7 @@ h3 {
     float:left;
     padding-top:  10px;
     padding-left: 25px;
-   
+
 }
 
 #menu_page.ul{
@@ -333,12 +333,65 @@ h3 {
 
 
 .success {
-	background: #E6EFC2;
-	color: #264409;
-	border-color: #C6D880;
-        padding: .8em;
-	margin-bottom: 1em;
-	margin-top: 1em;
-	border: 1px solid #ddd;
+    background: #E6EFC2;
+    color: #264409;
+    border-color: #C6D880;
+    padding: .8em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    border: 1px solid #ddd;
 
+}
+
+
+
+.pagination {
+    margin-bottom: 40px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 13px;
+    display: block;
+    width: auto;
+}
+
+.pagination span {
+    margin: 1em 0;
+    padding-top: 40px;
+    text-align: center;
+    background: transparent url(../images/foofind_paginator.gif) no-repeat scroll top left;
+    height: 35px;
+   
+
+}
+
+.pagination a{
+    text-decoration: underline;
+}
+
+#prev {
+    background-position: -2px 0;
+    width: 50px;
+    padding-left: 1px;
+    padding-right: 2px;
+}
+
+#norm {
+    background-position: -57px 0;
+    width: 130px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#current{
+    background-position: -76px 0;
+   
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#next {
+    background-position: -94px 0;
+    width: 50px;
+    padding-left: 3px;
+    padding-right: 22px;
 }
