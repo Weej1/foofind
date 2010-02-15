@@ -167,7 +167,7 @@ p {
 
 .file_excerpt span{
     display: block;
-    max-width:90%;
+    max-width:42em;
 }
 
 
