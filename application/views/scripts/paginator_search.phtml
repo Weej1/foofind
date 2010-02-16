@@ -1,5 +1,6 @@
 <?php if ($this->pageCount): ?>
 <div class="pagination">
+
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
 <a href="<?php echo $this->qs(array('page'=>$this->previous)); ?>"><span id="prev"><?=$this->translate('Previous');?></span></a>
@@ -20,7 +21,8 @@
 <?php if (isset($this->next)): ?>
 <a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><span id="next"> <?=$this->translate('Next'); ?>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 <?php else: ?>
-<span class="disabled"><?=$this->translate('Next'); ?></span>
+<span id ="next" class="disabled"><?=$this->translate('Next'); ?></span>
 <?php endif; ?>
+
 </div>
 <?php endif; ?>
