@@ -266,7 +266,7 @@ class SearchController extends Zend_Controller_Action {
     public function indexAction() {
 
         
-        $q = $this->_getParam('q');
+        $q = trim($this->_getParam('q'));
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
         $src = $this->_getParam('src');
