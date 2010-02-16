@@ -44,7 +44,7 @@
         </div>
     </div>
 <?php if ($this->info['total']>0): ?>
-    <div>
+    <div id="results">
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
@@ -63,6 +63,7 @@
     </div>
 
     <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+    
 <?php else: ?>
     <h2><? echo 'No results. :-( ';?></h2>
 <?php endif;?>
