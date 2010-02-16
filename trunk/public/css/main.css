@@ -105,6 +105,13 @@ p {
     left: 36px;
     top: -5px;
     display: block;
+   
+}
+
+
+.contentype a{
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .navtype{
@@ -116,6 +123,7 @@ p {
 .actual{
     color:black;
     text-decoration: none;
+    font-weight: bold;
 }
 
 #options .actual {
@@ -225,7 +233,7 @@ html textarea {
 
 
 html input[type="text"] {
-    font-weight: bold;
+   /* font-weight: bold;*/
     font-size: 1.1em;
     border: 1px solid gray;
     padding: 4px;
