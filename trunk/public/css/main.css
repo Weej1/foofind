@@ -183,8 +183,8 @@ p {
 
 .file_excerpt {
     display: block;
-    margin-top: 6px;
-    margin-bottom: 7px;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 
 .file_excerpt span{
@@ -210,15 +210,10 @@ p {
     clear: both;
 }
 
-
-
 html form {
-
     width: 400px;
     display: block;
-
 }
-
 
 html ul {
     list-style: none;
@@ -231,20 +226,15 @@ html  fieldset{
     text-align: left;
 }
 
-
 .home_form{
-
     margin-top:  30px;
-
 }
-
 
 html textarea {
     font-weight: bold;
     border: 1px solid gray;
 
 }
-
 
 html input[type="text"] {
    /* font-weight: bold;*/
@@ -254,25 +244,20 @@ html input[type="text"] {
 
 }
 
-
 html input[type="submit"] {
     /* border: 1px solid gray;*/
     color: black;
     padding: 2px;
 }
 
-
 html dd, dl{
     margin-bottom: 10px;
     display: inline;
 }
 
-
 .home_form dd {
     display: inline;
-
 }
-
 
 .errors{
     color: #cd0069;
@@ -297,7 +282,6 @@ hr {
     border-top:1px solid #cd0069;
     height:1px;
     top: -10px;
-    /*margin-bottom:15px;*/
     clear: left;
 }
 
@@ -346,7 +330,6 @@ h3 {
     float:left;
     padding-top:  10px;
     padding-left: 25px;
-
 }
 
 #menu_page.ul{
@@ -357,7 +340,6 @@ h3 {
     padding-top:  10px;
     z-index: 300;
 }
-
 
 .success {
     background: #E6EFC2;
@@ -370,12 +352,10 @@ h3 {
 
 }
 
-
-
 .pagination {
     clear: both;
     margin-bottom: 40px;
-    margin-top: 55px;
+    margin-top: 35px;
     padding-top: 60px;
     text-align: center;
     font-size: 13px;
@@ -388,9 +368,6 @@ h3 {
     padding-top: 43px;
     text-align: center;
     background: transparent url(../images/foofind_paginator.gif) no-repeat scroll top left;
-    
-   
-
 }
 
 .pagination a{
@@ -418,8 +395,6 @@ h3 {
     padding-right:4px;
 }
 
-
-
 #current{
     background-position: -69px 0;
     width: auto;
@@ -427,14 +402,12 @@ h3 {
     padding-right: 7px;
 }
 
-
 #current2{
     background-position: -65px 0;
     width: auto;
     padding-left: 6px;
     padding-right: 7px;
 }
-
 
 #next {
     background-position: -96px 0;
