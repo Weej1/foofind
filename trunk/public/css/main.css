@@ -320,34 +320,26 @@ h3 {
     top: 10px;
 }
 
-#show_options.active{
-    float: left;
+#menu {
+    clear: both;
 }
 
 #options {
     width:13em;
-    
+    float:left;
     display:none;
-   /* height:1000px;*/
 }
 
 #options div {
     margin-right: 10px;
     padding:3px;
     float:left;
-    
 }
 
 
-#results{
-    float:left;
-    width: auto;
+#results.padding {
+    padding-left:13em;
 }
-
-
-/*#options #common {
-    border-right: 1px solid #cd0069;
-}*/
 
 #menu_page {
     width:150px;
