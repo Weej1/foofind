@@ -394,7 +394,7 @@ h3 {
 }
 
 .pagination a{
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 #prev {
@@ -411,7 +411,12 @@ h3 {
     padding-right: 5px;
 }
 
-
+#norm2 {
+    background-position: -42px 0;
+    width: auto;
+    padding-left: 4px;
+    padding-right:4px;
+}
 
 
 
@@ -423,6 +428,12 @@ h3 {
 }
 
 
+#current2{
+    background-position: -65px 0;
+    width: auto;
+    padding-left: 6px;
+    padding-right: 7px;
+}
 
 
 #next {
