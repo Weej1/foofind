@@ -332,9 +332,11 @@ class SearchController extends Zend_Controller_Action {
         
         $function = 'function switchOptions(active, fade) {'
                   . '   if (active) {'
+                  . '       $("#results").removeClass("padding");'
                   . '       $("#options").toggle(false);'
                   . '       $("#show_options").text("Show options...");'
                   . '   } else {'
+                  . '       $("#results").addClass("padding");'
                   . '       if (fade) $("#options").fadeIn(); else $("#options").toggle(true);'
                   . '       $("#show_options").text("Hide options");'
                   . '   } $("#show_options").attr("active", !active);'

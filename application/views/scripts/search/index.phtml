@@ -1,10 +1,7 @@
 <div id="container_search">
-
-
     <h1>
         <a href="/" ><img border="0" src="../images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /> </a>
     </h1>
-
 
 <? echo $this->form; ?>
 
@@ -22,7 +19,7 @@
     <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)</div>
 
     <hr />
-    <a href="#" id="show_options" active="false"></a>
+    <div id="menu"><a href="#" id="show_options" active="false"></a></div>
     <div id="options">
         <div id="common">
             <ul class="sourcetype">
