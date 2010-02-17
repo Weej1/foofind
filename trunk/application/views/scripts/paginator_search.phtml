@@ -10,10 +10,17 @@
 
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?>
+
+
+<?php  $styleNorm = (strlen($page) < 2 ) ? 'norm' : 'norm2';
+            $styleCurrent = (strlen($page) < 2 ) ? 'current' : 'current2';
+?>
+
+
   <?php if ($page != $this->current): ?>
-<a href="<?php echo $this->qs(array('page'=>$page)) ?>"><span id="norm" ><?php echo $page; ?></span></a>
+<a href="<?php echo $this->qs(array('page'=>$page)) ?>"><span id="<?=$styleNorm ?>" ><?php echo $page; ?></span></a>
   <?php else: ?>
-<span id="current"><?php echo $page; ?></span>
+<span id="<?=$styleCurrent ?>"><?php echo $page; ?></span>
   <?php endif; ?>
 <?php endforeach; ?>
 
