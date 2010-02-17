@@ -9,11 +9,7 @@
 <?php endif; ?>
 
 <!-- Numbered page links -->
-<?php foreach ($this->pagesInRange as $page):
-            $styleNorm = (strlen($page) < 2 ) ? 'norm' : 'norm2';
-            $styleCurrent = (strlen($page) < 2 ) ? 'current' : 'current2';
-?><?php if ($page != $this->current): ?><a href="<?php echo $this->qs(array('page'=>$page)) ?>"><span id="<?=$styleNorm ?>" ><?php echo $page; ?></span></a><?php else: ?><span id="<?=$styleCurrent ?>"><?php echo $page; ?></span><?php endif; ?>
-<?php endforeach; ?>
+<?php foreach ($this->pagesInRange as $page):?><?php if ($page != $this->current): ?><a href="<?php echo $this->qs(array('page'=>$page)) ?>"><span id="norm" ><?php echo $page; ?></span></a><?php else: ?><span id="current"><?php echo $page; ?></span><?php endif; ?><?php endforeach; ?>
 
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
