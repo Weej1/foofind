@@ -125,15 +125,20 @@ p {
 
 
 .actual{
-    color:black;
+    color:black !important;
     text-decoration: none;
     font-weight: bold;
 }
 
 
-.actual a{
-    color: black;
+.actual a:link a:visited{
+    color: black !important;
 }
+
+#options a:visited{
+    color: #0000EE;
+}
+
 
 #options .actual {
     font-weight: bold;
@@ -313,6 +318,10 @@ h3 {
     float: right;
     right: 30px;
     top: 10px;
+}
+
+#show_options.active{
+    float: left;
 }
 
 #options {
