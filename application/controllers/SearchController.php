@@ -325,7 +325,7 @@ class SearchController extends Zend_Controller_Action {
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
         $onload = '("#show_options").click(function() '
                   . '{'
-                  . '   active = $("#show_options").attr("active")=="true";'
+                  . '   active = $("#show_options").attr("active")=="1";'
                   . '   switchOptions(active, true);'
                   . '});'
                   . ' switchOptions('.($opt?'false':'true').', false);';
@@ -339,7 +339,7 @@ class SearchController extends Zend_Controller_Action {
                   . '       $("#results").addClass("padding");'
                   . '       if (fade) $("#options").fadeIn(); else $("#options").toggle(true);'
                   . '       $("#show_options").text("Hide options");'
-                  . '   } $("#show_options").attr("active", !active);'
+                  . '   } $("#show_options").attr("active", 1-(active?1:0));'
                   . '}';
         $jquery->addJavascript($function);
         $jquery->addOnload($jqHandler . $onload);
