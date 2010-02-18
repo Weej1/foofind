@@ -334,11 +334,11 @@ class SearchController extends Zend_Controller_Action {
                   . '   if (active) {'
                   . '       $("#results").removeClass("padding");'
                   . '       $("#options").toggle(false);'
-                  . '       $("#show_options").text("Show options...");'
+                  . '       $("#show_options").text("'.$this->view->translate('Show options...').'");'
                   . '   } else {'
                   . '       $("#results").addClass("padding");'
                   . '       if (fade) $("#options").fadeIn(); else $("#options").toggle(true);'
-                  . '       $("#show_options").text("Hide options");'
+                  . '       $("#show_options").text("'.$this->view->translate('Hide options').'");'
                   . '   } $("#show_options").attr("active", 1-(active?1:0));'
                   . '}';
         $jquery->addJavascript($function);
