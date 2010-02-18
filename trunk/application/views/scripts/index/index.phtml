@@ -1,5 +1,5 @@
 <center id="container_home">
-    <div title="foofind" class="logo_home"><p><?=$this->totalFilesIndexed; ?> files indexed</p></div>
+    <div title="foofind" class="logo_home"><p><?=$this->totalFilesIndexed.' '.$this->translate('files indexed');?></p></div>
 
     <?
 if (count ( $this->mensajes ) > 0) {
@@ -21,10 +21,10 @@ if (count ( $this->mensajes ) > 0) {
     <div id="footer_home" >
 
     <div id="footer-navigation" >
-        <a class="navtype" href="/page/submit">Submit links</a>
-        <a class="navtype" href="/page/tos">Terms</a>
-        <a class="navtype" href="/page/privacy">Privacy</a>
-        <a class="navtype" href="http://code.google.com/p/foofind/">Developers</a>
+        <a class="navtype" href="/page/submit"><?=$this->translate('Submit links');?></a>
+        <a class="navtype" href="/page/tos"><?=$this->translate('Terms');?></a>
+        <a class="navtype" href="/page/privacy"><?=$this->translate('Privacy');?></a>
+        <a class="navtype" href="http://code.google.com/p/foofind/"><?=$this->translate('Developers');?></a>
     </div>
 
 </div>
