@@ -13,7 +13,6 @@ class Form_Search extends Zend_Form {
                 // set the method for the display form to POST
                 $this->setMethod ( 'get' );
                 
-               //$this->setAction('/search/index');
                 // add an email element
                 $this->addElement ( 'text', 'q', array (
                     'required' => false,
