@@ -32,10 +32,10 @@
             <br>
             <ul class="size">
                 <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" ><?=$this->translate('All sizes');?></a></li>
-                <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 1MB</a></li>
-                <li><a class="<?=(preg_match("/^2$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 10MB</a></li>
-                <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" >Smaller than 100MB</a></li>
-                <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" >Larger than 100MB</a></li>
+                <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 1MB</a></li>
+                <li><a class="<?=(preg_match("/^2$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 10MB</a></li>
+                <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 100MB</a></li>
+                <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Larger than');?> 100MB</a></li>
             </ul>
         </div>
     </div>
