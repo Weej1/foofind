@@ -10,6 +10,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
 
         ZendX_JQuery::enableView($view);
+
+       
+
     }
 
     protected function _initAutoload()
@@ -17,6 +20,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $moduleLoader = new Zend_Application_Module_Autoloader(array(
             'namespace' => '',
             'basePath' => APPLICATION_PATH));
+        
         return $moduleLoader;
     }
 }
