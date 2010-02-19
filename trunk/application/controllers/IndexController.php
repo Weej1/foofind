@@ -21,12 +21,12 @@ class IndexController extends Zend_Controller_Action
 
         $lang = $request->getParam('language') ;
 
-        //var_dump($lang);
-//        if (is_null($lang)) {
-//
-//
-//
-//        }
+        var_dump($lang);
+        var_dump(Zend_Registry::get('Zend_Locale'));
+
+
+
+      
 
 
        $totalFilesIndexed = $this->fetchIndexFilesCount();
@@ -37,8 +37,10 @@ class IndexController extends Zend_Controller_Action
         // if the values passed in are valid for this form
         if ($form->isValid ( $request->getPost () )) {
 
-              // filter the input
-              $f = new Zend_Filter_StripTags ( );
+              // Create a filter chain and add filters
+            $f = new Zend_Filter();
+             $f->addFilter(new Zend_Filter_StripTags())
+                    ->addFilter(new Zend_Filter_HtmlEntities());
               $q = $f->filter ( $this->_request->getPost ( 'q' ) );
 
               $form->setAction( $lang.'/search/'.$q);
@@ -56,6 +58,7 @@ class IndexController extends Zend_Controller_Action
         }
         // assign the form to the view
         $this->view->form = $form;
+        $this->view->lang = $lang;
        
     }
 

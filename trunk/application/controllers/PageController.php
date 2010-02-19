@@ -20,13 +20,15 @@ class PageController extends Zend_Controller_Action
             $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
             $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
+            $lang = Zend_Registry::get('Zend_Locale') ;
+            $this->view->lang = $lang;
 
         }
 
         /*default action */
          public function indexAction(){
 
-             $this->_redirect('/page/submit', $options);
+             $this->_redirect( $this->view->lang.'/page/submit');
        }
        
 
