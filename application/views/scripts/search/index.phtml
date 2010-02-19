@@ -37,6 +37,17 @@
                 <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 100MB</a></li>
                 <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Larger than');?> 100MB</a></li>
             </ul>
+            <br>
+            <ul class="year">
+                <li><a class="<?=(preg_match("/^$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('year'=>1, 'page'=>1)) ?>" ><?=$this->translate('All years');?></a></li>
+                <li><a class="<?=(preg_match("/^1$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Before');?> 1960</a></li>
+                <li><a class="<?=(preg_match("/^2$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'2', 'opt'=>1), array('page'=>1)) ?>" >60's</a></li>
+                <li><a class="<?=(preg_match("/^3$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'3', 'opt'=>1), array('page'=>1)) ?>" >70's</a></li>
+                <li><a class="<?=(preg_match("/^4$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'4', 'opt'=>1), array('page'=>1)) ?>" >80's</a></li>
+                <li><a class="<?=(preg_match("/^5$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'5', 'opt'=>1), array('page'=>1)) ?>" >90's</a></li>
+                <li><a class="<?=(preg_match("/^6$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'6', 'opt'=>1), array('page'=>1)) ?>" >00's</a></li>
+                <li><a class="<?=(preg_match("/^7$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'7', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Last year');?></a></li>
+            </ul>
         </div>
     </div>
 <?php if ($this->info['total']>0): ?>
@@ -46,13 +57,13 @@
         <li class="file_excerpt">
             <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a></h3>
             <span><?=$val['info']?></span>
-            <?php if ($val["sources"]): ?><span>Sources:
+            <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
                 <?php foreach ($val["sources"] as $k => $v): ?>
                     <?= "$k($v) " ?>
                 <?php endforeach; ?></span>
             <?php endif; ?>
             <cite><?=$val['link']?></cite>
-            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/page/complaint">Report</a>
+            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/page/complaint"><?=$this->translate('Report');?></a>
         </li>
         <?php endforeach; ?>
     </ul>

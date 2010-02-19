@@ -104,6 +104,37 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             }
         }
 
+        $year = $this->conditions['year'];
+        if ($year)
+        {
+            $yearCode = 1<<22;
+            switch ($year)
+            {
+                case 1:
+                    $this->cl->SetFilterRange('metadatas', $yearCode|1900, $yearCode|1959);
+                    break;
+                case 2:
+                    $this->cl->SetFilterRange('metadatas', $yearCode|1960, $yearCode|1969);
+                    break;
+                case 3:
+                    $this->cl->SetFilterRange('metadatas', $yearCode|1970, $yearCode|1979);
+                    break;
+                case 4:
+                    $this->cl->SetFilterRange('metadatas', $yearCode|1980, $yearCode|1989);
+                    break;
+                case 5:
+                    $this->cl->SetFilterRange('metadatas', $yearCode|1990, $yearCode|1999);
+                    break;
+                case 6:
+                    $this->cl->SetFilterRange('metadatas', $yearCode|2000, $yearCode|2010);
+                    break;
+                case 7:
+                    $nowy = (int)date('Y');
+                    $this->cl->SetFilterRange('metadatas', $yearCode|($nowy-1), $yearCode|$nowy);
+                    break;
+            }
+        }
+
         $query = $this->conditions['query'];
         $result = $this->cl->Query( $query, $this->table );
 
@@ -272,6 +303,7 @@ class SearchController extends Zend_Controller_Action {
         $src = $this->_getParam('src');
         $opt = $this->_getParam('opt')=='1';
         $size = $this->_getParam('size');
+        $year = $this->_getParam('year');
 
         $form = $this->_getSearchForm();
 
@@ -284,9 +316,7 @@ class SearchController extends Zend_Controller_Action {
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
         $size = $f->filter ( $size );
-
-
-
+        $year = $f->filter ( $year );
 
         $form->getElement('q')->setValue($q);
 
@@ -306,12 +336,11 @@ class SearchController extends Zend_Controller_Action {
        
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
         $helper = new QueryString_View_Helper();
-        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size));
+        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size, 'year' => $year));
         
         $this->view->registerHelper($helper, 'qs');
 
-
-        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size));
+        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year));
 
         if ($SphinxPaginator !== null) {
                 //paginator
