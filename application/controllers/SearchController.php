@@ -272,14 +272,21 @@ class SearchController extends Zend_Controller_Action {
         $src = $this->_getParam('src');
         $opt = $this->_getParam('opt')=='1';
         $size = $this->_getParam('size');
+
         $form = $this->_getSearchForm();
 
-        // filter the data from the user (xss, etc)
-        $f = new Zend_Filter_StripTags ( );
+        // Create a filter chain and add filters
+        $f = new Zend_Filter();
+        $f->addFilter(new Zend_Filter_StripTags())
+                    ->addFilter(new Zend_Filter_HtmlEntities());
+        
         $q = $f->filter ( $q );
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
         $size = $f->filter ( $size );
+
+
+
 
         $form->getElement('q')->setValue($q);
 
