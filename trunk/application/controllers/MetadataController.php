@@ -14,9 +14,9 @@ class Metadata_Paginator implements Zend_Paginator_Adapter_Interface {
     {
         $metadata = new Zend_Db_Table('ff_metadata');
         if ($this->key)
-            $query = "SELECT *, count(*) c, valueMD as Vals FROM ff_metadata where crcKey=$this->key group by valueMD order by c desc limit $offset, $itemCountPerPage";
+            $query = "SELECT *, count(*) Count, valueMD FROM ff_metadata where crcKey=$this->key group by valueMD order by Count desc limit $offset, $itemCountPerPage";
         else
-            $query = "SELECT SQL_CACHE *, count(*) c, common_string(10, 255, valueMD) as Vals FROM ff_metadata group by crcKey order by c desc limit $offset, $itemCountPerPage";
+            $query = "SELECT me.*, (select keyMD from ff_metadata m where m.crcKey=me.crcKey limit 1) KeyMD, (select valueMD from ff_metadata m where m.crcKey=me.crcKey limit 1) ValueMD FROM ff_metadata_encoded me order by count desc limit $offset, $itemCountPerPage;";
         return $metadata->getAdapter()->query($query)->fetchAll();
     }
 
@@ -26,7 +26,7 @@ class Metadata_Paginator implements Zend_Paginator_Adapter_Interface {
         if ($this->key)
             $query = "SELECT count(*) c FROM ff_metadata where crcKey=$this->key";
         else
-            $query = "SELECT SQL_CACHE count(distinct crcKey) c FROM ff_metadata";
+            $query = "SELECT SQL_CACHE count(*) c FROM ff_metadata_encoded";
 
         $count = $metadata->getAdapter()->query($query)->fetch();
         return $count["c"];
