@@ -5,8 +5,6 @@
   <?= $this->headTitle()->setPrefix('foofind.com') ?>
 
 
-
-
   <?php echo $this->jQuery(); ?>
   <?php echo $this->headLink()->appendStylesheet('/css/main.css') ?>
 </head>
@@ -15,8 +13,20 @@
 
 <div id="header" >
     <div id="header-navigation" style="float: right">
-        <a href="/page/about"><?=$this->translate('About foofind');?></a>
-    </div>
+        
+    
+
+
+<span class="select_language_box">
+<select	name="site_language_code_select" id="site_language_code_select">
+	<option <?=$this->lang == 'en' ? 'selected="selected"' : '';?>
+		value="<?=$this->baseUrl . 'en'?>" id="en">English</option>
+	<option <?=$this->lang == 'es' ? 'selected="selected"' : '';?>
+		value="<?=$this->baseUrl . 'es'?>" id="es">Español</option>
+</select>
+</span>
+
+</div>
 </div>
 
 <div class="content">

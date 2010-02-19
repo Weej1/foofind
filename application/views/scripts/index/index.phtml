@@ -11,19 +11,16 @@ if (count ( $this->mensajes ) > 0) {
 }
 ?>
 
-
-
-
     <div class="home_form">
-        <?echo $this->form;?>
+        <?=$this->form;?>
     </div>
 
     <div id="footer_home" >
 
     <div id="footer-navigation" >
-        <a class="navtype" href="/page/submit"><?=$this->translate('Submit links');?></a>
-        <a class="navtype" href="/page/tos"><?=$this->translate('Terms');?></a>
-        <a class="navtype" href="/page/privacy"><?=$this->translate('Privacy');?></a>
+        <a class="navtype" href="/<?=$this->lang?>/page/submit"><?=$this->translate('Submit links');?></a>
+        <a class="navtype" href="/<?=$this->lang?>/page/tos"><?=$this->translate('Terms');?></a>
+        <a class="navtype" href="/<?=$this->lang?>/page/privacy"><?=$this->translate('Privacy');?></a>
         <a class="navtype" href="http://code.google.com/p/foofind/"><?=$this->translate('Developers');?></a>
     </div>
 
