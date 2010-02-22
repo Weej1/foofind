@@ -29,7 +29,6 @@
                 <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'dd', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Direct download');?></a></li>
                 <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'jamendo', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Jamendo');?></a></li>
             </ul>
-            <br>
             <ul class="size">
                 <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" ><?=$this->translate('All sizes');?></a></li>
                 <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 1MB</a></li>
@@ -37,7 +36,16 @@
                 <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 100MB</a></li>
                 <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Larger than');?> 100MB</a></li>
             </ul>
-            <br>
+            <?php if (preg_match("/^Audio$/", $_GET['type'])): ?>
+            <ul class="quality">
+                <li><a class="<?=(preg_match("/^$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('brate'=>1, 'page'=>1)) ?>" ><?=$this->translate('All qualities');?></a></li>
+                <li><a class="<?=(preg_match("/^1$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'1', 'opt'=>1), array('page'=>1)) ?>" >128 kbps <?=$this->translate('or better');?></a></li>
+                <li><a class="<?=(preg_match("/^2$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'2', 'opt'=>1), array('page'=>1)) ?>" >192 kbps <?=$this->translate('or better');?></a></li>
+                <li><a class="<?=(preg_match("/^3$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'3', 'opt'=>1), array('page'=>1)) ?>" >256 kbps <?=$this->translate('or better');?></a></li>
+                <li><a class="<?=(preg_match("/^4$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'4', 'opt'=>1), array('page'=>1)) ?>" >320 kbps <?=$this->translate('or better');?></a></li>
+            </ul>
+            <?php endif; ?>
+            <?php if (preg_match("/^Audio|Video$/", $_GET['type'])): ?>
             <ul class="year">
                 <li><a class="<?=(preg_match("/^$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('year'=>1, 'page'=>1)) ?>" ><?=$this->translate('All years');?></a></li>
                 <li><a class="<?=(preg_match("/^1$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Before');?> 1960</a></li>
@@ -48,6 +56,7 @@
                 <li><a class="<?=(preg_match("/^6$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'6', 'opt'=>1), array('page'=>1)) ?>" >00's</a></li>
                 <li><a class="<?=(preg_match("/^7$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'7', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Last year');?></a></li>
             </ul>
+            <?php endif; ?>
         </div>
     </div>
 <?php if ($this->info['total']>0): ?>
@@ -55,7 +64,7 @@
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
-            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a></h3>
+            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a> - <?=$val['weight'] ?> - <?=$val['fileweight'] ?> - <?=$val['attrs']['fncount'] ?> - <?=$val['isources'] ?></h3>
             <span><?=$val['info']?></span>
             <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
                 <?php foreach ($val["sources"] as $k => $v): ?>

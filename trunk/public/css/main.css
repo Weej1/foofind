@@ -320,6 +320,9 @@ h3 {
     float:left;
 }
 
+#options div ul {
+    margin-top: 15px;
+}
 
 #results.padding {
     padding-left:13em;
