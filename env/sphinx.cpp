@@ -193,19 +193,21 @@ STATIC_SIZE_ASSERT ( SphOffset_t, 8 );
 //////////////////////////////////////////////////////////////////////////
 
 /// pack hit
-#define HIT_PACK(_field,_pos)	( ((_field)<<24) | ((_pos)&0x7fffffUL) )
+#define HIT_PACK(_field,_pos)	( ((_field)<<24) | ((_pos)&0x1fffffUL) )
 
 /// extract in-field position from packed hit
-#define HIT2POS(_hit)			((_hit)&0x7fffffUL)
+#define HIT2POS(_hit)			((_hit)&0x1fffffUL)
 
 /// extract field number from packed hit
 #define HIT2FIELD(_hit)			((_hit)>>24)
 
 /// prepare hit for LCS counting
-#define HIT2LCS(_hit)			(_hit&0xff7fffffUL)
+#define HIT2LCS(_hit)			(_hit&0xff1fffffUL)
 
 /// field end flag
 #define HIT_FIELD_END			0x800000UL
+#define HIT_PHRASE_START		0x400000UL
+#define HIT_PHRASE_END			0x200000UL
 
 /////////////////////////////////////////////////////////////////////////////
 // INTERNAL PROFILER
@@ -13760,9 +13762,9 @@ int ExtRanker_Proximity_c::GetMatches ( int iFields, const int * pWeights )
 		DWORD uQueryPos = pHlist->m_uQuerypos;
 		int iDelta = HIT2LCS(pHlist->m_uHitpos) - uQueryPos;
 		if ( iDelta==iExpDelta )
-			uCurLCS = uCurLCS + BYTE(pHlist->m_uWeight);
+			uCurLCS = uCurLCS + BYTE(pHlist->m_uWeight) + ((pHlist->m_uHitpos&HIT_PHRASE_END)==0?0:1);
 		else
-			uCurLCS = BYTE(pHlist->m_uWeight);
+			uCurLCS = BYTE(pHlist->m_uWeight) + ((pHlist->m_uHitpos&HIT_PHRASE_START)==0?0:1) + ((pHlist->m_uHitpos&HIT_PHRASE_END)==0?0:1);
 
 		DWORD uField = HIT2FIELD(pHlist->m_uHitpos);
 		if ( uCurLCS>uLCS[uField] )
@@ -14058,7 +14060,7 @@ bool CSphIndex_VLN::SetupMatchExtended ( const CSphQuery * pQuery, const char * 
 		case SPH_RANK_NONE:				m_pXQRanker = new ExtRanker_None_c ( tParsed.m_pRoot, tTermSetup ); break;
 		case SPH_RANK_WORDCOUNT:		m_pXQRanker = new ExtRanker_Wordcount_c ( tParsed.m_pRoot, tTermSetup ); break;
 		case SPH_RANK_PROXIMITY:
-			if ( bSingleWord )
+			if ( false && bSingleWord )
 				m_pXQRanker = new ExtRanker_WeightSum_c<> ( tParsed.m_pRoot, tTermSetup );
 			else
 				m_pXQRanker = new ExtRanker_Proximity_c ( tParsed.m_pRoot, tTermSetup );
@@ -17941,6 +17943,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 
 		bool bPrefixField = m_tSchema.m_dFields[iField].m_eWordpart == SPH_WORDPART_PREFIX;
 		bool bInfixMode = m_iMinInfixLen > 0;
+		bool bPhraseBoundary = false;
 
 		BYTE sBuf [ 16+3*SPH_MAX_WORD_LEN ];
 
@@ -17952,8 +17955,21 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 			while ( ( sWord = m_pTokenizer->GetToken() )!=NULL )
 			{
 				iPos += iLastStep + m_pTokenizer->GetOvershortCount()*m_iOvershortStep;
-				if ( m_pTokenizer->GetBoundary() )
+
+				bPhraseBoundary	= m_pTokenizer->GetBoundary();
+				// mark phrase end
+				if ( bPhraseBoundary && m_dHits.GetLength() )
+				{
+					DWORD uRefPos = m_dHits.Last().m_iWordPos;
+					for	( int i=m_dHits.GetLength()-1; i>=0 && m_dHits[i].m_iWordPos==uRefPos; i-- )
+						m_dHits[i].m_iWordPos |= HIT_PHRASE_END;
+				}
+
+				if ( bPhraseBoundary )
 					iPos = Max ( iPos+m_iBoundaryStep, 1 );
+
+
+				
 				iLastStep = 1;
 
 				int iLen = m_pTokenizer->GetLastTokenLen ();
@@ -17974,7 +17990,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 						CSphWordHit & tHit = m_dHits.Add ();
 						tHit.m_iDocID = m_tDocInfo.m_iDocID;
 						tHit.m_iWordID = iWord;
-						tHit.m_iWordPos = iPos;
+						tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 					}
 				}
 
@@ -17989,7 +18005,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 					CSphWordHit & tHit = m_dHits.Add ();
 					tHit.m_iDocID = m_tDocInfo.m_iDocID;
 					tHit.m_iWordID = iWord;
-					tHit.m_iWordPos = iPos;
+					tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 				} else
 				{
 					iLastStep = m_iStopwordStep;
@@ -18009,7 +18025,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 						CSphWordHit & tHit = m_dHits.Add ();
 						tHit.m_iDocID = m_tDocInfo.m_iDocID;
 						tHit.m_iWordID = iWord;
-						tHit.m_iWordPos = iPos;
+						tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 					}
 				}
 
@@ -18028,7 +18044,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 						CSphWordHit & tHit = m_dHits.Add ();
 						tHit.m_iDocID = m_tDocInfo.m_iDocID;
 						tHit.m_iWordID = iWord;
-						tHit.m_iWordPos = iPos;
+						tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 					}
 					continue;
 				}
@@ -18053,7 +18069,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 							CSphWordHit & tHit = m_dHits.Add ();
 							tHit.m_iDocID = m_tDocInfo.m_iDocID;
 							tHit.m_iWordID = iWord;
-							tHit.m_iWordPos = iPos;
+							tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 						}
 
 						// word start: add magic head
@@ -18065,7 +18081,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 								CSphWordHit & tHit = m_dHits.Add ();
 								tHit.m_iDocID = m_tDocInfo.m_iDocID;
 								tHit.m_iWordID = iWord;
-								tHit.m_iWordPos = iPos;
+								tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 							}
 						}
 
@@ -18078,7 +18094,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 								CSphWordHit & tHit = m_dHits.Add ();
 								tHit.m_iDocID = m_tDocInfo.m_iDocID;
 								tHit.m_iWordID = iWord;
-								tHit.m_iWordPos = iPos;
+								tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 							}
 						}
 
@@ -18103,8 +18119,19 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 			while ( ( sWord = m_pTokenizer->GetToken() )!=NULL )
 			{
 				iPos += iLastStep + m_pTokenizer->GetOvershortCount()*m_iOvershortStep;
-				if ( m_pTokenizer->GetBoundary() )
+
+				bPhraseBoundary	= m_pTokenizer->GetBoundary();
+				// mark phrase end
+				if ( bPhraseBoundary && m_dHits.GetLength() )
+				{
+					DWORD uRefPos = m_dHits.Last().m_iWordPos;
+					for	( int i=m_dHits.GetLength()-1; i>=0 && m_dHits[i].m_iWordPos==uRefPos; i-- )
+						m_dHits[i].m_iWordPos |= HIT_PHRASE_END;
+				}
+
+				if ( bPhraseBoundary )
 					iPos = Max ( iPos+m_iBoundaryStep, 1 );
+
 				iLastStep = 1;
 
 				if ( bGlobalPartialMatch )
@@ -18120,7 +18147,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 						CSphWordHit & tHit = m_dHits.Add ();
 						tHit.m_iDocID = m_tDocInfo.m_iDocID;
 						tHit.m_iWordID = iWord;
-						tHit.m_iWordPos = iPos;
+						tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 					}
 				}
 
@@ -18137,7 +18164,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 						CSphWordHit & tHit = m_dHits.Add ();
 						tHit.m_iDocID = m_tDocInfo.m_iDocID;
 						tHit.m_iWordID = iWord;
-						tHit.m_iWordPos = iPos;
+						tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 					}
 				}
 
@@ -18147,7 +18174,7 @@ bool CSphSource_Document::IterateHitsNext ( CSphString & sError )
 					CSphWordHit & tHit = m_dHits.Add ();
 					tHit.m_iDocID = m_tDocInfo.m_iDocID;
 					tHit.m_iWordID = iWord;
-					tHit.m_iWordPos = iPos;
+					tHit.m_iWordPos = iPos | (bPhraseBoundary?HIT_PHRASE_START:0);
 				} else
 				{
 					iLastStep = m_iStopwordStep;
