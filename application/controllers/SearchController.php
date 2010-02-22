@@ -50,11 +50,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
-        $this->cl->SetMatchMode( SPH_MATCH_ALL );
-        $this->cl->SetRankingMode( SPH_RANK_PROXIMITY_BM25 );
-        $this->cl->SetSelect("*, sum(isources*@weight/fnCount) as fileWeight");
-        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "isources DESC, fnWeight DESC, isources DESC" );
-        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC");
+        $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
+        $this->cl->SetRankingMode( SPH_RANK_PROXIMITY );
+        $this->cl->SetFieldWeights(array('metadata' => 10, 'filename' => 1));
+        $this->cl->SetSelect("*, sum((@weight+isources)/fnCount) as fileWeight");
+        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fnWeight DESC, isources DESC" );
+        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
         $this->tcount = 0;
     }
@@ -104,6 +105,28 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             }
         }
 
+        $brate = $this->conditions['brate'];
+        if ($brate)
+        {
+            $brateCode = 2<<22;
+            $maxBrateCode = $brateCode|1000000;
+            switch ($brate)
+            {
+                case 1:
+                    $this->cl->SetFilterRange('metadatas', $brateCode|128, $maxBrateCode);
+                    break;
+                case 2:
+                    $this->cl->SetFilterRange('metadatas', $brateCode|192, $maxBrateCode);
+                    break;
+                case 3:
+                    $this->cl->SetFilterRange('metadatas', $brateCode|256, $maxBrateCode);
+                    break;
+                case 4:
+                    $this->cl->SetFilterRange('metadatas', $brateCode|320, $maxBrateCode);
+                    break;
+            }
+        }
+
         $year = $this->conditions['year'];
         if ($year)
         {
@@ -136,7 +159,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         }
 
         $query = $this->conditions['query'];
-        $result = $this->cl->Query( $query, $this->table );
+        $result = $this->cl->Query( "$query", $this->table );
 
         $words = explode(" ", $query);
 
@@ -159,6 +182,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $ids []= $id;
                             $idfns []= $doc;
 
+                            $docs[$id]['weight'] = $docinfo["weight"];
+                            $docs[$id]['fileweight'] = $docinfo["attrs"]["fileweight"];
                             $docs[$id]['attrs'] = $docinfo["attrs"];
                             $docs[$id]['idfilename'] = $doc;
                             $md[$id] = array();
@@ -290,8 +315,6 @@ class SearchController extends Zend_Controller_Action {
         $requesttitle .= ' '.$this->_getParam('q');
         $this->view->headTitle()->append(' - ');
         $this->view->headTitle()->append($requesttitle);
-
-
     }
 
     public function indexAction() {
@@ -304,6 +327,7 @@ class SearchController extends Zend_Controller_Action {
         $opt = $this->_getParam('opt')=='1';
         $size = $this->_getParam('size');
         $year = $this->_getParam('year');
+        $brate = $this->_getParam('brate');
 
         $form = $this->_getSearchForm();
 
@@ -312,11 +336,12 @@ class SearchController extends Zend_Controller_Action {
         $f->addFilter(new Zend_Filter_StripTags())
                     ->addFilter(new Zend_Filter_HtmlEntities());
         
-        $q = $f->filter ( $q );
+        //$q = $f->filter ( $q );
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
         $size = $f->filter ( $size );
         $year = $f->filter ( $year );
+        $brate = $f->filter ( $brate );
 
         $form->getElement('q')->setValue($q);
 
@@ -336,11 +361,11 @@ class SearchController extends Zend_Controller_Action {
        
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
         $helper = new QueryString_View_Helper();
-        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size, 'year' => $year));
+        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size, 'year' => $year, 'brate' => $brate));
         
         $this->view->registerHelper($helper, 'qs');
 
-        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year));
+        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
 
         if ($SphinxPaginator !== null) {
                 //paginator
