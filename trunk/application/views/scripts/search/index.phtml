@@ -64,7 +64,7 @@
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
-            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a> - <?=$val['weight'] ?> - <?=$val['fileweight'] ?> - <?=$val['attrs']['fncount'] ?> - <?=$val['isources'] ?></h3>
+            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a><span class="debuginfo">w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span></h3>
             <span><?=$val['info']?></span>
             <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
                 <?php foreach ($val["sources"] as $k => $v): ?>

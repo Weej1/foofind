@@ -409,3 +409,7 @@ h3 {
    
    
 }
+
+.debuginfo {
+    display:none !important;
+}
