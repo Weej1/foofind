@@ -333,17 +333,16 @@ class SearchController extends Zend_Controller_Action {
 
         // Create a filter chain and add filters
         $f = new Zend_Filter();
-        $f->addFilter(new Zend_Filter_StripTags())
-                    ->addFilter(new Zend_Filter_HtmlEntities());
+        $f->addFilter(new Zend_Filter_StripTags());
         
-        //$q = $f->filter ( $q );
+        $q = $f->filter ( $q );
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
         $size = $f->filter ( $size );
         $year = $f->filter ( $year );
         $brate = $f->filter ( $brate );
 
-        $form->getElement('q')->setValue($q);
+        $form->getElement('q')->setValue(trim($q));
 
         $form->loadDefaultDecoratorsIsDisabled(false);
 
@@ -361,10 +360,47 @@ class SearchController extends Zend_Controller_Action {
        
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
         $helper = new QueryString_View_Helper();
-        $helper->setParams(array('q'=>$q, 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size, 'year' => $year, 'brate' => $brate));
+        $helper->setParams(array('q'=>trim($q), 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size, 'year' => $year, 'brate' => $brate));
         
         $this->view->registerHelper($helper, 'qs');
 
+
+        //lets enable the memcached
+        // configure caching backend strategy
+//            $oBackend = new Zend_Cache_Backend_Memcached(
+//                    array(
+//                            'servers' => array( array(
+//                                    'host' => '127.0.0.1',
+//                                    'port' => '11211'
+//                            ) ),
+//                            'compression' => true
+//            ) );
+//
+//            // configure caching frontend strategy
+//            $oFrontend = new Zend_Cache_Core(
+//                    array(
+//                            'caching' => true,
+//                            'cache_id_prefix' => 'result_foofind',
+//                            'logging' => FALSE,
+//                            'write_control' => true,
+//                            'automatic_serialization' => true,
+//                            'ignore_user_abort' => true
+//                    ) );
+//
+//            $cache = Zend_Cache::factory( $oFrontend, $oBackend );
+//
+//            if (!!$cache->test($q) ){
+//
+//                     $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
+//                    $cache->save($SphinxPaginator, 'q');
+//                } else {
+//                $SphinxPaginator = $cache->load('q');
+//                var_dump($SphinxPaginator);
+//                die ();
+//             }
+
+
+        //
         $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
 
         if ($SphinxPaginator !== null) {

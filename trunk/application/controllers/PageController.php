@@ -53,7 +53,7 @@ class PageController extends Zend_Controller_Action
 
        }
 
-        public function apiAction(){
+       public function apiAction(){
 
        }
 
