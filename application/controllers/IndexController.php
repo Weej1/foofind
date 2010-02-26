@@ -6,10 +6,6 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-
-        
-
-        
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
     }
@@ -21,13 +17,8 @@ class IndexController extends Zend_Controller_Action
 
         $lang = $request->getParam('language') ;
 
-        var_dump($lang);
-        var_dump(Zend_Registry::get('Zend_Locale'));
-
-
-
-      
-
+       // var_dump($lang);
+              
 
        $totalFilesIndexed = $this->fetchIndexFilesCount();
        $this->view->totalFilesIndexed = number_format($totalFilesIndexed[0]['files'], 0);
@@ -38,13 +29,12 @@ class IndexController extends Zend_Controller_Action
         if ($form->isValid ( $request->getPost () )) {
 
               // Create a filter chain and add filters
-            $f = new Zend_Filter();
+             $f = new Zend_Filter();
              $f->addFilter(new Zend_Filter_StripTags())
                     ->addFilter(new Zend_Filter_HtmlEntities());
               $q = $f->filter ( $this->_request->getPost ( 'q' ) );
 
-              $form->setAction( $lang.'/search/'.$q);
-
+              $form->setAction( '/'.$lang.'/search/'.$q);
 
               $form->loadDefaultDecoratorsIsDisabled(false);
               foreach($form->getElements() as $element) {
@@ -59,7 +49,7 @@ class IndexController extends Zend_Controller_Action
         // assign the form to the view
         $this->view->form = $form;
         $this->view->lang = $lang;
-       
+
     }
 
 

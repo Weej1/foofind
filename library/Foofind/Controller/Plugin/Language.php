@@ -19,14 +19,18 @@ class Foofind_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
 		}
 		if (! $translate->isAvailable ( $language )) {
 
-			throw new Zend_Controller_Action_Exception ( 'This language is not available (yet)', 404 );
+			throw new Zend_Controller_Exception ( 'This language is not available (yet)', 404 );
+                        
 		} else {
-			$locale->setLocale ( $language );
+
+                        $locale->setLocale ( $language );
 			$translate->setLocale ( $locale );
 			Zend_Form::setDefaultTranslator ( $translate );
 			setcookie ( 'lang', $locale->getLanguage (), null, '/' );
 			Zend_Registry::set ( 'Zend_Locale', $locale );
 			Zend_Registry::set ( 'Zend_Translate', $translate );
+
+                         
 
 		}
 
