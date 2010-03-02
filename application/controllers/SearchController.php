@@ -406,6 +406,15 @@ class SearchController extends Zend_Controller_Action {
         if ($SphinxPaginator !== null) {
                 //paginator
                 $paginator = new Zend_Paginator($SphinxPaginator);
+
+                //setting the paginator cache 
+                $fO = array('lifetime' => 3600, 'automatic_serialization' => true);
+                $bO = array('cache_dir'=>'/tmp');
+                $cache = Zend_Cache::factory('Core', 'File', $fO, $bO);
+
+                $paginator->setCache($cache);
+
+
                  //$paginator->setDefaultScrollingStyle('Elastic');
                 $paginator->setItemCountPerPage(10);
                 $paginator->setCurrentPageNumber($page);
