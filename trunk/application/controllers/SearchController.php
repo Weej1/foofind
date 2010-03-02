@@ -365,47 +365,14 @@ class SearchController extends Zend_Controller_Action {
         $this->view->registerHelper($helper, 'qs');
 
 
-        //lets enable the memcached
-        // configure caching backend strategy
-//            $oBackend = new Zend_Cache_Backend_Memcached(
-//                    array(
-//                            'servers' => array( array(
-//                                    'host' => '127.0.0.1',
-//                                    'port' => '11211'
-//                            ) ),
-//                            'compression' => true
-//            ) );
-//
-//            // configure caching frontend strategy
-//            $oFrontend = new Zend_Cache_Core(
-//                    array(
-//                            'caching' => true,
-//                            'cache_id_prefix' => 'result_foofind',
-//                            'logging' => FALSE,
-//                            'write_control' => true,
-//                            'automatic_serialization' => true,
-//                            'ignore_user_abort' => true
-//                    ) );
-//
-//            $cache = Zend_Cache::factory( $oFrontend, $oBackend );
-//
-//            if (!!$cache->test($q) ){
-//
-//                     $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
-//                    $cache->save($SphinxPaginator, 'q');
-//                } else {
-//                $SphinxPaginator = $cache->load('q');
-//                var_dump($SphinxPaginator);
-//                die ();
-//             }
-
-
-        //
         $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
 
         if ($SphinxPaginator !== null) {
                 //paginator
                 $paginator = new Zend_Paginator($SphinxPaginator);
+                $paginator->setDefaultScrollingStyle('Elastic');
+                $paginator->setItemCountPerPage(10);
+                $paginator->setCurrentPageNumber($page);
 
                 //setting the paginator cache 
                 $fO = array('lifetime' => 3600, 'automatic_serialization' => true);
@@ -415,13 +382,12 @@ class SearchController extends Zend_Controller_Action {
                 $paginator->setCache($cache);
 
 
-                 //$paginator->setDefaultScrollingStyle('Elastic');
-                $paginator->setItemCountPerPage(10);
-                $paginator->setCurrentPageNumber($page);
-
                 $paginator->getCurrentItems();
                 $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10));
+
                 $this->view->paginator = $paginator;
+
+                //var_dump($paginator->getPageItemCache());
         }
 
         $jquery = $this->view->jQuery();
