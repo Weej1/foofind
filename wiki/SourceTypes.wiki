@@ -9,6 +9,7 @@
   * 5->Tiger Hash
   * 6->MD5 Hash
   * 7->BTH Hash
+  * 8->http crawler
 
 = Content Type =
   * 1->audio
@@ -21,4 +22,4 @@
   * 8->rom
   * 9->document
   * 10->Spreadsheet
-  * 10->Presentation
+  * 11->Presentation
