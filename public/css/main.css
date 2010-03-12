@@ -21,10 +21,11 @@ body {
 }
 
 .logo_home p{
-    font-size: 0.4em;
+    font-size: 11px;
     text-align: right;
     color: #999;
-    padding-top: 100px;
+    padding-top: 80px;
+    padding-right: 0px;
 }
 
 p {
