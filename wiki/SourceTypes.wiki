@@ -23,3 +23,9 @@
   * 9->document
   * 10->Spreadsheet
   * 11->Presentation
+
+= Clientes =
+  * 1->P2P Java
+  * 2->P2P C++
+  * 3->dump musica copyleft
+  * 4->crawler http
