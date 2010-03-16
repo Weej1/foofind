@@ -111,6 +111,7 @@ p {
 
 
 .contentype a{
+    color: #df1279;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -193,6 +194,11 @@ p {
     max-width:42em;
 }
 
+.file_excerpt a{
+     color: #000;
+     text-decoration: underline;
+
+}
 
 #footer_home{
     clear: both;
@@ -288,7 +294,7 @@ hr {
 
 
 cite{
-    color:green;
+    color:#df1279;
     font-style: normal;
 }
 
@@ -371,11 +377,12 @@ h3 {
     
     padding-top: 43px;
     text-align: center;
-    background: transparent url(../images/foofind_paginator.gif) no-repeat scroll top left;
+   /* background: transparent url(../images/foofind_paginator.gif) no-repeat scroll top left;*/
 }
 
 .pagination a{
     text-decoration: none;
+    color: #df1279;
 }
 
 #prev {
@@ -388,7 +395,7 @@ h3 {
 }
 
 #norm {
-    background-position: -44px 0;
+   /* background-position: -44px 0;*/
     display: inline-block;
     width: 18px;
     text-align: center;
@@ -396,7 +403,7 @@ h3 {
 
 
 #current{
-    background-position: -69px 0;
+   /* background-position: -69px 0;*/
     display: inline-block;
     width: 20px;
     text-align: center;
@@ -404,7 +411,7 @@ h3 {
 
 
 #next {
-    background-position: -99px 0;
+   /* background-position: -99px 0;*/
     width: 85px;
     display: inline-block;
    
