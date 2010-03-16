@@ -29,7 +29,7 @@ function show_matches($text, $words)
     $res = $text;
     foreach ($words as $w)
     {
-        $res = preg_replace("/($w)/i", "<b>$1</b>", $res);
+        if ($w!='') $res = preg_replace("/($w)/i", "<b>$1</b>", $res);
     }
     return $res;
 }
