@@ -170,12 +170,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                   echo "WARNING: " . $this->cl->GetLastWarning() . "";
               }
                 $this->tcount = $result["total_found"];
-                $this->time = $result["time"];
-
+                $this->time_desc = $result["time"];
+                $total_time = $result["time"];
                 if ( ! empty($result["matches"]) ) {
                         $ids= array();
                         $idfns = array();
-                        
+
+                        $start_time = microtime(true);
+                        $fn_model = new Zend_Db_Table('ff_filename');
                         foreach ( $result["matches"] as $doc => $docinfo )
                         {
                             $id = $docinfo["attrs"]["idfile"];
@@ -199,18 +201,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             } else {
                                 $docs[$id]['type'] = $type;
                             }
-                        }
 
-                        $ids = join($ids, ",");
-                        
-                        // Browse filenames
-                        $fn_model = new Zend_Db_Table('ff_filename');
-                        $filenames = $fn_model->fetchAll("IdFilename in (".join($idfns,',').")");
-
-                        foreach ($filenames as $row)
-                        {
-                            $id = $row['IdFile'];
-
+                            $row = $fn_model->fetchRow("IdFile=$id AND IdFilename=$doc");
                             // try to guess type from extensionss
                             if ($docs[$id]['type']==null)
                             {
@@ -225,8 +217,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 $docs[$id]['filename'] = show_matches($row['Filename'], $words);
                             }
                         }
+                        $total_time += (microtime(true) - $start_time);
+                        $this->time_desc .= " - ".(microtime(true) - $start_time);
+
+                        $ids = join($ids, ",");
+                        
 
                         // get sources for files
+                        $start_time = microtime(true);
                         $sources = new Zend_Db_Table('ff_sources');
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
                         {
@@ -271,13 +269,19 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['link'] = $link;
                             if ($source) $docs[$id]['sources'][$source] += $row['Sources'];
                         }
+                        $total_time += (microtime(true) - $start_time);
+                        $this->time_desc .= " - ".(microtime(true) - $start_time);
 
                         // get metadata for files
+                        $start_time = microtime(true);
                         $metadata = new Zend_Db_Table('ff_metadata');
                         foreach ($metadata->fetchAll("IdFile in ($ids)") as $row)
                             $md[$row['IdFile']][$row['KeyMD']]=show_matches($row['ValueMD'], $words);
+                        $total_time += (microtime(true) - $start_time);
+                        $this->time_desc .= " - ".(microtime(true) - $start_time);
 
                         // choose better type for each file and get description for file
+                        $start_time = microtime(true);
                         foreach ($docs as $id => $doc)
                         {
                             if ($doc['type']==null && count($doc['type_prop'])>0)
@@ -293,7 +297,10 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 if ($func) $docs[$id]['info'] = $func($md[$id]);}
                             catch (Exception $ex) {}
                         }
-
+                        $total_time += (microtime(true) - $start_time);
+                        $this->time_desc .= " - ".(microtime(true) - $start_time);
+                        $this->time = $total_time;
+                        
                         return $docs;
                 }
         }
@@ -383,7 +390,7 @@ class SearchController extends Zend_Controller_Action {
 
 
                 $paginator->getCurrentItems();
-                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10));
+                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time_desc'=>$SphinxPaginator->time_desc, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10));
 
                 $this->view->paginator = $paginator;
 

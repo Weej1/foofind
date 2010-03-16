@@ -16,7 +16,7 @@
         <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
  
-    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)</div>
+    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)<span class="debuginfo"><?=$this->info['time_desc']?></span></div>
     <hr />
     <div id="menu"><a href="#" id="show_options" active="false"></a></div>
     <div id="options">
@@ -64,7 +64,7 @@
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
-            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a><span class="debuginfo">w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span></h3>
+            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a><span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span></h3>
             <span><?=$val['info']?></span>
             <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
                 <?php foreach ($val["sources"] as $k => $v): ?>
