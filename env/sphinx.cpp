@@ -14059,12 +14059,7 @@ bool CSphIndex_VLN::SetupMatchExtended ( const CSphQuery * pQuery, const char * 
 		case SPH_RANK_BM25:				m_pXQRanker = new ExtRanker_BM25_c ( tParsed.m_pRoot, tTermSetup ); break;
 		case SPH_RANK_NONE:				m_pXQRanker = new ExtRanker_None_c ( tParsed.m_pRoot, tTermSetup ); break;
 		case SPH_RANK_WORDCOUNT:		m_pXQRanker = new ExtRanker_Wordcount_c ( tParsed.m_pRoot, tTermSetup ); break;
-		case SPH_RANK_PROXIMITY:
-			if ( false && bSingleWord )
-				m_pXQRanker = new ExtRanker_WeightSum_c<> ( tParsed.m_pRoot, tTermSetup );
-			else
-				m_pXQRanker = new ExtRanker_Proximity_c ( tParsed.m_pRoot, tTermSetup );
-			break;
+		case SPH_RANK_PROXIMITY:		m_pXQRanker = new ExtRanker_Proximity_c ( tParsed.m_pRoot, tTermSetup ); break;
 		case SPH_RANK_MATCHANY:			m_pXQRanker = new ExtRanker_MatchAny_c ( tParsed.m_pRoot, tTermSetup ); break;
 		case SPH_RANK_FIELDMASK:		m_pXQRanker = new ExtRanker_FieldMask_c ( tParsed.m_pRoot, tTermSetup ); break;
 		default:
