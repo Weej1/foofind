@@ -40,11 +40,7 @@ class IndexController extends Zend_Controller_Action
               foreach($form->getElements() as $element) {
                 $element->removeDecorator('DtDdWrapper');
                 $element->removeDecorator('Label');
-
-                }
-
-
-
+              }
         }
         // assign the form to the view
         $this->view->form = $form;
@@ -53,6 +49,12 @@ class IndexController extends Zend_Controller_Action
     }
 
 
+    public function counterAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $totalFilesIndexed = $this->fetchIndexFilesCount();
+        $this->view->totalFilesIndexed = $totalFilesIndexed[0]['files'];
+    }
 
 
 

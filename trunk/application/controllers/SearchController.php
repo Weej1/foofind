@@ -324,9 +324,8 @@ class SearchController extends Zend_Controller_Action {
         $this->view->headTitle()->append($requesttitle);
     }
 
-    public function indexAction() {
 
-        
+    public function indexAction() {
         $q = trim($this->_getParam('q'));
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);

@@ -8,14 +8,13 @@ class PageController extends Zend_Controller_Action
          */
 
         public function init(){
+            
             $this->_helper->layout()->setLayout('page');
 
-
-             $request = $this->getRequest ();
-
-             $requesttitle .= ' '.$this->_getParam('q');
-             $this->view->headTitle()->append(' - ');
-             $this->view->headTitle()->append($requesttitle);
+            $request = $this->getRequest ();
+            $requesttitle .= ' '.$this->_getParam('q');
+            $this->view->headTitle()->append(' - ');
+            $this->view->headTitle()->append($requesttitle);
 
             $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
             $this->view->mensajes = $this->_flashMessenger->getMessages ();
