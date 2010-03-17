@@ -90,8 +90,10 @@ $content = array(
         'limewire' => array('types' => array(1)),
         'emule' => array('types' => array(2)),
         'torrent' => array('types' => array(3,7)),
-        'dd' => array('types' => array(4)),
-        'jamendo' => array('types' => array(4))
+        'dd' => array('types' => array(4,8,9)),
+        'jamendo' => array('types' => array(4)),
+        'http' => array('types' => array(8)),
+        'ftp' => array('types' => array(9))
     )
 );
 

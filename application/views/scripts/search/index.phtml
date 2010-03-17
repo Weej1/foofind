@@ -28,6 +28,8 @@
                 <li><a class="<?=(preg_match("/^limewire$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'limewire', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Limewire');?></a></li>
                 <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'dd', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Direct download');?></a></li>
                 <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'jamendo', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Jamendo');?></a></li>
+                <li><a class="<?=(preg_match("/^http$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'http', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('HTTP');?></a></li>
+                <li><a class="<?=(preg_match("/^ftp$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'ftp', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('FTP');?></a></li>
             </ul>
             <ul class="size">
                 <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" ><?=$this->translate('All sizes');?></a></li>
