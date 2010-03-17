@@ -13,7 +13,7 @@
 
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-<a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><span id="next"> <?=$this->translate('Next'); ?>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+<a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><span id="next"> <?=$this->translate('Next'); ?></span></a>
 <?php else: ?>
 <span id ="next" class="disabled"><?=$this->translate('Next'); ?></span>
 <?php endif; ?>

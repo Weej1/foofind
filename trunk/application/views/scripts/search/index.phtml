@@ -1,6 +1,6 @@
 <div id="container_search">
     <h1>
-        <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /> </a>
+        <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
     </h1>
 
 <?=$this->form; ?>
@@ -18,9 +18,18 @@
  
     <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)<span class="debuginfo"><?=$this->info['time_desc']?></span></div>
     <hr />
-    <div id="menu"><a href="#" id="show_options" active="false"></a></div>
-    <div id="options">
-        <div id="common">
+
+
+
+
+   <div class="cornerBox">
+    <div class="corner TL"></div>
+    <div class="corner TR"></div>
+    <div class="corner BL"></div>
+    <div class="corner BR"></div>
+    <div class="cornerBoxInner">
+        <div id="options">
+            <div id="common">
             <ul class="sourcetype">
                 <li><a class="<?=(preg_match("/^$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('src'=>1, 'page'=>1)) ?>" ><?=$this->translate('All sources');?></a></li>
                 <li><a class="<?=(preg_match("/^torrent$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'torrent', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('BitTorrent');?></a></li>
@@ -61,6 +70,9 @@
             <?php endif; ?>
         </div>
     </div>
+    </div>
+    </div>
+
 <?php if ($this->info['total']>0): ?>
     <div id="results">
     <ul>
@@ -74,7 +86,7 @@
                 <?php endforeach; ?></span>
             <?php endif; ?>
             <cite><?=$val['link']?></cite>
-            <? if ($val['size']) echo " - ".$val["size"]?> - <a href="/page/complaint"><?=$this->translate('Report');?></a>
+            <? if ($val['size']) echo " - ".$val["size"]?>
         </li>
         <?php endforeach; ?>
     </ul>

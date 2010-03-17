@@ -1,36 +1,25 @@
 <? echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <?= $this->headTitle()->setPrefix('foofind.com') ?>
-  <?=$this->jQuery(); ?>
-  <?=$this->headLink()->appendStylesheet('/css/main.css') ?>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?= $this->headTitle()->setPrefix('foofind.com') ?>
+    <?=$this->headLink()->appendStylesheet('/css/main.css') ?>
 </head>
-
 <body OnLoad="document.getElementById('q').focus();">
 
 <div id="header" >
-    <div id="header-navigation" style="float: right">
-        
-    
-
-
-<span class="select_language_box">
-
-    <?
-    if ($this->lang == 'es') {
-            echo "<a href= '/en'>english</a>";
-        }
-
-    elseif ($this->lang == 'en') {
-            echo "<a href= '/es'>español</a>";
-        }
-
-    ?>
-	
-</span>
-
-</div>
+    <div id="header-navigation" >
+        <span class="select_language_box">
+            <?
+            if ($this->lang == 'es') {
+                    echo "<a href= '/en'>english</a>";
+                }
+            elseif ($this->lang == 'en') {
+                    echo "<a href= '/es'>español</a>";
+                }
+            ?>
+        </span>
+    </div>
 </div>
 
 <div class="content">
