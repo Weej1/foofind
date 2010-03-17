@@ -378,15 +378,14 @@ class SearchController extends Zend_Controller_Action {
                 $paginator = new Zend_Paginator($SphinxPaginator);
                 $paginator->setDefaultScrollingStyle('Elastic');
                 $paginator->setItemCountPerPage(10);
-                $paginator->setCurrentPageNumber($page);
-
+               
                 //setting the paginator cache 
                 $fO = array('lifetime' => 3600, 'automatic_serialization' => true);
                 $bO = array('cache_dir'=>'/tmp');
                 $cache = Zend_Cache::factory('Core', 'File', $fO, $bO);
 
                 $paginator->setCache($cache);
-
+                $paginator->setCurrentPageNumber($page);
 
                 $paginator->getCurrentItems();
                 $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time_desc'=>$SphinxPaginator->time_desc, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10));
@@ -396,31 +395,31 @@ class SearchController extends Zend_Controller_Action {
                 //var_dump($paginator->getPageItemCache());
         }
 
-        $jquery = $this->view->jQuery();
-        $jquery->enable(); // enable jQuery Core Library
-
-        // get current jQuery handler based on noConflict settings
-        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
-        $onload = '("#show_options").click(function() '
-                  . '{'
-                  . '   active = $("#show_options").attr("active")=="1";'
-                  . '   switchOptions(active, true);'
-                  . '});'
-                  . ' switchOptions('.($opt?'false':'true').', false);';
-        
-        $function = 'function switchOptions(active, fade) {'
-                  . '   if (active) {'
-                  . '       $("#results").removeClass("padding");'
-                  . '       $("#options").toggle(false);'
-                  . '       $("#show_options").text("'.$this->view->translate('Show options...').'");'
-                  . '   } else {'
-                  . '       $("#results").addClass("padding");'
-                  . '       if (fade) $("#options").fadeIn(); else $("#options").toggle(true);'
-                  . '       $("#show_options").text("'.$this->view->translate('Hide options').'");'
-                  . '   } $("#show_options").attr("active", 1-(active?1:0));'
-                  . '}';
-        $jquery->addJavascript($function);
-        $jquery->addOnload($jqHandler . $onload);
+//        $jquery = $this->view->jQuery();
+//        $jquery->enable(); // enable jQuery Core Library
+//
+//        // get current jQuery handler based on noConflict settings
+//        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+//        $onload = '("#show_options").click(function() '
+//                  . '{'
+//                  . '   active = $("#show_options").attr("active")=="1";'
+//                  . '   switchOptions(active, true);'
+//                  . '});'
+//                  . ' switchOptions('.($opt?'false':'true').', false);';
+//
+//        $function = 'function switchOptions(active, fade) {'
+//                  . '   if (active) {'
+//                  . '       $("#results").removeClass("padding");'
+//                  . '       $("#options").toggle(false);'
+//                  . '       $("#show_options").text("'.$this->view->translate('Show options...').'");'
+//                  . '   } else {'
+//                  . '       $("#results").addClass("padding");'
+//                  . '       if (fade) $("#options").fadeIn(); else $("#options").toggle(true);'
+//                  . '       $("#show_options").text("'.$this->view->translate('Hide options').'");'
+//                  . '   } $("#show_options").attr("active", 1-(active?1:0));'
+//                  . '}';
+//        $jquery->addJavascript($function);
+//        $jquery->addOnload($jqHandler . $onload);
 
     }
 

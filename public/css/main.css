@@ -50,11 +50,9 @@ p {
     position: relative;
     text-align: left;
     clear: left;
-
     display: block;
     padding: 15px;
     padding-top: 35px;
-
     background-color: #fff;
     min-height: 300px;
 
@@ -62,7 +60,6 @@ p {
 
 #container_search h1{
     position: relative;
-
     top:-22px;
     left:5px;
     float: left;
@@ -77,10 +74,17 @@ p {
     position: relative;
     display: block;
     width: auto;
-    padding-left: 210px; /*reserve the a logo space to fix it*/
+    padding-left: 180px; /*reserve the a logo space to fix it*/
     top: -10px;
 }
 
+#container_search input#q{
+    width: 350px;
+}
+
+#container_search input#submit{
+    width: 80px;
+}
 
 
 #container_page form{
@@ -103,7 +107,7 @@ p {
 .contentype{
     position: relative;
     float: left;
-    left: 36px;
+    left: 4px;
     top: -5px;
     display: block;
    
@@ -117,7 +121,7 @@ p {
 }
 
 .contentype a:visited{
-    color: #0000EE;
+    color: #DF1279;
 }
 
 .navtype{
@@ -133,18 +137,7 @@ p {
 }
 
 
-.actual a:link a:visited{
-    color: black !important;
-}
 
-#options a:visited{
-    color: #0000EE;
-}
-
-
-#options .actual {
-    font-weight: bold;
-}
 
 .container_form {
     position: relative;
@@ -311,28 +304,45 @@ h3 {
     top: 10px;
 }
 
+#header-navigation{
+    float: right;
+}
+
 #menu {
     clear: both;
 }
 
 #options {
+   
     width:13em;
-    float:left;
-    display:none;
+    color: #fff;
+    
 }
 
 #options div {
-    margin-right: 10px;
+    
+    display: block;
     padding:3px;
-    float:left;
+   
 }
 
 #options div ul {
-    margin-top: 15px;
+    margin: 15px;
 }
 
-#results.padding {
-    padding-left:13em;
+.actual a:link a:visited{
+    color: black;
+}
+
+#options a{
+    color: #fff !important;
+}
+
+
+
+
+#results {
+    padding-left:10px;
 }
 
 #menu_page {
@@ -421,3 +431,46 @@ h3 {
 .debuginfo {
     display:none !important;
 }
+
+
+/*start corner box stuff*/
+.cornerBox {
+        float: right;
+	position: relative;
+	background: #df1279;
+	width: auto;
+        margin-left: 10px;
+}
+.corner {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: url('../images/corners.gif') no-repeat;
+	font-size: 0%;
+}
+.cornerBoxInner {
+	padding: 10px;
+}
+
+.TL {
+	top: 0;
+	left: 0;
+	background-position: 0 0;
+}
+.TR {
+	top: 0;
+	right: 0;
+	background-position: -10px 0;
+}
+.BL {
+	bottom: 0;
+	left: 0;
+	background-position: 0 -10px;
+}
+.BR {
+	bottom: 0;
+	right: 0;
+	background-position: -10px -10px;
+}
+
+/*EO corner box stuff*/

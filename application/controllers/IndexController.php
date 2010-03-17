@@ -78,7 +78,7 @@ class IndexController extends Zend_Controller_Action
         public function fetchIndexFilesCount() {
 
                 $files = new Zend_Db_Table('ff_files');
-                $query = "SELECT SQL_CACHE COUNT(IdFile) as files FROM ff_file ";
+                $query = "SELECT COUNT(IdFile) as files FROM ff_file ";
                 $result = $files->getAdapter()->query($query)->fetchAll();
 
                 return $result;
