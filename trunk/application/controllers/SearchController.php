@@ -258,6 +258,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:bth:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:bth:".$row['Uri'];
                                     break;
+                                case 5:
+                                    break;
                                 default:
                                     $source = null;
                                     $link = show_matches($row['Uri'], $words);
@@ -268,15 +270,28 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['rlink'] = $rlink;
                             $docs[$id]['link'] = $link;
                             if ($source) $docs[$id]['sources'][$source] += $row['Sources'];
+                            $docs[$id]['link_type'] = $row['Type'];
                         }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
-
                         // get metadata for files
                         $start_time = microtime(true);
+                        
                         $metadata = new Zend_Db_Table('ff_metadata');
-                        foreach ($metadata->fetchAll("IdFile in ($ids)") as $row)
-                            $md[$row['IdFile']][$row['KeyMD']]=show_matches($row['ValueMD'], $words);
+                        foreach ($metadata->fetchAll("CrcKey in (".join($content['crcMD'], ",").") AND IdFile in ($ids)") as $row)
+                        {
+                            if ($docs[$id]['link_type']==7 && $row['KeyMD']=='torrent:trackers'||$row['KeyMD']=='torrent:tracker')
+                            {
+                                foreach (explode(' ', $row['ValueMD']) as $tr)
+                                {
+                                    $docs[$row['IdFile']]['link'] .= '&tr='.urlencode($tr);
+                                    $docs[$row['IdFile']]['rlink'] .= '&tr='.urlencode($tr);
+                                }
+                            }
+                            else
+                                $md[$row['IdFile']][$row['KeyMD']]=show_matches($row['ValueMD'], $words);
+
+                        }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
 
