@@ -32,6 +32,7 @@
 		'/public/images/captcha',
 		'/application/configs/application.ini',
 		'/nbproject/',
+		'/library/Zend/'
 		'/tests/'
         );
 
