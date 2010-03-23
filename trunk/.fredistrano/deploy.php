@@ -33,6 +33,7 @@
 		'/application/configs/application.ini',
 		'/nbproject/',
 		'/library/Zend/',
+		'/library/ZendX/',
 		'/tests/'
         );
 
