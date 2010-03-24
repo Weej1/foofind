@@ -53,7 +53,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY );
         $this->cl->SetFieldWeights(array('metadata' => 10, 'filename' => 1));
-        $this->cl->SetSelect("*, sum((@weight+isources)/fnCount) as fileWeight");
+        $this->cl->SetSelect("*, sum((@weight*isources)/fnCount) as fileWeight");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fnWeight DESC, isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
@@ -80,9 +80,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $src = $this->conditions['src'];
         if ($src)
         {
-            $srcs = $content['sources'][$src];
-            if ($srcs)
-                $this->cl->SetFilter('types', $srcs['types']);
+            $srcs = array();
+            foreach (str_split($src) as $s)
+            {
+                $srcs = array_merge($srcs, $content['sources'][$s]['types']);
+            }
+            
+            if (count($srcs)>0)
+                $this->cl->SetFilter('types', $srcs);
         }
 
         $size = $this->conditions['size'];
@@ -173,11 +178,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 $this->time_desc = $result["time"];
                 $total_time = $result["time"];
                 if ( ! empty($result["matches"]) ) {
-                        $ids= array();
+                        $ids = array();
                         $idfns = array();
 
-                        $start_time = microtime(true);
-                        $fn_model = new Zend_Db_Table('ff_filename');
                         foreach ( $result["matches"] as $doc => $docinfo )
                         {
                             $id = $docinfo["attrs"]["idfile"];
@@ -202,7 +205,16 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 $docs[$id]['type'] = $type;
                             }
 
-                            $row = $fn_model->fetchRow("IdFile=$id AND IdFilename=$doc");
+                            $where .= " OR (IdFilename=$doc AND IdFile=$id) ";
+                        }
+
+                        $ids = join($ids, ",");
+
+                        $start_time = microtime(true);
+                        $fn_model = new Zend_Db_Table('ff_filename');
+                        foreach ($fn_model->fetchAll(substr($where, 4)) as $row)
+                        {
+                            $id = $row['IdFile'];
                             // try to guess type from extensionss
                             if ($docs[$id]['type']==null)
                             {
@@ -210,19 +222,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 catch (Exception $ex) {};
                             }
 
-                            // If is the filename returned by sphinx, get filename
-                            if ($docs[$id]['idfilename']==$row['IdFilename'])
-                            {
-                                $docs[$id]['rfilename'] = $row['Filename'];
-                                $docs[$id]['filename'] = show_matches($row['Filename'], $words);
-                            }
+                            $docs[$id]['rfilename'] = $row['Filename'];
+                            $docs[$id]['filename'] = show_matches($row['Filename'], $words);
                         }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
-
-                        $ids = join($ids, ",");
                         
-
                         // get sources for files
                         $start_time = microtime(true);
                         $sources = new Zend_Db_Table('ff_sources');
@@ -230,7 +235,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         {
                             // TODO: choose better source for each file
                             // TODO: create e-link
-                            if ($srcs && !in_array($row['Type'],$srcs['types'])) continue;
+                            if ($srcs && !in_array($row['Type'],$srcs)) continue;
                             $id = $row['IdFile'];
                             switch ($row['Type'])
                             {
@@ -261,7 +266,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 5:
                                     break;
                                 default:
-                                    $source = null;
+                                    $source = $row['Type'];
                                     $link = show_matches($row['Uri'], $words);
                                     $rlink = $row['Uri'];
                                     break;
@@ -378,12 +383,21 @@ class SearchController extends Zend_Controller_Action {
                 
         // assign the form to the view
         $this->view->form = $form;
-       
+
+        $srcs = array();
+        $src2 = ($src=='')?'emtwf':$src;
+        $srcs['ed2k'] = (strpos($src2, 'e')===false)?$src.'e':str_replace('e', '', $src2);
+        $srcs['magnet'] = (strpos($src2, 'm')===false)?$src.'m':str_replace('m', '', $src2);
+        $srcs['torrent'] = (strpos($src2, 't')===false)?$src.'t':str_replace('t', '', $src2);
+        $srcs['web'] = (strpos($src2, 'w')===false)?$src.'w':str_replace('w', '', $src2);
+        $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
+
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
         $helper = new QueryString_View_Helper();
         $helper->setParams(array('q'=>trim($q), 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size, 'year' => $year, 'brate' => $brate));
         
         $this->view->registerHelper($helper, 'qs');
+        $this->view->src = $srcs;
 
 
         $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
@@ -406,8 +420,6 @@ class SearchController extends Zend_Controller_Action {
                 $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time_desc'=>$SphinxPaginator->time_desc, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10));
 
                 $this->view->paginator = $paginator;
-
-                //var_dump($paginator->getPageItemCache());
         }
 
 //        $jquery = $this->view->jQuery();

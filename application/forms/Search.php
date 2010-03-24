@@ -12,7 +12,7 @@ class Form_Search extends Zend_Form {
                 global $content;
                 // set the method for the display form to POST
                 $this->setMethod ( 'get' );
-                
+                $this->setAttrib("class", "searchbox");
                 // add an email element
                 $this->addElement ( 'text', 'q', array (
                     'required' => false,

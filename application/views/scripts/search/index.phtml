@@ -21,55 +21,54 @@
 
 
 
-
+    <div id="options">
    <div class="cornerBox">
     <div class="corner TL"></div>
     <div class="corner TR"></div>
     <div class="corner BL"></div>
     <div class="corner BR"></div>
     <div class="cornerBoxInner">
-        <div id="options">
-            <div id="common">
+        <p><?=$this->translate('Include results from:')?></p>
             <ul class="sourcetype">
-                <li><a class="<?=(preg_match("/^$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('src'=>1, 'page'=>1)) ?>" ><?=$this->translate('All sources');?></a></li>
-                <li><a class="<?=(preg_match("/^torrent$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'torrent', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('BitTorrent');?></a></li>
-                <li><a class="<?=(preg_match("/^emule$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'emule', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Emule');?></a></li>
-                <li><a class="<?=(preg_match("/^limewire$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'limewire', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Limewire');?></a></li>
-                <li><a class="<?=(preg_match("/^dd$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'dd', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Direct download');?></a></li>
-                <li><a class="<?=(preg_match("/^jamendo$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'jamendo', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Jamendo');?></a></li>
-                <li><a class="<?=(preg_match("/^http$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'http', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('HTTP');?></a></li>
-                <li><a class="<?=(preg_match("/^ftp$/", $_GET['src']))?"actual":""?>" href="<?= $this->qs(array('src'=>'ftp', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('FTP');?></a></li>
+                <li><a class="<?=(strpos($this->src['ed2k'], 'e')===false)?"on":"off" ?>" href="<?= $this->qs(array('src'=>$this->src['ed2k']), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['magnet']), array('page'=>1)) ?>" class="<?=(strpos($this->src['magnet'], 'm')===false)?"on":"off"?>" ><?=$this->translate('Magnet');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>" ><?=$this->translate('BitTorrent');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['web']), array('page'=>1)) ?>" class="<?=(strpos($this->src['web'], 'w')===false)?" on":"off"?>" ><?=$this->translate('Web');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['ftp']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ftp'], 'f')===false)?" on":"off"?>" ><?=$this->translate('Ftp');?></a></li>
             </ul>
-            <ul class="size">
-                <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" ><?=$this->translate('All sizes');?></a></li>
-                <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 1MB</a></li>
-                <li><a class="<?=(preg_match("/^2$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 10MB</a></li>
-                <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 100MB</a></li>
-                <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Larger than');?> 100MB</a></li>
-            </ul>
-            <?php if (preg_match("/^Audio$/", $_GET['type'])): ?>
-            <ul class="quality">
-                <li><a class="<?=(preg_match("/^$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('brate'=>1, 'page'=>1)) ?>" ><?=$this->translate('All qualities');?></a></li>
-                <li><a class="<?=(preg_match("/^1$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'1', 'opt'=>1), array('page'=>1)) ?>" >128 kbps <?=$this->translate('or better');?></a></li>
-                <li><a class="<?=(preg_match("/^2$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'2', 'opt'=>1), array('page'=>1)) ?>" >192 kbps <?=$this->translate('or better');?></a></li>
-                <li><a class="<?=(preg_match("/^3$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'3', 'opt'=>1), array('page'=>1)) ?>" >256 kbps <?=$this->translate('or better');?></a></li>
-                <li><a class="<?=(preg_match("/^4$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'4', 'opt'=>1), array('page'=>1)) ?>" >320 kbps <?=$this->translate('or better');?></a></li>
-            </ul>
-            <?php endif; ?>
-            <?php if (preg_match("/^Audio|Video$/", $_GET['type'])): ?>
-            <ul class="year">
-                <li><a class="<?=(preg_match("/^$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('year'=>1, 'page'=>1)) ?>" ><?=$this->translate('All years');?></a></li>
-                <li><a class="<?=(preg_match("/^1$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Before');?> 1960</a></li>
-                <li><a class="<?=(preg_match("/^2$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'2', 'opt'=>1), array('page'=>1)) ?>" >60's</a></li>
-                <li><a class="<?=(preg_match("/^3$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'3', 'opt'=>1), array('page'=>1)) ?>" >70's</a></li>
-                <li><a class="<?=(preg_match("/^4$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'4', 'opt'=>1), array('page'=>1)) ?>" >80's</a></li>
-                <li><a class="<?=(preg_match("/^5$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'5', 'opt'=>1), array('page'=>1)) ?>" >90's</a></li>
-                <li><a class="<?=(preg_match("/^6$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'6', 'opt'=>1), array('page'=>1)) ?>" >00's</a></li>
-                <li><a class="<?=(preg_match("/^7$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'7', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Last year');?></a></li>
-            </ul>
-            <?php endif; ?>
-        </div>
     </div>
+    </div>
+    <div id="advsearch">
+    <div id="common">
+        <ul class="size">
+            <li><a class="<?=(preg_match("/^$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('size'=>1, 'page'=>1)) ?>" ><?=$this->translate('All sizes');?></a></li>
+            <li><a class="<?=(preg_match("/^1$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 1MB</a></li>
+            <li><a class="<?=(preg_match("/^2$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 10MB</a></li>
+            <li><a class="<?=(preg_match("/^3$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Smaller than');?> 100MB</a></li>
+            <li><a class="<?=(preg_match("/^4$/", $_GET['size']))?"actual":""?>" href="<?= $this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Larger than');?> 100MB</a></li>
+        </ul>
+    </div>
+        <?php if (preg_match("/^Audio$/", $_GET['type'])): ?>
+        <ul class="quality">
+            <li><a class="<?=(preg_match("/^$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('brate'=>1, 'page'=>1)) ?>" ><?=$this->translate('All qualities');?></a></li>
+            <li><a class="<?=(preg_match("/^1$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'1', 'opt'=>1), array('page'=>1)) ?>" >128 kbps <?=$this->translate('or better');?></a></li>
+            <li><a class="<?=(preg_match("/^2$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'2', 'opt'=>1), array('page'=>1)) ?>" >192 kbps <?=$this->translate('or better');?></a></li>
+            <li><a class="<?=(preg_match("/^3$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'3', 'opt'=>1), array('page'=>1)) ?>" >256 kbps <?=$this->translate('or better');?></a></li>
+            <li><a class="<?=(preg_match("/^4$/", $_GET['brate']))?"actual":""?>" href="<?= $this->qs(array('brate'=>'4', 'opt'=>1), array('page'=>1)) ?>" >320 kbps <?=$this->translate('or better');?></a></li>
+        </ul>
+        <?php endif; ?>
+        <?php if (preg_match("/^Audio|Video$/", $_GET['type'])): ?>
+        <ul class="year">
+            <li><a class="<?=(preg_match("/^$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('opt'=>1), array('year'=>1, 'page'=>1)) ?>" ><?=$this->translate('All years');?></a></li>
+            <li><a class="<?=(preg_match("/^1$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'1', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Before');?> 1960</a></li>
+            <li><a class="<?=(preg_match("/^2$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'2', 'opt'=>1), array('page'=>1)) ?>" >60's</a></li>
+            <li><a class="<?=(preg_match("/^3$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'3', 'opt'=>1), array('page'=>1)) ?>" >70's</a></li>
+            <li><a class="<?=(preg_match("/^4$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'4', 'opt'=>1), array('page'=>1)) ?>" >80's</a></li>
+            <li><a class="<?=(preg_match("/^5$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'5', 'opt'=>1), array('page'=>1)) ?>" >90's</a></li>
+            <li><a class="<?=(preg_match("/^6$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'6', 'opt'=>1), array('page'=>1)) ?>" >00's</a></li>
+            <li><a class="<?=(preg_match("/^7$/", $_GET['year']))?"actual":""?>" href="<?= $this->qs(array('year'=>'7', 'opt'=>1), array('page'=>1)) ?>" ><?=$this->translate('Last year');?></a></li>
+        </ul>
+        <?php endif; ?>
     </div>
     </div>
 
