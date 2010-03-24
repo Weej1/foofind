@@ -99,7 +99,7 @@ p {
 
 .page_text{
     display: block;
-    padding-left: 175px;
+    padding-left: 170px;
     padding-bottom: 50px;
 }
 
@@ -348,7 +348,7 @@ h3 {
     width:150px;
     float:left;
     padding-top:  10px;
-    padding-left: 25px;
+    padding-left: 10px;
 }
 
 #menu_page.ul{

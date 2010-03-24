@@ -1,26 +1,16 @@
-<?php
-$this->headTitle()->append('Report links');
-?>
-
-
+<?=$this->headTitle()->append($this->translate('Report links'));?>
 
 <div id="container_page">
     
+    <h2><?=$this->translate('Report links')?></h2>
 
-<h2>Report links</h2>
+        <form action="<?=$this->escape ( $this->form->getAction () )?>"
+                method="<?=$this->escape ( $this->form->getMethod () )?>">
 
+                        <?=$this->form?>
 
-
-<form action="<?=$this->escape ( $this->form->getAction () )?>"
-	method="<?=$this->escape ( $this->form->getMethod () )?>">
-
-
-		<?=$this->form?>
+        </form>
 
 
-</form>
-
-
-
-    </div>
+</div>
 

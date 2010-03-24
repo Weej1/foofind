@@ -1,12 +1,10 @@
-<?php
-$this->headTitle()->append('Contact');
-?>
+<?=$this->headTitle()->append($this->translate('Contact form'));?>
 
     <div id="container_page">
     
 
-<h2>Contact form</h2>
 
+<h2><?=$this->translate('Contact form')?></h2>
 
 
 <form action="<?=$this->escape ( $this->form->getAction () )?>"
