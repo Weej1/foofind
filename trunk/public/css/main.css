@@ -70,7 +70,7 @@ p {
 }
 
 
-#container_search form{
+#container_search form.searchbox{
     position: relative;
     display: block;
     width: auto;
@@ -136,9 +136,6 @@ p {
     font-weight: bold;
 }
 
-
-
-
 .container_form {
     position: relative;
     clear: both;
@@ -150,9 +147,7 @@ p {
     border: 1px solid #999;
     /*min-height: 300px;*/
     margin: auto;
-
 }
-
 
 .logo{
     clear: both;
@@ -162,19 +157,13 @@ p {
     width: 270px;
 }
 
-
 .content {
     text-align: center;
-
 }
-
-
 
 * html #container {
     height: 100%;
 }
-
-
 
 .file_excerpt {
     display: block;
@@ -313,21 +302,22 @@ h3 {
 }
 
 #options {
-   
-    width:13em;
-    color: #fff;
-    
+    float: right;
+    width:16em;
 }
 
-#options div {
-    
+
+#options #advsearch {
     display: block;
     padding:3px;
-   
 }
 
-#options div ul {
+#options #advsearch ul {
     margin: 15px;
+}
+
+#options #advsearch a {
+    color: #df1279 !important;
 }
 
 .actual a:link a:visited{
@@ -335,11 +325,15 @@ h3 {
 }
 
 #options a{
-    color: #fff !important;
+    text-decoration: none;
+    line-height: 22px;
 }
 
-
-
+#options a input {
+    margin-right: 5px;
+    margin-bottom: 3px;
+    vertical-align: middle;
+}
 
 #results {
     padding-left:10px;
@@ -369,7 +363,6 @@ h3 {
     margin-bottom: 1em;
     margin-top: 1em;
     border: 1px solid #ddd;
-
 }
 
 .pagination {
@@ -384,7 +377,6 @@ h3 {
 }
 
 .pagination span {
-    
     padding-top: 43px;
     text-align: center;
    /* background: transparent url(../images/foofind_paginator.gif) no-repeat scroll top left;*/
@@ -399,9 +391,7 @@ h3 {
     background-position: 15px 0;
     display: inline-block;
     width: 50px;
-    margin-right: 0;
-    
-    
+    margin-right: 0;  
 }
 
 #norm {
@@ -410,7 +400,6 @@ h3 {
     width: 18px;
     text-align: center;
 }
-
 
 #current{
    /* background-position: -69px 0;*/
@@ -428,18 +417,12 @@ h3 {
    
 }
 
-.debuginfo {
-    display:none !important;
-}
-
-
 /*start corner box stuff*/
 .cornerBox {
-        float: right;
-	position: relative;
-	background: #df1279;
 	width: auto;
         margin-left: 10px;
+	position: relative;
+	background: #df1279;
 }
 .corner {
 	position: absolute;
@@ -449,7 +432,21 @@ h3 {
 	font-size: 0%;
 }
 .cornerBoxInner {
-	padding: 10px;
+    padding: 20px;
+    color: #fff !important;
+}
+
+.cornerBoxInner a {
+    color: #fff !important;
+    padding-left: 18px;
+}
+
+.cornerBoxInner a.off {
+    background: url('../images/checkbox_off.gif') 0px 1px no-repeat;
+}
+
+.cornerBoxInner a.on {
+    background: url('../images/checkbox_on.gif') 0px 1px no-repeat;
 }
 
 .TL {
@@ -474,3 +471,7 @@ h3 {
 }
 
 /*EO corner box stuff*/
+
+/*.debuginfo {
+    display:none !important;
+}*/
