@@ -97,6 +97,11 @@ p {
 
 }
 
+.page_text{
+    display: block;
+    padding-left: 175px;
+    padding-bottom: 50px;
+}
 
 #container_page h2{
     margin-left: 170px;

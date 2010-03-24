@@ -11,7 +11,7 @@
 "Contact";"Contacto"
 "Legal";"Legal"
 "Terms";"Términos de uso"
-"Privacy";"Privacidad"
+"Privacy";"Política de privacidad"
 "Licenses";"Licencias"
 
 "Links";"Enlaces"
@@ -47,9 +47,77 @@
 "Smaller than";"Menor de"
 "Larger than";"Mayor de"
 
-
+#about
 "<a href="/en/page/about">FooFind</a> is an open source media search engine that lets you find music, videos, software and more.<br />
             Content of this website is under Creative Commons <a rel="license content" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">BY-NC-SA</a> license.
             Source code under <a rel="license source code" href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a> license.";"<a href="/en/page/about">FooFind</a> esopen source media search engine that lets you find music, videos, software and more.<br />
             Content of this website is under Creative Commons <a rel="license content" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">BY-NC-SA</a> license.
             Source code under <a rel="license source code" href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a> license."
+
+
+#privacy
+"this is the english privacy text";"Por la presente y de conformidad con la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) le informa de la existencia de un fichero automatizado de datos creado por la misma y bajo su responsabilidad.
+<br /><br />
+La finalidad de dicho fichero es exclusivamente la de gestionar las reclamaciones efectuadas por el usuario que desee notificar la existencia de resultados y enlaces que dirijan a contenidos ilícitos o difundidos sin la preceptiva autorización. LA EMPRESA podrá enviar correos electrónicos a la cuenta facilitada por el usuario con objeto de informarle sobre la tramitación de la reclamación por él efectuada.
+<br /><br />
+El envío de datos personales mediante cualquiera de nuestros formularios supone la aceptación expresa de su tratamiento automatizado.
+<br />
+El usuario podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición comunicando con el responsable del fichero en la siguiente dirección:
+<br /><br />
+privacy@foofind.com<br />
+M Punto 2 Punto Technologies, S.A.<br />
+
+Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
+<br /><br />
+El usuario consiente el uso de cookies que, en ningún caso, permitirán la identificación del mismo, a fin de facilitar su navegación en esta página web. No obstante lo anterior, el usuario podrá deshabilitar las cookies mediante la oportuna configuración de su navegador a tal efecto.
+<br />
+Los servidores capturan de forma automática algunos datos que no permiten la identificación del usuarios tales como: hora de visita de la web, el navegador y el sistema operativo que utiliza y el nombre de dominio del proveedor y/o dirección IP que les da acceso a la red.
+<br /><br />
+El uso de esta página web supone la aceptación por el usuario de su política de privacidad.
+<br />
+LA EMPRESA se reserva el derecho a modificar la presente política de privacidad en atención a futuras novedades legales o jurisprudenciales que lo hicieran aconsejable. Cualquier cambio en la política de privacidad será inmediatamente comunicado al usuario por medio de la dirección de correo electrónico que el mismo haya facilitado a LA EMPRESA desde cualquier de sus formularios de contacto."
+
+
+
+#tos
+"Terms of use";"Términos de uso"
+"this is the tos english text";"<b>1.- Objeto y modo de aceptación de los términos de uso</b><br />
+              El presente acuerdo regula el acceso y uso de la página web foofind.com que M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) pone a disposición de los usuarios interesados en el servicio.<br>
+              El uso de los servicios prestados en esta web supone la aceptación por parte del usuario de estos términos de uso.<br />
+              LA EMPRESA podrá cesar en cualquier momento y sin previo aviso en la prestación de sus servicios a través de foofind.com así como modificar el servicio prestado, ya sea en aspectos accidentales o sustanciales.<br />
+              LA EMPRESA no garantiza que el servicio prestado a través de Foofind sea ininterrumpido o sin errores.<br /><br />
+
+
+              <b>2.- Precio por el uso del servicio</b><br>
+              La utilización de este servicio por parte de sus usuarios es completamente gratuita.<br /><br />
+
+              <b>3.- Idioma de los “términos de uso”.</b><br>
+              Los presentes términos de uso se presentan en idioma español.<br /><br />
+              En el caso de que desde esta web se le proporcione una traducción de estos términos de uso en cualquier otro idioma distinto al español, usted reconoce que se realiza por razones de conveniencia y que su relación con LA EMPRESA se regirá por lo dispuesto en estos términos de uso en en su versión en español.<br /><br />
+              <b>4.- Responsabilidad por la posible ilicitud de los archivos aparecidos como resultado de la búsqueda.</b><br />
+              Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Desde esta página web no se reproduce, distribuye, comunica públicamente o transforma obra intelectual alguna. Los resultados generados por las búsquedas de sus usuarios muestran únicamente los enlaces a los archivos o páginas que respondan a los criterios de búsqueda introducidos y se encuentran alojados en lugares ajenos a esta página web.
+
+
+              El usuario es consciente de que LA EMPRESA no asume ninguna obligación de control, vigilancia e inspección de los archivos o páginas que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.
+
+              LA EMPRESA no se responsabiliza de la fiabilidad o seguridad de los archivos que aparezcan enlazados como resultados de las búsquedas ni de que estos estén libres de virus, debiendo el usuario encargarse personalmente de proteger su equipo con las medidas de seguridad necesarias.<br /><br />
+
+              <b>5.- Notificación de enlaces a archivos ilícitos o difundidos sin autorización.</b><br>
+              El USUARIO podrá reportar a LA EMPRESA la existencia de todos aquellos archivos enlazados desde Foofind y de cuya ilicitud tenga conocimiento o fundadas sospechas.
+              EL USUARIO que ponga en conocimiento de LA EMPRESA la existencia de páginas o archivos presumiblemente ilícitos o difundidos sin la correspondiente autorización utilizará el formulario de contacto ofrecido al efecto por LA EMPRESA y facilitará fielmente los datos requeridos en el mismo. Para ello, el usuario debe previamente leer y aceptar la política de privacidad de LA EMPRESA.
+              LA EMPRESA se reserva el derecho a retirar los enlaces a archivos o páginas cuya ilicitud le conste o de las que tenga fundadas sospechas.
+              LA EMPRESA se reserva también el derecho a utilizar cuantas medidas tecnológicas estén en su mano con objeto de eliminar de los resultados de las búsquedas aquellos que enlacen a contenidos que pudieran ser ilícitos o difundidos sin la preceptiva autorización. No obstante el usuario reconoce que la eficacia plena de estas medidas para lograr en todos los casos el fin para el que han sido diseñadas no puede garantizarse.<br><br>
+
+
+
+              <b>6.- Ley y jurisdicción aplicable</b><br />
+              Ambas partes acuerdan someter el presente acuerdo a las leyes españolas y a su jurisdicción y, en concreto, a la de los Juzgados de Madrid (España).<br /><br />
+              <b>7.- Cambios en los términos de uso</b><br />
+              LA EMPRESA podrá modificar estos términos de uso.<br />
+              Los usuarios deben supervisar estos términos de uso con frecuencia a fin de conocer los posibles cambios realizados desde la última vez que accedieron al sitio web.<br />
+              El uso del servicio con posterioridad a la modificación de los términos de uso supone el conocimiento y aceptación por parte del usuario de la nueva versión modificada de los mismos."
+
+"Legal";"Aviso legal"
+"this is the english legal text";"Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Foofind no aloja y, en consecuencia, no reproduce ni comunica públicamente los archivos enlazados que aparecen como resultados de las búsquedas. Foofind no asume ninguna obligación de control, vigilancia e inspección de las obras que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.<br /><br />
+ Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, puede solicitarnos su retirada desde el siguiente <a href='/es/page/contact'>formulario de contacto.</a><br /><br />
+              Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde Foofind.com."
