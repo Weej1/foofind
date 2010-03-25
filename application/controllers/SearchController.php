@@ -29,7 +29,7 @@ function show_matches($text, $words)
     $res = $text;
     foreach ($words as $w)
     {
-        if ($w!='') $res = preg_replace("/($w)/i", "<b>$1</b>", $res);
+        if ($w!='') $res = preg_replace("/\b($w)\b/i", "<b>$1</b>", $res);
     }
     return $res;
 }
@@ -242,26 +242,26 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             switch ($row['Type'])
                             {
                                 case 1: //GNUTELLA
-                                    $source = "Gnutella";
+                                    $source = "magnet";
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:sha1:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:sha1:".$row['Uri'];
                                     break;
                                 case 2: //ED2K
-                                    $source = "ED2K";
+                                    $source = "ed2k";
                                     $rlink = "ed2k://|file|".$docs[$id]['rfilename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     break;
                                 case 3:
-                                    $source = "BitTorrent";
+                                    $source = "torrent";
                                     $link = $row['Uri'];
                                     break;
                                 case 6: //MD5 HASH
-                                    $source = "Gnutella";
+                                    $source = "magnet";
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:md5:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:md5:".$row['Uri'];
                                     break;
                                 case 7: //BTH HASH
-                                    $source = "BitTorrent";
+                                    $source = "magnet";
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:bth:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:bth:".$row['Uri'];
                                     break;
@@ -314,11 +314,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
                             if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
                             $docs[$id]['isources'] = $doc['attrs']['isources'];
-                            try { 
-                                $func = 'format'.$docs[$id]['type'];
-                                if ($func) $docs[$id]['info'] = $func($md[$id]);}
-                            catch (Exception $ex) {}
+                            $docs[$id]['md'] = $md[$id];
                         }
+                        
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
                         $this->time = $total_time;
