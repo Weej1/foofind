@@ -369,57 +369,67 @@ h3 {
     border: 1px solid #ddd;
 }
 
+
+/*paginator  **************************************************************************************************************/
 .pagination {
     clear: both;
     margin-bottom: 40px;
-    
-    padding-top: 10px;
+    margin-top: 30px;
     text-align: center;
-    font-size: 13px;
+    font-size: 1.1em;
     display: block;
     width: auto;
+    border:0;
+    list-style:none;
+    margin-right:2px;
 }
 
 .pagination span {
-    padding-top: 43px;
+    border:solid 1px  #ccc;
+    margin-right:2px;
     text-align: center;
+    padding: 4px;
+    
   
 }
 
 .pagination a{
     text-decoration: none;
     color: #df1279;
+
 }
 
 #prev {
-    background-position: 15px 0;
+   
     display: inline-block;
-    width: 50px;
     margin-right: 0;  
 }
 
 #norm {
-   /* background-position: -44px 0;*/
     display: inline-block;
-    width: 18px;
     text-align: center;
 }
 
 #current{
-   /* background-position: -69px 0;*/
-    display: inline-block;
-    width: 20px;
-    text-align: center;
+   background-color:  #df1279;
+   display: inline-block;
+   color: #fff;
+   text-align: center;
 }
 
 
 #next {
-   /* background-position: -99px 0;*/
+   
     width: 85px;
     display: inline-block;
    
    
 }
+
+
+
+
+
 
 /*start corner box stuff*/
 .cornerBox {
