@@ -473,11 +473,6 @@ h3 {
 
 /*EO corner box stuff*/
 
-.debuginfo {
-    display:none !important;
-}
-
-
 
 
 /*start button stuff*/
@@ -516,7 +511,15 @@ input.awesome, button.awesome {
 .large.awesome {font-size: 14px;padding: 4px;}
 /* Colors ---------- */
 .blue.awesome {background-color: #2daebf;}
-.red.awesome {background-color: #e33100;}
-.magenta.awesome {background-color: #DF1279;}
-.orange.awesome {background-color: #ff5c00;}
-.yellow.awesome {background-color: #ffb515;}
+/*.magenta.awesome {background-color: #DF1279;}*/
+.magenta.awesome {background-color: #DF0174;}
+
+
+
+
+
+
+/*left debuginfo to the end of  this css file*/
+.debuginfo {
+    display:none !important;
+}
