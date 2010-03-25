@@ -24,7 +24,9 @@ class Form_Complaint extends Zend_Form {
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
 
                 // add the submit button
-                $this->addElement ( 'submit', 'submit', array ('label' => 'Send' ) );
+                $this->addElement ( 'submit', 'submit', array (
+                    'label' => 'Search',
+                    'class' => 'large magenta awesome') );
         }
 }
 

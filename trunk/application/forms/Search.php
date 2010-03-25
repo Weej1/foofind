@@ -23,16 +23,12 @@ class Form_Search extends Zend_Form {
                     $this->removeDecorator('DtDdWrapper');
                     $this->removeDecorator('dd');
 
-//                $options = array(''=>'All');
-//                foreach ($content['types'] as $type => $info)
-//                    $options[$type] = $type;
-//
-//                $typeCombo = $this->addElement("select", 'type', array('multiOptions'=>$options));
-//               
 
-                   // $this->groupname->removeDecorator('DtDdWrapper');
                 // add the submit button
-                $this->addElement ( 'submit', 'submit', array ('label' => 'Search' ) );
+                $this->addElement ( 'submit', 'submit', array (
+                    'label' => 'Search',
+                    'class' => 'large magenta awesome') );
         }
+
 }
 
