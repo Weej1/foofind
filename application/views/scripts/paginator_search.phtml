@@ -3,9 +3,9 @@
 
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-<a href="<?php echo $this->qs(array('page'=>$this->previous)); ?>"><span id="prev"><?=$this->translate('Previous');?></span></a>
+<a href="<?php echo $this->qs(array('page'=>$this->previous)); ?>">«&nbsp;<?=$this->translate('Previous');?></a>
 <?php else: ?>
- <span id="prev"><?=$this->translate('Previous'); ?></span>
+    «&nbsp;<?=$this->translate('Previous'); ?>
 <?php endif; ?>
 
 <!-- Numbered page links -->
@@ -13,9 +13,9 @@
 
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-<a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><span id="next"> <?=$this->translate('Next'); ?></span></a>
+<a href="<?php echo $this->qs(array('page'=>$this->next)) ?>"><?=$this->translate('Next'); ?>&nbsp;»</a>
 <?php else: ?>
-<span id ="next" class="disabled"><?=$this->translate('Next'); ?></span>
+    <?=$this->translate('Next'); ?>&nbsp;»
 <?php endif; ?>
 
 </div>
