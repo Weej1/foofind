@@ -243,11 +243,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             switch ($type)
                             {
                                 case 1: //GNUTELLA
+                                    $tip = "MagnetLink";
                                     $source = "magnet";
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:sha1:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:sha1:".$row['Uri'];
                                     break;
                                 case 2: //ED2K
+                                    $tip = "ED2K";
                                     $source = "ed2k";
                                     if (in_array(1, $srcs))
                                     {
@@ -259,25 +261,30 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     }
                                     break;
                                 case 3:
+                                    $tip = "BitTorrent";
                                     $source = "torrent";
                                     $rlink = $link = $row['Uri'];
                                     break;
                                 case 6: //MD5 HASH
+                                    $tip = "MagnetLink";
                                     $source = "magnet";
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:md5:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:md5:".$row['Uri'];
                                     break;
                                 case 7: //BTH HASH
+                                    $tip = "MagnetLink";
                                     $source = "magnet";
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:bth:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:bth:".$row['Uri'];
                                     break;
                                 case 4: // JAMENDO
                                 case 8: // WEB
+                                    $tip = "Web";
                                     $source = "web";
                                     $rlink = $link = $row['Uri'];
                                     break;
                                 case 9: // FTP
+                                    $tip = "FTP";
                                     $source = "ftp";
                                     $rlink = $link = $row['Uri'];
                                     break;
@@ -293,7 +300,10 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 $docs[$id]['link'] = $link;
                                 $docs[$id]['link_type'] = $type;
                             }
-                            if ($source) $docs[$id]['sources'][$source] += $row['Sources'];
+                            if ($source) {
+                                $docs[$id]['sources'][$source]['count'] += $row['Sources'];
+                                $docs[$id]['sources'][$source]['tip'] = $tip;
+                            }
                         }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
