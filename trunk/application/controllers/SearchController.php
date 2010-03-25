@@ -58,6 +58,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
         $this->tcount = 0;
+
+        
     }
     
     public function getItems($offset, $itemCountPerPage)
@@ -320,11 +322,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
                         $this->time = $total_time;
-                        
+                        unset($this->cl); //this unset frees memory use
+                        unset ($doc);
                         return $docs;
                 }
         }
-        return array();
+       
+       return array();
     }
 
     public function count()
@@ -355,7 +359,9 @@ class SearchController extends Zend_Controller_Action {
         $year = $this->_getParam('year');
         $brate = $this->_getParam('brate');
 
+        
         $form = $this->_getSearchForm();
+       
 
         // Create a filter chain and add filters
         $f = new Zend_Filter();

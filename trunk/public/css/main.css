@@ -495,11 +495,7 @@ h3 {
         border: 0px;
 }
 
-input.awesome, button.awesome {
 
-
-
-}
 .awesome:hover{ background-color: #111; color: #fff; }
 .awesome:active{ top: 1px; }
 
@@ -512,8 +508,7 @@ input.awesome, button.awesome {
 /* Colors ---------- */
 .blue.awesome {background-color: #2daebf;}
 /*.magenta.awesome {background-color: #DF1279;}*/
-.magenta.awesome {background-color: #DF0174;}
-
+.magenta.awesome {background-color: #DB006E;}
 
 
 
