@@ -250,6 +250,11 @@ html dd, dl{
     display: inline;
 }
 
+dd#message-element{
+    display: block;
+    margin-bottom: 30px;
+}
+
 .errors{
     color: #cd0069;
     padding-left: 0px;
@@ -370,7 +375,7 @@ h3 {
 }
 
 
-/*paginator  **************************************************************************************************************/
+/*paginator  ***********/
 .pagination {
     clear: both;
     margin-bottom: 40px;
