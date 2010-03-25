@@ -15,7 +15,7 @@ body {
 .logo_home {
     font-size: 2.3em;
     height: 130px;
-    width: 270px;
+    width: 280px;
     background: transparent url(../images/foofind.gif) no-repeat scroll 0 0;
 
 }
@@ -25,7 +25,7 @@ body {
     text-align: right;
     color: #999;
     padding-top: 80px;
-    padding-right: 0px;
+    
 }
 
 p {
@@ -238,11 +238,7 @@ html input[type="text"] {
 
 }
 
-html input[type="submit"] {
-    /* border: 1px solid gray;*/
-    color: black;
-    padding: 2px;
-}
+
 
 html dd, dl{
     margin-bottom: 10px;
@@ -480,3 +476,47 @@ h3 {
 .debuginfo {
     display:none !important;
 }
+
+
+
+
+/*start button stuff*/
+
+.awesome, .awesome:visited {
+	background: transparent url(/images/alert-overlay.png) repeat-x;
+	display: inline-block;
+	padding: 5px 10px 6px;
+	color: #fff;
+	text-decoration: none;
+        font-weight: bold;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+        border: 0px;
+}
+
+input.awesome, button.awesome {
+
+
+
+}
+.awesome:hover{ background-color: #111; color: #fff; }
+.awesome:active{ top: 1px; }
+
+
+
+/* Sizes ---------- */
+.small.awesome {font-size: 11px;}
+.medium.awesome {font-size: 13px;}
+.large.awesome {font-size: 14px;padding: 4px;}
+/* Colors ---------- */
+.blue.awesome {background-color: #2daebf;}
+.red.awesome {background-color: #e33100;}
+.magenta.awesome {background-color: #DF1279;}
+.orange.awesome {background-color: #ff5c00;}
+.yellow.awesome {background-color: #ffb515;}
