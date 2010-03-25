@@ -1,10 +1,10 @@
 <?php
 
 /**
- * This is the main Complaint form.
+ * This is the main Contact form.
  */
 
-class Form_Complaint extends Zend_Form {
+class Form_Contact extends Zend_Form {
 
         public function init() {
                 // set the method for the display form to POST

@@ -81,7 +81,7 @@ class PageController extends Zend_Controller_Action
                                 $body = $user_info.'<br/>'.$message;
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
-                                $mail->addTo ( 'daniel@mp2p.net', 'Daniel Remeseiro' );
+                                $mail->addTo ( 'hola@foofind.com', 'foofind hola' );
                                 $mail->setSubject ( 'foofind.com - complaint  from ' . $email );
 
                                 try {
@@ -100,6 +100,7 @@ class PageController extends Zend_Controller_Action
                 $this->view->form = $form;
 
         }
+
 
         /**
          *
@@ -138,8 +139,8 @@ class PageController extends Zend_Controller_Action
                                 $body = $user_info.'<br/>'.$message;
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
-                                $mail->addTo ( 'daniel@mp2p.net', 'Daniel Remeseiro' );
-                                $mail->setSubject ( 'foofind.com - complaint  from ' . $email );
+                                $mail->addTo ( 'hola@foofind.com', 'hola foofind' );
+                                $mail->setSubject ( 'foofind.com - message contact  from ' . $email );
                                  try {
                                       $mail->send();
                                     } catch (Exception $e) {
@@ -163,7 +164,7 @@ class PageController extends Zend_Controller_Action
          * @return Form_Contact
          */
         protected function _getContactForm() {
-                require_once APPLICATION_PATH . '/forms/Complaint.php';
+                require_once APPLICATION_PATH . '/forms/Contact.php';
                 $form = new Form_Complaint ( );
 
                 return $form;
