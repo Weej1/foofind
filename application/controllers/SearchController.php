@@ -285,7 +285,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     continue;
                                     break;
                             }
-                            $newpos = array_search($type,$srcs);
+                            $newpos = array_search($type, $srcs);
                             if ($newpos!==false && (!$sourcepos[$id] || $newpos<$sourcepos[$id]))
                             {
                                 $sourcepos[$id] = $newpos;
@@ -414,13 +414,13 @@ class SearchController extends Zend_Controller_Action {
 
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
         $helper = new QueryString_View_Helper();
-        $helper->setParams(array('q'=>trim($q), 'type'=>$type, 'page'=>$page, 'src'=>$src, 'opt'=>$opt, 'size' => $size, 'year' => $year, 'brate' => $brate));
+        $helper->setParams(array('q'=>trim($q), 'type'=>$type, 'page'=>$page, 'src'=>$src2, 'opt'=>$opt, 'size' => $size, 'year' => $year, 'brate' => $brate));
         
         $this->view->registerHelper($helper, 'qs');
         $this->view->src = $srcs;
 
 
-        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
+        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src2, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
 
         if ($SphinxPaginator !== null) {
                 //paginator
