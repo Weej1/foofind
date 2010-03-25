@@ -1,70 +1,5 @@
 <?php
 
-function formatLength($text)
-{
-    $secs = (int)$text;
-    $mins = 0;
-    if ($secs>59) {
-        $mins = $secs/60;
-        $secs = $secs%60;
-        if ($mins>59) {
-            $hours = $mins/60;
-            $mins = $mins%60;
-        }
-    }
-    if ($hours)
-        return sprintf("%d:%02d:%02d", $hours, $mins, $secs);
-    else
-        return sprintf("%d:%02d", $mins, $secs);
-}
-
-function format($md)
-{
-    return "";
-}
-
-function formatAudio($md)
-{
-    $res = '';
-    if ($artist = $md["audio:artist"]) $res .= "Artist:&nbsp;$artist. ";
-    if ($title = $md["audio:title"]) $res .= "Title:&nbsp;$title. ";
-    if ($album = $md["audio:album"]) {
-        $res .= "Album:&nbsp;$album";
-        if (($year = $md["audio:year"]) && is_numeric($year) && $year>1901 && $year<2100)
-            $res .= "&nbsp;($year). ";
-        else
-            $res .= ". ";
-    }
-    if ($genre = $md["audio:genre"]) $res .= "Genre:&nbsp;$genre. ";
-    if ($len = $md["audio:seconds"]) $res .= "Length:&nbsp;".formatLength($len).". ";
-    if ($bitrate = $md["audio:bitrate"]) $res .= "Bitrate:&nbsp;$bitrate&nbsp;kbit/s. ";
-    return $res;
-}
-
-function formatDocument($md)
-{
-    return "";
-}
-
-function formatImage($md)
-{
-    return "";
-}
-
-function formatVideo($md)
-{
-    return "";
-}
-
-function formatSoftware($md)
-{
-    return "";
-}
-
-function formatArchive($md)
-{
-    return "";
-}
 
 global $content;
 $content = array(
@@ -76,7 +11,7 @@ $content = array(
                           'metadata' => array("audio:artist", "audio:title", "audio:album", "audio:year", "audio:genre", "audio:seconds", "audio:bitrate")
             ),
         'Video' => array('ext' => array("3gp", "3g2", "gif", "asf", "avi", "dat", "flw", "swf", "mkv", "wrap", "mng", "mov", "mpeg", "mpg", "mpe", "nsv", "ogm", "ogv", "svi", "rm", "wmv", "divx", "xvid"),
-                          'metadata' => array()
+                          'metadata' => array("video:width", "video:height", "video:minutes", "video:length")
             ),
         'Image' => array('ext' => array("act", "art", "bmp", "blp", "cit", "cpt", "cut", "dib", "djvu", "egt", "exif", "gif", "icns", "ico", "iff", "ilbm", "ibm", "jng", "jpeg", "jpg", "jp2", "j2k", "ppm", "pgm", "pbm", "pnm", "pcf", "pcx", "pdn", "pgm", "pct", "png", "pnm", "ppm", "psb", "psd", "pdd", "psp", "px", "pxr", "qfx", "raw", "raf", "crw", "cr2", "tif", "kdc", "dcr", "mrw", "nef", "orf", "dng", "ptx", "pef", "arw", "srf", "sr2", "x3f", "erf", "mef", "mos", "raw", "tif", "r3d", "fff", "sct", "sgi", "rgb", "int", "bw", "tga", "targa", "icb", "vda", "vst", "pix", "tif", "tiff", "xbm", "xcf", "xpm", "awg", "ai", "eps", "cgm", "cdr", "cmx", "dxf", "egt", "svg", "wmf", "emf", "art", "xar"),
                           'metadata' => array()

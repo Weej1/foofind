@@ -1,3 +1,77 @@
+<?php
+
+function formatLength($text)
+{
+    $secs = (int)$text;
+    $mins = 0;
+    if ($secs>59) {
+        $mins = $secs/60;
+        $secs = $secs%60;
+        if ($mins>59) {
+            $hours = $mins/60;
+            $mins = $mins%60;
+        }
+    }
+    if ($hours)
+        return sprintf("%d:%02d:%02d", $hours, $mins, $secs);
+    else
+        return sprintf("%d:%02d", $mins, $secs);
+}
+
+function format($context, $md)
+{
+    return "";
+}
+
+function formatAudio($context, $md)
+{
+    $res = '';
+    if ($artist = $md["audio:artist"]) $res .= $context->translate("Artist:")."&nbsp;$artist. ";
+    if ($title = $md["audio:title"]) $res .= $context->translate("Title:")."&nbsp;$title. ";
+    if ($album = $md["audio:album"]) {
+        $res .= $context->translate("Album:")."&nbsp;$album";
+        if (($year = $md["audio:year"]) && is_numeric($year) && $year>1901 && $year<2100)
+            $res .= "&nbsp;($year). ";
+        else
+            $res .= ". ";
+    }
+    if ($genre = $md["audio:genre"]) $res .= $context->translate("Genre:")."&nbsp;$genre. ";
+    if ($len = $md["audio:seconds"]) $res .= $context->translate("Length:")."&nbsp;".formatLength($len).". ";
+    if ($bitrate = $md["audio:bitrate"]) $res .= $context->translate("Bitrate:")."&nbsp;$bitrate&nbsp;kbit/s. ";
+    return $res;
+}
+
+function formatDocument($context, $md)
+{
+    return "";
+}
+
+function formatImage($context, $md)
+{
+    return "";
+}
+
+function formatVideo($context, $md)
+{
+    $res = '';
+    if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
+        $res .= $context->translate("Length:")."&nbsp;".formatLength($len).". ";
+    if (($width = $md["video:width"]) && ($height = $md["video:height"]))
+        $res .= $context->translate("Size:")."&nbsp;${width}x$height. ";
+    return $res;
+}
+
+function formatSoftware($context, $md)
+{
+    return "";
+}
+
+function formatArchive($context, $md)
+{
+    return "";
+}
+?>
+
 <div id="container_search">
     <h1>
         <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
@@ -30,11 +104,11 @@
     <div class="cornerBoxInner">
         <p><?=$this->translate('Include results from:')?></p>
             <ul class="sourcetype">
-                <li><a class="<?=(strpos($this->src['ed2k'], 'e')===false)?"on":"off" ?>" href="<?= $this->qs(array('src'=>$this->src['ed2k']), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['magnet']), array('page'=>1)) ?>" class="<?=(strpos($this->src['magnet'], 'm')===false)?"on":"off"?>" ><?=$this->translate('Magnet');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>" ><?=$this->translate('BitTorrent');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['web']), array('page'=>1)) ?>" class="<?=(strpos($this->src['web'], 'w')===false)?" on":"off"?>" ><?=$this->translate('Web');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['ftp']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ftp'], 'f')===false)?" on":"off"?>" ><?=$this->translate('Ftp');?></a></li>
+                <li><a class="<?=(strpos($this->src['ed2k'], 'e')===false)?"on":"off" ?>" href="<?= $this->qs(array('src'=>$this->src['ed2k']), array('page'=>1)) ?>" ><img src='/images/icons/ed2ki.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ed2k');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['magnet']), array('page'=>1)) ?>" class="<?=(strpos($this->src['magnet'], 'm')===false)?"on":"off"?>" ><img src='/images/icons/magneti.gif' style='vertical-align:middle;border:none'><?=$this->translate('Magnet');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>" ><img src='/images/icons/torrenti.gif' style='vertical-align:middle;border:none'><?=$this->translate('BitTorrent');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['web']), array('page'=>1)) ?>" class="<?=(strpos($this->src['web'], 'w')===false)?" on":"off"?>" ><img src='/images/icons/webi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Web');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['ftp']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ftp'], 'f')===false)?" on":"off"?>" ><img src='/images/icons/ftpi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ftp');?></a></li>
             </ul>
     </div>
     </div>
@@ -78,10 +152,16 @@
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
             <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a><span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span></h3>
-            <span><?=$val['info']?></span>
+            <span>
+              <?php
+                if ($val['type']!=null) {
+                    $func = 'format'.$val['type'];
+                    echo $func($this, $val['md']);
+                }
+              ?></span>
             <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
                 <?php foreach ($val["sources"] as $k => $v): ?>
-                    <?= "$k($v) " ?>
+                    <?= "<img src='/images/icons/${k}d.gif' style='vertical-align:middle'>$v " ?>
                 <?php endforeach; ?></span>
             <?php endif; ?>
             <cite><?=$val['link']?></cite>
