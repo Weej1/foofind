@@ -1,5 +1,6 @@
 <?php
 
+
 function formatLength($text)
 {
     $secs = (int)$text;
@@ -18,12 +19,12 @@ function formatLength($text)
         return sprintf("%d:%02d", $mins, $secs);
 }
 
-function format($context, $md)
+function format($context, $md, $show_title)
 {
     return "";
 }
 
-function formatAudio($context, $md)
+function formatAudio($context, $md, $show_title)
 {
     $res = '';
     if ($artist = $md["audio:artist"]) $res .= $context->translate("Artist:")."&nbsp;$artist. ";
@@ -41,19 +42,28 @@ function formatAudio($context, $md)
     return $res;
 }
 
-function formatDocument($context, $md)
-{
-    return "";
-}
-
-function formatImage($context, $md)
-{
-    return "";
-}
-
-function formatVideo($context, $md)
+function formatDocument($context, $md, $show_title)
 {
     $res = '';
+    if ($show_title && $title = $md["document:title"]) $res .= "$title<br/>";
+    if ($pages = $md["document:pages"]) $res .= $context->translate("Nº of pages:")."&nbsp;$pages. ";
+    return $res;
+}
+
+function formatImage($context, $md, $show_title)
+{
+    $res = '';
+    if ($show_title && $title = $md["image:title"]) $res .= "$title<br/>";
+    if (($width = $md["image:width"]) && ($height = $md["image:height"]))
+        $res .= $context->translate("Size:")."&nbsp;${width}x$height. ";
+    if ($colors = $md["image:colors"]) $res .= $context->translate("Colors:")."&nbsp;$colors. ";
+    return $res;
+}
+
+function formatVideo($context, $md, $show_title)
+{
+    $res = '';
+    if ($show_title && $title = $md["video:title"]) $res .= "$title<br/>";
     if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
         $res .= $context->translate("Length:")."&nbsp;".formatLength($len).". ";
     if (($width = $md["video:width"]) && ($height = $md["video:height"]))
@@ -61,14 +71,19 @@ function formatVideo($context, $md)
     return $res;
 }
 
-function formatSoftware($context, $md)
+function formatSoftware($context, $md, $show_title)
 {
-    return "";
+    $res = '';
+    if ($show_title && $title = $md["application:title"]) $res .= "$title<br/>";
+    return $res;
 }
 
-function formatArchive($context, $md)
+function formatArchive($context, $md, $show_title)
 {
-    return "";
+    $res = '';
+    if ($files = $md["archive:files"])
+        $res .= $context->translate("Files:")."&nbsp;$files. ";
+    return $res;
 }
 ?>
 
@@ -156,7 +171,7 @@ function formatArchive($context, $md)
               <?php
                 if ($val['type']!=null) {
                     $func = 'format'.$val['type'];
-                    echo $func($this, $val['md']);
+                    echo $func($this, $val['md'], !$val['in_filename']);
                 }
               ?></span>
             <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:

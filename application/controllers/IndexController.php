@@ -45,46 +45,40 @@ class IndexController extends Zend_Controller_Action
         // assign the form to the view
         $this->view->form = $form;
         $this->view->lang = $lang;
-
     }
 
-
-    public function counterAction()
+    public function queryAction()
     {
+        $type =  $this->getRequest()->getParam('type') ;
         $this->_helper->layout->disableLayout();
-        $totalFilesIndexed = $this->fetchIndexFilesCount();
-        $this->view->totalFilesIndexed = $totalFilesIndexed[0]['files'];
+        switch ($type)
+        {
+            case 'count':
+                $table = "ff_file";
+                $query = "SELECT COUNT(IdFile) as res FROM ff_file";
+                break;
+            case 'ts':
+                $table = "ff_touched";
+                $query = "SELECT MAX(timestamp) as res FROM ff_touched";
+                break;
+        }
+        
+        if ($table)
+        {
+            $t = new Zend_Db_Table($table);
+            $row = $t->getAdapter()->query($query)->fetchAll();
+            $this->view->value = $row[0]['res'];
+        }
     }
-
-
 
     /**
-         *
-         * @return Form_Search
-         */
-        protected function _getSearchForm() {
-                require_once APPLICATION_PATH . '/forms/Search.php';
-                $form = new Form_Search( );
-                
-                return $form;
-        }
+     *
+     * @return Form_Search
+     */
+    protected function _getSearchForm() {
+        require_once APPLICATION_PATH . '/forms/Search.php';
+        $form = new Form_Search( );
 
-
-
-
-
-
-
-        public function fetchIndexFilesCount() {
-
-                $files = new Zend_Db_Table('ff_files');
-                $query = "SELECT COUNT(IdFile) as files FROM ff_file ";
-                $result = $files->getAdapter()->query($query)->fetchAll();
-
-                return $result;
-
-            }
-
-
-
+        return $form;
+    }
 }
