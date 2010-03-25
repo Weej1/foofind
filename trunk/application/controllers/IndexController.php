@@ -19,10 +19,7 @@ class IndexController extends Zend_Controller_Action
 
        // var_dump($lang);
               
-
-       $totalFilesIndexed = $this->fetchIndexFilesCount();
-       $this->view->totalFilesIndexed = number_format($totalFilesIndexed[0]['files'], 0);
-
+       $this->view->totalFilesIndexed = $this->fetchQuery("ff_file", "SELECT COUNT(IdFile) as res FROM ff_file");
 
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form
@@ -63,14 +60,15 @@ class IndexController extends Zend_Controller_Action
                 break;
         }
         
-        if ($table)
-        {
-            $t = new Zend_Db_Table($table);
-            $row = $t->getAdapter()->query($query)->fetchAll();
-            $this->view->value = $row[0]['res'];
-        }
+        if ($table) $this->view->value = $this->fetchQuery($table, $query);
     }
 
+    function fetchQuery($table, $query)
+    {
+         $t = new Zend_Db_Table($table);
+         $row = $t->getAdapter()->query($query)->fetchAll();
+         return $row[0]['res'];
+    }
     /**
      *
      * @return Form_Search
