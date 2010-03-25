@@ -54,7 +54,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY );
         $this->cl->SetFieldWeights(array('metadata' => 10, 'filename' => 1));
-        $this->cl->SetSelect("*, sum((@weight*isources)/fnCount) as fileWeight");
+        $this->cl->SetSelect("*, sum((@weight*isources)/ln(fnCount+1)) as fileWeight");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fnWeight DESC, isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
@@ -86,7 +86,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             $srcs = array();
             foreach (str_split($src) as $s)
             {
-                $srcs = array_merge($srcs, $content['sources'][$s]['types']);
+                $srcs = array_merge($content['sources'][$s]['types'], $srcs);
             }
             
             if (count($srcs)>0)
@@ -235,13 +235,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         // get sources for files
                         $start_time = microtime(true);
                         $sources = new Zend_Db_Table('ff_sources');
+                        $sourcepos = array();
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
                         {
-                            // TODO: choose better source for each file
-                            // TODO: create e-link
-                            if ($srcs && !in_array($row['Type'],$srcs)) continue;
                             $id = $row['IdFile'];
-                            switch ($row['Type'])
+                            $type = $row['Type'];
+                            switch ($type)
                             {
                                 case 1: //GNUTELLA
                                     $source = "magnet";
@@ -250,12 +249,18 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     break;
                                 case 2: //ED2K
                                     $source = "ed2k";
-                                    $rlink = "ed2k://|file|".$docs[$id]['rfilename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
-                                    $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
+                                    if (in_array(1, $srcs))
+                                    {
+                                        $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:ed2k:".$row['Uri'];
+                                        $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:ed2k:".$row['Uri'];
+                                    } else {
+                                        $rlink = "ed2k://|file|".$docs[$id]['rfilename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
+                                        $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
+                                    }
                                     break;
                                 case 3:
                                     $source = "torrent";
-                                    $link = $row['Uri'];
+                                    $rlink = $link = $row['Uri'];
                                     break;
                                 case 6: //MD5 HASH
                                     $source = "magnet";
@@ -267,19 +272,28 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:bth:".$row['Uri'];
                                     $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:bth:".$row['Uri'];
                                     break;
-                                case 5:
+                                case 4: // JAMENDO
+                                case 8: // WEB
+                                    $source = "web";
+                                    $rlink = $link = $row['Uri'];
+                                    break;
+                                case 9: // FTP
+                                    $source = "ftp";
+                                    $rlink = $link = $row['Uri'];
                                     break;
                                 default:
-                                    $source = $row['Type'];
-                                    $link = show_matches($row['Uri'], $words);
-                                    $rlink = $row['Uri'];
+                                    continue;
                                     break;
-
                             }
-                            $docs[$id]['rlink'] = $rlink;
-                            $docs[$id]['link'] = $link;
+                            $newpos = array_search($type,$srcs);
+                            if ($newpos!==false && (!$sourcepos[$id] || $newpos<$sourcepos[$id]))
+                            {
+                                $sourcepos[$id] = $newpos;
+                                $docs[$id]['rlink'] = $rlink;
+                                $docs[$id]['link'] = $link;
+                                $docs[$id]['link_type'] = $type;
+                            }
                             if ($source) $docs[$id]['sources'][$source] += $row['Sources'];
-                            $docs[$id]['link_type'] = $row['Type'];
                         }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
@@ -391,7 +405,7 @@ class SearchController extends Zend_Controller_Action {
         $this->view->form = $form;
 
         $srcs = array();
-        $src2 = ($src=='')?'emtwf':$src;
+        $src2 = ($src=='')?'wftme':$src;
         $srcs['ed2k'] = (strpos($src2, 'e')===false)?$src.'e':str_replace('e', '', $src2);
         $srcs['magnet'] = (strpos($src2, 'm')===false)?$src.'m':str_replace('m', '', $src2);
         $srcs['torrent'] = (strpos($src2, 't')===false)?$src.'t':str_replace('t', '', $src2);

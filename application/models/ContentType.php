@@ -28,11 +28,11 @@ $content = array(
         ),
 
     'sources' => array(
-        'm' => array('types' => array(1,5,6)),
-        'e' => array('types' => array(2)),
-        't' => array('types' => array(3,7)),
         'w' => array('types' => array(4,8)),
-        'f' => array('types' => array(9))
+        'f' => array('types' => array(9)),
+        't' => array('types' => array(3)),
+        'm' => array('types' => array(1,5,6,7,2)),
+        'e' => array('types' => array(2))
     )
 );
 
