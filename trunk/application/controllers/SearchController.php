@@ -24,13 +24,14 @@ function formatSize($bytes)
     return $size;
 }
 
-function show_matches($text, $words)
+function show_matches($text, $words, &$found = null)
 {
     $res = $text;
     foreach ($words as $w)
     {
-        if ($w!='') $res = preg_replace("/\b($w)\b/i", "<b>$1</b>", $res);
+        if ($w!='') $res = preg_replace("/\b($w)\b/i", "<b>$1</b>", $res, -1,$found);
     }
+    $found = $found>0;
     return $res;
 }
 
@@ -225,7 +226,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
 
                             $docs[$id]['rfilename'] = $row['Filename'];
-                            $docs[$id]['filename'] = show_matches($row['Filename'], $words);
+                            $docs[$id]['filename'] = show_matches($row['Filename'], $words, $found);
+                            $docs[$id]['in_filename'] = $found;
                         }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
