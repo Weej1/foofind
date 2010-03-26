@@ -70,7 +70,15 @@ class PageController extends Zend_Controller_Action
 
                                 // collect the data from the user
                                 $f = new Zend_Filter_StripTags ( );
+
+                                $name = $f->filter ( $this->_request->getPost ( 'name' ) );
+                                $surname = $f->filter ( $this->_request->getPost ( 'surname' ) );
+                                $company = $f->filter ( $this->_request->getPost ( 'company' ) );
                                 $email = $f->filter ( $this->_request->getPost ( 'email' ) );
+                                $phonenumber = $f->filter ( $this->_request->getPost ( 'phonenumber' ) );
+                                $linkreported = $f->filter ( $this->_request->getPost ( 'linkreported' ) );
+                                $urlreported = $f->filter ( $this->_request->getPost ( 'urlreported' ) );
+                                $reason = $f->filter ( $this->_request->getPost ( 'reason' ) );
                                 $message = $f->filter ( $this->_request->getPost ( 'message' ) );
 
                                 
@@ -78,11 +86,20 @@ class PageController extends Zend_Controller_Action
                                 $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];
 
                                 $mail = new Zend_Mail ('utf-8');
-                                $body = $user_info.'<br/>'.$message;
+
+                                
+                                $body = $user_info
+                                .'<br/><br/><br/>Name: '.$name.' '.$surname
+                                .'<br/><br/>Company: '.$company
+                                .'<br/><br/>Phone number: '.$phonenumber
+                                .'<br/><br/>Link reported: '.$linkreported
+                                .'<br/><br/>Url reported: '.$urlreported
+                                .'<br/><br/>Reason: '.$reason
+                                .'<br/><br/>'.$message;
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
                                 $mail->addTo ( 'hola@foofind.com', 'foofind hola' );
-                                $mail->setSubject ( 'foofind.com - complaint  from ' . $email );
+                                $mail->setSubject ( 'foofind.com - complaint petition  from ' . $email );
 
                                 try {
                                       $mail->send();
