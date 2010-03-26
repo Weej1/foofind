@@ -225,7 +225,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 catch (Exception $ex) {};
                             }
 
-                            $docs[$id]['rfilename'] = $row['Filename'];
+                            $docs[$id]['rfilename'] = htmlentities($row['Filename'], ENT_QUOTES);
                             $docs[$id]['filename'] = show_matches($row['Filename'], $words, $found);
                             $docs[$id]['in_filename'] = $found;
                         }
