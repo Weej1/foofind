@@ -251,14 +251,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 2: //ED2K
                                     $tip = "ED2K";
                                     $source = "ed2k";
-                                    if (in_array(1, $srcs))
-                                    {
-                                        $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:ed2k:".$row['Uri'];
-                                        $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:ed2k:".$row['Uri'];
-                                    } else {
-                                        $rlink = "ed2k://|file|".$docs[$id]['rfilename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
-                                        $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
-                                    }
+                                    $rlink = "ed2k://|file|".$docs[$id]['rfilename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
+                                    $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     break;
                                 case 3:
                                     $tip = "BitTorrent";
@@ -301,6 +295,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 $docs[$id]['link_type'] = $type;
                             }
                             if ($source) {
+                                $docs[$id]['sources'][$source]['rlink'] += $rlink;
                                 $docs[$id]['sources'][$source]['count'] += $row['Sources'];
                                 $docs[$id]['sources'][$source]['tip'] = $tip;
                             }
@@ -344,7 +339,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         }
                         
                         $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - ".(microtime(true) - $start_time);
+                        $this->time_desc .= " - ".format_number(microtime(true) - $start_time);
                         $this->time = $total_time;
                         unset($this->cl); //this unset frees memory use
                         unset ($doc);
