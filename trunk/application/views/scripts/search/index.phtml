@@ -105,7 +105,7 @@ function formatArchive($context, $md, $show_title)
         <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
  
-    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)<span class="debuginfo"><?=$this->info['time_desc']?></span></div>
+    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 3) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)<span class="debuginfo"><?=$this->info['time_desc']?></span></div>
     <hr />
 
 

@@ -339,7 +339,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         }
                         
                         $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - ".format_number(microtime(true) - $start_time);
+                        $this->time_desc .= " - ".(microtime(true) - $start_time);
                         $this->time = $total_time;
                         unset($this->cl); //this unset frees memory use
                         unset ($doc);
