@@ -84,8 +84,8 @@
 Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en Madrid, España por MP2P Technologies."
 
 #footer
-"this is the footer text";"Sitio web <a href="/en/page/about">foofind</a> bajo licencia Creative Commons <a rel="license content" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">BY-NC-SA</a>.
- <a href="http://code.google.com/p/foofind/">Código fuente</a> bajo licencia <a rel="license source code" href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a>."
+"this is the footer text";"Sitio web <a href='/en/page/about'>foofind</a> bajo licencia Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/'>BY-NC-SA</a>.
+ <a href='http://code.google.com/p/foofind/'>Código fuente</a> bajo licencia <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
 
 
 #privacy
