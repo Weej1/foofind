@@ -176,7 +176,7 @@ function formatArchive($context, $md, $show_title)
               ?></span>
             <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
                 <?php foreach ($val["sources"] as $k => $v): ?>
-                    <?= "<img title='${v['tip']}' alt='${v['tip']}' src='/images/icons/${k}d.gif' style='vertical-align:middle'>${v['count']} " ?>
+                    <?= "<a title='${v['tip']}' href='${v['rlink']}'><img alt='${v['tip']}' src='/images/icons/${k}d.gif' style='vertical-align:middle'>${v['count']}</a> " ?>
                 <?php endforeach; ?></span>
             <?php endif; ?>
             <cite><?=$val['link']?></cite>

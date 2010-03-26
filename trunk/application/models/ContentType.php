@@ -31,7 +31,7 @@ $content = array(
         'w' => array('types' => array(4,8)),
         'f' => array('types' => array(9)),
         't' => array('types' => array(3)),
-        'm' => array('types' => array(1,5,6,7,2)),
+        'm' => array('types' => array(1,5,6,7)),
         'e' => array('types' => array(2))
     )
 );

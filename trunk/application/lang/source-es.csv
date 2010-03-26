@@ -2,11 +2,9 @@
 "Next";"Siguiente"
 
 
-
 #main layout
 
 "About foofind";"Acerca de foofind"
-
 "About";"Acerca de"
 "Contact";"Contacto"
 "Legal";"Legal"
@@ -19,7 +17,6 @@
 "Report links";"Reclamar enlace"
 "Developers";"Desarrolladores"
 "Source code";"Código fuente"
-
 
 "files indexed";"archivos indexados"
 
@@ -48,6 +45,14 @@
 "Smaller than";"Menor de"
 "Larger than";"Mayor de"
 
+"Artist";"Artista"
+"Title";"Titulo"
+"Album";"Álbum"
+"Length";"Duración"
+"Bitrate";"Bitrate"
+"Genre";"Género"
+
+"Include results from:";"Incluir resultados de"
 
 #contact
 "Contact form";"Formulario de contacto"
