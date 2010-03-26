@@ -32,7 +32,7 @@ class Form_Complaint extends Zend_Form {
                 $this->addElement ( 'text', 'urlreported', array ('label' => 'Please, insert the url where this content appears:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ( array ('StringLength', false, array (9, 256 ) ) ), 'required' => true ) );
 
                  //add reason
-                $this->addElement ( 'text', 'reason', array ('label' => 'Reason of your complain:', 'filters' => array ( 'StringTrim' ), 'validators' => array ( array ('StringLength', false, array (3, 100 ) ) ), 'required' => true ) );
+                $this->addElement ( 'text', 'reason', array ('label' => 'Reason of your complaint:', 'filters' => array ( 'StringTrim' ), 'validators' => array ( array ('StringLength', false, array (3, 100 ) ) ), 'required' => true ) );
 
 
                 $this->addElement ( 'textarea', 'message', 
