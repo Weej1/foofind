@@ -54,7 +54,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY );
         $this->cl->SetFieldWeights(array('metadata' => 10, 'filename' => 1));
-        $this->cl->SetSelect("*, sum((@weight*isources)/ln(fnCount+1)) as fileWeight");
+        $this->cl->SetSelect("*, sum((@weight+@weight*isources)/ln(fnCount+1)) as fileWeight");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fnWeight DESC, isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
