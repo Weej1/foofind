@@ -185,7 +185,11 @@ input#submit{
 .file_excerpt a{
      color: #000;
      text-decoration: underline;
+     border: 0;
+}
 
+img{
+    border: 0;
 }
 
 #footer_home{

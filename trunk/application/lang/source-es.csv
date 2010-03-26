@@ -74,6 +74,12 @@
 
 #complaint
 "Your name:";"Tu nombre:"
+"Your surname:";"Tus apellidos:"
+"Your company:";"Tu empresa:"
+"Your phone number:";"Tu número de teléfono:"
+"Please, insert the link to be reviewed:";"Por favor, introduzca el enlace que cree que debe ser revisado:"
+"Please, insert the url where this content appears:";"Por favor, introduzca la url donde aparece el contenido reclamado:"
+"Reason of your complain:";"Motivo de tu reclamación:"
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
 
 
