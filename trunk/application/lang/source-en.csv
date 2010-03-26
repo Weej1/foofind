@@ -1,17 +1,17 @@
 "About";"About"
-"this is the english privacy text";"This text is not available in english yet"
-"this is the tos english text";"This text is not available in english yet"
-"this is the english legal text";"This text is not available in english yet"
+"this is the privacy text";"This text is not available in english yet"
+"this is the tos text";"This text is not available in english yet"
+"this is the legal text";"This text is not available in english yet"
 
 
 
 #about
-"this is the english about text ";"Foofind is a universal search engine. In foofind we work creating software that crawls every network and indexes every file. This way, we intend to offer the largest collection of links available.
+"this is the about text ";"foofind is a universal search engine. In foofind we work creating software that crawls every network and indexes every file. This way, we intend to offer the largest collection of links available.
 <br /><br />
 Foofind is a creation by Pablo Soto, P2P technology designer, developed in Madrid, Spain by MP2P Technologies."
 
 
 #footer
-"this is the footer text";"<a href="/en/page/about">foofind</a>website under Creative Commons<a rel="license content" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">BY-NC-SA</a> license.
+"this is the footer text";"<a href="/en/page/about">foofind</a> website under Creative Commons<a rel="license content" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">BY-NC-SA</a> license.
  <a href="http://code.google.com/p/foofind/">Source code</a> under <a rel="license source code" href="http://www.gnu.org/licenses/gpl-3.0.txt">GPLv3</a> license."
 
