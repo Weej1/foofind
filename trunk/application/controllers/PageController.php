@@ -95,7 +95,7 @@ class PageController extends Zend_Controller_Action
                                 .'<br/><br/>Link reported: '.$linkreported
                                 .'<br/><br/>Url reported: '.$urlreported
                                 .'<br/><br/>Reason: '.$reason
-                                .'<br/><br/>'.$message;
+                                .'<br/><br/>Message'.$message;
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
                                 $mail->addTo ( 'hola@foofind.com', 'foofind hola' );
