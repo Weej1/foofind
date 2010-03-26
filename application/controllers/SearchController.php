@@ -54,7 +54,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY );
         $this->cl->SetFieldWeights(array('metadata' => 10, 'filename' => 1));
-        $this->cl->SetSelect("*, sum((@weight+@weight*isources)/ln(fnCount+1)) as fileWeight");
+        $this->cl->SetSelect("*, sum(@weight*(@weight+isources)/ln(fnCount+1)) as fileWeight");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fnWeight DESC, isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
@@ -86,7 +86,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             $srcs = array();
             foreach (str_split($src) as $s)
             {
-                $srcs = array_merge($content['sources'][$s]['types'], $srcs);
+                $srcs = array_merge($srcs, $content['sources'][$s]['types']);
             }
             
             if (count($srcs)>0)
@@ -287,7 +287,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     break;
                             }
                             $newpos = array_search($t, $srcs);
-                            if ($newpos!==false && (!$sourcepos[$id] || $newpos<$sourcepos[$id]))
+                            if ($newpos!==false && (!isset($sourcepos[$id]) || ($newpos<$sourcepos[$id])))
                             {
                                 $sourcepos[$id] = $newpos;
                                 $docs[$id]['rlink'] = $rlink;
