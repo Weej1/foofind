@@ -32,21 +32,15 @@
 "No results.";"No hay resultados."
 "Hey! Write something";"¡Escribe algo!"
 
-"All sources";"Todos los tipos"
-"BitTorrent";"BitTorrent"
-"Emule";"Emule"
-"Limewire";"Limewire"
-"Direct download";"Descarga directa"
-"Jamendo";"Jamendo"
-
 "All sizes";"Todos los tamaños"
 "Show options...";"Mostrar opciones..."
 "Hide options";"Ocultar opciones"
 "Smaller than";"Menor de"
 "Larger than";"Mayor de"
 
+"Sources";"Fuentes"
 "Artist";"Artista"
-"Title";"Titulo"
+"Title";"Título"
 "Album";"Álbum"
 "Length";"Duración"
 "Bitrate";"Bitrate"
@@ -56,6 +50,8 @@
 "Size";"Tamaño"
 "Colors";"Colores"
 "Files";"Ficheros"
+"of about";"de aprox."
+"results for";"resultados para"
 
 #contact
 "Contact form";"Formulario de contacto"

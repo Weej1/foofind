@@ -296,7 +296,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
                             if ($source) {
                                 $docs[$id]['sources'][$source]['rlink'] += $rlink;
-                                $docs[$id]['sources'][$source]['count'] += $row['Sources'];
+                                $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                                 $docs[$id]['sources'][$source]['tip'] = $tip;
                             }
                         }
@@ -312,6 +312,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             {
                                 foreach (explode(' ', $row['ValueMD']) as $tr)
                                 {
+                                    $docs[$id]['sources']['magnet']['rlink'] .= '&tr='.urlencode($tr);
                                     $docs[$row['IdFile']]['link'] .= '&tr='.urlencode($tr);
                                     $docs[$row['IdFile']]['rlink'] .= '&tr='.urlencode($tr);
                                 }
