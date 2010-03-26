@@ -165,7 +165,7 @@ class PageController extends Zend_Controller_Action
          */
         protected function _getContactForm() {
                 require_once APPLICATION_PATH . '/forms/Contact.php';
-                $form = new Form_Complaint ( );
+                $form = new Form_Contact( );
 
                 return $form;
         }

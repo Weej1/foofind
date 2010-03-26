@@ -66,7 +66,7 @@
 "Value is required and can't be empty";"Este campo no puede estar vacío"
 "Captcha value is wrong";"Los caracteres introducidos no coinciden con los de la imagen"
 "'%value%' is less than 20 characters long";"'%value%' tiene menos de 20 caracteres."
-
+"'%value%' is less than 9 characters long";"'%value%' tiene menos de 9 caracteres."
 
 "'%value%' is no valid email address in the basic format local-part@hostname";"'%value%' no es una dirección de correo válida con el formato: usuario@ejemplo.com"
 "'%hostname%' is no valid hostname for email address '%value%'";"'%hostname%' no es nombre correcto de dominio para la dirección de correo '%value%'"
@@ -74,6 +74,12 @@
 "'%value%' does not match the expected structure for a DNS hostname";"'%value%' no concide con la estructura requerida para un nombre de dominio DNS"
 "'%value%' appears to be a DNS hostname but cannot match TLD against known list";"'%value%' parece ser un nombre de dominio pero no coincide con ningun TLD conocido"
 "Message sent successfully!";"Tu mensaje se ha enviado correctamente."
+
+
+#complaint
+"Your name:";"Tu nombre:"
+"'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
+
 
 
 #about
@@ -87,8 +93,7 @@
 #privacy
 "this is the english privacy text";"Por la presente y de conformidad con la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) le informa de la existencia de un fichero automatizado de datos creado por la misma y bajo su responsabilidad.
 <br /><br />
-La finalidad de dicho fichero es exclusivamente la de gestionar las reclamaciones efectuadas por el usuario que desee notificar la existencia de resultados y enlaces que dirijan a contenidos ilícitos o difundidos sin la preceptiva autorización. LA EMPRESA podrá enviar correos electrónicos a la cuenta facilitada por el usuario con objeto de informarle sobre la tramitación de la reclamación por él efectuada.
-<br /><br />
+La finalidad de dicho fichero es la de gestionar las dudadas y comentarios, así como las reclamaciones efectuadas por el usuario que desee notificar la existencia de resultados y enlaces que dirijan a contenidos ilícitos o difundidos sin la preceptiva autorización. LA EMPRESA podrá enviar correos electrónicos a la cuenta facilitada por el usuario con objeto de informarle sobre la tramitación de la reclamación por él efectuada.<br /><br />
 El envío de datos personales mediante cualquiera de nuestros formularios supone la aceptación expresa de su tratamiento automatizado.
 <br />
 El usuario podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición comunicando con el responsable del fichero en la siguiente dirección:
@@ -100,7 +105,7 @@ Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
 <br /><br />
 El usuario consiente el uso de cookies que, en ningún caso, permitirán la identificación del mismo, a fin de facilitar su navegación en esta página web. No obstante lo anterior, el usuario podrá deshabilitar las cookies mediante la oportuna configuración de su navegador a tal efecto.
 <br />
-Los servidores capturan de forma automática algunos datos que no permiten la identificación del usuarios tales como: hora de visita de la web, el navegador y el sistema operativo que utiliza y el nombre de dominio del proveedor y/o dirección IP que les da acceso a la red.
+Los servidores capturan de forma automática algunos datos que no permiten la identificación del usuario tales como: hora de visita de la web, el navegador y el sistema operativo que utiliza y el nombre de dominio del proveedor y/o dirección IP que les da acceso a la red.
 <br /><br />
 El uso de esta página web supone la aceptación por el usuario de su política de privacidad.
 <br />
@@ -161,5 +166,5 @@ Tomo 19.853, Folio 160, Hoja M-349777.
 C.I.F. A-83940825
 <br /><br />
 Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Foofind no aloja y, en consecuencia, no reproduce ni comunica públicamente los archivos enlazados que aparecen como resultados de las búsquedas. Foofind no asume ninguna obligación de control, vigilancia e inspección de las obras que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.<br /><br />
- Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, puede solicitarnos su retirada desde el siguiente <a href='/es/page/contact'>formulario de contacto.</a><br /><br />
+ Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, puede solicitarnos su retirada desde el siguiente <a href='/es/page/complaint'>formulario de reclamación.</a><br /><br />
               Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde Foofind.com."
