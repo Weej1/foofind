@@ -295,7 +295,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 $docs[$id]['link_type'] = $t;
                             }
                             if ($source) {
-                                $docs[$id]['sources'][$source]['rlink'] += $rlink;
+                                $docs[$id]['sources'][$source]['rlink'] = $rlink;
                                 $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                                 $docs[$id]['sources'][$source]['tip'] = $tip;
                             }
