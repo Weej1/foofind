@@ -199,7 +199,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             if ($type==null)
                             {
                                 try {
-                                    $docs[$id]['type'] = $content['assoc'][$docinfo["attrs"]["contentType"]];
+                                    $docs[$id]['type'] = $content['assoc'][$docinfo["attrs"]["contenttype"]];
                                 } catch (Exception $ex) {
                                     $docs[$id]['type'] = null;
                                     $docs[$id]['type_prop'] = array();
@@ -239,8 +239,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
                         {
                             $id = $row['IdFile'];
-                            $type = $row['Type'];
-                            switch ($type)
+                            $t = $row['Type'];
+                            switch ($t)
                             {
                                 case 1: //GNUTELLA
                                     $tip = "MagnetLink";
@@ -286,13 +286,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     continue;
                                     break;
                             }
-                            $newpos = array_search($type, $srcs);
+                            $newpos = array_search($t, $srcs);
                             if ($newpos!==false && (!$sourcepos[$id] || $newpos<$sourcepos[$id]))
                             {
                                 $sourcepos[$id] = $newpos;
                                 $docs[$id]['rlink'] = $rlink;
                                 $docs[$id]['link'] = $link;
-                                $docs[$id]['link_type'] = $type;
+                                $docs[$id]['link_type'] = $t;
                             }
                             if ($source) {
                                 $docs[$id]['sources'][$source]['rlink'] += $rlink;
