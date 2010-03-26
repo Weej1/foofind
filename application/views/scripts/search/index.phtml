@@ -27,18 +27,18 @@ function format($context, $md, $show_title)
 function formatAudio($context, $md, $show_title)
 {
     $res = '';
-    if ($artist = $md["audio:artist"]) $res .= $context->translate("Artist:")."&nbsp;$artist. ";
-    if ($title = $md["audio:title"]) $res .= $context->translate("Title:")."&nbsp;$title. ";
+    if ($artist = $md["audio:artist"]) $res .= $context->translate("Artist").":&nbsp;$artist. ";
+    if ($title = $md["audio:title"]) $res .= $context->translate("Title").":&nbsp;$title. ";
     if ($album = $md["audio:album"]) {
-        $res .= $context->translate("Album:")."&nbsp;$album";
+        $res .= $context->translate("Album").":&nbsp;$album";
         if (($year = $md["audio:year"]) && is_numeric($year) && $year>1901 && $year<2100)
             $res .= "&nbsp;($year). ";
         else
             $res .= ". ";
     }
-    if ($genre = $md["audio:genre"]) $res .= $context->translate("Genre:")."&nbsp;$genre. ";
-    if ($len = $md["audio:seconds"]) $res .= $context->translate("Length:")."&nbsp;".formatLength($len).". ";
-    if ($bitrate = $md["audio:bitrate"]) $res .= $context->translate("Bitrate:")."&nbsp;$bitrate&nbsp;kbit/s. ";
+    if ($genre = $md["audio:genre"]) $res .= $context->translate("Genre").":&nbsp;$genre. ";
+    if ($len = $md["audio:seconds"]) $res .= $context->translate("Length").":&nbsp;".formatLength($len).". ";
+    if ($bitrate = $md["audio:bitrate"]) $res .= $context->translate("Bitrate").":&nbsp;$bitrate&nbsp;kbit/s. ";
     return $res;
 }
 
@@ -46,7 +46,7 @@ function formatDocument($context, $md, $show_title)
 {
     $res = '';
     if ($show_title && $title = $md["document:title"]) $res .= "$title<br/>";
-    if ($pages = $md["document:pages"]) $res .= $context->translate("Nº of pages:")."&nbsp;$pages. ";
+    if ($pages = $md["document:pages"]) $res .= $context->translate("Nº of pages").":&nbsp;$pages. ";
     return $res;
 }
 
@@ -55,8 +55,8 @@ function formatImage($context, $md, $show_title)
     $res = '';
     if ($show_title && $title = $md["image:title"]) $res .= "$title<br/>";
     if (($width = $md["image:width"]) && ($height = $md["image:height"]))
-        $res .= $context->translate("Size:")."&nbsp;${width}x$height. ";
-    if ($colors = $md["image:colors"]) $res .= $context->translate("Colors:")."&nbsp;$colors. ";
+        $res .= $context->translate("Size").":&nbsp;${width}x$height. ";
+    if ($colors = $md["image:colors"]) $res .= $context->translate("Colors").":&nbsp;$colors. ";
     return $res;
 }
 
@@ -65,9 +65,9 @@ function formatVideo($context, $md, $show_title)
     $res = '';
     if ($show_title && $title = $md["video:title"]) $res .= "$title<br/>";
     if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
-        $res .= $context->translate("Length:")."&nbsp;".formatLength($len).". ";
+        $res .= $context->translate("Length").":&nbsp;".formatLength($len).". ";
     if (($width = $md["video:width"]) && ($height = $md["video:height"]))
-        $res .= $context->translate("Size:")."&nbsp;${width}x$height. ";
+        $res .= $context->translate("Size").":&nbsp;${width}x$height. ";
     return $res;
 }
 
@@ -82,7 +82,7 @@ function formatArchive($context, $md, $show_title)
 {
     $res = '';
     if ($files = $md["archive:files"])
-        $res .= $context->translate("Files:")."&nbsp;$files. ";
+        $res .= $context->translate("Files").":&nbsp;$files. ";
     return $res;
 }
 ?>
@@ -105,7 +105,7 @@ function formatArchive($context, $md, $show_title)
         <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
  
-    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 3) ?> for <?=$this->info['q']?> (<?=$this->info['time']?> seconds)<span class="debuginfo"><?=$this->info['time_desc']?></span></div>
+    <div class="search_info">Results <?=$this->info['start']?> - <?=$this->info['end']?> of about <?=number_format($this->info['total'], 0) ?> for <?=$this->info['q']?> (<?=number_format($this->info['time'],3)?> seconds)<span class="debuginfo"><?=$this->info['time_desc']?></span></div>
     <hr />
 
 
