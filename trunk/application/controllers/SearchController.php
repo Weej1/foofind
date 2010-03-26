@@ -383,6 +383,14 @@ class SearchController extends Zend_Controller_Action {
         $year = $this->_getParam('year');
         $brate = $this->_getParam('brate');
 
+
+
+        if (!$q) { // check if query search is empty
+
+            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Hey! Write something' ) );
+            $this->_redirect ( '/' );
+            return ;
+        }
         
         $form = $this->_getSearchForm();
        
