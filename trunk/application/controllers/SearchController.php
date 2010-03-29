@@ -173,10 +173,10 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $words = explode(" ", $query);
 
         if ( $result === false  ) {
-                echo "Query failed: " . $this->cl->GetLastError() . ".\n";
+               // echo "Query failed: " . $this->cl->GetLastError() . ".\n";
         } else {
                 if ( $this->cl->GetLastWarning() ) {
-                  echo "WARNING: " . $this->cl->GetLastWarning() . "";
+                  //echo "WARNING: " . $this->cl->GetLastWarning() . "";
               }
                 $this->tcount = $result["total_found"];
                 $this->time_desc = $result["time"];
