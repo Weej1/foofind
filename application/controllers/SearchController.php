@@ -386,10 +386,9 @@ class SearchController extends Zend_Controller_Action {
         $encoding = array('quotestyle' => ENT_QUOTES, 'charset' => 'UTF-8');
 
         $f = new Zend_Filter();
-        $f->addFilter(new Zend_Filter_HtmlEntities($encoding));
+        //$f->addFilter(new Zend_Filter_HtmlEntities($encoding));
         $f->addFilter(new Zend_Filter_StringTrim());
-        //$f->addFilter(new Zend_Filter_StripTags($encoding));
-
+        $f->addFilter(new Zend_Filter_StripTags($encoding));
 
 
         $q = $f->filter ( $qw );
@@ -404,7 +403,6 @@ class SearchController extends Zend_Controller_Action {
        
         $this->view->headTitle()->append(' - ');
         $this->view->headTitle()->append($qw);
-
 
 
         $form = $this->_getSearchForm();
