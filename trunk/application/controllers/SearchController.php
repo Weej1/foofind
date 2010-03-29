@@ -1,5 +1,5 @@
 <?php
-require_once APPLICATION_PATH . '/models/Search.php';
+require_once APPLICATION_PATH . '/models/Files.php';
 
 function formatSize($bytes)
 {

@@ -1,5 +1,6 @@
 <?php
 
+require_once APPLICATION_PATH . '/models/Files.php';
 
 class IndexController extends Zend_Controller_Action
 {
@@ -51,11 +52,11 @@ class IndexController extends Zend_Controller_Action
         switch ($type)
         {
             case 'count':
-                $table = "ff_file";
+                $table = new ff_file();
                 $query = "SELECT COUNT(IdFile) as res FROM ff_file";
                 break;
             case 'ts':
-                $table = "ff_touched";
+                $table = new ff_touched();
                 $query = "SELECT MAX(timestamp) as res FROM ff_touched";
                 break;
         }
@@ -65,8 +66,7 @@ class IndexController extends Zend_Controller_Action
 
     function fetchQuery($table, $query)
     {
-         $t = new Zend_Db_Table($table);
-         $row = $t->getAdapter()->query($query)->fetchAll();
+         $row = $table->getAdapter()->query($query)->fetchAll();
          return $row[0]['res'];
     }
     /**
