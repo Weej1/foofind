@@ -1,12 +1,18 @@
 <?php
 
+class ff_file extends Zend_Db_Table
+{
+    // default primary key is 'id'
+    // but we want to use something else
+    protected $_primary = 'IdFile';
+}
+
 class ff_filename extends Zend_Db_Table
 {
     // default primary key is 'id'
     // but we want to use something else
     protected $_primary = array('IdFilename', 'IdFile');
 }
-
 
 class ff_sources extends Zend_Db_Table
 {
@@ -22,6 +28,12 @@ class ff_metadata extends Zend_Db_Table
     protected $_primary = array('IdFile', 'CrcKey');
 }
 
+class ff_touched extends Zend_Db_Table
+{
+    // default primary key is 'id'
+    // but we want to use something else
+    protected $_primary = 'IdFile';
+}
 /*
 class Model_Metadata extends Zend_Db_Table_Abstract {
    public function fetchMetadata($id) {
