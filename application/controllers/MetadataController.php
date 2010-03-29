@@ -7,6 +7,7 @@ class Metadata_Paginator implements Zend_Paginator_Adapter_Interface {
 
     public function __construct($key)
     {
+        include_once 'sas.php';
         $this->key = $key;
     }
 
