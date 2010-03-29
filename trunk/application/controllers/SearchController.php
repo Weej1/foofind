@@ -364,7 +364,7 @@ class SearchController extends Zend_Controller_Action {
 
         $request = $this->getRequest ();
 
-        $requesttitle .= ' '.$this->_getParam('q');
+        $requesttitle .= ' '.$this->_xss_clean($this->_getParam('q'));
         $this->view->headTitle()->append(' - ');
         $this->view->headTitle()->append($requesttitle);
     }
