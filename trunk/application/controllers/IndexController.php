@@ -20,7 +20,7 @@ class IndexController extends Zend_Controller_Action
 
        // var_dump($lang);
               
-       $this->view->totalFilesIndexed = number_format($this->fetchQuery("ff_file", "SELECT COUNT(IdFile) as res FROM ff_file"));
+       $this->view->totalFilesIndexed = number_format($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"));
 
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form
