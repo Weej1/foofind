@@ -373,7 +373,7 @@ class SearchController extends Zend_Controller_Action {
     public function indexAction() {
 
 
-        $q = $this->_getParam('q');
+        $qw = $this->_getParam('q');
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
         $src = $this->_getParam('src');
@@ -384,13 +384,24 @@ class SearchController extends Zend_Controller_Action {
 
         
 
-        $q = $this->_xss_clean(trim($q));
-        $type = $this->_xss_clean( $type );
-        $src = $this->_xss_clean ( $src );
-        $size = $this->_xss_clean ( $size );
-        $opt = $this->_xss_clean( $opt );
-        $year = $this->_xss_clean ( $year );
-        $brate = $this->_xss_clean ( $brate );
+        // Create a filter chain and add filters
+        $encoding = array('quotestyle' => ENT_QUOTES, 'charset' => 'UTF-8');
+
+        $f = new Zend_Filter();
+        $f->addFilter(new Zend_Filter_HtmlEntities($encoding));
+        $f->addFilter(new Zend_Filter_StringTrim());
+        $f->addFilter(new Zend_Filter_StripTags($encoding));
+       
+        
+
+        $q = $f->filter ( $qw );
+        $type = $f->filter ( $type );
+        $src = $f->filter ( $src );
+        $size = $f->filter ( $size );
+        $opt = $f->filter ( $opt );
+        $year = $f->filter ( $year );
+        $brate = $f->filter ( $brate );
+
 
 
         $form = $this->_getSearchForm();
@@ -405,7 +416,7 @@ class SearchController extends Zend_Controller_Action {
 
 
 
-        $form->getElement('q')->setValue(trim($q));
+        $form->getElement('q')->setValue(trim($qw));
 
         $form->loadDefaultDecoratorsIsDisabled(false);
 
@@ -506,10 +517,11 @@ class SearchController extends Zend_Controller_Action {
         $data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
         $data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
         $data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
-        $data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
+        //$data = html_entity_decode($data);
+
 
         $data = strip_tags($data);
-        $data = htmlentities($data, ENT_QUOTES);
+        $data = htmlentities($data, ENT_QUOTES, 'UTF-8');
         // Remove any attribute starting with "on" or xmlns
         $data = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#iu', '$1>', $data);
 
