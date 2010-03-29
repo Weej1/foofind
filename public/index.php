@@ -1,6 +1,6 @@
 <?php
 
-include_once 'sas.php';
+//include_once 'sas.php';
 
 // Define path to application directory
 defined('APPLICATION_PATH')
