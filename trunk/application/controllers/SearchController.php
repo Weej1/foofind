@@ -1,4 +1,5 @@
 <?php
+require_once APPLICATION_PATH . '/models/Search.php';
 
 function formatSize($bytes)
 {
@@ -214,7 +215,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $ids = join($ids, ",");
 
                         $start_time = microtime(true);
-                        $fn_model = new Zend_Db_Table('ff_filename');
+                        $fn_model = new ff_filename();
                         foreach ($fn_model->fetchAll(substr($where, 4)) as $row)
                         {
                             $id = $row['IdFile'];
@@ -234,7 +235,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         
                         // get sources for files
                         $start_time = microtime(true);
-                        $sources = new Zend_Db_Table('ff_sources');
+                        $sources = new ff_sources();
                         $sourcepos = array();
                         foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
                         {
@@ -305,7 +306,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         // get metadata for files
                         $start_time = microtime(true);
                         
-                        $metadata = new Zend_Db_Table('ff_metadata');
+                        $metadata = new ff_metadata();
                         foreach ($metadata->fetchAll("CrcKey in (".join($content['crcMD'], ",").") AND IdFile in ($ids)") as $row)
                         {
                             if ($docs[$id]['link_type']==7 && $row['KeyMD']=='torrent:trackers'||$row['KeyMD']=='torrent:tracker')
