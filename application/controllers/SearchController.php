@@ -400,6 +400,9 @@ class SearchController extends Zend_Controller_Action {
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
         $size = $f->filter ( $size );
+
+        $opt = $f->filter ( $opt );
+
         $year = $f->filter ( $year );
         $brate = $f->filter ( $brate );
 
