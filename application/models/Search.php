@@ -1,22 +1,25 @@
 <?php
 
-class Model_Search extends Zend_Db_Table_Abstract 
+class ff_filename extends Zend_Db_Table
 {
-
-    class Filename extends Zend_Db_Table_Abstract  {
-        protected $_name = 'ff_filename';
-        protected $_primary = "IdFilename";
-	
-    };
-
-    public function fetchFilenames($ids) 
-    {
-	$table = new Filename();
-        return $table->fetchAll('IdFile in (?)', $ids);
-    }
+    // default primary key is 'id'
+    // but we want to use something else
+    protected $_primary = array('IdFilename', 'IdFile');
+}
 
 
+class ff_sources extends Zend_Db_Table
+{
+    // default primary key is 'id'
+    // but we want to use something else
+    protected $_primary = array('Type', 'ShaUri');
+}
 
+class ff_metadata extends Zend_Db_Table
+{
+    // default primary key is 'id'
+    // but we want to use something else
+    protected $_primary = array('IdFile', 'CrcKey');
 }
 
 /*
