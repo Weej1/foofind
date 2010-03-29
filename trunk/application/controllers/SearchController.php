@@ -371,7 +371,9 @@ class SearchController extends Zend_Controller_Action {
 
 
     public function indexAction() {
-        $q = trim($this->_getParam('q'));
+
+
+        $q = $this->_getParam('q');
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
         $src = $this->_getParam('src');
@@ -381,11 +383,8 @@ class SearchController extends Zend_Controller_Action {
         $brate = $this->_getParam('brate');
 
         
-        
-        $form = $this->_getSearchForm();
 
-
-        $q = $this->_xss_clean($q);
+        $q = $this->_xss_clean(trim($q));
         $type = $this->_xss_clean( $type );
         $src = $this->_xss_clean ( $src );
         $size = $this->_xss_clean ( $size );
@@ -393,6 +392,8 @@ class SearchController extends Zend_Controller_Action {
         $year = $this->_xss_clean ( $year );
         $brate = $this->_xss_clean ( $brate );
 
+
+        $form = $this->_getSearchForm();
 
 
  if (!$q) { // check if query search is empty
@@ -507,6 +508,8 @@ class SearchController extends Zend_Controller_Action {
         $data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
         $data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
 
+        $data = strip_tags($data);
+        $data = htmlentities($data, ENT_QUOTES);
         // Remove any attribute starting with "on" or xmlns
         $data = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#iu', '$1>', $data);
 
