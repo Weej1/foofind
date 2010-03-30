@@ -1,6 +1,11 @@
 <?php
 require_once APPLICATION_PATH . '/models/Files.php';
 
+function encodeFilename($filename)
+{
+    return str_replace(" ", "+", $filename);
+}
+
 function formatSize($bytes)
 {
     $size = $bytes / 1024;
@@ -245,7 +250,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 catch (Exception $ex) {};
                             }
 
-                            $docs[$id]['rfilename'] = htmlentities($row['Filename'], ENT_QUOTES);
+                            $docs[$id]['rfilename'] = $row['Filename'];
                             $docs[$id]['filename'] = show_matches($row['Filename'], $words, $found);
                             $docs[$id]['in_filename'] = $found;
                         }
@@ -265,42 +270,45 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 1: //GNUTELLA
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:sha1:".$row['Uri'];
-                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:sha1:".$row['Uri'];
+                                    //$rlink = "magnet:?dt=".urlencode($docs[$id]['rfilename'])."&xt=urn:sha1:".$row['Uri'];
+                                    $link = "magnet:?dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:sha1:".$row['Uri'];
                                     break;
                                 case 2: //ED2K
                                     $tip = "ED2K";
                                     $source = "ed2k";
-                                    $rlink = "ed2k://|file|".urlencode($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
-                                    $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
+                                    //$rlink = "ed2k://|file|".urlencode($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
+                                    $link = "ed2k://|file|".encodeFilename($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
                                     break;
                                 case 3:
                                     $tip = "BitTorrent";
                                     $source = "torrent";
-                                    $rlink = $link = $row['Uri'];
+                                    //$rlink =
+                                    $link = $row['Uri'];
                                     break;
                                 case 6: //MD5 HASH
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:md5:".$row['Uri'];
-                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:md5:".$row['Uri'];
+                                    //$rlink = "magnet:?dt=".urlencode($docs[$id]['rfilename'])."&xt=urn:md5:".$row['Uri'];
+                                    $link = "magnet:?dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:md5:".$row['Uri'];
                                     break;
                                 case 7: //BTH HASH
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $rlink = "magnet:?dt=".$docs[$id]['rfilename']."&xt=urn:bth:".$row['Uri'];
-                                    $link = "magnet:?dt=".$docs[$id]['filename']."&xt=urn:bth:".$row['Uri'];
+                                    //$rlink = "magnet:?dt=".urlencode($docs[$id]['rfilename'])."&xt=urn:bth:".$row['Uri'];
+                                    $link = "magnet:?dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:bth:".$row['Uri'];
                                     break;
                                 case 4: // JAMENDO
                                 case 8: // WEB
                                     $tip = "Web";
                                     $source = "web";
-                                    $rlink = $link = $row['Uri'];
+                                    //$rlink =
+                                    $link = $row['Uri'];
                                     break;
                                 case 9: // FTP
                                     $tip = "FTP";
                                     $source = "ftp";
-                                    $rlink = $link = $row['Uri'];
+                                    //$rlink =
+                                    $link = $row['Uri'];
                                     break;
                                 default:
                                     continue;
@@ -310,12 +318,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             if ($newpos!==false && (!isset($sourcepos[$id]) || ($newpos<$sourcepos[$id])))
                             {
                                 $sourcepos[$id] = $newpos;
-                                $docs[$id]['rlink'] = $rlink;
-                                $docs[$id]['link'] = $link;
+                                $docs[$id]['rlink'] = $link;
+
+                                //$words = explode("+", urlencode($this->query));
+                                $docs[$id]['link'] = show_matches($link, $words);
                                 $docs[$id]['link_type'] = $t;
                             }
                             if ($source) {
-                                $docs[$id]['sources'][$source]['rlink'] = $rlink;
+                                $docs[$id]['sources'][$source]['rlink'] = htmlentities($link, ENT_QUOTES);
                                 $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                                 $docs[$id]['sources'][$source]['tip'] = $tip;
                             }
