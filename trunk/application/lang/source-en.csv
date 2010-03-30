@@ -7,7 +7,8 @@
 "this is the tos text";"This text is not available in english yet"
 "this is the legal text";"This text is not available in english yet"
 
-
+#complaint
+"literal_check_agree";"I have read and accept the privacy policy."
 
 #about
 "this is the about text";"foofind is a universal search engine. In foofind we work creating software that crawls every network and indexes every file. This way, we intend to offer the largest collection of links available.
