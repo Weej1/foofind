@@ -37,18 +37,15 @@ function show_matches($text, $words, &$found = null)
 }
 
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
-    public function __construct($table, $conditions = array())
+    public function __construct($table)
     {
-        if(!is_array($conditions) AND !empty($conditions))
-            $conditions = array( $conditions );
-
-        $this->conditions = $conditions;
         $this->table      = $table;
-
+        
         require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
-
-        $sphinxConf =  new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+        $sphinxConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
         $sphinxServer = $sphinxConf->sphinx->server;
+
+        $this->tcount = 0;
 
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
@@ -59,21 +56,20 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fnWeight DESC, isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
-        $this->tcount = 0;
-
-        
     }
-    
-    public function getItems($offset, $itemCountPerPage)
+    public function setFilters($conditions)
     {
         global $content;
 
-        $this->cl->SetLimits( $offset, $itemCountPerPage);
-        $type = $this->conditions['type'];
+        if(!is_array($conditions) AND !empty($conditions))
+            $conditions = array( $conditions );
+
+        $this->cl->ResetFilters();
+        $this->type = $conditions['type'];
         $typeCrcs = null;
-        if ($type)
+        if ($this->type)
         {
-            $temp = $content['types'][$type];
+            $temp = $content['types'][$this->type];
             if ($temp) {
                 $typeCrcs = $temp['crcExt'];
             }
@@ -81,23 +77,23 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
         if ($typeCrcs) $this->cl->SetFilter('crcextension', $typeCrcs);
 
-        $src = $this->conditions['src'];
-        if ($src)
+        $this->src = $conditions['src'];
+        if ($this->src)
         {
-            $srcs = array();
-            foreach (str_split($src) as $s)
+            $this->srcs = array();
+            foreach (str_split($this->src) as $s)
             {
-                $srcs = array_merge($srcs, $content['sources'][$s]['types']);
+                $this->srcs = array_merge($this->srcs, $content['sources'][$s]['types']);
             }
-            
-            if (count($srcs)>0)
-                $this->cl->SetFilter('types', $srcs);
+
+            if (count($this->srcs)>0)
+                $this->cl->SetFilter('types', $this->srcs);
         }
 
-        $size = $this->conditions['size'];
-        if ($size)
+        $this->size = $conditions['size'];
+        if ($this->size)
         {
-            switch ($size)
+            switch ($this->size)
             {
                 case 1:
                     $this->cl->SetFilterRange('size', 1, 1048576);
@@ -114,12 +110,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             }
         }
 
-        $brate = $this->conditions['brate'];
-        if ($brate)
+        $this->brate = $conditions['brate'];
+        if ($this->brate)
         {
             $brateCode = 2<<22;
             $maxBrateCode = $brateCode|1000000;
-            switch ($brate)
+            switch ($this->brate)
             {
                 case 1:
                     $this->cl->SetFilterRange('metadatas', $brateCode|128, $maxBrateCode);
@@ -136,11 +132,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             }
         }
 
-        $year = $this->conditions['year'];
-        if ($year)
+        $this->year = $conditions['year'];
+        if ($this->year)
         {
             $yearCode = 1<<22;
-            switch ($year)
+            switch ($this->year)
             {
                 case 1:
                     $this->cl->SetFilterRange('metadatas', $yearCode|1900, $yearCode|1959);
@@ -166,18 +162,41 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                     break;
             }
         }
+        $this->query = $conditions['q'];
 
-        $query = $this->conditions['query'];
-        $result = $this->cl->Query( "$query", $this->table );
+    }
 
-        $words = explode(" ", $query);
+    public function justCount()
+    {
+        $start_time = microtime(true);
+        $this->cl->SetLimits( 0, 1);
+        $this->cl->SetMaxQueryTime(100);
+
+        $result = $this->cl->Query( $this->query, $this->table );
+
+        $this->time += (microtime(true) - $start_time);
+        $this->time_desc .= " - ".(microtime(true) - $start_time);
+
+        if ( $result === false )
+            return null;
+        else
+            return $result['total_found'];
+    }
+
+    public function getItems($offset, $itemCountPerPage)
+    {
+        global $content;
+        $this->cl->SetLimits( $offset, $itemCountPerPage);
+        $result = $this->cl->Query( $this->query, $this->table );
+
+        $words = explode(" ", $this->query);
 
         if ( $result === false  ) {
                // echo "Query failed: " . $this->cl->GetLastError() . ".\n";
         } else {
                 if ( $this->cl->GetLastWarning() ) {
                   //echo "WARNING: " . $this->cl->GetLastWarning() . "";
-              }
+                }
                 $this->tcount = $result["total_found"];
                 $this->time_desc = $result["time"];
                 $total_time = $result["time"];
@@ -197,7 +216,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['idfilename'] = $doc;
                             $md[$id] = array();
 
-                            if ($type==null)
+                            if ($this->type==null)
                             {
                                 try {
                                     $docs[$id]['type'] = $content['assoc'][$docinfo["attrs"]["contenttype"]];
@@ -206,7 +225,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     $docs[$id]['type_prop'] = array();
                                 }
                             } else {
-                                $docs[$id]['type'] = $type;
+                                $docs[$id]['type'] = $this->type;
                             }
 
                             $where .= " OR (IdFilename=$doc AND IdFile=$id) ";
@@ -252,7 +271,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 2: //ED2K
                                     $tip = "ED2K";
                                     $source = "ed2k";
-                                    $rlink = "ed2k://|file|".$docs[$id]['rfilename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
+                                    $rlink = "ed2k://|file|".urlencode($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     $link = "ed2k://|file|".$docs[$id]['filename']."|".$docs[$id]['attrs']['size']."|".$row['Uri'];
                                     break;
                                 case 3:
@@ -287,7 +306,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     continue;
                                     break;
                             }
-                            $newpos = array_search($t, $srcs);
+                            $newpos = array_search($t, $this->srcs);
                             if ($newpos!==false && (!isset($sourcepos[$id]) || ($newpos<$sourcepos[$id])))
                             {
                                 $sourcepos[$id] = $newpos;
@@ -342,11 +361,10 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
-                        $this->time = $total_time;
-                        unset($this->cl); //this unset frees memory use
                         unset ($doc);
                         return $docs;
                 }
+                $this->time = $total_time;
         }
        
        return array();
@@ -368,9 +386,6 @@ class SearchController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-
-
-
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
@@ -380,8 +395,6 @@ class SearchController extends Zend_Controller_Action {
         $year = $this->_getParam('year');
         $brate = $this->_getParam('brate');
 
-        
-
         // Create a filter chain and add filters
         $encoding = array('quotestyle' => ENT_QUOTES, 'charset' => 'UTF-8');
 
@@ -389,7 +402,6 @@ class SearchController extends Zend_Controller_Action {
         //$f->addFilter(new Zend_Filter_HtmlEntities($encoding));
         $f->addFilter(new Zend_Filter_StringTrim());
         $f->addFilter(new Zend_Filter_StripTags($encoding));
-
 
         $q = $f->filter ( $qw );
         $type = $f->filter ( $type );
@@ -399,23 +411,16 @@ class SearchController extends Zend_Controller_Action {
         $year = $f->filter ( $year );
         $brate = $f->filter ( $brate );
 
-
-       
         $this->view->headTitle()->append(' - ');
         $this->view->headTitle()->append($qw);
 
-
         $form = $this->_getSearchForm();
-
-
          if (!$q) { // check if query search is empty
 
             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Hey! Write something' ) );
             $this->_redirect ( '/' );
             return ;
         }
-
-
 
         $form->getElement('q')->setValue(trim($q));
 
@@ -442,18 +447,31 @@ class SearchController extends Zend_Controller_Action {
         $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
 
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
+
+        $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => $page);
+
         $helper = new QueryString_View_Helper();
-        $helper->setParams(array('q'=>trim($q), 'type'=>$type, 'page'=>$page, 'src'=>$src2, 'opt'=>$opt, 'size' => $size, 'year' => $year, 'brate' => $brate));
+        $helper->setParams($conds);
         
         $this->view->registerHelper($helper, 'qs');
         $this->view->src = $srcs;
+        $this->view->qs = $conds;
 
-
-        $SphinxPaginator = new Sphinx_Paginator('idx_files',array('query'=>$q, 'src'=>$src2, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate));
+        $SphinxPaginator = new Sphinx_Paginator('idx_files');
+        $SphinxPaginator->setFilters($conds);
 
         if ($SphinxPaginator !== null) {
                 //paginator
                 $paginator = new Zend_Paginator($SphinxPaginator);
+                $paginator->getCurrentItems();
+
+                if ($conds['type']!=null && $SphinxPaginator->count()==0)
+                {
+                    $conds['type']=null;
+                    $SphinxPaginator->setFilters($conds);
+                    $noTypeCount = $SphinxPaginator->justCount();
+                }
+
                 $paginator->setDefaultScrollingStyle('Elastic');
                 $paginator->setItemCountPerPage(10);
                
@@ -465,9 +483,7 @@ class SearchController extends Zend_Controller_Action {
                 $paginator->setCache($cache);
                 $paginator->setCurrentPageNumber($page);
 
-                $paginator->getCurrentItems();
-                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time_desc'=>$SphinxPaginator->time_desc, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10));
-
+                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time_desc'=>$SphinxPaginator->time_desc, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10), 'notypecount' => $noTypeCount);
                 $this->view->paginator = $paginator;
         }
 
