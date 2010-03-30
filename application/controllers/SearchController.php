@@ -250,7 +250,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
 
                             $docs[$id]['rfilename'] = $row['Filename'];
-                            $docs[$id]['filename'] = show_matches($row['Filename'], $words, $found);
+                            $docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES), $words, $found);
                             $docs[$id]['in_filename'] = $found;
                         }
                         $total_time += (microtime(true) - $start_time);
