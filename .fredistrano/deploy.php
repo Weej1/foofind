@@ -32,7 +32,7 @@
 		'/public/images/captcha',
 		'/application/configs/application.ini',
 		'/nbproject/',
-		'/library/Zend/'
+		'/library/Zend/',
 		'/library/Zend', //this is for staging deployment, (links to zend lib on prod)
 		'/library/ZendX/',
 		'/tests/'
