@@ -290,7 +290,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     break;
                                 case 7: //BTH HASH
                                     $tip = "MagnetLink";
-                                    $source = "torrent";
+                                    $source = "magnet";
                                     $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:bth:".$row['Uri'];
                                     break;
                                 case 4: // JAMENDO
