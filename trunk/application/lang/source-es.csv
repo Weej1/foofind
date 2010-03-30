@@ -52,7 +52,9 @@
 "Files";"Ficheros"
 "of about";"de aprox."
 "results for";"resultados para"
-"No %1\$s results were found, but there are about %2\$d results for your search <a href='%3\$s'>without type filter</a>.";"No se han encontrado resultados de %1\$s, pero existen aproximadamente %2\$s resultados <a href='%3\$s'>de otros tipos para su búsqueda</a>."
+"NoTypeCount";"No se han encontrado resultados de <i>%s</i>, pero existen aproximadamente %d resultados para su búsqueda en <a href='%s'>otras categorías</a>."
+
+
 
 #contact
 "Contact form";"Formulario de contacto"
