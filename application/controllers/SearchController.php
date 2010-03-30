@@ -337,8 +337,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             if ($newpos!==false && (!isset($sourcepos[$id]) || ($newpos<$sourcepos[$id])))
                             {
                                 $sourcepos[$id] = $newpos;
-                                $docs[$id]['rlink'] = $link;
-                                $docs[$id]['link'] = show_matches($link, $words);
+                                $docs[$id]['rlink'] = htmlentities($link, ENT_QUOTES);
+                                $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $words);
                                 $docs[$id]['link_type'] = $t;
                             }
                             
@@ -365,7 +365,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 foreach (explode(' ', $row['ValueMD']) as $tr)
                                 {
                                     $docs[$id]['sources']['magnet']['rlink'] .= '&tr='.urlencode($tr);
-                                    $docs[$row['IdFile']]['link'] .= '&tr='.urlencode($tr);
+                                    $docs[$id]['sources']['magnet']['link'] = htmlentities($docs[$id]['sources']['magnet']['rlink'], ENT_QUOTES);
+                                    $docs[$row['IdFile']]['link'] .= htmlentities('&tr='.urlencode($tr));
                                     $docs[$row['IdFile']]['rlink'] .= '&tr='.urlencode($tr);
                                 }
                             }
