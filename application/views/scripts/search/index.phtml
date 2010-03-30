@@ -184,9 +184,12 @@ function formatArchive($context, $md, $show_title)
     </div>
 
     <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
-    
+
 <?php else: ?>
     <h2><?=$this->translate('No results.');?></h2>
+    <?php if ($this->info["notypecount"]): ?>
+        <p><?=$this->translate("No %1\$s results were found, but there are about %2\$d results for your search <a href='%3\$s'>without type filter</a>.", $this->qs['type'], $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
+    <?php endif;?>
 <?php endif;?>
 
 </div><!-- end of container_search --->
