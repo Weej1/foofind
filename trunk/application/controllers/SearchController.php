@@ -35,7 +35,7 @@ function show_matches($text, $words, &$found = null)
     $res = $text;
     foreach ($words as $w)
     {
-        if ($w!='') $res = preg_replace("/\b($w)\b/i", "<b>$1</b>", $res, -1,$found);
+        if ($w!='') $res = preg_replace("/\b(".preg_quote($w).")\b/i", "<b>$1</b>", $res, -1,$found);
     }
     $found = $found>0;
     return $res;
