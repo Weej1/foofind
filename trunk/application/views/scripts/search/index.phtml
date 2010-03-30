@@ -194,7 +194,7 @@ function formatArchive($context, $md, $show_title)
 <?php else: ?>
     <h2><?=$this->translate('No results.');?></h2>
     <?php if ($this->info["notypecount"]): ?>
-        <p><?=sprintf($this->translate("NoTypeCount"), $this->qs['type'], $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
+        <p id="no_results"><?=sprintf($this->translate("NoTypeCount"), $this->qs['type'], $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
     <?php endif;?>
 <?php endif;?>
 
