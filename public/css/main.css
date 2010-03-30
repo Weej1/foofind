@@ -60,8 +60,10 @@ p {
 }
 
 
-p#container_search a {
+
+#no_results a{
     color:#DF1279;
+    font-weight: bold;
 }
 
 #container_search h1{
