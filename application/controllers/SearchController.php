@@ -332,7 +332,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $start_time = microtime(true);
                         
                         $metadata = new ff_metadata();
-                        foreach ($metadata->fetchAll("CrcKey in (".join($content['crcMD'], ",").") AND IdFile in ($ids)") as $row)
+                        // search for shown metadata
+                        $mdList = join($content['crcMD'], ",");
+                        // add bittorrent metadata
+                        if ($docs[$id]['sources']['torrent']) $mdList .= ", 4009003051, 4119033687";
+                        foreach ($metadata->fetchAll("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
                         {
                             if ($docs[$id]['link_type']==7 && $row['KeyMD']=='torrent:trackers'||$row['KeyMD']=='torrent:tracker')
                             {
