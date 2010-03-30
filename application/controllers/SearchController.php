@@ -250,7 +250,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
 
                             $docs[$id]['rfilename'] = $row['Filename'];
-                            $docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES), $words, $found);
+                            //$docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES), $words, $found);
+                            $docs[$id]['filename'] = show_matches(strip_tags($row['Filename'], '<b>'), $words, $found);
+
                             $docs[$id]['in_filename'] = $found;
                         }
                         $total_time += (microtime(true) - $start_time);
@@ -326,13 +328,15 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     $link = $mlink;
                                 } elseif ($source=="ed2k")
                                 {
-                                    $docs[$id]['sources']['magnet']['link'] = htmlentities($mlink, ENT_QUOTES);
+                                    //$docs[$id]['sources']['magnet']['link'] = htmlentities($mlink, ENT_QUOTES);
+                                    $docs[$id]['sources']['magnet']['link'] =strip_tags($mlink, '<b>');
                                     $docs[$id]['sources']['magnet']['rlink'] = $mlink;
                                     $docs[$id]['sources']['magnet']['tip'] = "MagnetLink";
                                 }
                             }
 
-                            $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES);
+                            //$docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES);
+                            $docs[$id]['sources'][$source]['link'] = strip_tags($link, '<b>');
                             $docs[$id]['sources'][$source]['rlink'] = $link;
                             $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                             $docs[$id]['sources'][$source]['tip'] = $tip;
@@ -356,7 +360,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 foreach (explode(' ', $row['ValueMD']) as $tr)
                                 {
                                     $docs[$id]['sources']['magnet']['rlink'] .= '&tr='.urlencode($tr);
-                                    $docs[$id]['sources']['magnet']['link'] = htmlentities($docs[$id]['sources']['magnet']['rlink'], ENT_QUOTES);
+                                    //$docs[$id]['sources']['magnet']['link'] = htmlentities($docs[$id]['sources']['magnet']['rlink'], ENT_QUOTES);
+                                    $docs[$id]['sources']['magnet']['link'] = strip_tags($docs[$id]['sources']['magnet']['rlink'], '<b>');
+
                                 }
                             }
                             else
@@ -385,7 +391,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     if (strstr($this->src, $srcLink[0]) && $docs[$id]['sources'][$srcLink])
                                             break;
 
-                            $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES);
+                            //$docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES);
+                             $docs[$id]['rlink'] = strip_tags($docs[$id]['sources'][$srcLink]['rlink']);
+
                             $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $words);
                             $docs[$id]['link_type'] = $srcLink;
                         }
