@@ -270,7 +270,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 1: //GNUTELLA
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:sha1:".$row['Uri'];
+                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:sha1:".$row['Uri'];
                                     break;
                                 case 2: //ED2K
                                     $tip = "ED2K";
@@ -286,12 +286,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 6: //MD5 HASH
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:md5:".$row['Uri'];
+                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:md5:".$row['Uri'];
                                     break;
                                 case 7: //BTH HASH
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:bth:".$row['Uri'];
+                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:bth:".$row['Uri'];
                                     break;
                                 case 4: // JAMENDO
                                 case 8: // WEB
