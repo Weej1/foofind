@@ -104,8 +104,17 @@ function formatArchive($context, $md, $show_title)
     </div>
  
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?> <?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?> <strong><?=$this->info['q']?></strong>.
-    <span class="debuginfo"><?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></span></div>
-    <hr />
+
+    <?php if (APPLICATION_ENV!='production'):?>
+    <span class="debuginfo"><?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></span>
+
+    <style>
+    .debuginfo {
+        display:none !important;
+    }
+    </style>
+    <?php endif; ?>
+    </div><hr />
 
     <div id="options">
    <div class="cornerBox">
@@ -163,7 +172,11 @@ function formatArchive($context, $md, $show_title)
     <ul>
        <?php foreach ($this->paginator as $key => $val): ?>
         <li class="file_excerpt">
-            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a><span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span></h3>
+            <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a>
+            <?php if (APPLICATION_ENV!='production'):?>
+                <span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
+            <?php endif; ?>
+            </h3>
             <span>
               <?php
                 if ($val['type']!=null) {
