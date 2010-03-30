@@ -104,16 +104,7 @@ function formatArchive($context, $md, $show_title)
     </div>
  
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?> <?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?> <strong><?=$this->info['q']?></strong>.
-
-    <?php if (APPLICATION_ENV!='production'):?>
-    <span class="debuginfo"><?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></span>
-
-    <style>
-    .debuginfo {
-        display:none !important;
-    }
-    </style>
-    <?php endif; ?>
+    <?php if (APPLICATION_ENV!='production'):?><span class="debuginfo"><?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></span><style>    .debuginfo {        display:none !important;    }    </style><?php endif; ?>
     </div><hr />
 
     <div id="options">
@@ -127,7 +118,7 @@ function formatArchive($context, $md, $show_title)
             <ul class="sourcetype">
                 <li><a class="<?=(strpos($this->src['ed2k'], 'e')===false)?"on":"off" ?>" href="<?= $this->qs(array('src'=>$this->src['ed2k']), array('page'=>1)) ?>" ><img src='/images/icons/ed2ki.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ed2k');?></a></li>
                 <li><a href="<?= $this->qs(array('src'=>$this->src['magnet']), array('page'=>1)) ?>" class="<?=(strpos($this->src['magnet'], 'm')===false)?"on":"off"?>" ><img src='/images/icons/magneti.gif' style='vertical-align:middle;border:none'><?=$this->translate('Magnet');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>" ><img src='/images/icons/torrenti.gif' style='vertical-align:middle;border:none'><?=$this->translate('BitTorrent');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>" ><img src='/images/icons/torrenti.gif' style='vertical-align:middle;border:none'><?=$this->translate('Torrent');?></a></li>
                 <li><a href="<?= $this->qs(array('src'=>$this->src['web']), array('page'=>1)) ?>" class="<?=(strpos($this->src['web'], 'w')===false)?" on":"off"?>" ><img src='/images/icons/webi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Web');?></a></li>
                 <li><a href="<?= $this->qs(array('src'=>$this->src['ftp']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ftp'], 'f')===false)?" on":"off"?>" ><img src='/images/icons/ftpi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ftp');?></a></li>
             </ul>
@@ -185,9 +176,11 @@ function formatArchive($context, $md, $show_title)
                 }
               ?></span>
             <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
-                <?php foreach ($val["sources"] as $k => $v): ?>
+                <?php foreach ($val["sources"] as $k => $v):
+                     if ($v['count']):?>
                     <?= "<a title='${v['tip']}' href='${v['rlink']}'><img alt='${v['tip']}' src='/images/icons/${k}d.gif' style='vertical-align:middle'></a>${v['count']} " ?>
-                <?php endforeach; ?></span>
+                <?php endif;
+                     endforeach; ?></span>
             <?php endif; ?>
             <cite><?=$val['link']?></cite>
             <? if ($val['size']) echo " - ".$val["size"]?>
