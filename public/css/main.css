@@ -59,6 +59,11 @@ p {
 
 }
 
+
+#container_search a {
+    color:#DF1279;
+}
+
 #container_search h1{
     position: relative;
     top:-22px;
