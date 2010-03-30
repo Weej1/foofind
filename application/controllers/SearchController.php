@@ -86,9 +86,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         if ($this->src)
         {
             $this->srcs = array();
-            foreach (str_split($this->src) as $s)
+            foreach (str_split("wftme") as $s)
             {
-                $this->srcs = array_merge($this->srcs, $content['sources'][$s]['types']);
+                if (strstr($this->src, $s)) $this->srcs = array_merge($this->srcs, $content['sources'][$s]['types']);
             }
 
             if (count($this->srcs)>0)
@@ -195,7 +195,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $result = $this->cl->Query( $this->query, $this->table );
 
         $words = explode(" ", $this->query);
-
         if ( $result === false  ) {
                // echo "Query failed: " . $this->cl->GetLastError() . ".\n";
         } else {
@@ -270,61 +269,84 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 1: //GNUTELLA
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:sha1:".$row['Uri'];
+                                    $mlinkadd = "&xt=urn:sha1:".$row['Uri'];
                                     break;
                                 case 2: //ED2K
                                     $tip = "ED2K";
                                     $source = "ed2k";
                                     $link = "ed2k://|file|".encodeFilename($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
+                                    $mlinkadd = "&xt=urn:ed2k:".$row['Uri'];
                                     break;
-                                case 3:
-                                    $tip = "BitTorrent";
+                                case 3: // TOORENT
+                                    $tip = "Torrent";
                                     $source = "torrent";
-                                    //$rlink =
                                     $link = $row['Uri'];
+                                    break;
+                                case 5: //MD5 HASH
+                                    $tip = "MagnetLink";
+                                    $source = "magnet";
+                                    $mlinkadd = "&xt=urn:tiger:".$row['Uri'];
                                     break;
                                 case 6: //MD5 HASH
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:md5:".$row['Uri'];
+                                    $mlinkadd = "&xt=urn:md5:".$row['Uri'];
                                     break;
                                 case 7: //BTH HASH
                                     $tip = "MagnetLink";
                                     $source = "magnet";
-                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:bth:".$row['Uri'];
+                                    $mlinkadd = "&xt=urn:btih:".$row['Uri'];
                                     break;
                                 case 4: // JAMENDO
                                 case 8: // WEB
                                     $tip = "Web";
                                     $source = "web";
-                                    //$rlink =
                                     $link = $row['Uri'];
                                     break;
                                 case 9: // FTP
                                     $tip = "FTP";
                                     $source = "ftp";
-                                    //$rlink =
                                     $link = $row['Uri'];
                                     break;
                                 default:
                                     continue;
                                     break;
                             }
+
+                            if ($source=="magnet" || $source=="ed2k")
+                            {
+                                $rlink = $docs[$id]['sources']['magnet']['rlink'];
+                                if ($rlink)
+                                    $mlink = $rlink.$mlinkadd;
+                                else
+                                    $mlink = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename']).$mlinkadd;
+
+                                if ($source=="magnet")
+                                {
+                                    $link = $mlink;
+                                } elseif ($source=="ed2k")
+                                {
+                                    $docs[$id]['sources']['magnet']['link'] = htmlentities($mlink, ENT_QUOTES);
+                                    $docs[$id]['sources']['magnet']['rlink'] = $mlink;
+                                    $docs[$id]['sources']['magnet']['tip'] = "MagnetLink";
+                                }
+                            }
+
+
                             $newpos = array_search($t, $this->srcs);
                             if ($newpos!==false && (!isset($sourcepos[$id]) || ($newpos<$sourcepos[$id])))
                             {
                                 $sourcepos[$id] = $newpos;
                                 $docs[$id]['rlink'] = $link;
-
-                                //$words = explode("+", urlencode($this->query));
                                 $docs[$id]['link'] = show_matches($link, $words);
                                 $docs[$id]['link_type'] = $t;
                             }
-                            if ($source) {
-                                $docs[$id]['sources'][$source]['rlink'] = htmlentities($link, ENT_QUOTES);
-                                $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
-                                $docs[$id]['sources'][$source]['tip'] = $tip;
-                            }
+                            
+                            $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES);
+                            $docs[$id]['sources'][$source]['rlink'] = $link;
+                            $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
+                            $docs[$id]['sources'][$source]['tip'] = $tip;
+                            
                         }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
@@ -335,7 +357,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         // search for shown metadata
                         $mdList = join($content['crcMD'], ",");
                         // add bittorrent metadata
-                        if ($docs[$id]['sources']['torrent']) $mdList .= ", 4009003051, 4119033687";
+                        if ($docs[$id]['sources']['magnet']) $mdList .= ", 4009003051, 4119033687";
                         foreach ($metadata->fetchAll("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
                         {
                             if ($docs[$id]['link_type']==7 && $row['KeyMD']=='torrent:trackers'||$row['KeyMD']=='torrent:tracker')
