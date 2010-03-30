@@ -332,22 +332,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 }
                             }
 
-
-                            $newpos = array_search($t, $this->srcs);
-                            if ($newpos!==false && (!isset($sourcepos[$id]) || ($newpos<$sourcepos[$id])))
-                            {
-                                $sourcepos[$id] = $newpos;
-                                $docs[$id]['rlink'] = htmlentities($link, ENT_QUOTES);
-                                $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $words);
-                                $docs[$id]['link_type'] = $t;
-                            }
-                            
                             $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES);
                             $docs[$id]['sources'][$source]['rlink'] = $link;
                             $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                             $docs[$id]['sources'][$source]['tip'] = $tip;
                             
                         }
+
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - ".(microtime(true) - $start_time);
                         // get metadata for files
@@ -366,8 +357,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 {
                                     $docs[$id]['sources']['magnet']['rlink'] .= '&tr='.urlencode($tr);
                                     $docs[$id]['sources']['magnet']['link'] = htmlentities($docs[$id]['sources']['magnet']['rlink'], ENT_QUOTES);
-                                    $docs[$row['IdFile']]['link'] .= htmlentities('&tr='.urlencode($tr));
-                                    $docs[$row['IdFile']]['rlink'] .= '&tr='.urlencode($tr);
                                 }
                             }
                             else
@@ -390,6 +379,15 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
                             $docs[$id]['isources'] = $doc['attrs']['isources'];
                             $docs[$id]['md'] = $md[$id];
+
+                            // search for better link
+                            foreach (array('web', 'ftp', 'torrent', 'magnet', 'ed2k') as $srcLink)
+                                    if (strstr($this->src, $srcLink[0]) && $docs[$id]['sources'][$srcLink])
+                                            break;
+
+                            $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES);
+                            $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $words);
+                            $docs[$id]['link_type'] = $srcLink;
                         }
                         
                         $total_time += (microtime(true) - $start_time);
