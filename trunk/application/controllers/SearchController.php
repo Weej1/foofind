@@ -86,7 +86,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         if ($this->src)
         {
             $this->srcs = array();
-            foreach (str_split("wftme") as $s)
+            foreach (str_split("wftge") as $s)
             {
                 if (strstr($this->src, $s)) $this->srcs = array_merge($this->srcs, $content['sources'][$s]['types']);
             }
