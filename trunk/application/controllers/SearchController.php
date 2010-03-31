@@ -279,7 +279,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     $link = "ed2k://|file|".encodeFilename($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
                                     $mlinkadd = "&xt=urn:ed2k:".$row['Uri'];
                                     break;
-                                case 3: // TOORENT
+                                case 3: // TORRENT
                                     $tip = "Torrent";
                                     $source = "torrent";
                                     $link = $row['Uri'];
@@ -387,8 +387,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['md'] = $md[$id];
 
                             // search for better link
-                            foreach (array('web', 'ftp', 'torrent', 'magnet', 'ed2k') as $srcLink)
-                                    if (strstr($this->src, $srcLink[0]) && $docs[$id]['sources'][$srcLink])
+                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't'=>'magnet', 'g'=>'magnet', 'e'=>'ed2k') as $srci=>$srcLink)
+                                    if (strstr($this->src, $srci) && $docs[$id]['sources'][$srcLink])
                                             break;
 
                             $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES, "UTF-8");
@@ -477,9 +477,9 @@ class SearchController extends Zend_Controller_Action {
         $this->view->form = $form;
 
         $srcs = array();
-        $src2 = ($src=='')?'wftme':$src;
+        $src2 = ($src=='')?'wftge':$src;
         $srcs['ed2k'] = (strpos($src2, 'e')===false)?$src.'e':str_replace('e', '', $src2);
-        $srcs['magnet'] = (strpos($src2, 'm')===false)?$src.'m':str_replace('m', '', $src2);
+        $srcs['gnutella'] = (strpos($src2, 'g')===false)?$src.'g':str_replace('g', '', $src2);
         $srcs['torrent'] = (strpos($src2, 't')===false)?$src.'t':str_replace('t', '', $src2);
         $srcs['web'] = (strpos($src2, 'w')===false)?$src.'w':str_replace('w', '', $src2);
         $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
