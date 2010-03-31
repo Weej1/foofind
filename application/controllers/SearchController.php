@@ -57,8 +57,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_PROXIMITY );
         $this->cl->SetFieldWeights(array('metadata' => 10, 'filename' => 1));
-        $this->cl->SetSelect("*, sum(@weight*(@weight+isources)/ln(fnCount+1)) as fileWeight");
-        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fnWeight DESC, isources DESC" );
+        $this->cl->SetSelect("*, sum(@weight*isources*sources/fnCount) as fileWeight");
+        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "@weight DESC, fnWeight DESC, isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(500);
     }
@@ -387,8 +387,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['md'] = $md[$id];
 
                             // search for better link
-                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't'=>'magnet', 'g'=>'magnet', 'e'=>'ed2k') as $srci=>$srcLink)
-                                    if (strstr($this->src, $srci) && $docs[$id]['sources'][$srcLink])
+                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'magnet', 'g'=>'magnet', 'e'=>'ed2k') as $srci=>$srcLink)
+                                    if (strstr($this->src, $srci[0]) && $docs[$id]['sources'][$srcLink])
                                             break;
 
                             $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES, "UTF-8");

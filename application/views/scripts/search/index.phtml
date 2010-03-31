@@ -104,7 +104,7 @@ function formatArchive($context, $md, $show_title)
     </div>
  
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?> <?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?> <strong><?=$this->info['q']?></strong>.
-    <?php if (APPLICATION_ENV!='production'):?><span class="debuginfo"><?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></span><style>    .debuginfo {        display:none !important;    }    </style><?php endif; ?>
+    <?php if (APPLICATION_ENV!='production'):?><span class="debuginfo"><?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></span><style>    .debuginfo {       /* display:none !important; */   }    </style><?php endif; ?>
     </div><hr />
 
     <div id="options">
