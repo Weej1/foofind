@@ -352,10 +352,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         // search for shown metadata
                         $mdList = join($content['crcMD'], ",");
                         // add bittorrent metadata
-                        if ($docs[$id]['sources']['magnet']) $mdList .= ", 4009003051, 4119033687";
+                        $mdList .= ", 4009003051, 4119033687";
                         
                         foreach ($metadata->fetchAll("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
                         {
+                            $id = $row['IdFile'];
                             if (($row['KeyMD']=='torrent:trackers') || ($row['KeyMD']=='torrent:tracker'))
                             {
                                 foreach (explode(' ', $row['ValueMD']) as $tr)
@@ -365,7 +366,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 }
                             }
                             else
-                                $md[$row['IdFile']][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $words);
+                                $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $words);
 
                         }
                         $total_time += (microtime(true) - $start_time);
