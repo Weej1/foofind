@@ -80,8 +80,8 @@
 "Your surname:";"Tus apellidos:"
 "Your company:";"Tu empresa:"
 "Your phone number:";"Tu número de teléfono:"
-"Please, insert the link to be reviewed:";"Por favor, introduzca el enlace que cree que debe ser revisado:"
-"Please, insert the url where this content appears:";"Por favor, introduzca la url donde aparece el contenido reclamado:"
+"Please, insert the link to be reviewed:";"Por favor, introduce el enlace que cree que debe ser revisado:"
+"Please, insert the url where this content appears:";"Por favor, introduce la url donde aparece el contenido reclamado:"
 "Reason of your complaint:";"Motivo de tu reclamación:"
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
 "literal_check_agree";"He leído y acepto la política de privacidad."
@@ -93,7 +93,7 @@
 Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en Madrid, España por MP2P Technologies."
 
 #footer
-"this is the footer text";"Sitio web <a href='/es/page/about'>foofind</a> bajo licencia Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/'>BY-NC-SA</a>.
+"this is the footer text";"Sitio web <a href='/es/page/about'>Foofind</a> bajo licencia Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.es'>BY-NC-SA</a>.
  <a href='http://code.google.com/p/foofind/'>Código fuente</a> bajo licencia <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
 
 
@@ -165,7 +165,7 @@ LA EMPRESA se reserva el derecho a modificar la presente política de privacidad
 <br>
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
 <br />
-<a href='/es/page/contact'>formulario de contacto.</a>
+<img src='/images/hola.png' /><br />
 <br />
 Inc. en el R.M. de Madrid,<br />
 Tomo 19.853, Folio 160, Hoja M-349777.
@@ -174,4 +174,4 @@ C.I.F. A-83940825
 <br /><br />
 Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Foofind no aloja y, en consecuencia, no reproduce ni comunica públicamente los archivos enlazados que aparecen como resultados de las búsquedas. Foofind no asume ninguna obligación de control, vigilancia e inspección de las obras que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.<br /><br />
  Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, puede solicitarnos su retirada desde el siguiente <a href='/es/page/complaint'>formulario de reclamación.</a><br /><br />
-              Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde Foofind.com."
+              Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde foofind.com."
