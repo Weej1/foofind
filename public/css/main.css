@@ -9,8 +9,13 @@ html, body {
 }
 
 body {
-    font-family: arial, sans-serif;
+   /* font-family: arial, sans-serif;*/
+    font-family:  Arial,Verdana,Helvetica,sans-serif;
     font-size: 13px;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+
 }
 
 .logo_home {
@@ -22,15 +27,16 @@ body {
 }
 
 .logo_home p{
-    font-size: 11px;
+    font-size: 10px;
     text-align: right;
     color: #999;
     padding-top: 80px;
     
+    
 }
 
 p {
-    padding: 0 10px 1em;
+    padding: 0 6px 1em;
 }
 
 #container_home {

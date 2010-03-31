@@ -46,7 +46,7 @@ class Form_Complaint extends Zend_Form {
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
 
 
-                $this->addElement('checkbox', 'agree', array(   'label' => 'literal_check_agree', 'required' => true, 'checked' => true, 'checkboxvalue' => array('false','true'),));
+                $this->addElement('checkbox', 'agree', array(   'label' => 'literal_check_agree', 'required' => true, 'checked' => true));
 
 
                 // add the submit button
