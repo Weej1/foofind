@@ -30,8 +30,8 @@ $content = array(
     'sources' => array(
         'w' => array('types' => array(4,8)),
         'f' => array('types' => array(9)),
-        't' => array('types' => array(3)),
-        'm' => array('types' => array(1,5,6,7)),
+        't' => array('types' => array(3,7)),
+        'g' => array('types' => array(1,5,6)),
         'e' => array('types' => array(2))
     )
 );

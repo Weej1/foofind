@@ -116,11 +116,11 @@ function formatArchive($context, $md, $show_title)
     <div class="cornerBoxInner">
         <p><?=$this->translate('Include results from:')?></p>
             <ul class="sourcetype">
-                <li><a class="<?=(strpos($this->src['ed2k'], 'e')===false)?"on":"off" ?>" href="<?= $this->qs(array('src'=>$this->src['ed2k']), array('page'=>1)) ?>" ><img src='/images/icons/ed2ki.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ed2k');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['magnet']), array('page'=>1)) ?>" class="<?=(strpos($this->src['magnet'], 'm')===false)?"on":"off"?>" ><img src='/images/icons/magneti.gif' style='vertical-align:middle;border:none'><?=$this->translate('Magnet');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>" ><img src='/images/icons/torrenti.gif' style='vertical-align:middle;border:none'><?=$this->translate('Torrent');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['web']), array('page'=>1)) ?>" class="<?=(strpos($this->src['web'], 'w')===false)?" on":"off"?>" ><img src='/images/icons/webi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Web');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['ftp']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ftp'], 'f')===false)?" on":"off"?>" ><img src='/images/icons/ftpi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ftp');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['ed2k']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ed2k'], 'e')===false)?"on":"off" ?>"><img src='/images/icons/ed2ki.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ed2k');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['gnutella']), array('page'=>1)) ?>" class="<?=(strpos($this->src['gnutella'], 'g')===false)?"on":"off"?>"><img src='/images/icons/gnutellai.gif' style='vertical-align:middle;border:none'><?=$this->translate('Gnutella');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>"><img src='/images/icons/torrenti.gif' style='vertical-align:middle;border:none'><?=$this->translate('Torrent');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['web']), array('page'=>1)) ?>" class="<?=(strpos($this->src['web'], 'w')===false)?" on":"off"?>"><img src='/images/icons/webi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Web');?></a></li>
+                <li><a href="<?= $this->qs(array('src'=>$this->src['ftp']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ftp'], 'f')===false)?" on":"off"?>"><img src='/images/icons/ftpi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ftp');?></a></li>
             </ul>
     </div>
     </div>
