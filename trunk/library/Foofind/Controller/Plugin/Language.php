@@ -15,7 +15,7 @@ class Foofind_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
 		$requestParams = $this->getRequest ()->getParams ();
 		$language = (isset ( $requestParams ['language'] )) ? $requestParams ['language'] : false;
 		if ($language == false) {
-			$language = ($translate->isAvailable ( $locale->getLanguage () )) ? $locale->getLanguage () : 'es';
+			$language = ($translate->isAvailable ( $locale->getLanguage () )) ? $locale->getLanguage () : 'en';
 		}
 		if (! $translate->isAvailable ( $language )) {
 
@@ -23,6 +23,7 @@ class Foofind_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
                         
 		} else {
 
+                    
                         $locale->setLocale ( $language );
 			$translate->setLocale ( $locale );
 			Zend_Form::setDefaultTranslator ( $translate );

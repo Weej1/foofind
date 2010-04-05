@@ -33,7 +33,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     
 	//setting the language route url
-	$route = new Zend_Controller_Router_Route ( ':language/:controller/:action/*', array ('language' => 'es', 'module' => 'default', 'controller' => 'index', 'action' => 'index' ) );
+        $route = new Zend_Controller_Router_Route ( ':language/:controller/:action/*', array ('language' => $_COOKIE['lang'], 'module' => 'default', 'controller' => 'index', 'action' => 'index' ) );
 
 	$router = $front->getRouter ();
 	// Remove any default routes
