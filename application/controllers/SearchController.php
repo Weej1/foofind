@@ -500,7 +500,7 @@ class SearchController extends Zend_Controller_Action {
         $this->view->src = $srcs;
         $this->view->qs = $conds;
 
-        $SphinxPaginator = new Sphinx_Paginator('idx_files');
+        $SphinxPaginator = new Sphinx_Paginator('idx_files idx_files_week');
         $SphinxPaginator->setFilters($conds);
 
         if ($SphinxPaginator !== null) {
