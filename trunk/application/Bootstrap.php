@@ -28,18 +28,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initPlugins()
     {
-    $front = Zend_Controller_Front::getInstance();
-    $front->registerPlugin ( new Foofind_Controller_Plugin_Language() );
+
+        $front = Zend_Controller_Front::getInstance();
+        $front->registerPlugin ( new Foofind_Controller_Plugin_Language() );
 
     
 	//setting the language route url
+       
         $route = new Zend_Controller_Router_Route ( ':language/:controller/:action/*', array ('language' => $_COOKIE['lang'], 'module' => 'default', 'controller' => 'index', 'action' => 'index' ) );
 
 	$router = $front->getRouter ();
 	// Remove any default routes
 	$router->removeDefaultRoutes ();
 	$router->addRoute ( 'default', $route );
-
 	$front->setRouter ( $router );
 
     return $front;
