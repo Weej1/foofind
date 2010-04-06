@@ -29,6 +29,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initPlugins()
     {
 
+        Zend_Controller_Action_HelperBroker::addPath( APPLICATION_PATH .'/controllers/helpers');
+
+
         $front = Zend_Controller_Front::getInstance();
         $front->registerPlugin ( new Foofind_Controller_Plugin_Language() );
 
