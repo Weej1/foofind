@@ -23,7 +23,11 @@ class Foofind_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
                         
 		} else {
 
-                    
+
+                         if(!$_COOKIE['lang']){
+                               setcookie ( 'lang', 'eng' , null, '/' );
+                         }
+
                         $locale->setLocale ( $language );
 			$translate->setLocale ( $locale );
 			Zend_Form::setDefaultTranslator ( $translate );
