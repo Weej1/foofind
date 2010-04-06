@@ -4,7 +4,7 @@ class ErrorController extends Zend_Controller_Action
 {
 
     public function init(){
-        $this->_helper->layout()->setLayout('page');
+        $this->_helper->layout()->setLayout('error');
     }
 
 
@@ -19,15 +19,15 @@ class ErrorController extends Zend_Controller_Action
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
         
                 // 404 error -- controller or action not found
+                $this->view->headTitle()->append(' - ');
+                $this->view->headTitle()->append('error 404');
                 $this->getResponse()->setHttpResponseCode(404);
                 $this->view->message = '404 Page not found.';
                 break;
             default:
                 // 500 error
-                $this->view->headTitle()->append(' - ');
-                $this->view->headTitle()->append('error 500');
                 $this->getResponse()->setHttpResponseCode(500);
-                $this->view->message = '500 Internal Server Error';
+                $this->view->message = $this->view->translate('Foofind.com is under maintenance. Please, come back later.');
                 break;
         }
         
