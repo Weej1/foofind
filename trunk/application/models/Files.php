@@ -1,4 +1,11 @@
 <?php
+// First, set up the Cache
+$cache = Zend_Cache::factory('Core', 'File',
+                             array('automatic_serialization' => true),
+                            array('cache_dir' => '/tmp'));
+
+// Next, set the cache to be used with all table objects
+Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
 
 class ff_file extends Zend_Db_Table
 {
