@@ -10,8 +10,7 @@ class IndexController extends Zend_Controller_Action
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
-        //$locale = new Zend_Locale ( );
-        //$this->view->lang = $locale->getLanguage();
+        
 
 
     }
@@ -22,9 +21,10 @@ class IndexController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
 
-        $lang = $request->getParam('language') ;
-        $this->view->lang = $lang;
 
+        $this->view->lang =  $this->_helper->checklang->check();
+
+       
        
               
        $this->view->totalFilesIndexed = number_format($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"));

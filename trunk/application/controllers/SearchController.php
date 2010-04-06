@@ -418,14 +418,16 @@ class SearchController extends Zend_Controller_Action {
 
     public function init() {
 
-        $locale = new Zend_Locale ( );
-        $this->view->lang = $locale->getLanguage();
-        
 
     }
 
 
     public function indexAction() {
+
+
+        $this->view->lang =  $this->_helper->checklang->check();
+
+       
 
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');
