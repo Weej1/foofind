@@ -202,7 +202,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                   //echo "WARNING: " . $this->cl->GetLastWarning() . "";
                 }
                 $this->tcount = $result["total_found"];
-                $this->time_desc = $result["time"];
+                $this->time_desc = "spx: ".$result["time"];
                 $total_time = $result["time"];
                 if ( ! empty($result["matches"]) ) {
                         $ids = array();
@@ -256,7 +256,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['in_filename'] = $found;
                         }
                         $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - ".(microtime(true) - $start_time);
+                        $this->time_desc .= " - fn:".number_format(microtime(true) - $start_time, 3);
                         
                         // get sources for files
                         $start_time = microtime(true);
@@ -344,7 +344,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         }
 
                         $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - ".(microtime(true) - $start_time);
+                        $this->time_desc .= " - src:".number_format(microtime(true) - $start_time, 3);
                         // get metadata for files
                         $start_time = microtime(true);
                         
@@ -370,7 +370,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
                         }
                         $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - ".(microtime(true) - $start_time);
+                        $this->time_desc .= " - md:".number_format(microtime(true) - $start_time, 3);
 
                         // choose better type for each file and get description for file
                         $start_time = microtime(true);
@@ -397,14 +397,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['link_type'] = $srcLink;
                         }
                         
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - ".(microtime(true) - $start_time);
                         unset ($doc);
+                        $total_time += (microtime(true) - $start_time);
+                        $this->time = $total_time;
                         return $docs;
                 }
-                $this->time = $total_time;
         }
-       
+
+        $this->time = 0;
        return array();
     }
 
