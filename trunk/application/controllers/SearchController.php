@@ -418,7 +418,10 @@ class SearchController extends Zend_Controller_Action {
 
     public function init() {
 
-        //
+        $locale = new Zend_Locale ( );
+        $this->view->lang = $locale->getLanguage();
+        
+
     }
 
 
