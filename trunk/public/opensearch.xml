@@ -4,9 +4,9 @@
     <Description>Buscar usando Foofind</Description>
     <InputEncoding>UTF-8</InputEncoding>
     <Image height="16" width="16">http://foofind.com/images/favicon.ico</Image>
-    <Url type="text/html" method="GET" template="http://foofind.com/es/search/">
+    <Url type="text/html" method="GET" template="http://foofind.com/en/search/">
         <Param name="q" value="{searchTerms}"/>
     </Url>
 
-    <SearchForm>http://foofind.com/es/search/</SearchForm>
+    <SearchForm>http://foofind.com/en/search/</SearchForm>
 </OpenSearchDescription>
