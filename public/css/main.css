@@ -18,6 +18,13 @@ body {
 
 }
 
+
+img{
+    border: 0;
+    vertical-align: middle;
+}
+
+
 .logo_home {
     font-size: 2.3em;
     height: 130px;
@@ -64,6 +71,7 @@ p {
     min-height: 300px;
 
 }
+
 
 
 
@@ -201,9 +209,7 @@ input#submit{
      border: 0;
 }
 
-img{
-    border: 0;
-}
+
 
 #footer_home{
     clear: both;
@@ -448,7 +454,58 @@ h3 {
 }
 
 
+/*download page*/
 
+.file_download{
+    text-align: left;
+    margin:30px;
+    display: block;
+    width: 74%;
+}
+
+.file_download h1{
+    width: 100%!important;
+    height: auto!important;
+   
+    
+}
+
+.download_button{
+    text-align: center;
+    display: inline-block;
+    
+}
+
+
+
+.download_more_info{
+    margin-top: 16px;
+    float: right;
+    width: 18em;
+    border:1px solid #cd0069;
+    background-color: #FBEFFB;
+    color: #cd0069;
+    padding: 10px;
+
+}
+
+.download_more_info h3{
+    font-weight: bold;
+    padding: 10px;
+}
+
+
+.download_more_info p{
+    font-size: 12px;
+    padding: 10px;
+
+}
+
+
+.sharelinks{
+    float: right;
+    right: 120px;
+}
 
 
 
@@ -539,9 +596,15 @@ h3 {
 .small.awesome {font-size: 11px;}
 .medium.awesome {font-size: 13px;}
 .large.awesome {font-size: 14px;padding: 4px;}
+
+.superlarge.awesome{font-size: 16px;padding: 10px;}
 /* Colors ---------- */
 .blue.awesome {background-color: #2daebf;}
 /*.magenta.awesome {background-color: #DF1279;}*/
 .magenta.awesome {background-color: #DB006E;}
 
 
+.xdebug-var-dump{
+    display: block;
+    width: auto;
+}
