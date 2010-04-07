@@ -159,7 +159,8 @@ function formatArchive($context, $md, $show_title)
 <?php if ($this->info['total']>0): ?>
     <div id="results">
     <ul>
-       <?php foreach ($this->paginator as $key => $val): ?>
+       <?php foreach ($this->paginator as $key => $val):
+            if ($val['filename']):?>
         <li class="file_excerpt">
             <h3><a href="<?=$val['rlink'] ?>"><?=$val['filename'] ?></a>
             <?php if (APPLICATION_ENV!='production'):?>
@@ -183,7 +184,11 @@ function formatArchive($context, $md, $show_title)
             <cite><?=$val['link']?></cite>
             <? if ($val['size']) echo " - ".$val["size"]?>
         </li>
-        <?php endforeach; ?>
+        <?php elseif (APPLICATION_ENV!='production'):?>
+            <span class="debuginfo" style="background: red">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
+        <?php
+              endif;
+            endforeach; ?>
     </ul>
     </div>
 

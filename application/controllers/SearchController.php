@@ -70,6 +70,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             $conditions = array( $conditions );
 
         $this->cl->ResetFilters();
+        $this->cl->SetFilter('blocked', array(0));
+
         $this->type = $conditions['type'];
         $typeCrcs = null;
         if ($this->type)
@@ -167,6 +169,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                     break;
             }
         }
+
         $this->query = $conditions['q'];
 
     }
@@ -207,7 +210,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 if ( ! empty($result["matches"]) ) {
                         $ids = array();
                         $idfns = array();
-
                         foreach ( $result["matches"] as $doc => $docinfo )
                         {
                             $id = $docinfo["attrs"]["idfile"];
@@ -329,14 +331,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 } elseif ($source=="ed2k")
                                 {
                                     $docs[$id]['sources']['magnet']['link'] = htmlentities($mlink, ENT_QUOTES, "UTF-8");
-                                    //$docs[$id]['sources']['magnet']['link'] =strip_tags($mlink, '<b>');
                                     $docs[$id]['sources']['magnet']['rlink'] = $mlink;
                                     $docs[$id]['sources']['magnet']['tip'] = "MagnetLink";
                                 }
                             }
 
                             $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES, "UTF-8");
-                            //$docs[$id]['sources'][$source]['link'] = strip_tags($link, '<b>');
                             $docs[$id]['sources'][$source]['rlink'] = $link;
                             $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                             $docs[$id]['sources'][$source]['tip'] = $tip;
@@ -376,9 +376,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $start_time = microtime(true);
                         foreach ($docs as $id => $doc)
                         {
+
+                            if (!$doc['filename']) {
+                                $this->cl->UpdateAttributes("idx_files idx_files_week", array("blocked"), array($docs[$id]['idfilename'] => array(3)));
+                                continue;
+                            }
+                            
                             if ($doc['type']==null && count($doc['type_prop'])>0)
                             {
-                                // TODO: count each option and choose better
                                 $docs[$id]['type'] = $doc['type_prop'][0];
                             }
 
