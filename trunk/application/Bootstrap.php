@@ -11,8 +11,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         //ZendX_JQuery::enableView($view);
 
-       
-
     }
 
     protected function _initAutoload()
@@ -31,22 +29,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         Zend_Controller_Action_HelperBroker::addPath( APPLICATION_PATH .'/controllers/helpers');
 
-
         $front = Zend_Controller_Front::getInstance();
         $front->registerPlugin ( new Foofind_Controller_Plugin_Language() );
 
-    
-	//setting the language route url
-       
-        $route = new Zend_Controller_Router_Route ( ':language/:controller/:action/*', array ('language' => $_COOKIE['lang'], 'module' => 'default', 'controller' => 'index', 'action' => 'index' ) );
 
-	$router = $front->getRouter ();
-	// Remove any default routes
-	$router->removeDefaultRoutes ();
-	$router->addRoute ( 'default', $route );
+        //set the routers
+        $router = $front->getRouter ();
+
+        $routeDownload = new Zend_Controller_Router_Route( ':language/download/:id/*', array( 'language' => $_COOKIE['lang'], 'controller' => 'download', 'action' => 'file') );
+        //setting the language route url (the default also)
+        $routeLang = new Zend_Controller_Router_Route ( ':language/:controller/:action/*', array ('language' => $_COOKIE['lang'], 'controller' => 'index', 'action' => 'index', 'module' =>'default' ) );
+
+
+        $router->addRoute ( 'default', $routeLang );//important, put the default route first!
+        $router->addRoute ( 'download/id', $routeDownload );
 	$front->setRouter ( $router );
-
-    return $front;
+        
+        
+         return $front;
     }
 
 
