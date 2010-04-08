@@ -3,11 +3,10 @@
         <a href="/" ><img  src="/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
     </h1>
 
-<?=$this->form; ?>
-
+    <?=$this->form; ?>
 
     <div class="contentype">
-        <a class="<?=(preg_match("/^$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>
+        <a class="<?=(preg_match("/^$/", $_GET['type']))?"actual":""?>" href="<?= ''.$this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>
         <a class="<?=(preg_match("/^Audio$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Audio'), array('page'=>1)) ?>" ><?=$this->translate('Audio');?></a>
         <a class="<?=(preg_match("/^Video$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Video'), array('page'=>1)) ?>" ><?=$this->translate('Video');?></a>
         <a class="<?=(preg_match("/^Image$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Image'), array('page'=>1)) ?>" ><?=$this->translate('Image');?></a>
@@ -16,9 +15,7 @@
         <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
 
-
     <hr />
-
 
      <div class="download_more_info">
         <h3><?=$this->translate('How to download?'); ?></h3>
@@ -26,41 +23,58 @@
             Aquí tienes algunos programas compatibles:'); ?></p>
         <p><img alt="eMule, MLDonkey, aMule"  src="/images/icons/ed2k.gif" /> eMule, MLDonkey, aMule</p>
         <p><img alt="Shareaza, Phex, Limewire"  src="/images/icons/gnutella.gif" /> Shareaza, Phex, Limewire</p>
-        <p><img alt="µTorrent, Bittorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, Transmission, Vuze.</p>
+        <p><img alt="µTorrent, Bittorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, BitTorrent,Transmission.</p>
     </div>
 
 
     <div class="file_download">
         <h1><?=$this->file['Filename'];?></h1>
 
+        <div class="top_download">
         <div class="download_button">
             <img alt="" src="/images/icons/content_<?=$this->file_content_type ?>.gif" /><br />
             <a title="magnet download" class="superlarge magenta awesome" href="/hacer_magneeeeeeet"><?=$this->translate('Download').' ('.$this->file_size.')';?></a>
+         </div>
+
+       <?php if ($this->metadata): sort($this->metadata) ?>
+            <div class="download_file_metadata"><ul>
+                <?php foreach ($this->metadata as $key => $val): ?>
+
+                    <? $val['KeyMD'] = explode(":", $val['KeyMD']);?>
+                    <?='<li>'.ucfirst (  $this->translate($val['KeyMD'][1])  ).': <a href="/'.$this->lang.'/search/?q='.$val['ValueMD'].'">'.$val['ValueMD'].'</a></li>';?>
+
+                <?php endforeach; ?>
+            </ul></div>
+       <?php endif; ?>
+       </div>
+           
+
+       <?php if ($this->sources): ?>
+        <div class="dowload_file_sources">
+                <?php foreach ($this->sources as $key => $val): ?>
+                    <? var_dump($val['Type']); ?>
+                    <? var_dump($val['Uri']); ?>
+                    <? var_dump($val['Sources']); ?>
+                <?php endforeach; ?>
         </div>
-
-        
-        
+       <?php endif; ?>
 
 
 
-        <div class="sharelinks">Share this: 
-            <a href="http://www.facebook.com/share.php?u=http://foofind.com/<?=$this->lang;?>/download/file/id/<?=$this->file['IdFile'];?>">
+        <div class="sharelinks"><?=$this->translate('Share this:');?>
+            <a href="http://www.facebook.com/share.php?u=http://foofind.com/<?=$this->lang;?>/download/<?=$this->file['IdFile'];?>">
                 <img alt="share by facebook" src="/images/icons/ico_facebook.gif" border = "0"/></a>
-
-                <a href="mailto:?subject=<?=$this->file['Filename'];?>&body=http://foofind.com/<?=$this->lang;?>/download/file/id/<?=$this->file['IdFile'];?>">
+                <a href="mailto:?subject=<?=$this->file['Filename'];?>&body=http://foofind.com/<?=$this->lang;?>/download/<?=$this->file['IdFile'];?>">
                 <img alt="share by email" src="/images/icons/ico_email_link.png" border = "0"/></a>
-
-                <a href="http://twitter.com/home?status=http://foofind.com/<?=$this->lang;?>/download/file/id/<?=$this->file['IdFile'];?>">
+                <a href="http://twitter.com/home?status=http://foofind.com/<?=$this->lang;?>/download/<?=$this->file['IdFile'];?>">
                 <img alt="share by twitter" src="/images/icons/ico_twitter.png" border = "0"/></a>
         </div>
 
-
     </div>
 
-
-        <? Zend_Debug::dump($this->file);?>
-        <? Zend_Debug::dump($this->metadata);?>
-        <? Zend_Debug::dump($this->sources);?>
+   <? //Zend_Debug::dump($this->file);?>
+   <? //Zend_Debug::dump($this->metadata);?>
+   <? //Zend_Debug::dump($this->sources);?>
 
 
 

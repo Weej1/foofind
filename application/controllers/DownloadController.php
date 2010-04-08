@@ -1,7 +1,5 @@
 <?php
 
-require_once APPLICATION_PATH . '/models/Files.php';
-
 class DownloadController extends Zend_Controller_Action
 {
 
@@ -12,9 +10,7 @@ class DownloadController extends Zend_Controller_Action
 
         $this->view->lang =  $this->_helper->checklang->check();
 
-
     }
-
 
     
 
@@ -64,38 +60,28 @@ class DownloadController extends Zend_Controller_Action
 
         //*************************************************************************** get file
 
-
                 $id = $this->_request->getParam ( 'id' );
 		$model = $this->_getModel ();
 		$this->view->file = $model->getFile( $id );
                 
 
-                if ($this->view->file){ // if the id ad exists then render the ad and comments
+                if ($this->view->file){ // if the id file exists then go for it
 
                         $this->view->metadata = $model->getMetadata( $id );
                         $this->view->sources = $model->getSources( $id );
 
-
                         $this->view->file_size = $this->_formatSize($this->view->file['Size']);
                         $this->view->file_content_type = $this->_contentType($this->view->file['ContentType']);
-
-                        
-
+   
                         $this->view->headTitle()->append(' - ');
                         $this->view->headTitle()->append($this->view->file['Filename']);
 
                 } else {
 
-                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This file does not exist or may have been deleted!' ) );
+                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
 		     $this->_redirect ( '/'.$this->view->lang );
                      return ;
                 }
-
-
-
-
-               
-
 
 
     }
@@ -109,7 +95,6 @@ class DownloadController extends Zend_Controller_Action
 		}
 		return $this->_model;
 	}
-
 
 
 
@@ -136,6 +121,8 @@ class DownloadController extends Zend_Controller_Action
 
         return $type;
     }
+
+
 
 
 

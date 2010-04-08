@@ -466,8 +466,14 @@ h3 {
 .file_download h1{
     width: 100%!important;
     height: auto!important;
+    left: 0px!important;
    
     
+}
+
+.top_download{
+    text-align: left;
+    margin-bottom: 40px;
 }
 
 .download_button{
@@ -475,8 +481,17 @@ h3 {
     display: inline-block;
     
 }
+.download_file_metadata{
+    width: auto;
+    display: inline-block;
+   margin-left: 80px;
+}
 
-
+li a{
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
 
 .download_more_info{
     margin-top: 16px;
@@ -502,9 +517,13 @@ h3 {
 }
 
 
+
+
 .sharelinks{
     float: right;
     right: 120px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 
