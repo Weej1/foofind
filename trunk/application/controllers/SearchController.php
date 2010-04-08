@@ -30,11 +30,19 @@ function formatSize($bytes)
     return $size;
 }
 
-function show_matches($text, $words, &$found = null)
+function show_matches($text, $query, $url, &$found = null)
 {
     $res = $text;
-    foreach ($words as $w)
+
+    preg_match_all('/"(?:\\\\.|[^\\\\"])+"|\S+/', $query, $words);
+    foreach ($words[0] as $w)
     {
+        if ($w[0]=='"') $w = substr($w, 1, -1);
+        if ($url)
+            $w = urlencode($w);
+        else
+            $w = htmlentities($w, ENT_QUOTES, "UTF-8");
+
         if ($w!='') $res = preg_replace("/\b(".preg_quote($w).")\b/i", "<b>$1</b>", $res, -1,$found);
     }
     $found = $found>0;
@@ -171,7 +179,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         }
 
         $this->query = $conditions['q'];
-
     }
 
     public function justCount()
@@ -197,7 +204,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetLimits( $offset, $itemCountPerPage);
         $result = $this->cl->Query( $this->query, $this->table );
 
-        $words = explode(" ", htmlentities($this->query, ENT_QUOTES, "UTF-8"));
+
         if ( $result === false  ) {
                // echo "Query failed: " . $this->cl->GetLastError() . ".\n";
         } else {
@@ -252,9 +259,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
 
                             $docs[$id]['rfilename'] = $row['Filename'];
-                            $docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES, "UTF-8"), $words, $found);
-                            //$docs[$id]['filename'] = show_matches(strip_tags($row['Filename'], '<b>'), $words, $found);
-
+                            $docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES, "UTF-8"), $this->query, false, $found);
                             $docs[$id]['in_filename'] = $found;
                         }
                         $total_time += (microtime(true) - $start_time);
@@ -366,7 +371,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 }
                             }
                             else
-                                $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $words);
+                                $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $this->query, false);
 
                         }
                         $total_time += (microtime(true) - $start_time);
@@ -398,7 +403,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
                             $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES, "UTF-8");
                             
-                            $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $words);
+                            $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $this->query, true);
                             $docs[$id]['link_type'] = $srcLink;
                         }
                         
