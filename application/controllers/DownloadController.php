@@ -73,7 +73,7 @@ class DownloadController extends Zend_Controller_Action
                         $this->view->file_size = $this->_formatSize($this->view->file['Size']);
                         $this->view->file_content_type = $this->_contentType($this->view->file['ContentType']);
    
-                        $this->view->headTitle()->append(' - ');
+                        $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
                         $this->view->headTitle()->append($this->view->file['Filename']);
 
                 } else {

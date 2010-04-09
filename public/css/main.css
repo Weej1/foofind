@@ -514,12 +514,26 @@ h3 {
     font-size: 12px;
     padding: 10px;
 
+
+}
+
+.download_source{
+    margin-bottom: 25px;
 }
 
 
+.download_source input{
+    float: right;
+    width: 80%;
+    padding: 2px !important;
+    border: 1px solid #A9D0F5 !important;
+    color: #cd0069;
+    text-transform:lowercase;
+}
 
 
 .sharelinks{
+    clear: right;
     float: right;
     right: 120px;
     margin-top: 20px;
