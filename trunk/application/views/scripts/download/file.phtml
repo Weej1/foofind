@@ -17,16 +17,7 @@
 
     <hr />
 
-     <div class="download_more_info">
-        <h3><?=$this->translate('How to download?'); ?></h3>
-        <p><?=$this->translate('Para descargar el software enlazado en esta página se puede precisar un software externo.
-            Aquí tienes algunos programas compatibles:'); ?></p>
-        <p><img alt="eMule, MLDonkey, aMule"  src="/images/icons/ed2k.gif" /> eMule, MLDonkey, aMule</p>
-        <p><img alt="Shareaza, Phex, Limewire"  src="/images/icons/gnutella.gif" /> Shareaza, Phex, Limewire</p>
-        <p><img alt="µTorrent, Bittorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, BitTorrent,Transmission.</p>
-    </div>
-
-
+    <div class="wrap_download">
     <div class="file_download">
         <h1><?=$this->file['Filename'];?></h1>
 
@@ -51,28 +42,34 @@
 
        <?php if ($this->sources): ?>
         <div class="dowload_file_sources">
-                <?php foreach ($this->sources as $key => $val): ?>
+                <?php foreach ($this->sources as $key => $val):  ?>
+
+                    <?php
                    
-                <div class="download_source" >
 
+                    if ( $val['Type'] == 2)   $type = 'ed2k'  ;
+                                elseif ( $val['Type'] == 1)   $type = 'gnutella'  ;
+                                elseif ( ( $val['Type'] == 3) || ( $val['Type'] == 7) )  $type = 'bittottent'  ;
+                                 elseif ( ( $val['Type'] == 4) || ( $val['Type'] == 8) )  $type = 'http'  ;
 
-                        <?
+                    ?>
+                    
+                    <?php
+                    // don't paint tiger or md5 rows
+                    if  (isset($type)) : ?>
+                           
 
-                        echo $val['Type'];
-                        if ( $val['Type'] == 2)   $type = 'ed2k'  ;
-                        if ( $val['Type'] == 1)   $type = 'gnutella'  ;
-                        ?>
+                        <div class="download_source" >
 
+                                <a href="#"><img alt="" src="/images/icons/<?=$type ?>_download.gif" />
+                                <?='<b>'.ucfirst ( $type ).'</b><span>'.$val['Sources'].' '.$this->translate('sources');?></span></a>
+                                <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$val['Uri'].'" />'; ?>
+                                <? unset ($type, $pinta) ?>
+                        </div>
 
-
-                        
-                        <a href="#"><img alt="" src="/images/icons/<?=$type ?>d.gif" />
-                        <?=$type.'&nbsp;'.$val['Sources'].' '.$this->translate('sources');?></a>
-                        <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$val['Uri'].'" />'; ?>
-                        <? unset ($type) ?>
-                </div>
-
+                 <?php  endif; ?>
                 <?php endforeach; ?>
+            
         </div>
        <?php endif; ?>
 
@@ -93,6 +90,17 @@
 
     </div>
 
-   
+
+    <div class="download_more_info">
+        <h3><?=$this->translate('How to download?'); ?></h3>
+        <p><?=$this->translate('Para descargar el software enlazado en esta página se puede precisar un software externo.
+            Aquí tienes algunos programas compatibles:'); ?></p>
+        <p><img alt="eMule, MLDonkey, aMule"  src="/images/icons/ed2k.gif" /> eMule, MLDonkey, aMule</p>
+        <p><img alt="Shareaza, Phex, Limewire"  src="/images/icons/gnutella.gif" /> Shareaza, Phex, Limewire</p>
+        <p><img alt="µTorrent, Bittorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, BitTorrent,Transmission.</p>
+    </div>
+
+
+     </div>
 
 </div>

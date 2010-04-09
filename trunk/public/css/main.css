@@ -456,24 +456,43 @@ h3 {
 
 /*download page*/
 
-.file_download{
-    text-align: left;
-    margin:30px;
+.wrap_download{
+    /*max-width: 850px;*/
+    min-width: 450px;
+    width: 960px;
+    margin-top:30px;
+    margin-left:80px;
+    margin-right:50px;
     display: block;
-    width: 74%;
+}
+
+.file_download{
+    /*text-align: left;*/
+    
+    display: inline-block;
+    width: 68%;
+   /* min-width: 30%;*/
+   /* width: 750px;*/
+    vertical-align: top;
+    margin-right: 60px;
 }
 
 .file_download h1{
-    width: 100%!important;
+    width: auto!important;
     height: auto!important;
     left: 0px!important;
+    top: 0px!important;
+    font-size: 1.6em!important;
+    clear: none!important;
    
     
 }
 
 .top_download{
     text-align: left;
+    clear: left;
     margin-bottom: 40px;
+    width: 100%;
 }
 
 .download_button{
@@ -482,9 +501,10 @@ h3 {
     
 }
 .download_file_metadata{
-    width: auto;
+    width: 400px;
     display: inline-block;
-   margin-left: 80px;
+    margin-left: 70px;
+    margin-top: 20px;
 }
 
 .download_file_metadata a{
@@ -494,41 +514,67 @@ h3 {
 }
 
 .download_more_info{
-    margin-top: 16px;
-    float: right;
-    width: 18em;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 210px;
     border:1px solid #cd0069;
     background-color: #FBEFFB;
     color: #cd0069;
     padding: 10px;
+    top: 2px;
 
 }
 
 .download_more_info h3{
     font-weight: bold;
     padding: 10px;
+    vertical-align: top;
 }
 
 
 .download_more_info p{
     font-size: 12px;
-    padding: 10px;
-
-
+    padding: 8px;
 }
 
 .download_source{
-    margin-bottom: 25px;
+    
+    vertical-align: middle;
 }
 
+.download_source a{
+    color: #000;
+    text-decoration: none;
+   position: relative;
+    display: block;
+    width: 110px;
+   
+}
+
+.download_source span{
+
+    position: relative;
+    display: block;
+    width: 80px;
+    clear : left;
+
+    left: 38px;
+    top: -10px;
+
+}
 
 .download_source input{
     float: right;
-    width: 80%;
-    padding: 2px !important;
+    position: relative;
+    top: -35px;
+    width: 78%;
+    padding: 1px !important;
     border: 1px solid #A9D0F5 !important;
     color: #cd0069;
     text-transform:lowercase;
+    display: block;
+    
 }
 
 
@@ -536,7 +582,7 @@ h3 {
     clear: right;
     float: right;
     right: 120px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 30px;
 }
 
