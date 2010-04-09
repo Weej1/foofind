@@ -52,14 +52,35 @@
        <?php if ($this->sources): ?>
         <div class="dowload_file_sources">
                 <?php foreach ($this->sources as $key => $val): ?>
-                    <? var_dump($val['Type']); ?>
-                    <? var_dump($val['Uri']); ?>
-                    <? var_dump($val['Sources']); ?>
+                   
+                <div class="download_source" >
+
+
+                        <?
+
+                        echo $val['Type'];
+                        if ( $val['Type'] == 2)   $type = 'ed2k'  ;
+                        if ( $val['Type'] == 1)   $type = 'gnutella'  ;
+                        ?>
+
+
+
+                        
+                        <a href="#"><img alt="" src="/images/icons/<?=$type ?>d.gif" />
+                        <?=$type.'&nbsp;'.$val['Sources'].' '.$this->translate('sources');?></a>
+                        <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$val['Uri'].'" />'; ?>
+                        <? unset ($type) ?>
+                </div>
+
                 <?php endforeach; ?>
         </div>
        <?php endif; ?>
 
 
+
+   <? //Zend_Debug::dump($this->file);?>
+   <? //Zend_Debug::dump($this->metadata);?>
+   <? //Zend_Debug::dump($this->sources);?>
 
         <div class="sharelinks"><?=$this->translate('Share this:');?>
             <a href="http://www.facebook.com/share.php?u=http://foofind.com/<?=$this->lang;?>/download/<?=$this->file['IdFile'];?>">
@@ -72,10 +93,6 @@
 
     </div>
 
-   <? //Zend_Debug::dump($this->file);?>
-   <? //Zend_Debug::dump($this->metadata);?>
-   <? //Zend_Debug::dump($this->sources);?>
-
-
+   
 
 </div>

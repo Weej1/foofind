@@ -35,8 +35,7 @@ class Model_Download extends Zend_Db_Table_Abstract
 
 		$select->where ( 'file.idFile = ?', $id );
                 $select->where ( 'file.blocked = ?', 0 );
-                //$select->order('MaxSources');
-
+                $select->order( 'MaxSources DESC' );
                 $select->limit( $count, 1);
 
 		if ($table->fetchRow( $select )) {
@@ -50,17 +49,16 @@ class Model_Download extends Zend_Db_Table_Abstract
         
 	public  function getMetadata($id)
         {
-                     $id = ( int ) $id;
+                    $id = ( int ) $id;
 
-                    if ($id){
+                         if ($id){
 
-                        $metadata = new Zend_Db_Table('ff_metadata');
-                        $query = "SELECT ff_metadata.KeyMD , ff_metadata.ValueMD  FROM ff_metadata WHERE ff_metadata.IdFile = ".$id;
-                        $result = $metadata->getAdapter()->query($query)->fetchAll();
-                    }
+                                $metadata = new Zend_Db_Table('ff_metadata');
+                                $query = "SELECT ff_metadata.KeyMD , ff_metadata.ValueMD  FROM ff_metadata WHERE ff_metadata.IdFile = ".$id;
+                                $result = $metadata->getAdapter()->query($query)->fetchAll();
+                            }
 
-		return $result;
-
+                    return $result;
         }
 
 
