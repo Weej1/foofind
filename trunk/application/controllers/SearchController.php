@@ -43,7 +43,7 @@ function show_matches($text, $query, $url, &$found = null)
         else
             $w = htmlentities($w, ENT_QUOTES, "UTF-8");
 
-        if ($w!='') $res = preg_replace("/\b(".preg_quote($w).")\b/i", "<b>$1</b>", $res, -1,$found);
+        if ($w!='') $res = preg_replace("/\b(".preg_quote($w).")\b/iu", "<b>$1</b>", $res, -1,$found);
     }
     $found = $found>0;
     return $res;
@@ -516,14 +516,7 @@ class SearchController extends Zend_Controller_Action {
         if ($SphinxPaginator !== null) {
                 //paginator
                 $paginator = new Zend_Paginator($SphinxPaginator);
-                $paginator->getCurrentItems();
 
-                if ($conds['type']!=null && $SphinxPaginator->count()==0)
-                {
-                    $conds['type']=null;
-                    $SphinxPaginator->setFilters($conds);
-                    $noTypeCount = $SphinxPaginator->justCount();
-                }
 
                 $paginator->setDefaultScrollingStyle('Elastic');
                 $paginator->setItemCountPerPage(10);
@@ -536,6 +529,15 @@ class SearchController extends Zend_Controller_Action {
                 $paginator->setCache($cache);
                 $paginator->setCurrentPageNumber($page);
 
+                $paginator->getCurrentItems();
+
+                if ($conds['type']!=null && $SphinxPaginator->count()==0)
+                {
+                    $conds['type']=null;
+                    $SphinxPaginator->setFilters($conds);
+                    $noTypeCount = $SphinxPaginator->justCount();
+                }
+                
                 $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time_desc'=>$SphinxPaginator->time_desc, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10), 'notypecount' => $noTypeCount);
                 $this->view->paginator = $paginator;
         }
