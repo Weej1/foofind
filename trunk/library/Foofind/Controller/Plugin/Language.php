@@ -25,8 +25,21 @@ class Foofind_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract
 
 
                         if(!$_COOKIE['lang']){
-                               setcookie ( 'lang', 'en' , null, '/' );
-                               $language = 'en';
+
+
+                               if ($locale->getLanguage() == $translate->isAvailable){
+
+                                    setcookie ( $locale->getLanguage(), $locale->getLanguage() , null, '/' );
+                                    $language = $locale->getLanguage();
+                                    Zend_Registry::set ( 'Zend_Locale', $locale );
+
+                               } else {
+                                     setcookie ( 'lang', 'en' , null, '/' );
+                                     $language = 'en';
+                               }
+
+
+                              
                                
                         }
 

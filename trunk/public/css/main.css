@@ -368,7 +368,7 @@ h3 {
 #results {
     padding-left:10px;
     word-wrap: break-word;
-     overflow: hidden;
+    overflow: hidden;
 }
 
 #menu_page {
@@ -478,34 +478,45 @@ h3 {
 }
 
 .file_download h1{
-    width: auto!important;
+    width: 100%!important;
     height: auto!important;
     left: 0px!important;
     top: 0px!important;
     font-size: 1.6em!important;
     clear: none!important;
-   
-    
+    word-wrap: break-word!important;
+    overflow: hidden!important;
 }
 
 .top_download{
     text-align: left;
     clear: left;
-    margin-bottom: 40px;
+    padding-bottom: 20px;
+    padding-top: 30px;
     width: 100%;
+    min-height: 120px;
+    
 }
 
 .download_button{
+    position: relative;
     text-align: center;
     display: inline-block;
+    top:-20px;
+    vertical-align: middle;
+   
     
 }
 .download_file_metadata{
-    width: 400px;
+    max-width: 350px;
     display: inline-block;
     margin-left: 70px;
-    margin-top: 20px;
+    vertical-align: middle;
 }
+
+
+
+
 
 .download_file_metadata a{
     color: #000;
