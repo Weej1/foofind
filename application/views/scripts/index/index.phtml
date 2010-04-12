@@ -1,27 +1,15 @@
 <center id="container_home">
     <div title="foofind" class="logo_home"><p><?=$this->totalFilesIndexed.' '.$this->translate('files indexed');?></p></div>
 
-    <?
-if (count ( $this->mensajes ) > 0) {
-	echo '<div class="success">';
-	foreach ( $this->mensajes as $msg ) {
-		echo $msg . '<br>';
-	}
-	echo '</div>';
-}
-?>
-
     <div class="home_form">
         <?=$this->form;?>
     </div>
 
-    <div id="footer_home"  title="File search engine - foodind-com">
-
-    <div id="footer-navigation" >
-        <a class="navtype" href="/<?=$this->lang?>/page/legal/"><?=$this->translate('Legal');?></a>
-        <a class="navtype" href="/<?=$this->lang?>/page/tos"><?=$this->translate('Terms');?></a>
-        <a class="navtype" href="/<?=$this->lang?>/page/privacy"><?=$this->translate('Privacy');?></a>
+    <div id="footer_home">
+        <div id="footer-navigation" >
+            <a class="navtype" href="/<?=$this->lang?>/page/legal/"><?=$this->translate('Legal');?></a>
+            <a class="navtype" href="/<?=$this->lang?>/page/tos"><?=$this->translate('Terms');?></a>
+            <a class="navtype" href="/<?=$this->lang?>/page/privacy"><?=$this->translate('Privacy');?></a>
+        </div>
     </div>
-
-</div>
 </center>
