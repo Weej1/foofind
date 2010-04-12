@@ -373,6 +373,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
                             else
                                 $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $this->query, false);
+                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}";
 
                         }
                         $total_time += (microtime(true) - $start_time);
