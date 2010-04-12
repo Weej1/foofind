@@ -1,6 +1,8 @@
 <?php
 require_once APPLICATION_PATH . '/models/Files.php';
 
+define(MAX_RESULTS, 10000);
+
 function encodeFilename($filename)
 {
     return str_replace(" ", "+", $filename);
@@ -201,9 +203,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function getItems($offset, $itemCountPerPage)
     {
         global $content;
-        $this->cl->SetLimits( $offset, $itemCountPerPage);
+        $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS);
         $result = $this->cl->Query( $this->query, $this->table );
-
 
         if ( $result === false  ) {
                // echo "Query failed: " . $this->cl->GetLastError() . ".\n";
@@ -420,7 +421,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
     public function count()
     {
-        return $this->tcount;
+        return min($this->tcount, MAX_RESULTS);
     }
 }
 
@@ -428,6 +429,8 @@ class SearchController extends Zend_Controller_Action {
 
     public function init() {
 
+        $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
+        $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
     }
 
@@ -436,8 +439,6 @@ class SearchController extends Zend_Controller_Action {
 
 
         $this->view->lang =  $this->_helper->checklang->check();
-
-       
 
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');
@@ -510,13 +511,18 @@ class SearchController extends Zend_Controller_Action {
         $this->view->src = $srcs;
         $this->view->qs = $conds;
 
+        if ($page>MAX_RESULTS/10)
+        {
+            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Foofind does not allow browse results after page 1000.' ) );
+            $this->_redirect("/{$this->view->lang}/search/".$helper->qs(array(), array('page'=>1)));
+            return;
+        }
         $SphinxPaginator = new Sphinx_Paginator('idx_files idx_files_week');
         $SphinxPaginator->setFilters($conds);
 
         if ($SphinxPaginator !== null) {
                 //paginator
                 $paginator = new Zend_Paginator($SphinxPaginator);
-
 
                 $paginator->setDefaultScrollingStyle('Elastic');
                 $paginator->setItemCountPerPage(10);

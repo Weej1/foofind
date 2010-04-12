@@ -53,7 +53,7 @@
 "of about";"de aprox."
 "results for";"resultados para"
 "NoTypeCount";"No se han encontrado resultados de <i>%s</i>, pero existen aproximadamente %d resultados para su búsqueda en <a href='%s'>otras categorías</a>."
-
+"Foofind does not allow browse results after page 1000.";"Foofind no permite navegar resultados posteriores a la página 1000."
 
 
 #contact

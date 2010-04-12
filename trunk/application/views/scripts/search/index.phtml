@@ -102,9 +102,20 @@ function formatArchive($context, $md, $show_title)
         <a class="<?=(preg_match("/^Software$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Software'), array('page'=>1)) ?>" ><?=$this->translate('Software');?></a>
         <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
- 
-    <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?> <?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?> <strong><?=$this->info['q']?></strong><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div><style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div><hr />
-
+<?php if ($this->info['total']>0): ?>
+    <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?> <?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?> <strong><?=$this->info['q']?></strong><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div><style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
+<?php endif;?>
+    <hr />
+        <?
+if (count ( $this->mensajes ) > 0) {
+	echo '<div class="success">';
+	foreach ( $this->mensajes as $msg ) {
+		echo $msg . '<br>';
+	}
+	echo '</div>';
+}
+?>
+    
     <div id="options">
    <div class="cornerBox">
     <div class="corner TL"></div>
