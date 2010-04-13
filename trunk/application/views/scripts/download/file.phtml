@@ -31,12 +31,26 @@
             </a>
          </div>
 
+            <? //TODO use this unfonished helper
+             //var_dump( $this->formatMetadata($this->metadata) );?>
+
        <?php if ($this->metadata): sort($this->metadata) ?>
             <div class="download_file_metadata"><ul>
                 <?php foreach ($this->metadata as $key => $val): ?>
 
+
                     <? $val['KeyMD'] = explode(":", $val['KeyMD']);?>
+
+
+                    <?php
+                    $whitelist = array( 'Album', 'Artist', 'Title', 'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype',
+                        'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
+
+                    $val['KeyMD'][1] = ucfirst (  $this->translate($val['KeyMD'][1])  );
+
+                    if ( in_array($val['KeyMD'][1], $whitelist ) )  : ?>
                     <?='<li>'.ucfirst (  $this->translate($val['KeyMD'][1])  ).': <a href="/'.$this->lang.'/search/?q='.$val['ValueMD'].'">'.$val['ValueMD'].'</a></li>';?>
+                    <?php endif; ?>
 
                 <?php endforeach; ?>
             </ul></div>
@@ -44,15 +58,36 @@
        </div>
            
 
+
+
+
        <?php if ($this->sources): ?>
         <div class="dowload_file_sources">
                 <?php foreach ($this->sources as $key => $val):  ?>
 
                     <?php
-                    if ( $val['Type'] == 2)   $type = 'ed2k'  ;
-                                elseif ( $val['Type'] == 1)   $type = 'gnutella'  ;
-                                elseif ( ( $val['Type'] == 3) || ( $val['Type'] == 7) )  $type = 'bittottent'  ;
-                                 elseif ( ( $val['Type'] == 4) || ( $val['Type'] == 8) )  $type = 'http'  ;
+                    if ( $val['Type'] == 2)  { $type = 'ed2k'  ;
+                                                       $urlStart = 'ed2k://|file|';
+                                                       $uri = '|'.$this->file['Size'].'|'.$val['Uri'];
+                                                       $urlEnd = '|/';
+                                                       $this->file['Filename'] = str_replace(' ', '+', $this->file['Filename']);
+                                                       $link = $urlStart.$this->file['Filename'].$uri.$urlEnd ;
+                                                       }
+                                elseif ( $val['Type'] == 1) {  $type = 'gnutella';
+                                                        $urlStart = 'magnet:?xt=urn:ed2k:';
+                                                       $uri = $val['Uri'];
+                                                       $urlEnd = '|/';
+                                                       $this->file['Filename'] = str_replace(' ', '+', $this->file['Filename']);
+                                                       $link = $urlStart.$uri.$urlEnd ;
+                                                       }
+                                
+                                elseif ( ( $val['Type'] == 3) || ( $val['Type'] == 7) ) { $type = 'bittorrent'  ;
+                                                         }
+                                 elseif ( ( $val['Type'] == 4) || ( $val['Type'] == 8) ){  $type = 'http'  ;
+
+
+                                 }
+
 
                     ?>
                     
@@ -62,10 +97,10 @@
                            
 
                         <div class="download_source" >
-                                <a href="#"><img alt="" src="/images/icons/<?=$type ?>_download.gif" />
+                                <a href="<?=$link ?>"><img alt="" src="/images/icons/<?=$type ?>_download.gif" />
                                 <?='<b>'.ucfirst ( $type ).'</b><span>'.$val['Sources'].' '.$this->translate('sources');?></span></a>
-                                <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$val['Uri'].'" />'; ?>
-                                <? unset ($type, $pinta) ?>
+                                <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$link.'" />'; ?>
+                                <? unset ($type, $pinta, $link) ?>
                         </div>
 
                  <?php  endif; ?>
@@ -79,15 +114,15 @@
        <?php endif; ?>
 
    <? //Zend_Debug::dump($this->file);?>
-   <? //Zend_Debug::dump($this->metadata);?>
+   <? Zend_Debug::dump($this->metadata);?>
    <? //Zend_Debug::dump($this->sources);?>
 
         <div class="sharelinks"><?=$this->translate('Share this:');?>
-            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->lang;?>/<?=$this->file['IdFile'];?>">
+            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->lang;?>/<?=dechex($this->file['IdFile'] );?>">
                 <img alt="share by facebook" src="/images/icons/ico_facebook.gif" border = "0"/></a>
                 <a href="mailto:?subject=<?=$this->file['Filename'];?>&body=http://foofind.com./<?=$this->lang;?>/download/<?=$this->file['IdFile'];?>">
                 <img alt="share by email" src="/images/icons/ico_email_link.png" border = "0"/></a>
-                <a href="http://twitter.com/home?status=http://foof.in/<?=$this->lang;?>/<?=$this->file['IdFile'];?>">
+                <a href="http://twitter.com/home?status=http://foof.in/<?=$this->lang;?>/<?=dechex($this->file['IdFile'] );?>">
                 <img alt="share by twitter" src="/images/icons/ico_twitter.png" border = "0"/></a>
         </div>
 
