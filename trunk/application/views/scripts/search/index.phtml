@@ -91,16 +91,14 @@ function formatArchive($context, $md, $show_title)
     </h1>
 
 <?=$this->form; ?>
-
-
     <div class="contentype">
-        <a class="<?=(preg_match("/^$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>
-        <a class="<?=(preg_match("/^Audio$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Audio'), array('page'=>1)) ?>" ><?=$this->translate('Audio');?></a>
-        <a class="<?=(preg_match("/^Video$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Video'), array('page'=>1)) ?>" ><?=$this->translate('Video');?></a>
-        <a class="<?=(preg_match("/^Image$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Image'), array('page'=>1)) ?>" ><?=$this->translate('Image');?></a>
-        <a class="<?=(preg_match("/^Document$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Document'), array('page'=>1)) ?>" ><?=$this->translate('Document');?></a>
-        <a class="<?=(preg_match("/^Software$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Software'), array('page'=>1)) ?>" ><?=$this->translate('Software');?></a>
-        <a class="<?=(preg_match("/^Archive$/", $_GET['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
+        <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" href="<?= ''.$this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>
+        <a class="<?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Audio'), array('page'=>1)) ?>" ><?=$this->translate('Audio');?></a>
+        <a class="<?=(preg_match("/^Video$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Video'), array('page'=>1)) ?>" ><?=$this->translate('Video');?></a>
+        <a class="<?=(preg_match("/^Image$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Image'), array('page'=>1)) ?>" ><?=$this->translate('Image');?></a>
+        <a class="<?=(preg_match("/^Document$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Document'), array('page'=>1)) ?>" ><?=$this->translate('Document');?></a>
+        <a class="<?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Software'), array('page'=>1)) ?>" ><?=$this->translate('Software');?></a>
+        <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
 <?php if ($this->info['total']>0): ?>
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?> <?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?> <strong><?=$this->info['q']?></strong><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div><style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
