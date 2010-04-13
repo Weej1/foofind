@@ -45,8 +45,9 @@
                     <?php
                     $whitelist = array( 'Album', 'Artist', 'Title', 'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype',
                         'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
-
                     $val['KeyMD'][1] = ucfirst (  $this->translate($val['KeyMD'][1])  );
+
+                    
 
                     if ( in_array($val['KeyMD'][1], $whitelist ) )  : ?>
                     <?='<li>'.ucfirst (  $this->translate($val['KeyMD'][1])  ).': <a href="/'.$this->lang.'/search/?q='.$val['ValueMD'].'">'.$val['ValueMD'].'</a></li>';?>
@@ -114,7 +115,7 @@
        <?php endif; ?>
 
    <? //Zend_Debug::dump($this->file);?>
-   <? Zend_Debug::dump($this->metadata);?>
+   <? //Zend_Debug::dump($this->metadata);?>
    <? //Zend_Debug::dump($this->sources);?>
 
         <div class="sharelinks"><?=$this->translate('Share this:');?>
