@@ -35,6 +35,9 @@ class IndexController extends Zend_Controller_Action
                     ->addFilter(new Zend_Filter_HtmlEntities());
               $q = $f->filter ( $this->_request->getPost ( 'q' ) );
 
+              if ($_COOKIE['src']) {
+                $form->addElement('hidden', 'src', array('value'=>$_COOKIE['src']));
+              }
               $form->setAction( '/'. $this->view->lang.'/search/'.$q);
 
               $form->loadDefaultDecoratorsIsDisabled(false);

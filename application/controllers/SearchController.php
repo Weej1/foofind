@@ -1,7 +1,7 @@
 <?php
 require_once APPLICATION_PATH . '/models/Files.php';
 
-define(MAX_RESULTS, 10000);
+define(MAX_RESULTS, 1000);
 
 function encodeFilename($filename)
 {
@@ -186,7 +186,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function justCount()
     {
         $start_time = microtime(true);
-        $this->cl->SetLimits( 0, 1);
+        $this->cl->SetLimits( 0, 1, 1);
         $this->cl->SetMaxQueryTime(100);
 
         $result = $this->cl->Query( $this->query, $this->table );
@@ -493,6 +493,12 @@ class SearchController extends Zend_Controller_Action {
         // assign the form to the view
         $this->view->form = $form;
 
+        if(!$src)
+        {
+            if ($_COOKIE['src']) $src = $_COOKIE['src'];
+        } else {
+            setcookie( 'src', $src, null, '/' );
+        }
         $srcs = array();
         $src2 = ($src=='')?'wftge':$src;
         $srcs['ed2k'] = (strpos($src2, 'e')===false)?$src.'e':str_replace('e', '', $src2);
@@ -518,7 +524,7 @@ class SearchController extends Zend_Controller_Action {
             $this->_redirect("/{$this->view->lang}/search/".$helper->qs(array(), array('page'=>1)));
             return;
         }
-        $SphinxPaginator = new Sphinx_Paginator('idx_files idx_files_week');
+        $SphinxPaginator = new Sphinx_Paginator('idx_files, idx_files_week');
         $SphinxPaginator->setFilters($conds);
 
         if ($SphinxPaginator !== null) {
