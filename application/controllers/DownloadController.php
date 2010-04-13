@@ -24,10 +24,16 @@ class DownloadController extends Zend_Controller_Action
         if ($_SERVER['HTTP_REFERER'])
         {
             parse_str(substr(strstr($_SERVER['HTTP_REFERER'], '?'), 1));
-            $form->getElement('q')->setValue(trim($q));
+
+            $f = new Zend_Filter();
+            $f->addFilter(new Zend_Filter_StringTrim());
+            $f->addFilter(new Zend_Filter_StripTags($encoding));
+            $q = $f->filter (trim(stripcslashes(strip_tags($q))));
+            $type = $f->filter ( $type );
+            $src = $f->filter ( $src );
+            $form->getElement('q')->setValue($q);
             $form->addElement("hidden", "type", array("value"=>$type));
             $form->addElement("hidden", "src", array("value"=>$src));
-            $form->addElement("hidden", "opt", array("value"=>$opt));
         }
 
 

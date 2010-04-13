@@ -373,8 +373,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
                             else
                                 $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $this->query, false);
-                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}";
-
+                            
                         }
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - md:".number_format(microtime(true) - $start_time, 3);
@@ -383,6 +382,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $start_time = microtime(true);
                         foreach ($docs as $id => $doc)
                         {
+                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}";
 
                             if (!$doc['filename']) {
                                 $this->cl->UpdateAttributes("idx_files idx_files_week", array("blocked"), array($docs[$id]['idfilename'] => array(3)));
@@ -446,7 +446,6 @@ class SearchController extends Zend_Controller_Action {
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
         $src = $this->_getParam('src');
-        $opt = $this->_getParam('opt')=='1';
         $size = $this->_getParam('size');
         $year = $this->_getParam('year');
         $brate = $this->_getParam('brate');
@@ -463,7 +462,6 @@ class SearchController extends Zend_Controller_Action {
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
         $size = $f->filter ( $size );
-        $opt = $f->filter ( $opt );
         $year = $f->filter ( $year );
         $brate = $f->filter ( $brate );
 
