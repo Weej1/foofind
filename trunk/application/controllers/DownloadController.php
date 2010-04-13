@@ -1,5 +1,6 @@
 <?php
 
+require_once ( APPLICATION_PATH . '/models/ContentType.php' );
 class DownloadController extends Zend_Controller_Action
 {
 
@@ -74,7 +75,6 @@ class DownloadController extends Zend_Controller_Action
                         $this->view->sources = $model->getSources( $id );
 
                         $this->view->file_size = $this->_formatSize($this->view->file['Size']);
-                        $this->view->file_content_type = $this->_contentType($this->view->file['ContentType']);
    
                         $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
                         $this->view->headTitle()->append($this->view->file['Filename']);
@@ -112,25 +112,6 @@ class DownloadController extends Zend_Controller_Action
 
         return $form;
     }
-
-
-
-    protected function _contentType($type)
-    {
-        if ($this->view->qs['type'])
-        {
-            return $this->view->qs['type'];
-        } else
-        {
-            try {
-                return $content['assoc'][$docinfo["attrs"]["contenttype"]];
-            } catch (Exception $ex) {
-            }
-        }
-
-        return null;
-    }
-
 
     //TODO refactor this function ,is duplicated from search controller (this sucks)
     protected function _formatSize($bytes)

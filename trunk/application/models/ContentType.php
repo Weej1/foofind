@@ -1,6 +1,5 @@
 <?php
 
-
 global $content;
 $content = array(
     'assoc' => array(1 => 'Audio', 2 => 'Video', 3 => 'Document', 4 => 'Archive', 5 => 'Image', 6 => 'Software',
