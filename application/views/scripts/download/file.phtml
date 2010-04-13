@@ -43,14 +43,24 @@
 
 
                     <?php
+
+                    //list of fields to be showed
                     $whitelist = array( 'Album', 'Artist', 'Title', 'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype',
                         'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
                     $val['KeyMD'][1] = ucfirst (  $this->translate($val['KeyMD'][1])  );
 
-                    
+                    //list of fields to be linkable
+                    $linklist = array( 'Album', 'Artist', 'Title', 'Name', 'Author'  );
+
+                     if ( in_array($val['KeyMD'][1], $linklist ) ) {
+                         $link= '<li>'.$val['KeyMD'][1].': <a href="/'.$this->lang.'/search/?q='.$val['ValueMD'].'">'.$val['ValueMD'].'</a></li>';
+                     } else {
+                         $link = '<li>'.$val['KeyMD'][1].': '.$val['ValueMD'].'</li>';
+                     };
+
 
                     if ( in_array($val['KeyMD'][1], $whitelist ) )  : ?>
-                    <?='<li>'.ucfirst (  $this->translate($val['KeyMD'][1])  ).': <a href="/'.$this->lang.'/search/?q='.$val['ValueMD'].'">'.$val['ValueMD'].'</a></li>';?>
+                    <?=$link;?>
                     <?php endif; ?>
 
                 <?php endforeach; ?>
