@@ -9,11 +9,7 @@ class DownloadController extends Zend_Controller_Action
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
         $this->view->lang =  $this->_helper->checklang->check();
-
     }
-
-    
-
 
     public function fileAction()
     {
@@ -22,9 +18,18 @@ class DownloadController extends Zend_Controller_Action
         $form = $this->_getSearchForm();
 
 
-        
         //plugin Qs
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
+
+        if ($_SERVER['HTTP_REFERER'])
+        {
+            parse_str(substr(strstr($_SERVER['HTTP_REFERER'], '?'), 1));
+            $form->getElement('q')->setValue(trim($q));
+            $form->addElement("hidden", "type", array("value"=>$type));
+            $form->addElement("hidden", "src", array("value"=>$src));
+            $form->addElement("hidden", "opt", array("value"=>$opt));
+        }
+
 
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => $page);
 
@@ -38,22 +43,13 @@ class DownloadController extends Zend_Controller_Action
 
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form
-        if ($form->isValid ( $request->getPost () )) {
-
-              // Create a filter chain and add filters
-             $f = new Zend_Filter();
-             $f->addFilter(new Zend_Filter_StripTags())
-                    ->addFilter(new Zend_Filter_HtmlEntities());
-              $q = $f->filter ( $this->_request->getPost ( 'q' ) );
-
-              $form->setAction( '/'. $this->view->lang.'/search/'.$q);
-
-              $form->loadDefaultDecoratorsIsDisabled(false);
-              foreach($form->getElements() as $element) {
-                $element->removeDecorator('DtDdWrapper');
-                $element->removeDecorator('Label');
-              }
+        $form->loadDefaultDecoratorsIsDisabled(false);
+        $form->setAction( '/'. $this->view->lang.'/search/');
+        foreach($form->getElements() as $element) {
+            $element->removeDecorator('DtDdWrapper');
+            $element->removeDecorator('Label');
         }
+
         // assign the form to the view
         $this->view->form = $form;
 
