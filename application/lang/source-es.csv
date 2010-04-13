@@ -4,7 +4,7 @@
 
 #main layout
 
-"About foofind";"Acerca de foofind"
+"About Foofind";"Acerca de Foofind"
 "About";"Acerca de"
 "Contact";"Contacto"
 "Legal";"Legal"
@@ -45,7 +45,8 @@
 "Length";"Duración"
 "Bitrate";"Bitrate"
 "Genre";"Género"
-"Nº of pages";"Nº de páginas"
+"Quality";"Calidad"
+"Num. of pages";"Nº de páginas"
 "Include results from:";"Incluir resultados de:"
 "Size";"Tamaño"
 "Colors";"Colores"
@@ -54,6 +55,8 @@
 "results for";"resultados para"
 "NoTypeCount";"No se han encontrado resultados de <i>%s</i>, pero existen aproximadamente %d resultados para su búsqueda en <a href='%s'>otras categorías</a>."
 "Foofind does not allow browse results after page 1000.";"Foofind no permite navegar resultados posteriores a la página 1000."
+"How to download?";"¿Cómo descargar?"
+"DownloadExplanation";"Para descargar el archivo enlazado en esta página se puede precisar un software externo. Aquí tienes algunos programas compatibles:"
 
 
 #contact
@@ -88,7 +91,7 @@
 
 
 #about
-"this is the about text";"Foofind es un motor de búsqueda universal. En foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.
+"this is the about text";"Foofind es un motor de búsqueda universal. En Foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.
 <br /><br />
 Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en Madrid, España por MP2P Technologies."
 
