@@ -550,14 +550,16 @@ h3 {
 }
 
 .download_source{
+    position: relative;
+    top: 5px;
+    height: 40px;
     
-    vertical-align: middle;
 }
 
 .download_source a{
     color: #000;
     text-decoration: none;
-   position: relative;
+    position: relative;
     display: block;
     width: 110px;
    
