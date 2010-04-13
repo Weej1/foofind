@@ -90,6 +90,19 @@ foreach ($this->metadata as $key => $val)
 foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
     if (strstr($this->qs['src'], $srci[0]) && $srcs[$srcLink])
             break;
+
+global $content;
+if ($this->qs['type'])
+{
+    $ctype = $this->qs['type'];
+} else {
+    try {
+        $ctype = $content['assoc'][$this->file["ContentType"]];
+    } 
+    catch (Exception $ex) {}
+}
+if (!isset($ctype)) $ctype = 'file';
+$ctype = strtolower($ctype);
 ?>
 
 <div id="container_search">
@@ -118,7 +131,7 @@ foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gn
 
         <div class="top_download">
         <div class="download_button">
-            <img alt="" src="/images/icons/content_<?=$this->file_content_type ?>.gif" /><br />
+            <img alt="" src="/images/icons/content_<?=$ctype ?>.gif" /><br />
             <a title="magnet download" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').
                 
                 $this->file_size   = ($this->file_size < 1) ? '' : ' ('.$this->file_size.')';?>
@@ -206,8 +219,8 @@ foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gn
         <h3><?=$this->translate('How to download?'); ?></h3>
         <p><?=$this->translate('DownloadExplanation'); ?></p>
         <p><img alt="eMule, MLDonkey, aMule"  src="/images/icons/ed2k.gif" /> eMule, MLDonkey, aMule.</p>
-        <p><img alt="Shareaza, Phex, Limewire"  src="/images/icons/gnutella.gif" /> Frostwire, Shareaza, Phex.</p>
-        <p><img alt="µTorrent, Bittorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, Transmission.</p>
+        <p><img alt="Limewire, Shareaza, Phex"  src="/images/icons/gnutella.gif" /> Limewire, Shareaza, Phex.</p>
+        <p><img alt="µTorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, Transmission.</p>
     </div>
 
 
