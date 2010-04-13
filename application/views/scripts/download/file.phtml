@@ -32,20 +32,21 @@
          </div>
 
             <? //TODO use this unfonished helper
-             //var_dump( $this->formatMetadata($this->metadata) );?>
+             //var_dump( $this->formatMetadata($this->metadata) );
+              $whitelist = array( 'Title', 'Artist', 'Album',  'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype','Seconds', 'Minutes',
+                        'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
+
+            ?>
 
        <?php if ($this->metadata): sort($this->metadata) ?>
             <div class="download_file_metadata"><ul>
                 <?php foreach ($this->metadata as $key => $val): ?>
 
-
                     <? $val['KeyMD'] = explode(":", $val['KeyMD']);?>
 
-
                     <?php
-
                     //list of fields to be showed
-                    $whitelist = array( 'Album', 'Artist', 'Title', 'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype',
+                    $whitelist = array( 'Title', 'Artist', 'Album',  'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype','Seconds', 'Minutes',
                         'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
                     $val['KeyMD'][1] = ucfirst (  $this->translate($val['KeyMD'][1])  );
 
