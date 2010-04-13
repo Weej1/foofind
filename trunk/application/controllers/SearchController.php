@@ -277,35 +277,35 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             switch ($t)
                             {
                                 case 1: //GNUTELLA
-                                    $tip = "MagnetLink";
-                                    $source = "magnet";
+                                    $tip = "Gnutella";
+                                    $source = "gnutella";
                                     $mlinkadd = "&xt=urn:sha1:".$row['Uri'];
                                     break;
                                 case 2: //ED2K
                                     $tip = "ED2K";
                                     $source = "ed2k";
                                     $link = "ed2k://|file|".encodeFilename($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
-                                    $mlinkadd = "&xt=urn:ed2k:".$row['Uri'];
+                                    //$mlinkadd = "&xt=urn:ed2k:".$row['Uri'];
                                     break;
                                 case 3: // TORRENT
                                     $tip = "Torrent";
                                     $source = "torrent";
                                     $link = $row['Uri'];
                                     break;
-                                case 5: //MD5 HASH
-                                    $tip = "MagnetLink";
-                                    $source = "magnet";
+                                case 5: //TIGER HASH
+                                    $tip = "Gnutella";
+                                    $source = "gnutella";
                                     $mlinkadd = "&xt=urn:tiger:".$row['Uri'];
                                     break;
                                 case 6: //MD5 HASH
-                                    $tip = "MagnetLink";
-                                    $source = "magnet";
+                                    $tip = "Gnutella";
+                                    $source = "gnutella";
                                     $mlinkadd = "&xt=urn:md5:".$row['Uri'];
                                     break;
                                 case 7: //BTH HASH
-                                    $tip = "MagnetLink";
-                                    $source = "magnet";
-                                    $mlinkadd = "&xt=urn:btih:".$row['Uri'];
+                                    $tip = "Torrent MagnetLink";
+                                    $source = "tmagnet";
+                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:btih:".$row['Uri'];
                                     break;
                                 case 4: // JAMENDO
                                 case 8: // WEB
@@ -323,30 +323,20 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     break;
                             }
 
-                            if ($source=="magnet" || $source=="ed2k")
+                            if ($source=="gnutella")
                             {
-                                $rlink = $docs[$id]['sources']['magnet']['rlink'];
+                                $rlink = $docs[$id]['sources']['gnutella']['rlink'];
                                 if ($rlink)
                                     $mlink = $rlink.$mlinkadd;
                                 else
                                     $mlink = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename']).$mlinkadd;
-
-                                if ($source=="magnet")
-                                {
-                                    $link = $mlink;
-                                } elseif ($source=="ed2k")
-                                {
-                                    $docs[$id]['sources']['magnet']['link'] = htmlentities($mlink, ENT_QUOTES, "UTF-8");
-                                    $docs[$id]['sources']['magnet']['rlink'] = $mlink;
-                                    $docs[$id]['sources']['magnet']['tip'] = "MagnetLink";
-                                }
+                                $link = $mlink;
                             }
 
                             $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES, "UTF-8");
                             $docs[$id]['sources'][$source]['rlink'] = $link;
                             $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                             $docs[$id]['sources'][$source]['tip'] = $tip;
-                            
                         }
 
                         $total_time += (microtime(true) - $start_time);
@@ -367,8 +357,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             {
                                 foreach (explode(' ', $row['ValueMD']) as $tr)
                                 {
-                                    $docs[$id]['sources']['magnet']['rlink'] .= '&tr='.urlencode($tr);
-                                    $docs[$id]['sources']['magnet']['link'] = htmlentities($docs[$id]['sources']['magnet']['rlink'], ENT_QUOTES, "UTF-8");
+                                    $docs[$id]['sources']['tmagnet']['rlink'] .= '&tr='.urlencode($tr);
+                                    $docs[$id]['sources']['tmagnet']['link'] = htmlentities($docs[$id]['sources']['tmagnet']['rlink'], ENT_QUOTES, "UTF-8");
                                 }
                             }
                             else
@@ -400,7 +390,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['md'] = $md[$id];
 
                             // search for better link
-                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'magnet', 'g'=>'magnet', 'e'=>'ed2k') as $srci=>$srcLink)
+                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
                                     if (strstr($this->src, $srci[0]) && $docs[$id]['sources'][$srcLink])
                                             break;
 

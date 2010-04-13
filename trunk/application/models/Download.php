@@ -69,7 +69,7 @@ class Model_Download extends Zend_Db_Table_Abstract
                     if ($id){
 
                     $sources = new Zend_Db_Table('ff_sources');
-                    $query = "SELECT ff_sources.*   FROM ff_sources WHERE ff_sources.IdFile = ".$id;
+                    $query = "SELECT ff_sources.* FROM ff_sources WHERE ff_sources.IdFile = ".$id;
                     $result = $sources->getAdapter()->query($query)->fetchAll();
 
                     }

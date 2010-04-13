@@ -31,6 +31,7 @@ class DownloadController extends Zend_Controller_Action
             $q = $f->filter (trim(stripcslashes(strip_tags($q))));
             $type = $f->filter ( $type );
             $src = $f->filter ( $src );
+            $src2 = ($src=='')?'wftge':$src;
             $form->getElement('q')->setValue($q);
             $form->addElement("hidden", "type", array("value"=>$type));
             $form->addElement("hidden", "src", array("value"=>$src));
@@ -116,17 +117,19 @@ class DownloadController extends Zend_Controller_Action
 
     protected function _contentType($type)
     {
-        if ($type == 1) $type = 'audio';
-        elseif ($type == 2) $type = 'video';
-        elseif ($type == 5) $type = 'image';
-        else $type = 'document';
+        if ($this->view->qs['type'])
+        {
+            return $this->view->qs['type'];
+        } else
+        {
+            try {
+                return $content['assoc'][$docinfo["attrs"]["contenttype"]];
+            } catch (Exception $ex) {
+            }
+        }
 
-        return $type;
+        return null;
     }
-
-
-
-
 
 
     //TODO refactor this function ,is duplicated from search controller (this sucks)
