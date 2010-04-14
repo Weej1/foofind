@@ -90,7 +90,7 @@ class DownloadController extends Zend_Controller_Action
 
                             if($filenameAlt )
                                 $this->view->file['Filename'] = $filenameAlt['Filename'];
-                            var_dump($filenameAlt);
+                            
                         }
 
 
