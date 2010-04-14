@@ -151,7 +151,7 @@ $ctype = strtolower($ctype);
 
                      $val['KeyMD'] = explode(":", $val['KeyMD']); 
                     
-                    $val['KeyMD'][1] = ucfirst ( trim($val['KeyMD'][1] ) );
+                    $val['KeyMD'][1] = ucfirst ( $val['KeyMD'][1] );
                     //var_dump($val['KeyMD'][1]);
                     //list of fields to be linkable
                     $linklist = array( 'Album', 'Artist', 'Title', 'Name', 'Author'  );
