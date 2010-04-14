@@ -80,7 +80,7 @@ foreach ($this->metadata as $key => $val)
                 $srcs['gnutella']['link'] = htmlentities($srcs['gnutella']['rlink'], ENT_QUOTES, "UTF-8");
 
             } else {
-                $srcs['tmagnet']['rlink'] .= '&tr='.urlencode($tr);
+                $srcs['tmagnet']['rlink'] .= '&tr='.$tr;
                 $srcs['tmagnet']['link'] = htmlentities($srcs['tmagnet']['rlink'], ENT_QUOTES, "UTF-8");
             }
         }
@@ -186,7 +186,7 @@ $ctype = strtolower($ctype);
                     <? foreach ($srcs as $key => $val):
                         if ($val['link']): ?>
                         <div class="download_source" >
-                                <a href="<?=$val['link'] ?>"><img alt="" src="/images/icons/<?=$key ?>_download.gif" />
+                            <a  title="<?=$val['link'] ?>" href="<?=$val['link'] ?>"><img alt="" src="/images/icons/<?=$key ?>_download.gif" />
                                 <?='<b>'.ucfirst ( $val['tip'] ).'</b><span>'.$val['count'].' '.$this->translate('sources');?></span></a>
                                 <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$val['link'].'" />'; ?>
                                 <? unset ($type, $pinta, $link) ?>
@@ -203,12 +203,16 @@ $ctype = strtolower($ctype);
    <? //Zend_Debug::dump($this->metadata);?>
    <? //Zend_Debug::dump($this->sources);?>
 
+        <? if ($this->lang == 'en') $langcode = 1;
+             if ($this->lang == 'es') $langcode = 2;
+        ?>
+
         <div class="sharelinks"><?=$this->translate('Share this:');?>
-            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->lang;?>/<?=dechex($this->file['IdFile'] );?>">
+            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
                 <img alt="share by facebook" src="/images/icons/ico_facebook.gif" border = "0"/></a>
-                <a href="mailto:?subject=<?=$this->file['Filename'];?>&body=http://foofind.com./<?=$this->lang;?>/download/<?=$this->file['IdFile'];?>">
+                <a href="mailto:?subject=<?=$this->file['Filename'];?>&body=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile']);?>">
                 <img alt="share by email" src="/images/icons/ico_email_link.png" border = "0"/></a>
-                <a href="http://twitter.com/home?status=http://foof.in/<?=$this->lang;?>/<?=dechex($this->file['IdFile'] );?>">
+                <a href="http://twitter.com/home?status=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
                 <img alt="share by twitter" src="/images/icons/ico_twitter.png" border = "0"/></a>
         </div>
 
