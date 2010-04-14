@@ -139,31 +139,27 @@ $ctype = strtolower($ctype);
             </a>
          </div>
 
-            <? //TODO use this unfonished helper
-             //var_dump( $this->formatMetadata($this->metadata) );
+            <? //list of fields to be showed
               $whitelist = array( 'Title', 'Artist', 'Album',  'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype','Seconds', 'Minutes',
                         'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
 
             ?>
 
-       <?php if ($this->metadata): sort($this->metadata) ?>
+       <?php if ($this->metadata):  ?>
             <div class="download_file_metadata"><ul>
                 <?php foreach ($this->metadata as $key => $val): 
 
-                     $val['KeyMD'] = explode(":", $val['KeyMD']);
-
-                    //list of fields to be showed
-                    $whitelist = array( 'Title', 'Artist', 'Album',  'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype','Seconds', 'Minutes',
-                        'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
-                    $val['KeyMD'][1] = ucfirst (  $this->translate($val['KeyMD'][1])  );
-
+                     $val['KeyMD'] = explode(":", $val['KeyMD']); 
+                    
+                    $val['KeyMD'][1] = ucfirst ( trim($val['KeyMD'][1] ) );
+                    //var_dump($val['KeyMD'][1]);
                     //list of fields to be linkable
                     $linklist = array( 'Album', 'Artist', 'Title', 'Name', 'Author'  );
 
                      if ( in_array($val['KeyMD'][1], $linklist ) ) {
-                         $link= '<li>'.$val['KeyMD'][1].': <a href="/'.$this->lang.'/search/?q='.$val['ValueMD'].'">'.$val['ValueMD'].'</a></li>';
+                         $link= '<li>'.$this->translate($val['KeyMD'][1]).': <a href="/'.$this->lang.'/search/?q='.$val['ValueMD'].'">'.$val['ValueMD'].'</a></li>';
                      } else {
-                         $link = '<li>'.$val['KeyMD'][1].': '.$val['ValueMD'].'</li>';
+                         $link = '<li>'.$this->translate($val['KeyMD'][1]).': '.$val['ValueMD'].'</li>';
                      };
 
 
@@ -178,11 +174,8 @@ $ctype = strtolower($ctype);
            
 
 
-
-
        <?php if ($this->sources): ?>
-        <div class="dowload_file_sources">
-                
+        <div class="dowload_file_sources">                
                     <? foreach ($srcs as $key => $val):
                         if ($val['link']): ?>
                         <div class="download_source" >
@@ -209,11 +202,11 @@ $ctype = strtolower($ctype);
 
         <div class="sharelinks"><?=$this->translate('Share this:');?>
             <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
-                <img alt="share by facebook" src="/images/icons/ico_facebook.gif" border = "0"/></a>
+                <img alt="<?=$this->translate('share on facebook');?>" src="/images/icons/ico_facebook.gif" border = "0"/></a>
                 <a href="mailto:?subject=<?=$this->file['Filename'];?>&body=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile']);?>">
-                <img alt="share by email" src="/images/icons/ico_email_link.png" border = "0"/></a>
+                <img alt="<?=$this->translate('send by email');?>" src="/images/icons/ico_email_link.png" border = "0"/></a>
                 <a href="http://twitter.com/home?status=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
-                <img alt="share by twitter" src="/images/icons/ico_twitter.png" border = "0"/></a>
+                <img alt="<?=$this->translate('share on twitter');?>" src="/images/icons/ico_twitter.png" border = "0"/></a>
         </div>
 
     </div>
