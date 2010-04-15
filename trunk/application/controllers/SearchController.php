@@ -359,6 +359,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 {
                                     $docs[$id]['sources']['tmagnet']['rlink'] .= '&tr='.urlencode($tr);
                                     $docs[$id]['sources']['tmagnet']['link'] = htmlentities($docs[$id]['sources']['tmagnet']['rlink'], ENT_QUOTES, "UTF-8");
+                                    $docs[$id]['sources']['tmagnet']['has_trackers'] = true;
                                 }
                             }
                             else
@@ -388,11 +389,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
                             $docs[$id]['isources'] = $doc['attrs']['isources'];
                             $docs[$id]['md'] = $md[$id];
-
+                            
                             // search for better link
                             foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
                                     if (strstr($this->src, $srci[0]) && $docs[$id]['sources'][$srcLink])
-                                            break;
+                                            if ($srcLink!='tmagnet' || $docs[$id]['sources']['tmagnet']['has_trackers'])
+                                                break;
 
                             $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES, "UTF-8");
                             
