@@ -38,10 +38,31 @@ function formatAudio($context, $md)
 
 function formatDocument($context, $md, $show_title)
 {
-    $res = '';
-    if ($show_title && $title = $md["document:title"]) $res .= "$title<br/>";
-    if ($pages = $md["document:pages"]) $res .= $context->translate("Nº of pages").":&nbsp;$pages. ";
-    return $res;
+    $res = "<table>";
+
+    if ($title = $md["document:title"])
+        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title, ENT_QUOTES, "UTF-8")."</a></td></tr>";
+
+    if ($author = $md["document:author"])
+        $res .= '<tr><td>'.$context->translate("Author").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($author)."'>".htmlentities($author, ENT_QUOTES, "UTF-8")."</a></td></tr>";
+
+    if ($format = $md["document:format"]) {
+        $res .= '<tr><td>'.$context->translate("Format").":</td><td>$format";
+        if ($fversion = $md["document:formatversion"])
+            $res .= "&nbsp;v.$fversion";
+        $res .= "</td></tr>";
+    }
+
+    if ($pages = (int)$md["document:pages"])
+         $res .= '<tr><td>'.$context->translate("Pages").":</td><td>$pages</td></tr>";
+
+    if ($version = (int)$md["document:version"]) {
+        $res .= '<tr><td>'.$context->translate("Version").":</td><td>$version";
+        if ($revision = $md["document:revision"])
+            $res .= "&nbsp;$revision";
+        $res .= "</td></tr>";
+    }
+    return $res.'</table>';
 }
 
 function formatImage($context, $md)
@@ -49,10 +70,10 @@ function formatImage($context, $md)
     $res = "<table>";
 
     if ($title = $md["image:title"])
-        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title)."</a></td></tr>";
+        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title, ENT_QUOTES, "UTF-8")."</a></td></tr>";
 
     if ($artist = $md["image:artist"])
-        $res .= '<tr><td>'.$context->translate("Artist").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($artist)."'>".htmlentities($artist)."</a></td></tr>";
+        $res .= '<tr><td>'.$context->translate("Artist").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($artist)."'>".htmlentities($artist, ENT_QUOTES, "UTF-8")."</a></td></tr>";
 
     if ($desc = $md["image:description"])
         $res .= '<tr><td>'.$context->translate("Description").":</td><td>".htmlentities($desc)."</td></tr>";
@@ -71,7 +92,7 @@ function formatVideo($context, $md)
     $res = "<table>";
 
     if ($title = $md["video:title"]) {
-        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title)."</a>";
+        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title, ENT_QUOTES, "UTF-8")."</a>";
 
         if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
             $res .= '&nbsp;('.formatLength($len).")";
@@ -82,14 +103,14 @@ function formatVideo($context, $md)
             $res .= '<tr><td>'.$context->translate("Length").':</td><td>'.formatLength($len)."</td></tr>";
     }
     if ($artist = $md["video:artist"])
-        $res .= '<tr><td>'.$context->translate("Artist").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($artist)."'>".htmlentities($artist)."</a></td></tr>";
+        $res .= '<tr><td>'.$context->translate("Artist").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($artist)."'>".htmlentities($artist, ENT_QUOTES, "UTF-8")."</a></td></tr>";
         
     if (($width = $md["video:width"]) && ($height = $md["video:height"]))
         $res .= '<tr><td>'.$context->translate("Size").":</td><td>{$width}x$height</td></tr>";
 
     if ($fps = (int)$md["video:framerate"]) {
          $res .= '<tr><td>'.$context->translate("Quality").":</td><td>$fps fps";
-         if ($codec = $md["video:codec"]) $res .= ' '.htmlentities($codec);
+         if ($codec = $md["video:codec"]) $res .= ' '.htmlentities($codec, ENT_QUOTES, "UTF-8");
          $res .= '</td></tr>';
     }
     return $res.'</table>';
@@ -104,11 +125,20 @@ function formatSoftware($context, $md, $show_title)
 
 function formatArchive($context, $md, $show_title)
 {
-    $res = '';
+    $res = "<table>";
+
+    if (($title = $md["archive:title"]) || ($title = $md["archive:name"]))
+        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title, ENT_QUOTES, "UTF-8")."</a>";
     if ($files = $md["archive:files"])
-        $res .= $context->translate("Files").":&nbsp;$files. ";
-    return $res;
+        $res .= '<tr><td>'.$context->translate("Files").":</td><td>".htmlentities($files, ENT_QUOTES, "UTF-8")."</td></tr>";
+    if ($folders = $md["archive:folders"])
+        $res .= '<tr><td>'.$context->translate("Folders").":</td><td>".htmlentities($folders, ENT_QUOTES, "UTF-8")."</td></tr>";
+    if ($usize = $md["archive:unpackedsize"])
+        $res .= '<tr><td>'.$context->translate("Unpacked size").":</td><td>".formatSize($usize)."</td></tr>";
+
+    return $res.'</table>';
 }
+
  function formatSize($bytes)
     {
         $size = $bytes / 1024;
@@ -141,15 +171,6 @@ function convertS2String($time) {
   return $time;
 
 }
-
-
-
-
-
-
-
-
-
 
 foreach ($this->sources as $key => $val) {
         $t = $val['Type'];
@@ -293,130 +314,15 @@ $ctype = strtolower($ctype);
 
             </a>
          </div>
-
-            <? //list of fields to be showed
-              $whitelist = array( 'Title', 'Artist', 'Album',  'Name', 'Track', 'Genre', 'Quality', 'Files', 'Folders', 'Unpacked Size', 'Description', 'Size', 'Bitrate', 'Soundtype','Seconds', 'Minutes',
-                        'Colors', 'Author', 'Format', 'Pages', 'Version', 'Codec', 'Framerate', 'Width', 'Height' );
-
-               //list of fields to be linkable
-              $linklist = array( 'Album', 'Artist', 'Title', 'Name', 'Author'  );
-
-            ?>
-
-       <?php if ($this->metadata):  //var_dump($ctype);
-      ; ?>
-
-
+       <?php if ($md):?>
             <div class="download_file_metadata">
-                    <?php
-                    $fn = 'format'.ucfirst($ctype);
-                    echo $fn($this, $md, true);
-                    /*foreach ($this->metadata as $key => $val):
-
-                        $val['KeyMD'] = explode(":", $val['KeyMD']);
-                        $val['KeyMD'][1] = ucfirst ( $val['KeyMD'][1] );
-
-                            if ($ctype == 'audio'){
-                                   if($val['KeyMD'][1] == 'Title')  $audio['Title'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Seconds')  $audio['Seconds'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Minutes')  $audio['Minutes'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Artist')  $audio['Artist'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Album')  $audio['Album'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Year')  $audio['Year'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Track')  $audio['Track'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Genre')  $audio['Genre'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Bitrate')  $audio['Bitrate'] = $val['ValueMD'];
-                                   if($val['KeyMD'][1] == 'Soundtype')  $audio['Soundtype'] = $val['ValueMD'];
-
-                              // var_dump($audio );
-
-                            }
-
-                            elseif ($ctype == 'video'){
-                                 if($val['KeyMD'][1] == 'Title')  $video['Title'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Seconds')  $video['Seconds'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Minutes')  $video['Minutes'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Height')  $video['Height'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Width')  $video['Width'] = $val['ValueMD'];
-                     *         $video[$val['KeyMD'][1]] = $val['ValueMD'];
-                            }
-
-                            elseif ($ctype == 'archive'){
-                                 if($val['KeyMD'][1] == 'Title')  $archive['Title'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Name')  $archive['Name'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Files')  $archive['Files'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Folders')  $archive['Folders'] = $val['ValueMD'];
-
-                            }
-
-                             elseif ($ctype == 'image'){
-                                 if($val['KeyMD'][1] == 'Title')  $image['Title'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Artist')  $image['Artitst'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Description')  $image['Description'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Height')  $image['Height'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Width')  $image['Width'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Colors')  $image['Colors'] = $val['ValueMD'];
-                            }
-
-                            elseif ($ctype == 'document'){
-                                 if($val['KeyMD'][1] == 'Title')  $document['Title'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Artist')  $document['Artitst'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Description')  $document['Description'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Format')  $document['Format'] = $val['ValueMD'];
-                                  if($val['KeyMD'][1] == 'FormatVersion')  $document['FormatVersion'] = $val['ValueMD'];
-                                 if($val['KeyMD'][1] == 'Pages')  $document['Pages'] = $val['ValueMD'];
-                            }
-
-
-
-                     endforeach; */ ?>
-
-                    <?php /*if($ctype == 'audio'){
-                                     echo  '<li>'.$this->translate('Title').': <a href="/'.$this->lang.'/search/?q='.$audio['Title'].'">'.$audio['Title'].'</a> ('.$audio['Seconds'].')</li>';
-                                     echo  '<li>'.$this->translate('Artist').': <a href="/'.$this->lang.'/search/?q='.$audio['Artist'].'">'.$audio['Artist'].'</a></li>';
-                                     echo  '<li>'.$this->translate('Album').': <a href="/'.$this->lang.'/search/?q='.$audio['Album'].'">'.$audio['Album'].'</a>  ('.$audio['Year'].')</li>';
-                                     echo  '<li>'.$this->translate('Track').': '.$audio['Track'].'</li>';
-                                     echo  '<li>'.$this->translate('Genre').': '.$audio['Genre'].'</li>';
-                                     echo  '<li>'.$this->translate('Quality').': '.$audio['Bitrate'].' kbps '.$audio['Soundtype'].'</li>';}
-
-                               elseif($ctype == 'video'){
-
-                                      echo  '<li>'.$this->translate('Title').': <a href="/'.$this->lang.'/search/?q='.$video['Title'].'">'.$video['Title'].'</a> ('.$video['Seconds'].')</li>';
-                                      echo  '<li>'.$this->translate('Artist').': <a href="/'.$this->lang.'/search/?q='.$video['Artist'].'">'.$video['Artist'].'</a></li>';
-                                      echo  '<li>'.$this->translate('Size').': '.$video['Width'].'x'.$video['Height'].'</li>';
-                                      echo  '<li>'.$this->translate('Quality').': '.$video['Framerate'].' fps '.$video['Codec'].'</li>';
-                                    }
-
-                               elseif($ctype == 'archive'){
-                                       echo  '<li>'.$this->translate('Title').': <a href="/'.$this->lang.'/search/?q='.$archive['Title'].'">'.$archive['Title'].'</a>  '.$archive['Name'].'</li>';
-                                       echo  '<li>'.$this->translate('Files').': '.$archive['Files'].'</li>';
-                                       echo  '<li>'.$this->translate('Folders').': '.$archive['Folders'].'</li>';
-                                       echo  '<li>'.$this->translate('Unpacked Size').': '.$archive['Unpackedsize'].'</li>';
-
-                                }
-                               elseif($ctype == 'image'){
-                                       echo  '<li>'.$this->translate('Title').': <a href="/'.$this->lang.'/search/?q='.$image['Title'].'">'.$image['Title'].'</a>  '.$image['Name'].'</li>';
-                                       echo  '<li>'.$this->translate('Artist').': '.$image['Artist'].'</li>';
-                                       echo  '<li>'.$this->translate('Description').': '.$image['Description'].'</li>';
-                                       echo  '<li>'.$this->translate('Size').': '.$image['Height'].'x'.$image['Widht'].'</li>';
-                                       echo  '<li>'.$this->translate('Colors').': '.$image['Colors'].'</li>';
-                                }
-                               elseif($ctype == 'document'){
-                                       echo  '<li>'.$this->translate('Title').': <a href="/'.$this->lang.'/search/?q='.$document['Title'].'">'.$document['Title'].'</a></li>';
-                                       echo  '<li>'.$this->translate('Author').': '.$document['Author'].'</li>';
-                                       echo  '<li>'.$this->translate('Format').': '.$document['Format'].' '.$document['FormatVersion'].'</li>';
-                                       echo  '<li>'.$this->translate('Pages').': '.$document['Pages'].'</li>';
-                                       echo  '<li>'.$this->translate('Version').': '.$document['Version'].$document['Revision'].'</li>';
-                                }
-*/
-                         ?>
-
-
+            <?php
+            $fn = 'format'.ucfirst($ctype);
+            echo $fn($this, $md, true);
+            ?>
             </div>
        <?php endif; ?>
        </div>
-           
-
 
        <?php if ($this->sources): ?>
         <div class="dowload_file_sources">                
@@ -435,10 +341,6 @@ $ctype = strtolower($ctype);
             
         </div>
        <?php endif; ?>
-
-   <? //Zend_Debug::dump($this->file);?>
-   <? //Zend_Debug::dump($this->metadata);?>
-   <? //Zend_Debug::dump($this->sources);?>
 
         <? if ($this->lang == 'en') $langcode = 1;
              if ($this->lang == 'es') $langcode = 2;
