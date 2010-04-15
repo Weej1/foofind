@@ -44,25 +44,55 @@ function formatDocument($context, $md, $show_title)
     return $res;
 }
 
-function formatImage($context, $md, $show_title)
+function formatImage($context, $md)
 {
-    $res = '';
-    if ($show_title && $title = $md["image:title"]) $res .= "$title<br/>";
+    $res = "<table>";
+
+    if ($title = $md["image:title"])
+        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title)."</a></td></tr>";
+
+    if ($artist = $md["image:artist"])
+        $res .= '<tr><td>'.$context->translate("Artist").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($artist)."'>".htmlentities($artist)."</a></td></tr>";
+
+    if ($desc = $md["image:description"])
+        $res .= '<tr><td>'.$context->translate("Description").":</td><td>".htmlentities($desc)."</td></tr>";
+
     if (($width = $md["image:width"]) && ($height = $md["image:height"]))
-        $res .= $context->translate("Size").":&nbsp;${width}x$height. ";
-    if ($colors = $md["image:colors"]) $res .= $context->translate("Colors").":&nbsp;$colors. ";
-    return $res;
+        $res .= '<tr><td>'.$context->translate("Size").":</td><td>{$width}x$height</td></tr>";
+
+    if ($colors = (int)$md["image:colors"])
+         $res .= '<tr><td>'.$context->translate("Colors").":</td><td>$colors</td></tr>";
+
+    return $res.'</table>';
 }
 
-function formatVideo($context, $md, $show_title)
+function formatVideo($context, $md)
 {
-    $res = '';
-    if ($show_title && $title = $md["video:title"]) $res .= "$title<br/>";
-    if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
-        $res .= $context->translate("Length").":&nbsp;".formatLength($len).". ";
+    $res = "<table>";
+
+    if ($title = $md["video:title"]) {
+        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title)."</a>";
+
+        if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
+            $res .= '&nbsp;('.formatLength($len).")";
+        $res .= '</td></tr>';
+    } else {
+
+        if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
+            $res .= '<tr><td>'.$context->translate("Length").':</td><td>'.formatLength($len)."</td></tr>";
+    }
+    if ($artist = $md["video:artist"])
+        $res .= '<tr><td>'.$context->translate("Artist").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($artist)."'>".htmlentities($artist)."</a></td></tr>";
+        
     if (($width = $md["video:width"]) && ($height = $md["video:height"]))
-        $res .= $context->translate("Size").":&nbsp;${width}x$height. ";
-    return $res;
+        $res .= '<tr><td>'.$context->translate("Size").":</td><td>{$width}x$height</td></tr>";
+
+    if ($fps = (int)$md["video:framerate"]) {
+         $res .= '<tr><td>'.$context->translate("Quality").":</td><td>$fps fps";
+         if ($codec = $md["video:codec"]) $res .= ' '.htmlentities($codec);
+         $res .= '</td></tr>';
+    }
+    return $res.'</table>';
 }
 
 function formatSoftware($context, $md, $show_title)
