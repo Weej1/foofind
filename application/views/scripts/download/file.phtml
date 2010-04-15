@@ -98,7 +98,6 @@ function formatVideo($context, $md)
             $res .= '&nbsp;('.formatLength($len).")";
         $res .= '</td></tr>';
     } else {
-
         if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
             $res .= '<tr><td>'.$context->translate("Length").':</td><td>'.formatLength($len)."</td></tr>";
     }
@@ -118,9 +117,23 @@ function formatVideo($context, $md)
 
 function formatSoftware($context, $md, $show_title)
 {
-    $res = '';
-    if ($show_title && $title = $md["application:title"]) $res .= "$title<br/>";
-    return $res;
+    $res = "<table>";
+
+    if ($title = $md["application:title"]) {
+        $res .= '<tr><td>'.$context->translate("Title").":</td><td><a href='/{$context->lang}/search/?q=".urlencode($title)."'>".htmlentities($title, ENT_QUOTES, "UTF-8")."</a>";
+
+        if ($version = $md["application:version"])
+            $res .= "&nbsp;$version";
+        $res .= '</td></tr>';
+    }
+
+    if ($fversion = $md["application:fileversion"])
+        $res .= '<tr><td>'.$context->translate("Version").":</td><td>$fversion</a></td></tr>";
+
+    if ($os = $md["application:os"])
+         $res .= '<tr><td>'.$context->translate("OS").":</td><td>$os</td></tr>";
+
+    return $res.'</table>';
 }
 
 function formatArchive($context, $md, $show_title)
