@@ -1,40 +1,41 @@
 <? echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <?= $this->headTitle()->setPrefix('foofind.com') ?>
-    <?=$this->headLink()->appendStylesheet('/css/main.css') ?>
-  <link rel="shortcut icon" href="/images/favicon.ico" />
-  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Foofind" />
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?=$this->headMeta() ?>
+        <?= $this->headTitle()->setPrefix('foofind.com'); ?>
+        <?=$this->headLink()->appendStylesheet('/css/main.css'); ?>
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+        <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Foofind" />
 
-</head>
-<body OnLoad="document.getElementById('q').focus();">
+    </head>
+    <body OnLoad="document.getElementById('q').focus();">
 
-<div id="header" >
-    <div id="header-navigation" >
-        <span class="select_language_box">
-            <?
-            if ($this->lang == 'es') {
-                    echo "<a href= '/en'>English</a>";
-                }
-            elseif ($this->lang == 'en') {
-                    echo "<a href= '/es'>Español</a>";
-                }
-          
+        <div id="header" >
+            <div id="header-navigation" >
+                <span class="select_language_box">
+                    <?
+                    if ($this->lang == 'es') {
+                        echo "<a href= '/en'>English</a>";
+                    }
+                    elseif ($this->lang == 'en') {
+                        echo "<a href= '/es'>Español</a>";
+                    }
 
-            ?>
-        </span>
-    </div>
-</div>
 
-<div class="content">
- <?=$this->layout()->content ?>
+                    ?>
+                </span>
+            </div>
+        </div>
 
-<div id="footer_main" > 
-        <p><?=$this->translate('this is the footer text');  ?></p>
-</div>
-</div>
+        <div class="content">
+            <?=$this->layout()->content ?>
 
-<? include_once("footer_common.phtml") ?>
-</body>
+            <div id="footer_main" >
+                <p><?=$this->translate('this is the footer text');  ?></p>
+            </div>
+        </div>
+
+        <? include_once("footer_common.phtml") ?>
+    </body>
 </html>
