@@ -18,7 +18,7 @@ $content = array(
         'Document' => array('ext' => array("abw", "afp", "ans", "asc", "aww", "csv", "cwk", "doc", "docx", "dot", "dotx", "egt", "ftm", "ftx", "html", "hwp", "lwp", "mcw", "nb", "nbp", "odt", "ott", "pages", "pap", "pdf", "rtf", "rtf", "sdw", "stw", "sxw", "tex", "info", "txt", "uoml", "wpd", "wps", "wpt", "wrf", "wri", "xhtml", "xls", "xml", "odp", "otp", "pps", "ppt", "sti", "sxi", "ods", "ots"),
                           'metadata' => array("document:title", "document:pages")
             ),
-        'Software' => array('ext' => array("class", "com", "exe", "jar", "dll", "ocx"),
+        'Software' => array('ext' => array("class", "com", "exe", "jar", "dll", "ocx", "ipa"),
                           'metadata' => array("application:title")
             ),
         'Archive' => array('ext' => array("7z", "ace", "alz", "at3", "bke", "arc", "dds", "arj", "big", "bkf", "bzip2", "cab", "cpt", "sea", "daa", "deb", "dmg", "eea", "egt", "ecab", "ess", "gho", "gzip", "jar", "lbr", "lqr", "lha", "lzo", "lzx", "bin", "pak", "par", "par2", "pk4", "rar", "sit", "sitx", "tar", "gz", "tb", "tib", "uha", "vsa", "z", "zoo", "zip", "torrent"),
