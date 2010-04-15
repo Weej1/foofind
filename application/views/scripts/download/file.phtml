@@ -1,5 +1,84 @@
 <?php
 
+function formatLength($text)
+{
+    $secs = (int)$text;
+    $mins = 0;
+    if ($secs>59) {
+        $mins = $secs/60;
+        $secs = $secs%60;
+        if ($mins>59) {
+            $hours = $mins/60;
+            $mins = $mins%60;
+        }
+    }
+    if ($hours)
+        return sprintf("%d:%02d:%02d", $hours, $mins, $secs);
+    else
+        return sprintf("%d:%02d", $mins, $secs);
+}
+
+function formatAudio($context, $md)
+{
+    $res = "<table>";
+    if ($artist = $md["audio:artist"]) $res .= "<tr><td>".$context->translate("Artist").":</td><td>$artist.</td></tr>";
+    if ($title = $md["audio:title"]) $res .= $context->translate("Title").":&nbsp;$title.<br>";
+    if ($album = $md["audio:album"]) {
+        $res .= $context->translate("Album").":&nbsp;$album";
+        if (($year = $md["audio:year"]) && is_numeric($year) && $year>1901 && $year<2100)
+            $res .= "&nbsp;($year).<br>";
+        else
+            $res .= ".</br>";
+    }
+    if ($genre = $md["audio:genre"]) $res .= $context->translate("Genre").":&nbsp;$genre.<br>";
+    if ($len = $md["audio:seconds"]) $res .= $context->translate("Length").":&nbsp;".formatLength($len).".<br>";
+    if ($bitrate = $md["audio:bitrate"]) $res .= $context->translate("Bitrate").":&nbsp;$bitrate&nbsp;kbit/s.<br>";
+    return $res.'</table>';
+}
+
+function formatDocument($context, $md, $show_title)
+{
+    $res = '';
+    if ($show_title && $title = $md["document:title"]) $res .= "$title<br/>";
+    if ($pages = $md["document:pages"]) $res .= $context->translate("Nº of pages").":&nbsp;$pages. ";
+    return $res;
+}
+
+function formatImage($context, $md, $show_title)
+{
+    $res = '';
+    if ($show_title && $title = $md["image:title"]) $res .= "$title<br/>";
+    if (($width = $md["image:width"]) && ($height = $md["image:height"]))
+        $res .= $context->translate("Size").":&nbsp;${width}x$height. ";
+    if ($colors = $md["image:colors"]) $res .= $context->translate("Colors").":&nbsp;$colors. ";
+    return $res;
+}
+
+function formatVideo($context, $md, $show_title)
+{
+    $res = '';
+    if ($show_title && $title = $md["video:title"]) $res .= "$title<br/>";
+    if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
+        $res .= $context->translate("Length").":&nbsp;".formatLength($len).". ";
+    if (($width = $md["video:width"]) && ($height = $md["video:height"]))
+        $res .= $context->translate("Size").":&nbsp;${width}x$height. ";
+    return $res;
+}
+
+function formatSoftware($context, $md, $show_title)
+{
+    $res = '';
+    if ($show_title && $title = $md["application:title"]) $res .= "$title<br/>";
+    return $res;
+}
+
+function formatArchive($context, $md, $show_title)
+{
+    $res = '';
+    if ($files = $md["archive:files"])
+        $res .= $context->translate("Files").":&nbsp;$files. ";
+    return $res;
+}
  function formatSize($bytes)
     {
         $size = $bytes / 1024;
@@ -129,6 +208,8 @@ foreach ($this->metadata as $key => $val)
             }
         }
         break;
+    } else {
+        $md[$val['KeyMD']] = $val['ValueMD'];
     }
 }
 foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
@@ -196,8 +277,11 @@ $ctype = strtolower($ctype);
       ; ?>
 
 
-            <div class="download_file_metadata"><ul>
-                    <?php foreach ($this->metadata as $key => $val):
+            <div class="download_file_metadata">
+                    <?php
+                    $fn = 'format'.ucfirst($ctype);
+                    echo $fn($this, $md, true);
+                    /*foreach ($this->metadata as $key => $val):
 
                         $val['KeyMD'] = explode(":", $val['KeyMD']);
                         $val['KeyMD'][1] = ucfirst ( $val['KeyMD'][1] );
@@ -224,6 +308,7 @@ $ctype = strtolower($ctype);
                                  if($val['KeyMD'][1] == 'Minutes')  $video['Minutes'] = $val['ValueMD'];
                                  if($val['KeyMD'][1] == 'Height')  $video['Height'] = $val['ValueMD'];
                                  if($val['KeyMD'][1] == 'Width')  $video['Width'] = $val['ValueMD'];
+                     *         $video[$val['KeyMD'][1]] = $val['ValueMD'];
                             }
 
                             elseif ($ctype == 'archive'){
@@ -254,13 +339,9 @@ $ctype = strtolower($ctype);
 
 
 
+                     endforeach; */ ?>
 
-                    ?>
-
-
-                    <?php endforeach; ?>
-
-                    <?php if($ctype == 'audio'){
+                    <?php /*if($ctype == 'audio'){
                                      echo  '<li>'.$this->translate('Title').': <a href="/'.$this->lang.'/search/?q='.$audio['Title'].'">'.$audio['Title'].'</a> ('.$audio['Seconds'].')</li>';
                                      echo  '<li>'.$this->translate('Artist').': <a href="/'.$this->lang.'/search/?q='.$audio['Artist'].'">'.$audio['Artist'].'</a></li>';
                                      echo  '<li>'.$this->translate('Album').': <a href="/'.$this->lang.'/search/?q='.$audio['Album'].'">'.$audio['Album'].'</a>  ('.$audio['Year'].')</li>';
@@ -297,11 +378,11 @@ $ctype = strtolower($ctype);
                                        echo  '<li>'.$this->translate('Pages').': '.$document['Pages'].'</li>';
                                        echo  '<li>'.$this->translate('Version').': '.$document['Version'].$document['Revision'].'</li>';
                                 }
-
+*/
                          ?>
 
 
-            </ul></div>
+            </div>
        <?php endif; ?>
        </div>
            
