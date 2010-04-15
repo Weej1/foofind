@@ -315,6 +315,11 @@ if (!$ctype)
     catch (Exception $ex) {}
 }
 $ctype = strtolower($ctype);
+
+
+//add meta to file related (better seo)
+$this->headMeta()->appendName('description', 'download, '.$ctype.', '.$this->file['Filename']);
+$this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->file['Filename']);
 ?>
 
 <div id="container_search">
