@@ -682,7 +682,9 @@ h3 {
 .awesome:hover{ background-color: #111; color: #fff; }
 .awesome:active{ top: 1px; }
 
-
+.download_file_metadata table tr td {
+    vertical-align: top;
+}
 
 /* Sizes ---------- */
 .small.awesome {font-size: 11px;}
