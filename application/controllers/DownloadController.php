@@ -32,13 +32,14 @@ class DownloadController extends Zend_Controller_Action
             $q = $f->filter (trim(stripcslashes(strip_tags($q))));
             $type = $f->filter ( $type );
             $src = $f->filter ( $src );
-            $src2 = ($src=='')?'wftge':$src;
             $form->getElement('q')->setValue($q);
             $form->addElement("hidden", "type", array("value"=>$type));
             $form->addElement("hidden", "src", array("value"=>$src));
         }
 
+        if(!$src) if ($_COOKIE['src']) $src = $_COOKIE['src'];
 
+        $src2 = ($src=='')?'wftge':$src;
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => $page);
 
         $helper = new QueryString_View_Helper();
