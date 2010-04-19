@@ -101,7 +101,7 @@ function formatArchive($context, $md, $show_title)
         <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
 <?php if ($this->info['total']>0): ?>
-    <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?> <?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?><?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div><style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
+    <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end']?><?=$this->translate("of about")?> <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?><?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div><style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
 <?php endif;?>
     <hr />
         <?
@@ -206,7 +206,10 @@ if (count ( $this->mensajes ) > 0) {
     <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 
 <?php else: ?>
-    <h2><?=$this->translate('No results.');?></h2>
+    <div class="success">
+    <h2><?=$this->translate('No results for:').' ';?><?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?>
+    </h2></div>
+    
     <?php if ($this->info["notypecount"]): ?>
         <p id="no_results"><?=sprintf($this->translate("NoTypeCount"), $this->qs['type'], $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
     <?php endif;?>
