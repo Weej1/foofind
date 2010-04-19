@@ -373,7 +373,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $start_time = microtime(true);
                         foreach ($docs as $id => $doc)
                         {
-                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}";
+
+                            //replace dot by underscore remove extension to filename in the url (google bot thinks its a image or a video, this is bad)
+                            $docs[$id]['rfilename'] = str_replace('.', '_', $docs[$id]['rfilename']);
+
+                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}"; //
 
                             if (!$doc['filename']) {
                                 $this->cl->UpdateAttributes("idx_files idx_files_week", array("blocked"), array($docs[$id]['idfilename'] => array(3)));
