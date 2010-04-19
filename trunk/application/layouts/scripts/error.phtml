@@ -1,35 +1,32 @@
-<?=$this->doctype() ?>
+<?=$this->doctype();?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <?=$this->headTitle()->setPrefix('foofind.com') ?>
-  <?=$this->headLink()->appendStylesheet('/css/main.css') ?>
-  <link rel="shortcut icon" href="/images/favicon.ico" />
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?=$this->headTitle()->setPrefix('foofind.com');?>
+        <?=$this->headLink()->appendStylesheet('/css/main.css');?>
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+        <? include_once("header_common.phtml");?>
+    </head>
 
-<body>
+    <body>
 
-<div id="header" ></div>
+        <div id="header" ></div>
 
-<div class="content">
+        <div class="content">
 
-    <div id="container_search">
-    <h1>
-        <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - foodind" /> </a>
-    </h1>
+            <div id="container_search">
+                <h1>
+                    <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - foodind" /> </a>
+                </h1>
 
-    <hr />
+                <hr />
 
-     
+                <?php echo $this->layout('error')->content ?>
 
-
-    <?php echo $this->layout('error')->content ?>
-
-
-</div>
+            </div>
 
 
-<? include_once("footer_common.phtml") ?>
+          </div>
 
-</body>
+    </body>
 </html>
