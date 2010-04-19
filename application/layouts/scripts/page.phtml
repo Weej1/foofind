@@ -1,62 +1,63 @@
-<?=$this->doctype() ?>
+<?=$this->doctype();?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <?=$this->headTitle()->setPrefix('foofind.com') ?>
-  <?=$this->headLink()->appendStylesheet('/css/main.css') ?>
-  <link rel="shortcut icon" href="/images/favicon.ico" />
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?=$this->headTitle()->setPrefix('foofind.com');?>
+        <?=$this->headLink()->appendStylesheet('/css/main.css');?>
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+        <? include_once("header_common.phtml");?>
+    </head>
 
-<body>
+    <body>
 
-<div id="header" ></div>
-
-
-
-    <div id="container_search">
-    <h1>
-        <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - foodind" /> </a>
-    </h1>
-
-    <hr />
-
-     <div id="menu_page">
-
-     <ul >
-
-           
-            <li><a  href="/<?=$this->lang?>/page/about" ><?=$this->translate('About');?></a></li>
-            <li><a  href="/<?=$this->lang?>/page/contact" ><?=$this->translate('Contact');?></a></li>
-            <br /><br />
-
-            <li><a  href="/<?=$this->lang?>/page/legal" ><?=$this->translate('Legal');?></a></li>
-            <li><a  href="/<?=$this->lang?>/page/tos" ><?=$this->translate('Terms');?></a></li>
-            <li><a  href="/<?=$this->lang?>/page/privacy" ><?=$this->translate('Privacy');?></a></li>
-            <br /><br />
-           
-            <li><a  href="/<?=$this->lang?>/page/complaint" ><?=$this->translate('Report links');?></a></li>
-            <br /><br />
-           
-            <li><a  href="http://code.google.com/p/foofind/" ><?=$this->translate('Source code');?></a></li>
-            
-        </ul>
+        <div id="header" ></div>
 
 
 
-     </div>
+        <div id="container_search">
+            <h1>
+                <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - foodind" /> </a>
+            </h1>
+
+            <hr />
+
+            <div id="menu_page">
+
+                <ul >
 
 
-    <?php echo $this->layout('page')->content ?>
+                    <li><a  href="/<?=$this->lang?>/page/about" ><?=$this->translate('About');?></a></li>
+                    <li><a  href="/<?=$this->lang?>/page/contact" ><?=$this->translate('Contact');?></a></li>
+                    <br /><br />
+
+                    <li><a  href="/<?=$this->lang?>/page/legal" ><?=$this->translate('Legal');?></a></li>
+                    <li><a  href="/<?=$this->lang?>/page/tos" ><?=$this->translate('Terms');?></a></li>
+                    <li><a  href="/<?=$this->lang?>/page/privacy" ><?=$this->translate('Privacy');?></a></li>
+                    <br /><br />
+
+                    <li><a  href="/<?=$this->lang?>/page/complaint" ><?=$this->translate('Report links');?></a></li>
+                    <br /><br />
+
+                    <li><a  href="http://code.google.com/p/foofind/" ><?=$this->translate('Source code');?></a></li>
+
+                </ul>
 
 
-</div>
 
-<div id="footer_main" >
+            </div>
 
-   <p><?=$this->translate('this is the footer text');  ?></p>
-</div>
 
- 
-<? include_once("footer_common.phtml") ?>
-</body>
+            <?php echo $this->layout('page')->content ?>
+
+
+        </div>
+
+        <div id="footer_main" >
+
+            <p><?=$this->translate('this is the footer text');  ?></p>
+        </div>
+
+
+
+    </body>
 </html>
