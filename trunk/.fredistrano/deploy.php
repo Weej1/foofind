@@ -35,6 +35,7 @@
 		'/library/Zend/',
 		'/library/Zend', //this is for staging deployment, (links to zend lib on prod)
 		'/library/ZendX/',
+		'/library/ZendX', //this is for staging deployment, (links to zend lib on prod)
 		'/tests/'
         );
 
