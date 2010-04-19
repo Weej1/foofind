@@ -333,19 +333,20 @@ h3 {
 
 #options {
     float: right;
-    width:16em;
+    width:15em;
 }
 
 
 #options #advsearch {
     display: block;
     padding:3px;
+    text-align:left;
 }
 
 #options #advsearch ul {
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-bottom: 25px;
+    margin-top: 15px;
+    margin-left: 30px;
+    margin-bottom: 15px;
 }
 
 #options a {
