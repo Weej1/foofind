@@ -463,6 +463,9 @@ class SearchController extends Zend_Controller_Action {
         $year = $f->filter ( $year );
         $brate = $f->filter ( $brate );
 
+        if (!preg_match("/^Audio$/", $type)) $brate = null;
+        if (!preg_match("/^Audio|Video$/", $type)) $year= null;
+
         $this->view->headTitle()->append(' - ');
         $this->view->headTitle()->append($qw);
 
