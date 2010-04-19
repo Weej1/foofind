@@ -343,18 +343,30 @@ h3 {
 }
 
 #options #advsearch ul {
-    margin: 15px;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 25px;
 }
 
-#options #advsearch a {
-    color: #df1279 !important;
+#options a {
+    color: #df1279;
 }
 
 .actual a:link a:visited{
-    color: black;
+    color: black !important;
 }
 
-#options a{
+#socontainer {
+    width:100%;
+    text-align:right;
+}
+
+#show_options
+{
+    font-size: 0.9em;
+}
+
+#options a {
     text-decoration: none;
     line-height: 22px;
 }

@@ -442,6 +442,7 @@ class SearchController extends Zend_Controller_Action {
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
         $src = $this->_getParam('src');
+        $opt = $this->_getParam('opt');
         $size = $this->_getParam('size');
         $year = $this->_getParam('year');
         $brate = $this->_getParam('brate');
@@ -457,6 +458,7 @@ class SearchController extends Zend_Controller_Action {
         $q = $f->filter ( trim($qw ));
         $type = $f->filter ( $type );
         $src = $f->filter ( $src );
+        $opt = $f->filter ( $opt );
         $size = $f->filter ( $size );
         $year = $f->filter ( $year );
         $brate = $f->filter ( $brate );
@@ -550,31 +552,31 @@ class SearchController extends Zend_Controller_Action {
                 $this->view->paginator = $paginator;
         }
 
-//        $jquery = $this->view->jQuery();
-//        $jquery->enable(); // enable jQuery Core Library
-//
-//        // get current jQuery handler based on noConflict settings
-//        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
-//        $onload = '("#show_options").click(function() '
-//                  . '{'
-//                  . '   active = $("#show_options").attr("active")=="1";'
-//                  . '   switchOptions(active, true);'
-//                  . '});'
-//                  . ' switchOptions('.($opt?'false':'true').', false);';
-//
-//        $function = 'function switchOptions(active, fade) {'
-//                  . '   if (active) {'
-//                  . '       $("#results").removeClass("padding");'
-//                  . '       $("#options").toggle(false);'
-//                  . '       $("#show_options").text("'.$this->view->translate('Show options...').'");'
-//                  . '   } else {'
-//                  . '       $("#results").addClass("padding");'
-//                  . '       if (fade) $("#options").fadeIn(); else $("#options").toggle(true);'
-//                  . '       $("#show_options").text("'.$this->view->translate('Hide options').'");'
-//                  . '   } $("#show_options").attr("active", 1-(active?1:0));'
-//                  . '}';
-//        $jquery->addJavascript($function);
-//        $jquery->addOnload($jqHandler . $onload);
+        $jquery = $this->view->jQuery();
+        $jquery->enable(); // enable jQuery Core Library
+
+        // get current jQuery handler based on noConflict settings
+        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+        $onload = '("#show_options").click(function() '
+                  . '{'
+                  . '   active = $("#show_options").attr("active")=="1";'
+                  . '   switchOptions(active, true);'
+                  . '});'
+                  . ' switchOptions('.($opt?'false':'true').', false);';
+
+        $function = 'function switchOptions(active, fade) {'
+                  . '   if (active) {'
+                  . '       $("#results").removeClass("padding");'
+                  . '       $("#advsearch").toggle(false);'
+                  . '       $("#show_options").text("'.$this->view->translate('advanced search').'");'
+                  . '   } else {'
+                  . '       $("#results").addClass("padding");'
+                  . '       if (fade) $("#advsearch").fadeIn(); else $("#advsearch").toggle(true);'
+                  . '       $("#show_options").text("'.$this->view->translate('hide advanced search').'");'
+                  . '   } $("#show_options").attr("active", 1-(active?1:0));'
+                  . '}';
+        $jquery->addJavascript($function);
+        $jquery->addOnload($jqHandler . $onload);
 
     }
 
