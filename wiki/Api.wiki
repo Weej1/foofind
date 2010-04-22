@@ -19,11 +19,10 @@ this method retrieves search results with the following params:
 
 
 
-
-== API Request sample ==
+=== Method getSearch request sample ===
 http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&size=&year=&brate=&page=
 
-=== Sample result response ===
+=== Method getSearch response sample ===
 {{{
 <SearchrestServer generator="zend" version="1.0">
 <getSearch>
