@@ -51,21 +51,35 @@ class SearchrestServer
 
             foreach ($paginatorArray as $i => $value)
             {
+                //var_dump($value);
+                $paginatorArray2[$i]['size'] = $paginatorArray[$i]['attrs']['size'];
+                $paginatorArray2[$i]['type'] = $paginatorArray[$i]['type'];
                 
-                $paginatorArray2[$i]['item']['size'] = $paginatorArray[$i]['size'];
-                $paginatorArray2[$i]['item']['type'] = $paginatorArray[$i]['type'];
-                $paginatorArray2[$i]['item']['dlink'] = '<![CDATA['.'http://foofind.com/'.$lang.'/download/'.$paginatorArray[$i]['dlink'] .']]>';
+                $paginatorArray2[$i]['dlink'] = '<![CDATA['.'http://foofind.com/'.$lang.'/download/'.$paginatorArray[$i]['dlink'] .']]>';
 
-               // var_dump($paginatorArray2['item']);
+                //extract and reformat md data subarray (notation : is not xml complaint)
+                foreach ($paginatorArray[$i]['md'] as $key => $value)
+                {
+                    $key = explode(":", $key);
+                    $key = $key[1];
+                    $paginatorArray2[$i]['md'][$key] = $value;
+               
+                    //var_dump($key);
+                 }
+                //$paginatorArray2[$i]['item']['md']  = $paginatorArray[$i]['md'];
+               
 
             }
 
-            //var_dump( $paginatorArray);
-//            var_dump( $paginatorArray2);
-//            die();
+  //        var_dump( $paginatorArray);
+//              var_dump( $paginatorArray2 );
+//              die();
 
         }
 
+
+
+        
         return array_values($paginatorArray2);
 
     }
