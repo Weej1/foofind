@@ -19,7 +19,9 @@ class ApiController extends Zend_Controller_Action
         require_once 'SearchrestServer.php';
         $server = new Zend_Rest_Server();
         $server->setClass('SearchrestServer');
+        $server->setEncoding('utf-8');
         $server->handle();
+        
 
     }
 
