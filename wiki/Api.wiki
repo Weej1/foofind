@@ -87,3 +87,32 @@ All the requests will be completed with a status message , with the following va
 </response>
 <status>failed</status>
 }}}
+
+----
+==== using the foofind API with php example ====
+
+
+{{{
+<?
+  
+   $urlrequest = 'http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&page=';
+
+   $xml = file_get_contents( $urlrequest );
+
+   $objDOM = new DOMDocument();
+   $objDOM->load( $xml); 
+   $item = $objDOM->getElementsByTagName("item"); 
+
+
+   foreach( $item as $value )
+  {
+    $dlink = $value->getElementsByTagName("dlink")->item(0)->nodeValue;
+    $size = $value->getElementsByTagName("size")->item(0)->nodeValue;
+    $type = $value->getElementsByTagName("type")->item(0)->nodeValue;
+
+    echo "$dlink </br>";
+    echo "$size </br>";
+  } 
+?> 
+
+}}}
