@@ -7,14 +7,14 @@ require_once APPLICATION_PATH.'/models/ContentType.php';
 class SearchrestServer
 {
 
-    public function getSearch($q,$src,$opt,$type,$size,$year,$brate,$page,$lang)
+    public function getSearch($q, $lang, $src, $type, $size, $year, $brate, $page)
     
 
     {
 
         global $content;
 
-        //********************************************************************************************************
+        //************************
         $srcs = array();
         $src2 = ($src=='')?'wftge':$src;
         $srcs['ed2k'] = (strpos($src2, 'e')===false)?$src.'e':str_replace('e', '', $src2);
@@ -24,7 +24,7 @@ class SearchrestServer
         $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
 
 
-        $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => (int) $page);
+        $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' =>  (int) $year, 'brate' => $brate, 'page' => (int) $page);
 
 
         $SphinxPaginator = new Sphinx_Paginator('idx_files, idx_files_week');
@@ -47,34 +47,27 @@ class SearchrestServer
 
             $paginator->setCache($cache);
             $paginator->setCurrentPageNumber($page);
-
             $paginatorArray = $paginator->getCurrentItems();
 
             foreach ($paginatorArray as $i => $value)
             {
+                
+                $paginatorArray2[$i]['item']['size'] = $paginatorArray[$i]['size'];
+                $paginatorArray2[$i]['item']['type'] = $paginatorArray[$i]['type'];
+                $paginatorArray2[$i]['item']['dlink'] = '<![CDATA['.'http://foofind.com/'.$lang.'/download/'.$paginatorArray[$i]['dlink'] .']]>';
 
-                //$paginatorArray2[$i]['idfile'] = $paginatorArray[$i]['idfile'];
-                $paginatorArray2[$i]['size'] = $paginatorArray[$i]['size'];
-                $paginatorArray2[$i]['type'] = $paginatorArray[$i]['type'];
-
-                $paginatorArray2[$i]['dlink'] = '<![CDATA['.'http://foofind.com/'.$lang.'/download/'.$paginatorArray[$i]['dlink'] .']]>';
-                //var_dump($paginatorArray[$i]);
+               // var_dump($paginatorArray2['item']);
 
             }
 
             //var_dump( $paginatorArray);
-            //var_dump( $paginatorArray2);
-            //die();
-
+//            var_dump( $paginatorArray2);
+//            die();
 
         }
 
-        return $paginatorArray2;
-
+        return array_values($paginatorArray2);
 
     }
 
-
 }
-
-
