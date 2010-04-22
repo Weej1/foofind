@@ -67,8 +67,15 @@ http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&si
 
 }}}
 
-==== Status request messages ====
+==== Status request ====
 
 All the requests will be completed with a status message , with the following values:
- * success
- * failed
+ * success (when the request is succesful)
+ * failed (if you get this status request , you coukld fetch the response-message value from the xml to know more about the error.
+
+{{{
+<response>
+<message>No Method Specified.</message>
+</response>
+<status>failed</status>
+}}}
