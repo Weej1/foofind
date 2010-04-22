@@ -12,15 +12,15 @@ The server response is xml format.
 
  * q (query) Example q=centos
  * lang (language) there are 2 languages available lang=es or lang=en
- * src (sources) 
- * type
- * year
- * brate
+ * src (sources)  w:web, g:gnutella, t:torrent, f:ftp, e:ed2k
+ * type (file type) (Audio,Video,Image,Document,Software,Archive)
+ * year (year)
+ * brate (bitrate)
 
 
 
 ==== Method getSearch request sample: ====
-http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&size=&year=&brate=&page=
+http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&page=
 
 ==== Method getSearch response sample: ====
 {{{
@@ -70,7 +70,7 @@ http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&si
 ==== Status request ====
 
 All the requests will be completed with a status message , with the following values:
- * success (when the request is succesful)
+ * success (when the request was successful)
  * failed (if you get this status request , you coukld fetch the response-message value from the xml to know more about the error.
 
 {{{
