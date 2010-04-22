@@ -390,11 +390,7 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->file[
         <div class="top_download">
         <div class="download_button">
             <img alt="" src="/images/icons/content_<?=$ctype ?>.gif" /><br />
-            <a title="download" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').
-                
-                $this->file_size   = ($this->file_size < 1) ? '' : ' ('.$this->file_size.')';?>
-
-            </a>
+            <a title="<?=$this->translate('Download')?>" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').($this->file_size<1 ? '':' ('.$this->file_size.')');?></a>
          </div>
         <div class="download_file_metadata"><?php showMetadata($this, $ctype, $this->file['Filename'], $this->file['Extension'], $md) ?></div>
        </div>
