@@ -328,7 +328,6 @@ foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gn
         if (!$srcLinkChoosen) $srcLinkChoosen = $srcLink;
         if (strstr($this->qs['src'], $srci[0]))
         {
-
             if ($srcLink!='tmagnet' || $srcs['tmagnet']['has_trackers'])
             {
                 $srcLinkChoosen = $srcLink;
@@ -391,7 +390,7 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->file[
         <div class="top_download">
         <div class="download_button">
             <img alt="" src="/images/icons/content_<?=$ctype ?>.gif" /><br />
-            <a title="magnet download" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').
+            <a title="download" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').
                 
                 $this->file_size   = ($this->file_size < 1) ? '' : ' ('.$this->file_size.')';?>
 
