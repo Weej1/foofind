@@ -3,7 +3,7 @@
 class ApiController extends Zend_Controller_Action
 {
    
-    //protected $_server;
+    protected $_server;
 
 
     public function init()
@@ -13,10 +13,8 @@ class ApiController extends Zend_Controller_Action
     }
 
 
-
     public function indexAction()
     {
-
 
         require_once 'SearchrestServer.php';
         $server = new Zend_Rest_Server();
