@@ -21,7 +21,7 @@ this method retrieves search results with the following params:
 
 
 == API Request sample ==
-http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&size=&year=&brate=&page=13
+http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&size=&year=&brate=&page=
 
 === Sample result response ===
 {{{
