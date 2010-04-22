@@ -324,7 +324,7 @@ foreach ($this->metadata as $key => $val)
 }
 foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
 {
-    if ($srcs[$srcLink]) {
+    if ($srcs[$srcLink]['link']) {
         if (!$srcLinkChoosen) $srcLinkChoosen = $srcLink;
         if (strstr($this->qs['src'], $srci[0]))
         {
