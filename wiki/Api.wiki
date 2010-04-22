@@ -1,4 +1,4 @@
-#labels rest
+#labels rest,Featured
 == Foofind Rest Api usage ==
 The foofind API uses a REST-like interface. This means that our method calls are made over the internet by sending HTTP GET or POST requests to the Foofind REST aPI server. Nearly any computer language can be used to communicate over HTTP with the REST server. 
 
@@ -25,91 +25,65 @@ http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&s
 ==== Method getSearch response sample: ====
 {{{
 <SearchrestServer generator="zend" version="1.0">
+ <getSearch>
+  <key_0>
+   <size>0</size>
+   <type>Audio</type>
+   <dlink><![CDATA[http://foofind.com/en/download/5013076/CentOS]]></dlink>
+   <md>
+    <album>Mandrake</album>
+    <title><b>CentOS</b></title>
+    <seconds>410.0</seconds>
+    <year>2009</year>
+    <genre>Blues</genre>
+    <artist>Zodio</artist>
+   </md>
+  </key_0>
 
-<getSearch>
+  <key_1>
+   <size>4000606340</size>
+   <type>Document</type>
+   <dlink><![CDATA[http://foofind.com/en/download/5282897/CentOS-5_4-i386-bin-DVD_torrent]]</dlink>
+  </key_1>
 
-<key_0>
-<size>0</size>
-<type>Audio</type>
+  <key_2>
+   <size>3718250992</size>
+   <type>Archive</type>
+   <dlink><![CDATA[http://foofind.com/en/download/3165961/CentOS-5_0-i386-bin-DVD_torrent]]></dlink>
+  </key_2>
 
-<dlink>
-<![CDATA[http://foofind.com/en/download/5013076/CentOS]]>
-</dlink>
+  <key_3>
+   <size>4294967295</size>
+   <type>Archive</type>
+   <dlink><![CDATA[http://foofind.com/en/download/9094860/CentOS-5_4-x86_64-bin-DVD_torrent]]></dlink>
+  </key_3>
 
-<md>
-<album>Mandrake</album>
-<title><b>CentOS</b></title>
-<seconds>410.0</seconds>
-<year>2009</year>
-<genre>Blues</genre>
-<artist>Zodio</artist>
-</md>
-</key_0>
+  <key_4>
+   <size>663783424</size>
+   <type/>
+  <dlink><![CDATA[http://foofind.com/en/download/19062115/[peerates_net] - LINUX - 2007 - CentOS -5_0 - i386 - bin - CD4of6_iso]]></dlink>
+  </key_4>
 
-<key_1>
-<size>4000606340</size>
-<type>Document</type>
-−
-<dlink>
-<![CDATA[http://foofind.com/en/download/5282897/CentOS-5_4-i386-bin-DVD_torrent]]>
-</dlink>
-</key_1>
-−
-<key_2>
-<size>3718250992</size>
-<type>Archive</type>
-−
-<dlink>
-<![CDATA[http://foofind.com/en/download/3165961/CentOS-5_0-i386-bin-DVD_torrent]]>
-</dlink>
-</key_2>
+  <key_5>
+   <size>723449856</size>
+   <type>Software</type>
+   <dlink><![CDATA[http://foofind.com/en/download/5900802/CentOS-5_4-i386-LiveCD_iso]]></dlink>
+  </key_5>
 
-<key_3>
-<size>4294967295</size>
-<type>Archive</type>
+   <key_6>
+    <size>730816512</size>
+    <type>Software</type>
+    <dlink><![CDATA[http://foofind.com/en/download/15901777/CentOS-5_2-i386-LiveCD_iso]]></dlink>
+   </key_6>
 
-<dlink>
-<![CDATA[http://foofind.com/en/download/9094860/CentOS-5_4-x86_64-bin-DVD_torrent]]>
-</dlink>
-</key_3>
+   <key_7>
+    <size>20844412</size>
+    <type>Software</type>
+    <dlink><![CDATA[http://foofind.com/en/download/15033969/linux_instalacion CentOS_rar]]></dlink>
+   </key_7>
 
-<key_4>
-<size>663783424</size>
-<type/>
-
-<dlink>
-<![CDATA[http://foofind.com/en/download/19062115/[peerates_net] - LINUX - 2007 - CentOS -5_0 - i386 - bin - CD4of6_iso]]>
-</dlink>
-</key_4>
-
-<key_5>
-<size>723449856</size>
-<type>Software</type>
-
-<dlink>
-<![CDATA[http://foofind.com/en/download/5900802/CentOS-5_4-i386-LiveCD_iso]]>
-</dlink>
-</key_5>
-
-<key_6>
-<size>730816512</size>
-<type>Software</type>
-
-<dlink>
-<![CDATA[http://foofind.com/en/download/15901777/CentOS-5_2-i386-LiveCD_iso]]>
-</dlink>
-</key_6>
-
-<key_7>
-<size>20844412</size>
-<type>Software</type>
-
-<dlink>
-<![CDATA[http://foofind.com/en/download/15033969/linux_instalacion CentOS_rar]]>
-</dlink>
-</key_7>
-<status>success</status>
-</getSearch>
+  <status>success</status>
+ </getSearch>
 </SearchrestServer>
 }}}
 
