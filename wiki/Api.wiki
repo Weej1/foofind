@@ -26,42 +26,49 @@ http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&s
 {{{
 <SearchrestServer generator="zend" version="1.0">
 <getSearch>
-<key_5013076>
-<size></size>
-<type>Audio</type>
-<dlink><![CDATA[http://foofind.com/es/download/5013076/CentOS]]></dlink></key_5013076>
-<key_5282897>
-<size>3.73 GB</size>
-<type>Document</type>
-<dlink><![CDATA[http://foofind.com/es/download/5282897/CentOS-5_4-i386-bin-DVD_torrent]]></dlink>
-</key_5282897>
-<key_3165961>
-<size>3.46 GB</size>
-<type>Archive</type>
-<dlink><![CDATA[http://foofind.com/es/download/3165961/CentOS-5_0-i386-bin-DVD_torrent]]></dlink>
-</key_3165961>
-<key_9094860>
-<size>4.00 GB</size>
-<type>Archive</type>
-<dlink><![CDATA[http://foofind.com/es/download/9094860/CentOS-5_4-x86_64-bin-DVD_torrent]]></dlink>
-</key_9094860>
-<key_5900802>
-<size>689.94 MB</size>
-<type>Software</type>
-<dlink><![CDATA[http://foofind.com/es/download/5900802/CentOS-5_4-i386-LiveCD_iso]]></dlink>
-</key_5900802>
-<key_15901777>
-<size>696.96 MB</size>
-<type>Software</type>
-<dlink><![CDATA[http://foofind.com/es/download/15901777/CentOS-5_2-i386-LiveCD_iso]]></dlink>
-</key_15901777>
-<key_15033969>
-<size>19.88 MB</size>
-<type>Software</type>
-<dlink><![CDATA[http://foofind.com/es/download/15033969/linux_instalacion CentOS_rar]]></dlink>
-</key_15033969>
+ <key_5013076>
+  <size></size>
+  <type>Audio</type>
+  <dlink><![CDATA[http://foofind.com/es/download/5013076/CentOS]]></dlink>
+ </key_5013076>
 
-<status>success</status>
+ <key_5282897>
+  <size>3.73 GB</size>
+  <type>Document</type>
+  <dlink><![CDATA[http://foofind.com/es/download/5282897/CentOS-5_4-i386-bin-DVD_torrent]]></dlink>
+ </key_5282897>
+
+ <key_3165961>
+  <size>3.46 GB</size>
+  <type>Archive</type>
+  <dlink><![CDATA[http://foofind.com/es/download/3165961/CentOS-5_0-i386-bin-DVD_torrent]]></dlink>
+ </key_3165961>
+
+ <key_9094860>
+  <size>4.00 GB</size>
+  <type>Archive</type>
+  <dlink><![CDATA[http://foofind.com/es/download/9094860/CentOS-5_4-x86_64-bin-DVD_torrent]]></dlink>
+ </key_9094860>
+
+ <key_5900802>
+  <size>689.94 MB</size>
+  <type>Software</type>
+  <dlink><![CDATA[http://foofind.com/es/download/5900802/CentOS-5_4-i386-LiveCD_iso]]></dlink>
+ </key_5900802>
+
+ <key_15901777>
+  <size>696.96 MB</size>
+  <type>Software</type>
+  <dlink><![CDATA[http://foofind.com/es/download/15901777/CentOS-5_2-i386-LiveCD_iso]]> </dlink>
+ </key_15901777>
+
+ <key_15033969>
+  <size>19.88 MB</size>
+  <type>Software</type>
+  <dlink><![CDATA[http://foofind.com/es/download/15033969/linux_instalacion CentOS_rar]]></dlink>
+ </key_15033969>
+
+ <status>success</status>
 </getSearch>
 </SearchrestServer>
 
