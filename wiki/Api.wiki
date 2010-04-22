@@ -1,4 +1,4 @@
-#labels api,rest
+#labels rest
 == Foofind Rest Api usage ==
 The foofind API uses a REST-like interface. This means that our method calls are made over the internet by sending HTTP GET or POST requests to the Foofind REST aPI server. Nearly any computer language can be used to communicate over HTTP with the REST server. 
 
@@ -8,57 +8,57 @@ The server response is xml format.
 
 === getSearch ===
 
-this method retrieves search results with the following params:
+*this method retrieves search results with the following params:
 
-*q (query) Example q=centos
-*lang (language) there are 2 languages available lang=es or lang=en
-*src (sources) 
-*type
-*year
-*brate
+ * q (query) Example q=centos
+ * lang (language) there are 2 languages available lang=es or lang=en
+ * src (sources) 
+ * type
+ * year
+ * brate
 
 
 
-=== Method getSearch request sample ===
+==== Method getSearch request sample: ====
 http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&size=&year=&brate=&page=
 
-=== Method getSearch response sample ===
+==== Method getSearch response sample: ====
 {{{
 <SearchrestServer generator="zend" version="1.0">
 <getSearch>
 <key_5013076>
 <size></size>
 <type>Audio</type>
-<dlink>&lt;![CDATA[http://foofind.com/es/download/5013076/CentOS]]&gt;</dlink></key_5013076>
+<dlink><![CDATA[http://foofind.com/es/download/5013076/CentOS]]></dlink></key_5013076>
 <key_5282897>
 <size>3.73 GB</size>
 <type>Document</type>
-<dlink>&lt;![CDATA[http://foofind.com/es/download/5282897/CentOS-5_4-i386-bin-DVD_torrent]]&gt;</dlink>
+<dlink><![CDATA[http://foofind.com/es/download/5282897/CentOS-5_4-i386-bin-DVD_torrent]]></dlink>
 </key_5282897>
 <key_3165961>
 <size>3.46 GB</size>
 <type>Archive</type>
-<dlink>&lt;![CDATA[http://foofind.com/es/download/3165961/CentOS-5_0-i386-bin-DVD_torrent]]&gt;</dlink>
+<dlink><![CDATA[http://foofind.com/es/download/3165961/CentOS-5_0-i386-bin-DVD_torrent]]></dlink>
 </key_3165961>
 <key_9094860>
 <size>4.00 GB</size>
 <type>Archive</type>
-<dlink>&lt;![CDATA[http://foofind.com/es/download/9094860/CentOS-5_4-x86_64-bin-DVD_torrent]]&gt;</dlink>
+<dlink><![CDATA[http://foofind.com/es/download/9094860/CentOS-5_4-x86_64-bin-DVD_torrent]]></dlink>
 </key_9094860>
 <key_5900802>
 <size>689.94 MB</size>
 <type>Software</type>
-<dlink>&lt;![CDATA[http://foofind.com/es/download/5900802/CentOS-5_4-i386-LiveCD_iso]]&gt;</dlink>
+<dlink><![CDATA[http://foofind.com/es/download/5900802/CentOS-5_4-i386-LiveCD_iso]]></dlink>
 </key_5900802>
 <key_15901777>
 <size>696.96 MB</size>
 <type>Software</type>
-<dlink>&lt;![CDATA[http://foofind.com/es/download/15901777/CentOS-5_2-i386-LiveCD_iso]]&gt;</dlink>
+<dlink><![CDATA[http://foofind.com/es/download/15901777/CentOS-5_2-i386-LiveCD_iso]]></dlink>
 </key_15901777>
 <key_15033969>
 <size>19.88 MB</size>
 <type>Software</type>
-<dlink>&lt;![CDATA[http://foofind.com/es/download/15033969/linux_instalacion CentOS_rar]]&gt;</dlink>
+<dlink><![CDATA[http://foofind.com/es/download/15033969/linux_instalacion CentOS_rar]]></dlink>
 </key_15033969>
 
 <status>success</status>
@@ -66,3 +66,9 @@ http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wfte&opt=&type=&si
 </SearchrestServer>
 
 }}}
+
+==== Status request messages ====
+
+All the requests will be completed with a status message , with the following values:
+ * success
+ * failed
