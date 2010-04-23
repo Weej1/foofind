@@ -16,7 +16,7 @@ The server response is xml format.
  * type (file type) (Audio,Video,Image,Document,Software,Archive)
  * year (year)
  * brate (bitrate)
- * results (number of results) max 40
+ * results (number of results) max 40 - default 10
 
 
 ==== Method getSearch request sample: ====
