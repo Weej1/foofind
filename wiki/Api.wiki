@@ -1,6 +1,6 @@
 #labels rest,Featured
-== Foofind Rest Api usage ==
-The foofind API uses a REST-like interface. This means that our method calls are made over the internet by sending HTTP GET or POST requests to the Foofind REST aPI server. Nearly any computer language can be used to communicate over HTTP with the REST server. 
+== Foofind  Api usage ==
+The foofind API uses a REST-like interface. This means that our method calls are made over the internet by sending HTTP GET requests to the Foofind REST API server.
 
 The server response is xml format.
 
