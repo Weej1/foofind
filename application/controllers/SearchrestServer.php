@@ -7,7 +7,7 @@ require_once APPLICATION_PATH.'/models/ContentType.php';
 class SearchrestServer
 {
 
-    public function getSearch($q, $lang, $src, $type, $size, $year, $brate, $page)
+    public function getSearch($q, $lang, $src, $type, $size, $year, $brate, $results)
     
 
     {
@@ -24,7 +24,7 @@ class SearchrestServer
         $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
 
 
-        $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' =>  (int) $year, 'brate' => $brate, 'page' => (int) $page);
+        $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' =>  (int) $year, 'brate' => $brate, 'results' => (int) $results);
 
 
         $SphinxPaginator = new Sphinx_Paginator('idx_files, idx_files_week');
@@ -36,8 +36,16 @@ class SearchrestServer
             //paginator
             $paginator = new Zend_Paginator($SphinxPaginator);
 
-            $paginator->setDefaultScrollingStyle('Elastic');
-            $paginator->setItemCountPerPage(10);
+
+           
+            //limit numresults
+            if ($results <= 40){
+                  $results = $results;
+            } else {
+                  $results = 10;
+            }
+          
+            $paginator->setItemCountPerPage($results);
 
 
             //setting the paginator cache
@@ -46,7 +54,7 @@ class SearchrestServer
             $cache = Zend_Cache::factory('Core', 'File', $fO, $bO);
 
             $paginator->setCache($cache);
-            $paginator->setCurrentPageNumber($page);
+            
             $paginatorArray = $paginator->getCurrentItems();
 
             foreach ($paginatorArray as $i => $value)
@@ -71,9 +79,9 @@ class SearchrestServer
 
             }
 
-  //        var_dump( $paginatorArray);
-//              var_dump( $paginatorArray2 );
-//              die();
+//        var_dump( $paginatorArray);
+//          var_dump( $paginatorArray2 );
+//          die();
 
         }
 
