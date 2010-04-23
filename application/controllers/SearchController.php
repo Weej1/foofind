@@ -375,7 +375,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         {
 
                             //replace dot by underscore remove extension to filename in the url (google bot thinks its a image or a video, this is bad)
-                            $docs[$id]['rfilename'] = str_replace('.', '_', $docs[$id]['rfilename']);
+                            //$docs[$id]['rfilename'] = str_replace('.', '_', $docs[$id]['rfilename']);
+                            $docs[$id]['rfilename'] = $docs[$id]['rfilename'].'.html';
 
                             $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}"; //
 
