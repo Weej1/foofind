@@ -156,9 +156,8 @@ class PageController extends Zend_Controller_Action
                                 $body = $user_info.'<br/>'.$message;
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
-                                //$mail->addTo ( 'hola@foofind.com', 'hola foofind' );
-                                $mail->addTo ( 'daniel@mp2p.net', 'hola foofind' );
-
+                                $mail->addTo ( 'hola@foofind.com', 'hola foofind' );
+                                
                                 $mail->setSubject ( 'foofind.com - message contact  from ' . $email );
                                  try {
                                       $mail->send();
