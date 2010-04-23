@@ -16,11 +16,11 @@ The server response is xml format.
  * type (file type) (Audio,Video,Image,Document,Software,Archive)
  * year (year)
  * brate (bitrate)
-
+ * results (number of results) max 40
 
 
 ==== Method getSearch request sample: ====
-http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&page=
+http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&results=
 
 ==== Method getSearch response sample: ====
 {{{
@@ -91,7 +91,7 @@ http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&s
 
 All the requests will be completed with a status message , with the following values:
  * success (when the request was successful)
- * failed (if you get this status request , you coukld fetch the response-message value from the xml to know more about the error.
+ * failed (if you get this status request , you could fetch the response-message value from the xml to know more about the error.
 
 {{{
 <response>
