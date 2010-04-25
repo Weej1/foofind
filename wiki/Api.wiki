@@ -1,4 +1,4 @@
-#labels rest,Featured
+#labels api,Featured
 == Foofind  Api usage ==
 The foofind API uses a REST-like interface. This means that our method calls are made over the internet by sending HTTP GET requests to the Foofind REST API server.
 
@@ -101,3 +101,15 @@ All the requests will be completed with a status message , with the following va
 }}}
 
 ----
+==== PHP Basic usage sample ====
+
+{{{
+<?php 
+ $html = 'http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&results=';
+ $doc = new DOMDocument();
+ $doc->strictErrorChecking = FALSE; 
+ $doc->loadHTML($html);
+ $xml = simplexml_import_dom($doc);
+
+?>
+}}}
