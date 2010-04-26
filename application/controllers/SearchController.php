@@ -305,7 +305,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 7: //BTH HASH
                                     $tip = "Torrent MagnetLink";
                                     $source = "tmagnet";
-                                    $link = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:btih:".$row['Uri'];
+				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
+                                    $link = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:btih:".$row['Uri'];
                                     break;
                                 case 4: // JAMENDO
                                 case 8: // WEB
@@ -328,8 +329,10 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 $rlink = $docs[$id]['sources']['gnutella']['rlink'];
                                 if ($rlink)
                                     $mlink = $rlink.$mlinkadd;
-                                else
-                                    $mlink = "magnet:?xl=".$docs[$id]['attrs']['size']."&dn=".encodeFilename($docs[$id]['rfilename']).$mlinkadd;
+                                else {
+				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
+                                    $mlink = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename']).$mlinkadd;
+				}
                                 $link = $mlink;
                             }
 

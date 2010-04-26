@@ -266,7 +266,8 @@ foreach ($this->sources as $key => $val) {
             case 7: //BTH HASH
                 $tip = "Torrent";
                 $source = "tmagnet";
-                $link = "magnet:?xl=".$this->file['Size']."&dn=".str_replace(' ', '+', $this->file['Filename'])."&xt=urn:btih:".$val['Uri'];
+	        if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
+                $link = "magnet:?{$size}dn=".str_replace(' ', '+', $this->file['Filename'])."&xt=urn:btih:".$val['Uri'];
                 $mlinkadd2 = "&xt=urn:btih:".$val['Uri'];
                 break;
             case 4: // JAMENDO
@@ -290,8 +291,10 @@ foreach ($this->sources as $key => $val) {
             $rlink = $srcs['gnutella']['rlink'];
             if ($rlink)
                 $mlink = $rlink.$mlinkadd;
-            else
-                $mlink = "magnet:?xl=".$this->file['Size']."&dn=".str_replace(' ', '+', $this->file['Filename']).$mlinkadd;
+            else {
+    		if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
+                $mlink = "magnet:?{$file}dn=".str_replace(' ', '+', $this->file['Filename']).$mlinkadd;
+	    }
             $link = $mlink;
         } elseif (isset($mlinkadd2))
         {
