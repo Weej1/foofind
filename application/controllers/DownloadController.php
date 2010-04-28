@@ -78,12 +78,12 @@ class DownloadController extends Zend_Controller_Action
                 //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
                 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
                 $url = explode('/', $url);
-                if (substr($url, -5)==".html") $url = substr($url, -5);
-
+                
                 if ($url[4] ) {
-
-                    $filenameAlt = $model->compareFilenames(urldecode($url[4]));
-
+                    $fn = $url[4];
+                    if (substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
+                    
+                    $filenameAlt = $model->compareFilenames(urldecode($fn));
                     if($filenameAlt )
                         $this->view->file['Filename'] = $filenameAlt['Filename'];
 
