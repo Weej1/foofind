@@ -62,49 +62,44 @@ class DownloadController extends Zend_Controller_Action
         // assign the form to the view
         $this->view->form = $form;
 
-
         //*************************************************************************** get file
+        $id = $this->_request->getParam ( 'id' );
+        $model = $this->_getModel ();
+        $this->view->file = $model->getFile( $id );
 
-                $id = $this->_request->getParam ( 'id' );
-		$model = $this->_getModel ();
-		$this->view->file = $model->getFile( $id );
-                
+        if ($this->view->file){ // if the id file exists then go for the rest of data
 
+                $this->view->metadata = $model->getMetadata( $id );
+                $this->view->sources = $model->getSources( $id );
 
-                if ($this->view->file){ // if the id file exists then go for the rest of data
+                $this->view->file_size = $this->_formatSize($this->view->file['Size']);
+                $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
 
-                        $this->view->metadata = $model->getMetadata( $id );
-                        $this->view->sources = $model->getSources( $id );
+                //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
+                $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
+                $url = explode('/', $url);
+                if (substr($url, -5)==".html") $url = substr($url, -5);
 
-                        $this->view->file_size = $this->_formatSize($this->view->file['Size']);
-   
-                        $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
+                if ($url[4] ) {
 
+                    $filenameAlt = $model->compareFilenames(urldecode($url[4]));
 
-                        //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
-                        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
-                        $url = explode('/', $url);
+                    if($filenameAlt )
+                        $this->view->file['Filename'] = $filenameAlt['Filename'];
 
-                        if ($url[4] ) {
-
-                            $filenameAlt = $model->compareFilenames(urldecode($url[4]));
-
-                            if($filenameAlt )
-                                $this->view->file['Filename'] = $filenameAlt['Filename'];
-                            
-                        }
-
-
-
-
-                        $this->view->headTitle()->append($this->view->file['Filename']);
-
-                } else {
-
-                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
-		     $this->_redirect ( '/'.$this->view->lang );
-                     return ;
                 }
+
+
+
+
+                $this->view->headTitle()->append($this->view->file['Filename']);
+
+        } else {
+
+             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
+             $this->_redirect ( '/'.$this->view->lang );
+             return ;
+        }
 
 
     }
