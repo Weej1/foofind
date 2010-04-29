@@ -62,37 +62,33 @@ class Model_Download extends Zend_Db_Table_Abstract
         }
 
 
-        public  function compareFilenames($string)
+        public  function compareFilenames($id, $string)
         {
-                        $string = mysql_escape_string($string);
+            $string = mysql_escape_string($string);
 
-                         if ($string){
+            if ($string){
 
-                                $filename = new Zend_Db_Table('ff_filename');
-                                $query = "SELECT ff_filename.Filename  FROM ff_filename WHERE ff_filename.Filename = '{$string}'";
-                                $result = $filename->getAdapter()->query($query)->fetch();
-                            }
+                $filename = new Zend_Db_Table('ff_filename');
+                $query = "SELECT Filename FROM ff_filename WHERE IdFile = {$id} AND Filename = '{$string}'";
+                $result = $filename->getAdapter()->query($query)->fetch();
+            }
 
-                    return $result;
+            return $result;
         }
-
-
 
         public  function getSources($id)
         {
-                     $id = ( int ) $id;
+                 $id = ( int ) $id;
 
-                    if ($id){
+                if ($id){
 
                     $sources = new Zend_Db_Table('ff_sources');
                     $query = "SELECT ff_sources.* FROM ff_sources WHERE ff_sources.IdFile = ".$id;
                     $result = $sources->getAdapter()->query($query)->fetchAll();
 
-                    }
+                }
 
 		return $result;
-
-
         }
 
 

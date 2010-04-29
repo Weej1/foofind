@@ -81,16 +81,11 @@ class DownloadController extends Zend_Controller_Action
                 
                 if ($url[4] ) {
                     $fn = $url[4];
-                    if (substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
+                    if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
                     
-                    $filenameAlt = $model->compareFilenames(urldecode($fn));
-                    if($filenameAlt )
-                        $this->view->file['Filename'] = $filenameAlt['Filename'];
-
+                    $filenameAlt = $model->compareFilenames($id, urldecode($fn));
+                    if($filenameAlt) $this->view->file['Filename'] = $filenameAlt['Filename'];
                 }
-
-
-
 
                 $this->view->headTitle()->append($this->view->file['Filename']);
 

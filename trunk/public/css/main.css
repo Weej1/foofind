@@ -72,9 +72,6 @@ p {
 
 }
 
-
-
-
 #no_results a{
     color:#DF1279;
     font-weight: bold;
@@ -522,16 +519,25 @@ h3 {
     
 }
 .download_file_metadata{
-    max-width: 350px;
+    max-width: 430px;
     display: inline-block;
-    margin-left: 70px;
+    margin-left: 20px;
     vertical-align: middle;
 }
 
+.download_file_torrent_files {
+    margin-top: 10px;
+}
 
-
-
-
+.download_file_torrent_files ul {
+    font-size:9px;
+    display:block;
+    height:5em;
+    max-height:15em;
+    border:1px solid #cdcdcd;
+    padding:2px;
+    overflow:auto;
+}
 .download_file_metadata a{
     color: #000;
     font-weight: bold;
