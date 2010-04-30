@@ -4,7 +4,7 @@ require_once APPLICATION_PATH.'/controllers/SearchController.php';
 require_once APPLICATION_PATH.'/models/ContentType.php';
 
 
-class SearchrestServer
+class FoofindApi
 {
 
     public function getSearch($q, $lang, $src, $type, $size, $year, $brate, $results)
