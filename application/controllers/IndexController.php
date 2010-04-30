@@ -35,6 +35,33 @@ class IndexController extends Zend_Controller_Action
         
     }
 
+
+    public function kkAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+
+        $urlrequest = 'http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&page=';
+
+           $xml = file_get_contents( $urlrequest );
+
+          $doc = new DOMDocument();
+          $doc->load( $urlrequest );
+
+           
+           $items = $doc->getElementsByTagName( "item" );
+          
+                  foreach( $items as $item )
+                  {
+                  $dlinks = $item->getElementsByTagName( "dlink" );
+                  $dlink = $dlinks->item(0)->nodeValue;
+
+                  var_dump($item);
+
+                  echo "$dlink \n";
+                  }
+    }
+
     public function queryAction()
     {
         $type =  $this->getRequest()->getParam('type') ;

@@ -118,12 +118,12 @@ input#submit{
 
 .page_text{
     display: block;
-    padding-left: 170px;
+    padding-left: 172px;
     padding-bottom: 50px;
 }
 
 #container_page h2{
-    margin-left: 170px;
+    margin-left: 172px;
     padding-bottom: 10px;
 }
 
@@ -217,7 +217,7 @@ input#submit{
 
 #footer_main{
     font-size: 12px;
-    /*padding-top: 4%;*/
+    padding-top: 4%;
     padding-bottom:  2%;
     text-align: center;
     position:relative;
@@ -237,8 +237,9 @@ html ul {
 html ul.level1 {margin-right: -3px;}
 
 html  fieldset{
-    padding: 20px;
+    padding: 0px;
     text-align: left;
+    border-width: 0px;
 }
 
 .home_form{
@@ -407,6 +408,17 @@ h3 {
     width: 84%;
 }
 
+
+
+.error {
+    background: #FBEFFB;
+    color: #cd0069;
+    padding: .8em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    border: 1px solid #cd0069;
+    width: 84%;
+}
 
 /*paginator  ***********/
 .pagination {
