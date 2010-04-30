@@ -27,7 +27,7 @@ class PageController extends Zend_Controller_Action
         /*default action */
          public function indexAction(){
 
-             $this->_redirect( $this->view->lang.'/page/submit');
+             $this->_redirect( '/');
        }
        
 
