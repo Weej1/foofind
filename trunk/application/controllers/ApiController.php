@@ -16,7 +16,7 @@ class ApiController extends Zend_Controller_Action
     public function indexAction()
     {
 
-        require_once 'SearchrestServer.php';
+        require_once 'FoofindApi.php';
         $server = new Zend_Rest_Server();
         $server->setClass('SearchrestServer');
         $server->setEncoding('utf-8');
