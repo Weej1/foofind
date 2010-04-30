@@ -18,7 +18,7 @@ class ApiController extends Zend_Controller_Action
 
         require_once 'FoofindApi.php';
         $server = new Zend_Rest_Server();
-        $server->setClass('SearchrestServer');
+        $server->setClass('FoofindApi');
         $server->setEncoding('utf-8');
         $server->handle();
         

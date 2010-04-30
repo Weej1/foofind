@@ -1,0 +1,29 @@
+<?=$this->headTitle()->append($this->translate('New user'));?>
+
+<div id="container_page">
+
+<h2><?=$this->translate('User login')?></h2>
+
+<?=$this->translate ( '(If you are a new user, please' );?>
+&nbsp;<a href="/<?=$this->view->lang;?>es/user/register" title="user register"><?=$this->translate ( 'register here' );?></a>)
+
+
+<?php
+if (isset ( $this->error )) :
+	?>
+<div class="error">
+		<?=$this->escape ( $this->error );?>
+</div>
+
+<?php endif;?>
+
+
+<form action="<?=$this->escape ( $this->form->getAction () )?>"
+	method="<?=$this->escape ( $this->form->getMethod () )?>">
+
+<?=$this->form;?>
+<br />
+<?=$this->translate ( '<a href=\'/en/user/forgot\'>Forgot</a> your password?' );?>
+
+</form>
+</div><!-- end of container_page --->
