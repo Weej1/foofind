@@ -58,7 +58,7 @@ class UserController extends Zend_Controller_Action {
 				$model = $this->_getModel ();
 
 				//check user email and nick if exists
-				$checkemail = $model->checkEmail ( $formulario ['email'] );
+				$checkemail = $model->checkUserEmail ( $formulario ['email'] );
 				$checkuser = $model->checkUsername ( $formulario ['username'] );
 
 				//not allow to use the email as username
@@ -90,7 +90,7 @@ class UserController extends Zend_Controller_Action {
 
 					//update the ddbb with new password
 					$password = $this->_generatePassword ();
-					$data ['password'] = md5 ( $password );
+					$data ['password'] = sha1 ( $password );
 					$data ['email'] = $formulario ['email'];
 					$data ['username'] = $formulario ['username'];
 
@@ -159,7 +159,7 @@ class UserController extends Zend_Controller_Action {
 			// autoload only handles "library" components.  Since this is an
 			// application model, we need to require it from its application
 			// path location.
-			require_once APPLICATION_PATH . '/models/User.php';
+			require_once APPLICATION_PATH . '/models/Users.php';
 			$this->_model = new Model_Users ( );
 		}
 		return $this->_model;
@@ -206,8 +206,8 @@ class UserController extends Zend_Controller_Action {
 
 					//update the ddbb with new password
 					$password = $this->_generatePassword ();
-					$data ['password'] = md5 ( $password );
-					$data ['id'] = $mailcheck ['id'];
+					$data ['password'] = sha1 ( $password );
+					$data ['IdUser'] = $mailcheck ['IdUser'];
 
 					//Zend_Debug::dump($data);
 					$model->updateUser($data);
@@ -282,7 +282,7 @@ class UserController extends Zend_Controller_Action {
 			$model = $this->_getModel ();
 			$validatetoken = $model->validateUserToken ( $token );
 
-			$validatetoken = $validatetoken->toArray ();
+			//$validatetoken = $validatetoken->toArray ();
 			//Zend_Debug::dump ( $validatetoken );
 
 			if ($validatetoken !== NULL) {

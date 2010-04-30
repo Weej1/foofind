@@ -14,7 +14,7 @@ class Model_Users extends Zend_Db_Table_Abstract
 	 * * @return int|string
 	 * */
 	public function saveUser(array $data) {
-		$table = new ff_user();
+		$table = new ff_users();
 		$fields = $table->info ( Zend_Db_Table_Abstract::COLS );
 		foreach ( $data as $field => $value ) {
 			if (! in_array ( $field, $fields )) {
@@ -25,38 +25,40 @@ class Model_Users extends Zend_Db_Table_Abstract
 	}
 
 	public function updateUser(array $data) {
-		$table = new ff_user();
-		$table->update ( $data,  'IdUser = ?', $data ['IdUser'] );
+		$table = new ff_users();
+                $where = $table->getAdapter ()->quoteInto ( 'IdUser = ?', $data ['IdUser'] );
+                $table->update ( $data, $where );
+
 
 	}
 
 	public function checkUserEmail($email) {
-		$table = new ff_user();
-		return $table->fetchRow ( 'email = ?', $email  );
+		$table = new ff_users();
+		return $table-> fetchRow ( $table->select()->where( 'email = ?', $email ) );
 	}
 
 	public function checkUsername($username) {
-		$table = new ff_user();
-		return $table->fetchRow ( 'username = ?', $username );
+		$table = new ff_users();
+		return $table->fetchRow ( $table->select()->where( 'username = ?', $username ));
 	}
 
 	public function getUserToken($email) {
-		$table = new ff_user();
-		return $table->fetchRow (  'email = ?', $email )->token;
+		$table = new ff_users();
+		return $table->fetchRow ( $table->select()->where(  'email = ?', $email ))->token;
 	}
 
 	public function validateUserToken($token) {
-		$table = new ff_user();
-		return $table->fetchRow (  'token = ?', $token );
+		$table = new ff_users();
+		return $table->fetchRow (  $table->select()->where( 'token = ?', $token ));
 	}
 
         public function checkUserIsLocked($id) {
-		$table = new ff_user();
-		return $table->fetchRow (  'IdUser = ?', $id )->locked;
+		$table = new ff_users();
+		return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
 	}
 
 	public function fetchUser($id) {
-		$table = new ff_user();
+		$table = new ff_users();
                 return $table->fetchRow("IdUser=?", $id);
 	}
 }
