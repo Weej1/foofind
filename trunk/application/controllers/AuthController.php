@@ -1,8 +1,4 @@
 <?php
-/**
- * AuthController
- *
- */
 
 class AuthController extends Zend_Controller_Action {
 	public function init() {
@@ -13,8 +9,6 @@ class AuthController extends Zend_Controller_Action {
 		$locale = Zend_Registry::get ( "Zend_Locale" );
 		$this->lang = $locale->getLanguage ();
                 $this->view->lang = $locale->getLanguage ();
-
-                
 
                 $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
 		$this->view->mensajes = $this->_flashMessenger->getMessages ();
@@ -45,7 +39,7 @@ class AuthController extends Zend_Controller_Action {
 
 				// collect the data from the user
 				$f = new Zend_Filter_StripTags ( );
-				$email = $f->filter ( $this->_request->getPost ( 'email' ) );
+				$email = $f->filter ( trim( $this->_request->getPost ( 'email' ) ) );
 				$password = $f->filter ( $this->_request->getPost ( 'password' ) );
 
 				//DDBB validation
@@ -60,10 +54,12 @@ class AuthController extends Zend_Controller_Action {
 				$authAdapter->setCredentialColumn ( 'password' );
 				// Set the input credential values to authenticate against
 				$authAdapter->setIdentity ( $email );
-				$authAdapter->setCredential ( md5 ( trim($password) ) ); //trim whitespaces from copy&pasting the pass from email
+				$authAdapter->setCredential  ( sha1 ( $password  ) ); //trim whitespaces from copy&pasting the pass from email
 
 				// do the authentication
 				$auth = Zend_Auth::getInstance ();
+
+                                
 
 				//check first if the user is activated (by confirmed email)
 				$select = $authAdapter->getDbSelect ();
@@ -72,6 +68,7 @@ class AuthController extends Zend_Controller_Action {
                                 $select->where ( 'locked = 0' );
 
 				$result = $authAdapter->authenticate ();
+                               
 				if ($result->isValid ()) {
 					// success: store database row to auth's storage
 					// system. (Not the password though!)
