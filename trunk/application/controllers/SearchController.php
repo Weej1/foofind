@@ -248,8 +248,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $ids = join($ids, ",");
 
                         $start_time = microtime(true);
-                        $fn_model = new ff_filename();
-                        foreach ($fn_model->fetchAll(substr($where, 4)) as $row)
+                        $model = new Model_Files();
+                        foreach ($model->getFilenames(substr($where, 4)) as $row)
                         {
                             $id = $row['IdFile'];
                             // try to guess type from extensionss
@@ -268,9 +268,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         
                         // get sources for files
                         $start_time = microtime(true);
-                        $sources = new ff_sources();
                         $sourcepos = array();
-                        foreach ($sources->fetchAll("IdFile in ($ids)") as $row)
+                        foreach ($model->getSources("IdFile in ($ids)") as $row)
                         {
                             $id = $row['IdFile'];
                             $t = $row['Type'];
@@ -347,13 +346,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         // get metadata for files
                         $start_time = microtime(true);
                         
-                        $metadata = new ff_metadata();
                         // search for shown metadata
                         $mdList = join($content['crcMD'], ",");
                         // add bittorrent metadata
                         $mdList .= ", 4009003051, 4119033687";
                         
-                        foreach ($metadata->fetchAll("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
+                        foreach ($model->getMetadata("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
                         {
                             $id = $row['IdFile'];
                             if (($row['KeyMD']=='torrent:trackers') || ($row['KeyMD']=='torrent:tracker'))

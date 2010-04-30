@@ -24,19 +24,11 @@ class CommentController extends Zend_Controller_Action {
 
 		$locale = Zend_Registry::get ( "Zend_Locale" );
 		$this->lang = $locale->getLanguage ();
-
-
-
 	}
 
-
-
 	public function createAction() {
-
-
 		$request = $this->getRequest ();
 		$ad_id = $this->_request->getParam ( 'ad_id' );
-
 
 		//first we check if user is logged, if not redir to login
 		$auth = Zend_Auth::getInstance ();
@@ -48,11 +40,7 @@ class CommentController extends Zend_Controller_Action {
 
 			//Zend_Debug::dump($aNamespace->redir);
 			$this->_redirect ( $this->lang.'/auth/login' );
-
 		} else {
-
-
-
 			$form = $this->_getCommentForm ();
 
 			// check to see if this action has been POST'ed to

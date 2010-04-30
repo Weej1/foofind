@@ -7,108 +7,76 @@ $cache = Zend_Cache::factory('Core', 'File',
 // Next, set the cache to be used with all table objects
 Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
 
+class Model_Files extends Zend_Db_Table_Abstract
+{
+    public function getFile($id, $check_blocked = true)
+    {
+        $id = ( int )$id;
+        $table = new ff_file();
+        
+        // By default, check blocked = 0, else use given criteria
+        $where = ($blocked===true?"blocked=0":"blocked $blocked");
+        return $table->fetchRow ($where);
+    }
+
+    public function getFilenames($where)
+    {
+        $table = new ff_filename();
+        return $table->fetchAll($where);
+    }
+
+    public function getSources($where)
+    {
+        $table = new ff_sources();
+        return $table->fetchAll($where);
+    }
+
+    public function getMetadata($where)
+    {
+        $table = new ff_metadata();
+        return $table->fetchAll($where);
+    }
+    
+    public function getFilename($idFile, $filename = NULL)
+    {
+        $table = new ff_filename();
+
+        $select = $table->select()->where("IdFile=?", $idFile);
+
+        // By default, select filename with more sources
+        if ($filename==NULL) {
+            $select = $select->order("MaxSources DESC");
+        // If a filename is given, priorize that one if exists
+        } else {
+            $fn = mysql_real_escape_string($filename);
+            $select = $select->order("(Filename='$fn') DESC, MaxSources DESC");
+        }
+
+        return $table->fetchRow($select);
+    }
+}
+
 class ff_file extends Zend_Db_Table
 {
-    // default primary key is 'id'
-    // but we want to use something else
     protected $_primary = 'IdFile';
 }
 
 class ff_filename extends Zend_Db_Table
 {
-    // default primary key is 'id'
-    // but we want to use something else
     protected $_primary = array('IdFilename', 'IdFile');
 }
 
 class ff_sources extends Zend_Db_Table
 {
-    // default primary key is 'id'
-    // but we want to use something else
     protected $_primary = array('Type', 'ShaUri');
 }
 
 class ff_metadata extends Zend_Db_Table
 {
-    // default primary key is 'id'
-    // but we want to use something else
     protected $_primary = array('IdFile', 'CrcKey');
 }
 
 class ff_touched extends Zend_Db_Table
 {
-    // default primary key is 'id'
-    // but we want to use something else
     protected $_primary = 'IdFile';
 }
-/*
-class Model_Metadata extends Zend_Db_Table_Abstract {
-   public function fetchMetadata($id) {
-          $id = ( int ) $id;
-          $table = new Model_Search ( );
-          $select = $table->select ()->where ( 'IdFile = ?', $id );
-          $result = $table->fetchRow ( $select )->findDependentRowset('Metadata');
-          return $result;
-   }
-
-
-
- public function fetchSources($id) {
-                $id = ( int ) $id;
-
-                $table = new Model_Search ( );
-                $select = $table->select ()->where ( 'IdFile = ?', $id );
-
-                $result = $table->fetchRow ( $select )->findDependentRowset('Sources');
-
-                return $result;
-
-        }
-
-  
-}
-
-
-
-class Filename extends Zend_Db_Table_Abstract  {
-        protected $_name = 'ff_filename';
-
-        protected $_referenceMap    = array(
-    'Filename' => array(
-        'columns'           => array('IdFile'),
-        'refTableClass'     => 'Model_Search',
-        'refColumns'        => array('IdFile')
-    )
-);
-
-}
-
-
-class Metadata extends Zend_Db_Table_Abstract  {
-        protected $_name = 'ff_metadata';
-
-        protected $_referenceMap    = array(
-    'Metadata' => array(
-        'columns'           => array('IdFile'),
-        'refTableClass'     => 'Model_Search',
-        'refColumns'        => array('IdFile')
-    )
-);
-
-
-}
-
-class Sources extends Zend_Db_Table_Abstract  {
-        protected $_name = 'ff_sources';
-
-        protected $_referenceMap    = array(
-    'Sources' => array(
-        'columns'           => array('IdFile'),
-        'refTableClass'     => 'Model_Search',
-        'refColumns'        => array('IdFile')
-    )
-);
-
-
-}
-*/
