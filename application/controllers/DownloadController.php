@@ -1,6 +1,9 @@
 <?php
 
 require_once ( APPLICATION_PATH . '/models/ContentType.php' );
+require_once APPLICATION_PATH . '/models/Files.php';
+require_once APPLICATION_PATH . '/models/Users.php';
+
 class DownloadController extends Zend_Controller_Action
 {
 
@@ -64,30 +67,28 @@ class DownloadController extends Zend_Controller_Action
 
         //*************************************************************************** get file
         $id = $this->_request->getParam ( 'id' );
-        $model = $this->_getModel ();
-        $this->view->file = $model->getFile( $id );
+        $fmodel = new Model_Files();
+        $this->view->file = $fmodel->getFile( $id );
 
         if ($this->view->file){ // if the id file exists then go for the rest of data
 
-                $this->view->metadata = $model->getMetadata( $id );
-                $this->view->sources = $model->getSources( $id );
+            //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
+            $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
+            $url = explode('/', $url);
 
-                $this->view->file_size = $this->_formatSize($this->view->file['Size']);
-                $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
+            $fn = NULL;
+            if ($url[4] ) {
+                $fn = $url[4];
+                if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
+            }
+            $this->view->filename = $fmodel->getFilename( $id, $fn);
+            $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
+            $this->view->sources = $fmodel->getSources( "IdFile = $id" );
 
-                //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
-                $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
-                $url = explode('/', $url);
-                
-                if ($url[4] ) {
-                    $fn = $url[4];
-                    if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
-                    
-                    $filenameAlt = $model->compareFilenames($id, urldecode($fn));
-                    if($filenameAlt) $this->view->file['Filename'] = $filenameAlt['Filename'];
-                }
+            $this->view->file_size = $this->_formatSize($this->view->file['Size']);
+            $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
 
-                $this->view->headTitle()->append($this->view->file['Filename']);
+            $this->view->headTitle()->append($this->view->filename['Filename']);
 
         } else {
 
@@ -96,22 +97,22 @@ class DownloadController extends Zend_Controller_Action
              return ;
         }
 
+        $umodel = new Model_Users();
+        $this->view->comments = $umodel->getComments( $id );
 
+        //if user logged in, show the comment form, if not show the login link
+        $auth = Zend_Auth::getInstance ();
+
+        if (! $auth->hasIdentity ()) {
+                $this->view->createcomment ='<a href="/' . $this->view->lang . '/auth/login">' . $this->view->translate ( 'login to post a comment' ) . '</a> ';
+        } else {
+                require_once APPLICATION_PATH . '/forms/Comment.php';
+                $form = new Form_Comment();
+                $form->setAction('/'.$this->lang .'/comment/create/ad_id/'.$id);
+                $this->view->createcomment = $form;
+        }
     }
-
-   
-    protected function _getModel() {
-		if (null === $this->_model) {
-
-			require_once APPLICATION_PATH . '/models/Download.php';
-			$this->_model = new Model_Download ( );
-		}
-		return $this->_model;
-	}
-
-
-
-   
+    
     /**
      *
      * @return Form_Search
@@ -130,19 +131,19 @@ class DownloadController extends Zend_Controller_Action
         if($size < 1024)
         {
             $size = number_format($size, 2);
-            $size .= ' KB';
+            $size .= '&nbsp;KB';
         }
         else
         {
             if ($size / 1024 < 1024)
             {
                 $size = number_format($size / 1024, 2);
-                $size .= ' MB';
+                $size .= '&nbsp;MB';
             }
             else if ($size / 1024 / 1024 < 1024)
             {
                 $size = number_format($size / 1024 / 1024, 2);
-                $size .= ' GB';
+                $size .= '&nbsp;GB';
             }
         }
         return $size;

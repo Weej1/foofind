@@ -270,7 +270,7 @@ foreach ($this->sources as $key => $val) {
             case 2: //ED2K
                 $tip = "ED2K";
                 $source = "ed2k";
-                $link = "ed2k://|file|".str_replace(' ', '+', $this->file['Filename'])."|".$this->file['Size']."|".$val['Uri']."|/";
+                $link = "ed2k://|file|".str_replace(' ', '+', $this->filename['Filename'])."|".$this->file['Size']."|".$val['Uri']."|/";
                 $mlinkadd2 = "&xt=urn:ed2k:".$val['Uri'];
                 break;
             case 3: // TORRENT
@@ -292,7 +292,7 @@ foreach ($this->sources as $key => $val) {
                 $tip = "Torrent";
                 $source = "tmagnet";
                 if (($size=$this->file['Size'])>0) $size = "xl=".$this->file['Size']."&"; else $size = "";
-                $link = "magnet:?{$size}dn=".str_replace(' ', '+', $this->file['Filename'])."&xt=urn:btih:".$val['Uri'];
+                $link = "magnet:?{$size}dn=".str_replace(' ', '+', $this->filename['Filename'])."&xt=urn:btih:".$val['Uri'];
                 $mlinkadd2 = "&xt=urn:btih:".$val['Uri'];
                 break;
             case 4: // JAMENDO
@@ -318,7 +318,7 @@ foreach ($this->sources as $key => $val) {
                 $mlink = $rlink.$mlinkadd;
             else {
     		if (($size=$this->file['Size'])>0) $size = "xl=".$this->file['Size']."&"; else $size = "";
-                $mlink = "magnet:?{$file}dn=".str_replace(' ', '+', $this->file['Filename']).$mlinkadd;
+                $mlink = "magnet:?{$file}dn=".str_replace(' ', '+', $this->filename['Filename']).$mlinkadd;
 	    }
             $link = $mlink;
         } elseif (isset($mlinkadd2))
@@ -379,7 +379,7 @@ if ($this->qs['type'])
 if (!$ctype)
 {
     try {
-        $ctype = $content['extAssoc'][$this->file["Extension"]];
+        $ctype = $content['extAssoc'][$this->filename["Extension"]];
     }
     catch (Exception $ex) {}
 }
@@ -387,8 +387,8 @@ $ctype = strtolower($ctype);
 
 
 //add meta to file related (better seo)
-$this->headMeta()->appendName('description', 'download, '.$ctype.', '.$this->file['Filename']);
-$this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->file['Filename']);
+$this->headMeta()->appendName('description', 'download, '.$ctype.', '.$this->filename['Filename']);
+$this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->filename['Filename']);
 ?>
 
 <div id="container_search">
@@ -413,14 +413,14 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->file[
 
     <div class="wrap_download">
     <div class="file_download">
-        <h1><?=$this->file['Filename'];?></h1>
+        <h1><?=$this->filename['Filename'];?></h1>
 
         <div class="top_download">
         <div class="download_button">
             <img alt="" src="/images/icons/content_<?=$ctype ?>.gif" /><br />
             <a title="<?=$this->translate('Download')?>" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').($this->file_size<1 ? '':' ('.$this->file_size.')');?></a>
          </div>
-        <div class="download_file_metadata"><?php showMetadata($this, $ctype, $this->file['Filename'], $this->file['Extension'], $md) ?></div>
+        <div class="download_file_metadata"><?php showMetadata($this, $ctype, $this->filename['Filename'], $this->filename['Extension'], $md) ?></div>
        </div>
 
        <?php if ($this->sources): ?>
@@ -448,7 +448,7 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->file[
         <div class="sharelinks"><?=$this->translate('Share this:');?>
             <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
                 <img alt="<?=$this->translate('share on facebook');?>" src="/images/icons/ico_facebook.gif" border = "0"/></a>
-                <a href="mailto:?subject=<?=$this->file['Filename'];?>&body=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile']);?>">
+                <a href="mailto:?subject=<?=$this->filename['Filename'];?>&body=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile']);?>">
                 <img alt="<?=$this->translate('send by email');?>" src="/images/icons/ico_email_link.png" border = "0"/></a>
                 <a href="http://twitter.com/home?status=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
                 <img alt="<?=$this->translate('share on twitter');?>" src="/images/icons/ico_twitter.png" border = "0"/></a>
@@ -467,5 +467,55 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->file[
 
 
      </div>
+<div class="ad_comments">
 
+<h5>Comments</h5>
+<?
+
+//comments
+
+//Zend_Debug::dump($this->comments);
+if ($this->comments): ?>
+
+
+
+       <?php foreach ($this->comments as $key => $val): ?>
+
+        <div class="ad_comment">
+           <h4><a href="/<?=$this->lang ?>/ad/show/id/<?=$this->escape($val['id']).'/'.$this->escape($val['title']) ?>">
+
+           <?=$this->escape($val['title']) ?></a></h4>
+
+
+           <span class="ad_date"><?=$this->translate('Posted on '). $this->escape($val['date_created']) ?>
+
+            <?=$this->translate('by user ') ?>
+
+
+
+            <a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['user_owner']) ?>"><?=$this->escape($val['username']) ?></a>
+
+            </span>
+           <br>
+           <span><?php echo $this->escape($val['body']) ?></span>
+
+        </div>
+
+        <?php endforeach; ?>
+
+
+
+
+<?php endif;?>
+
+
+        <div class="ad_comment_form">
+        <?=$this->createcomment?>
+
+        </div>
+
+
+
+</div>
+</div>
 </div>
