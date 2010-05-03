@@ -101,10 +101,6 @@ p {
     width: 350px;
 }
 
-input#submit{
-    width: 80px;
-}
-
 
 #container_page form{
     position: relative;
@@ -226,7 +222,6 @@ input#submit{
 }
 
 html form {
-    width: 400px;
     display: block;
 }
 
@@ -500,15 +495,43 @@ h3 {
     margin-right: 60px;
 }
 
-.file_download h1{
-    width: 100%!important;
-    height: auto!important;
-    left: 0px!important;
-    top: 0px!important;
-    font-size: 1.6em!important;
-    clear: none!important;
-    word-wrap: break-word!important;
-    overflow: hidden!important;
+.file_download h2 {
+    padding-top: 8px;
+    font-size: 1.6em;
+}
+
+.file_download_vote {
+    float:right;
+    text-align:center;
+}
+
+.file_download_vote a {
+    display:inline-block;
+    text-decoration: none;
+    color:black;
+    font-size:0.9em;
+}
+
+.votes_up {
+    color: gray;
+}
+
+.votes_down {
+    color: #cd0069;
+}
+
+.comments {
+    clear: both;
+    margin-bottom: 15px;
+}
+
+.comments img {
+    margin-top:-4px;
+    float: left;
+}
+.comments h4{
+    margin-left:40px;
+    border-bottom: 2px solid #cd0069;
 }
 
 .top_download{
@@ -626,10 +649,22 @@ h3 {
     clear: right;
     float: right;
     right: 120px;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
+.ad_comment_form textarea {
+    height: 4em;
+    border:1px solid #cd0069;
+    font-weight: normal;
+    margin-left: 20px;
+    padding: 3px;
+    float: left;
+    width: 72%;
+}
+
+.ad_comment_form input {
+    float: right;
+}
 
 
 /*start corner box stuff*/

@@ -318,7 +318,7 @@ foreach ($this->sources as $key => $val) {
                 $mlink = $rlink.$mlinkadd;
             else {
     		if (($size=$this->file['Size'])>0) $size = "xl=".$this->file['Size']."&"; else $size = "";
-                $mlink = "magnet:?{$file}dn=".str_replace(' ', '+', $this->filename['Filename']).$mlinkadd;
+                $mlink = "magnet:?{$size}dn=".str_replace(' ', '+', $this->filename['Filename']).$mlinkadd;
 	    }
             $link = $mlink;
         } elseif (isset($mlinkadd2))
@@ -413,8 +413,10 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->filen
 
     <div class="wrap_download">
     <div class="file_download">
-        <h1><?=$this->filename['Filename'];?></h1>
+        <div class="file_download_vote"><a href="#"><img src="/images/hand_up.gif" /><br/><?=$this->translate('I like it!')?><br/><span class="votes_up">(129)</span></a>&nbsp;<a href="#"><img src="/images/hand_down.gif" /><br/><?=$this->translate('Booo!')?><br/><span class="votes_down">(-5)</span></a></div>
+        <h2><?=$this->filename['Filename'];?></h2>
 
+        
         <div class="top_download">
         <div class="download_button">
             <img alt="" src="/images/icons/content_<?=$ctype ?>.gif" /><br />
@@ -454,8 +456,33 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->filen
                 <img alt="<?=$this->translate('share on twitter');?>" src="/images/icons/ico_twitter.png" border = "0"/></a>
         </div>
 
-    </div>
+        <div class="comments"><img src="/images/baloon.gif"/><h4>Your Comments</h4></div>
+<? if ($this->comments): ?>
 
+       <?php foreach ($this->comments as $key => $val): ?>
+
+        <div class="ad_comment">
+           <div><?php echo $this->escape($val['text']) ?></div>
+           <a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$this->escape("Uno") ?></a>
+        </div>
+
+        <?php endforeach; ?>
+
+<?php endif;?>
+
+<?
+if (count ( $this->mensajes ) > 0) {
+	echo '<div class="success">';
+	foreach ( $this->mensajes as $msg ) {
+		echo $msg . '<br>';
+	}
+	echo '</div>';
+}
+?>
+
+        <div class="ad_comment_form"><?=$this->createcomment?></div>
+
+    </div>
 
     <div class="download_more_info">
         <h3><?=$this->translate('How to download?'); ?></h3>
@@ -464,56 +491,6 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->filen
         <p><img title="Gnutella, Frostwire,Limewire, Shareaza, Phex" alt="Gnutella, Frostwire, Limewire, Shareaza, Phex"  src="/images/icons/gnutella.gif" /> Limewire, Shareaza, Phex.</p>
         <p><img title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, Transmission.</p>
     </div>
-
-
-     </div>
-<div class="ad_comments">
-
-<h5>Comments</h5>
-<?
-
-//comments
-
-//Zend_Debug::dump($this->comments);
-if ($this->comments): ?>
-
-
-
-       <?php foreach ($this->comments as $key => $val): ?>
-
-        <div class="ad_comment">
-           <h4><a href="/<?=$this->lang ?>/ad/show/id/<?=$this->escape($val['id']).'/'.$this->escape($val['title']) ?>">
-
-           <?=$this->escape($val['title']) ?></a></h4>
-
-
-           <span class="ad_date"><?=$this->translate('Posted on '). $this->escape($val['date_created']) ?>
-
-            <?=$this->translate('by user ') ?>
-
-
-
-            <a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['user_owner']) ?>"><?=$this->escape($val['username']) ?></a>
-
-            </span>
-           <br>
-           <span><?php echo $this->escape($val['body']) ?></span>
-
-        </div>
-
-        <?php endforeach; ?>
-
-
-
-
-<?php endif;?>
-
-
-        <div class="ad_comment_form">
-        <?=$this->createcomment?>
-
-        </div>
-
 
 
 </div>

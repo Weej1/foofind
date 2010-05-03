@@ -4,8 +4,6 @@
  * CommentController
  *
  * @author  dani remeseiro
- * @abstract this is the Ad Comment controller ,
- * do the crud relative to ad comment : create, show, edit, delete
  */
 
 class CommentController extends Zend_Controller_Action {
@@ -16,6 +14,7 @@ class CommentController extends Zend_Controller_Action {
 	 */
 	public function init() {
 		parent::init ();
+		$this->_helper->viewRenderer->setNoRender ( true );
 
 		$this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
 
@@ -23,23 +22,24 @@ class CommentController extends Zend_Controller_Action {
 		$this->view->baseUrl = Zend_Controller_Front::getParam ( $route );
 
 		$locale = Zend_Registry::get ( "Zend_Locale" );
-		$this->lang = $locale->getLanguage ();
+		$this->view->lang = $locale->getLanguage ();
 	}
 
 	public function createAction() {
 		$request = $this->getRequest ();
-		$ad_id = $this->_request->getParam ( 'ad_id' );
+		$id = $this->_request->getParam ( 'filename' );
 
+                $fmodel = new Model_Files();
+                $this->filename = $fmodel->getFilename($id);
+                
 		//first we check if user is logged, if not redir to login
 		$auth = Zend_Auth::getInstance ();
 		if (! $auth->hasIdentity ()) {
 
 			//keep this url in zend session to redir after login
-			$aNamespace = new Zend_Session_Namespace('Nolotiro');
-			$aNamespace->redir = $this->lang.'/ad/show/id/'.$ad_id;
-
-			//Zend_Debug::dump($aNamespace->redir);
-			$this->_redirect ( $this->lang.'/auth/login' );
+			$aNamespace = new Zend_Session_Namespace('Foofind');
+			$aNamespace->redir =  "/{$this->view->lang}/download/{$this->filename['IdFile']}/{$this->filename['Filename']}.html";
+			$this->_redirect ( "/{$this->view->lang}/auth/login" );
 		} else {
 			$form = $this->_getCommentForm ();
 
@@ -49,57 +49,50 @@ class CommentController extends Zend_Controller_Action {
 				// now check to see if the form submitted exists, and
 				// if the values passed in are valid for this form
 				if ($form->isValid ( $request->getPost () )) {
-
+                                    
 					$formulario = $form->getValues ();
 
                                         //if comment its empty dont do nothing as redir to same ad
-                                        if (empty ($formulario['body'])){
+                                        if (empty ($formulario['text'])){
                                             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Write something!' ) );
 
-					$this->_redirect ( '/'.$this->lang.'/ad/show/id/'.$ad_id );
+                                            $this->_redirect ( "/{$this->view->lang}/download/{$this->filename['IdFile']}/{$this->filename['Filename']}.html" );
                                         }
 
 					//strip html tags to body
-					$formulario['body'] = strip_tags($formulario['body']);
+					$formulario['text'] = strip_tags($formulario['text']);
 
 					//anti hoygan to body
-					$split=explode(". ", $formulario['body']);
+					$split=explode(". ", $formulario['text']);
 
 					foreach ($split as $sentence) {
 						$sentencegood = ucfirst(mb_convert_case($sentence, MB_CASE_LOWER, "UTF-8"));
-						$formulario['body'] = str_replace($sentence, $sentencegood, $formulario['body']);
+						$formulario['text'] = str_replace($sentence, $sentencegood, $formulario['text']);
 					}
 
-
+                                        /*
 					//get the ip of the ad publisher
 					if (getenv(HTTP_X_FORWARDED_FOR)) {
 					    $ip = getenv(HTTP_X_FORWARDED_FOR);
 					} else {
 					    $ip = getenv(REMOTE_ADDR);
 					}
-
 					$formulario['ip'] = $ip;
-					$formulario['ads_id'] = $ad_id;
+                                        */
+                                        
+					$formulario['IdFile'] = $this->filename['IdFile'];
+					$formulario['IdFilename'] = $id;
 
 					//get this ad user owner
-					$formulario ['user_owner'] = $auth->getIdentity ()->id;
+					$formulario['IdUser'] = $auth->getIdentity()->IdUser;
+					$formulario['lang'] = $this->view->lang;
 
-					//get date created
-					//TODO to use the Zend Date object to apapt the time to the locale user zone
-					$datenow = date("Y-m-d H:i:s", time() );
-					$formulario ['date_created'] = $datenow;
-
-
-					$model = $this->_getModel ();
-					$model->save( $formulario );
-
-					//Zend_Debug::dump ( $formulario );
-
+					$model = new Model_Users();
+					$model->saveComment( $formulario );
 
 					$this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Comment published succesfully!' ) );
 
-					$this->_redirect ( '/'.$this->lang.'/ad/show/id/'.$ad_id );
-
+					$this->_redirect ( "/{$this->view->lang}/download/{$this->filename['IdFile']}/{$this->filename['Filename']}.html");
 				}
 			}
 		}
@@ -121,8 +114,6 @@ class CommentController extends Zend_Controller_Action {
 				// start integrating that data submitted via the form
 				// into our model
 				$formulario = $form->getValues ();
-				Zend_Debug::dump ( $formulario );
-
 			}
 		}
 	}
@@ -143,22 +134,5 @@ class CommentController extends Zend_Controller_Action {
 	public function deleteAction() {
 
 	}
-
-	/**
-	 * _getModel() is a protected utility method for this controller.
-	 *
-	 * @return Model_Comment
-	 */
-	protected function _getModel() {
-		if (null === $this->_model) {
-
-			require_once APPLICATION_PATH . '/models/Comment.php';
-			$this->_model = new Model_Comment ( );
-		}
-		return $this->_model;
-	}
-
-
-
 }
 

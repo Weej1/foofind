@@ -81,7 +81,8 @@ class DownloadController extends Zend_Controller_Action
                 $fn = $url[4];
                 if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
             }
-            $this->view->filename = $fmodel->getFilename( $id, $fn);
+            $this->view->filename = $fmodel->getFileFilename( $id, $fn);
+            $idfn = $this->view->filename['IdFilename'];
             $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
             $this->view->sources = $fmodel->getSources( "IdFile = $id" );
 
@@ -104,12 +105,12 @@ class DownloadController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance ();
 
         if (! $auth->hasIdentity ()) {
-                $this->view->createcomment ='<a href="/' . $this->view->lang . '/auth/login">' . $this->view->translate ( 'login to post a comment' ) . '</a> ';
+            $this->view->createcomment ='<a href="/' . $this->view->lang . '/auth/login">' . $this->view->translate ( 'login to post a comment' ) . '</a> ';
         } else {
-                require_once APPLICATION_PATH . '/forms/Comment.php';
-                $form = new Form_Comment();
-                $form->setAction('/'.$this->lang .'/comment/create/ad_id/'.$id);
-                $this->view->createcomment = $form;
+            require_once APPLICATION_PATH . '/forms/Comment.php';
+            $form = new Form_Comment();
+            $form->setAction("/{$this->view->lang}/comment/create/filename/$idfn");
+            $this->view->createcomment = $form;
         }
     }
     

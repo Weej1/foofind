@@ -7,14 +7,12 @@
 class Form_Comment extends Zend_Form {
 
 	public function init() {
+            $this->setMethod ( 'post' );
+            $this->addElement ( 'textarea', 'text', array (
+                'validators' => array (array ('StringLength', false, array (10, 500 ) ) ), 'required' => false )
+             );
 
-
-		$this->setMethod ( 'post' );
-		$this->addElement ( 'textarea', 'body', array ('label' => 'Your comment:',
-                    'validators' => array (array ('StringLength', false, array (10, 500 ) ) ), 'required' => false )
-		 );
-
-		// add the submit button
-		$this->addElement ( 'submit', 'submit', array ('label' => 'Send' ) );
+            // add the submit button
+            $this->addElement ( 'submit', 'submit', array ('label' => 'Post comment', 'class'=>'magenta awesome') );
 	}
 }
