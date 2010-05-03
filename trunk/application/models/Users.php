@@ -8,6 +8,22 @@ class Model_Users extends Zend_Db_Table_Abstract
         return $table->fetchAll("IdFile=$idFile");
     }
 
+    	/**
+	 *	 * Save a new entry
+	 * * @param  array $data
+	 * * @return int|string
+	 * */
+	public function saveComment(array $data) {
+            $table = new ff_comment();
+            $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
+            foreach ( $data as $field => $value ) {
+                    if (! in_array ( $field, $fields )) {
+                            unset ( $data [$field] );
+                    }
+            }
+            return $table->insert ( $data );
+	}
+
 	/**
 	 *	 * Save a new entry
 	 * * @param  array $data

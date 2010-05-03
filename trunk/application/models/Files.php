@@ -36,8 +36,14 @@ class Model_Files extends Zend_Db_Table_Abstract
         $table = new ff_metadata();
         return $table->fetchAll($where);
     }
-    
-    public function getFilename($idFile, $filename = NULL)
+
+    public function getFilename($idFilename)
+    {
+        $table = new ff_filename();
+        return $table->fetchRow("IdFilename=$idFilename");
+    }
+
+    public function getFileFilename($idFile, $filename = NULL)
     {
         $table = new ff_filename();
 
@@ -48,7 +54,7 @@ class Model_Files extends Zend_Db_Table_Abstract
             $select = $select->order("MaxSources DESC");
         // If a filename is given, priorize that one if exists
         } else {
-            $fn = mysql_real_escape_string($filename);
+            $fn = $table->getDefaultAdapter()->quoteInto("'?'",$filename);
             $select = $select->order("(Filename='$fn') DESC, MaxSources DESC");
         }
 
