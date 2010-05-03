@@ -59,7 +59,7 @@ class Model_Users extends Zend_Db_Table_Abstract
 
 	public function fetchUser($id) {
 		$table = new ff_users();
-                return $table->fetchRow("IdUser=?", $id);
+                return $table->fetchRow(  $table->select()->where( 'IdUser = ?', $id ) );
 	}
 }
 
