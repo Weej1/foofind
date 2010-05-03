@@ -40,7 +40,7 @@ class AuthController extends Zend_Controller_Action {
 				// collect the data from the user
 				$f = new Zend_Filter_StripTags ( );
 				$email = $f->filter ( trim( $this->_request->getPost ( 'email' ) ) );
-				$password = $f->filter ( $this->_request->getPost ( 'password' ) );
+				$password = $f->filter ( trim( $this->_request->getPost ( 'password' ) ) );
 
 				//DDBB validation
 				// setup Zend_Auth adapter for a database table

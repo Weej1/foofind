@@ -1,0 +1,43 @@
+<?php
+//register page
+$this->page_title = $this->translate ( 'Register' ) . ' - nolotiro.com';
+
+$locale = Zend_Registry::get ( "Zend_Locale" );
+$this->lang = $locale->getLanguage ();
+
+?>
+
+<div id="default_header_section">
+<h3><?=$this->translate ( 'User profile' ).'  -  '.$this->user['username'];?></h3>
+
+</div>
+
+
+<?php
+if (isset ( $this->error )) :
+?>
+<div class="error">
+		<?=$this->escape ( $this->error );?>
+</div>
+
+<?php endif;?>
+
+<div id="main">
+<div class="span-18">
+
+
+  <ul id="tabnav">
+	<li class="tab1"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->user[IdUser] ?>"><?=$this->translate('profile');?></a></li>
+	<li class="tab2"><a href="/<?=$this->lang ?>/user/edit/id/<?=$this->user[IdUser] ?>"><?=$this->translate('edit profile');?></a></li>
+ </ul>
+
+
+
+<?//=var_dump($this->user);?>
+    <div class="user_profile">
+        <span><?=$this->translate('User name:').': '.$this->user['username'];?></span>
+        <span><?=$this->translate('Member since:').': '.$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($this->user['created'])));?></span>
+    </div>
+
+</div>
+
