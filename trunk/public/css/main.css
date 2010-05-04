@@ -520,19 +520,6 @@ h3 {
     color: #cd0069;
 }
 
-.comments {
-    clear: both;
-    margin-bottom: 15px;
-}
-
-.comments img {
-    margin-top:-4px;
-    float: left;
-}
-.comments h4{
-    margin-left:40px;
-    border-bottom: 2px solid #cd0069;
-}
 
 .top_download{
     text-align: left;
@@ -641,18 +628,39 @@ h3 {
     border: 1px solid #A9D0F5 !important;
     color: #cd0069;
     display: block;
-    
 }
-
 
 .sharelinks{
     clear: right;
-    float: right;
+    text-align: right;
     right: 120px;
     margin-bottom: 20px;
 }
 
-.ad_comment_form textarea {
+.comments {
+    clear: both;
+    margin-bottom: 5px;
+}
+
+.comments img {
+    margin-top:-4px;
+    float: left;
+}
+.comments h4{
+    margin-left:40px;
+    border-bottom: 2px solid #cd0069;
+}
+
+.comment {
+    padding: 8px;
+    border-bottom: 1px solid #cd0069;
+}
+
+.comment a {
+    color: #cd0069;
+}
+
+.comment_form textarea {
     height: 4em;
     border:1px solid #cd0069;
     font-weight: normal;
@@ -662,7 +670,7 @@ h3 {
     width: 72%;
 }
 
-.ad_comment_form input {
+.comment_form input {
     float: right;
 }
 

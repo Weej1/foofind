@@ -5,7 +5,18 @@ class Model_Users extends Zend_Db_Table_Abstract
     public function getComments($idFile)
     {
         $table = new ff_comment();
-        return $table->fetchAll("IdFile=$idFile");
+        $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)->joinNatural("ff_users")->where("IdFile=?", $idFile);
+        return $table->fetchAll($select);
+    }
+
+    public function getVotes($idFile)
+    {
+        $table = new ff_vote();
+        $select = $table->select()
+                        ->from("ff_vote", "VoteType, count(*) c, sum(karma) k")
+                        ->where("IdFile=?", $idFile)
+                        ->group(array("IdFile", "VoteType"));
+        return $table->fetchAll($select);
     }
 
     	/**
