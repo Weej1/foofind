@@ -28,7 +28,7 @@ class Model_Files extends Zend_Db_Table_Abstract
     public function getSources($where)
     {
         $table = new ff_sources();
-        return $table->fetchAll($where);
+        return $table->fetchAll($where, "type");
     }
 
     public function getMetadata($where)
