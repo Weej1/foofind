@@ -146,7 +146,7 @@ class DownloadController extends Zend_Controller_Action
         $formulario['lang'] = $this->view->lang;
         $this->umodel->saveComment( $formulario );
         $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Comment published succesfully!' ) );
-        $form->reset();
+        $this->_redirect($_SERVER['REQUEST_URI']);
     }
 
     /**

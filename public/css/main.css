@@ -658,6 +658,8 @@ h3 {
 
 .comment a {
     color: #cd0069;
+    display: inline-block;
+    margin-top: 5px;
 }
 
 .comment_form textarea {
@@ -665,6 +667,7 @@ h3 {
     border:1px solid #cd0069;
     font-weight: normal;
     margin-left: 20px;
+    margin-right: 3px;
     padding: 3px;
     float: left;
     width: 72%;
@@ -674,6 +677,16 @@ h3 {
     float: right;
 }
 
+.file_comment_vote {
+    float:right;
+}
+
+.file_comment_number {
+    float:left;
+    font-size: 25px;
+    margin-right: 8px;
+    font-weight: bold;
+}
 
 /*start corner box stuff*/
 .cornerBox {
