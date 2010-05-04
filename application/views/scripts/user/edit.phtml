@@ -1,0 +1,27 @@
+<?=$this->headTitle()->append($this->translate('New user'));?>
+
+<div id="container_page">
+
+    <h2><?=$this->translate('Edit your profile')?></h2>
+
+
+    <?php
+    if (isset ( $this->error )) :
+        ?>
+    <div class="error">
+            <?=$this->escape ( $this->error );?>
+    </div>
+
+    <?php endif;?>
+
+    <fieldset>
+
+        <form action="<?=$this->escape ( $this->form->getAction () )?>"method="<?=$this->escape ( $this->form->getMethod () )?>">
+            <?=$this->form;?>
+        </form>
+
+    </fieldset>
+
+</div><!-- end of container_page --->
+
+

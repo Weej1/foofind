@@ -136,15 +136,8 @@ class UserController extends Zend_Controller_Action {
 		$form = new Form_UserEdit ( );
                 $form->submit->setLabel('Save');
 
-                $form->addElement ( 'select', 'status', array (
-                'order'=>'1',
-		'label' => 'Status:', 'required' => true,
-		// 'attribs' => array ('status' => 'status', 'status' => 'status' ),
-		 'multioptions' => array ('available' => 'available', 'booked' => 'booked', 'delivered' => 'delivered' ) ) );
-
-
+                
                 $this->view->form = $form;
-
 
 		if ($this->getRequest ()->isPost ()) {
 
@@ -152,18 +145,26 @@ class UserController extends Zend_Controller_Action {
                             if ($form->isValid($formData)) {
                                 $id = (int)$this->getRequest()->getParam('id');
 
-                                $title = $form->getValue('title');
-                                $body = $form->getValue('body');
-                                $type = $form->getValue('type');
-                                $status = $form->getValue('status');
-                                 
+                                $data['IdUser'] = $id;
+                                $data['email'] = $form->getValue('email');
+                                $data['username'] = $form->getValue('username');
+                                $data['location'] = $form->getValue('location');
+
+
+                                if ($form->getValue('password') ){
+                                $data['password'] = sha1 ( $form->getValue('password') );
+                                }
+
+                                //$data['password'] = $form->getValue('password');
 
                                 $model = $this->_getModel ();
-				$model->updateAd ( $id, $title, $body, $type, $status );
-                                var_dump($id, $title, $body, $type, $status );
+				$model->updateUser ( $data );
+                                
+                                $auth = Zend_Auth::getInstance ();
+                                $auth->getStorage()->write( (object)$data);
 
-                                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Ad edited succesfully!' ) );
-				$this->_redirect ( '/'.$this->lang.'/ad/show/id/'.$id );
+                                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your prfile was edited succesfully!' ) );
+				$this->_redirect ( '/' );
 
                             } else {
                                  $form->populate($formData);
@@ -174,7 +175,7 @@ class UserController extends Zend_Controller_Action {
                             $id = $this->_getParam('id', 0);
                             if ($id > 0) {
                                  $user = new Model_Users();
-                                 $form->populate($user->getUser($id));
+                                 $form->populate($user->fetchUser($id)->toArray() );
                             }
 
 
