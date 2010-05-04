@@ -70,50 +70,85 @@ class DownloadController extends Zend_Controller_Action
         $fmodel = new Model_Files();
         $this->view->file = $fmodel->getFile( $id );
 
-        if ($this->view->file){ // if the id file exists then go for the rest of data
+        // if the id file exists then go for the rest of data
+        if (!$this->view->file){
+            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
+            $this->_redirect ( '/'.$this->view->lang );
+        }
 
-            //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
-            $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
-            $url = explode('/', $url);
+        //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
+        $url = explode('/', $url);
 
-            $fn = NULL;
-            if ($url[4] ) {
-                $fn = $url[4];
-                if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
+        $fn = NULL;
+        if ($url[4] ) {
+            $fn = $url[4];
+            if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
+        }
+        $this->view->filename = $fmodel->getFileFilename( $id, $fn);
+        $idfn = $this->view->filename['IdFilename'];
+        $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
+        $this->view->sources = $fmodel->getSources( "IdFile = $id" );
+
+        $this->view->file_size = $this->_formatSize($this->view->file['Size']);
+        $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
+
+        $this->view->headTitle()->append($this->view->filename['Filename']);
+
+        $this->umodel = new Model_Users();
+        $this->view->votes = array('neg'=> 0, 'pos'=> 0);
+        
+        $votes = $this->umodel->getVotes( $id );
+        foreach ($votes as $v)
+        {
+            switch ($v['VoteType'])
+            {
+                case 1:
+                    $this->view->votes['pos'] = $v['c'];
+                    break;
+                case 2:
+                    $this->view->votes['neg'] = -$v['c'];
+                    break;
             }
-            $this->view->filename = $fmodel->getFileFilename( $id, $fn);
-            $idfn = $this->view->filename['IdFilename'];
-            $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
-            $this->view->sources = $fmodel->getSources( "IdFile = $id" );
-
-            $this->view->file_size = $this->_formatSize($this->view->file['Size']);
-            $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
-
-            $this->view->headTitle()->append($this->view->filename['Filename']);
-
-        } else {
-
-             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
-             $this->_redirect ( '/'.$this->view->lang );
-             return ;
         }
 
-        $umodel = new Model_Users();
-        $this->view->comments = $umodel->getComments( $id );
-
-        //if user logged in, show the comment form, if not show the login link
-        $auth = Zend_Auth::getInstance ();
-
-        if (! $auth->hasIdentity ()) {
-            $this->view->createcomment ='<a href="/' . $this->view->lang . '/auth/login">' . $this->view->translate ( 'login to post a comment' ) . '</a> ';
-        } else {
-            require_once APPLICATION_PATH . '/forms/Comment.php';
-            $form = new Form_Comment();
-            $form->setAction("/{$this->view->lang}/comment/create/filename/$idfn");
-            $this->view->createcomment = $form;
-        }
+        $this->createComment($id, $idfn);
+        $this->view->comments = $this->umodel->getComments( $id );
+        
     }
-    
+
+    public function createComment($id, $idfn) {
+        $request = $this->getRequest();
+        $form = $this->_getCommentForm();
+        if (!$request->isPost() || !$form) return;
+
+        //first we check if user is logged, if not redir to login
+        $auth = Zend_Auth::getInstance ();
+        
+        // now check to see if the form submitted exists, and
+        // if the values passed in are valid for this form
+        if (!$form->isValid($request->getPost())) return;
+
+        //anti hoygan to body
+        $formulario = $form->getValues();
+        $split=explode(". ", $formulario['text']);
+
+        foreach ($split as $sentence) {
+                $sentencegood = ucfirst(mb_convert_case($sentence, MB_CASE_LOWER, "UTF-8"));
+                $formulario['text'] = str_replace($sentence, $sentencegood, $formulario['text']);
+        }
+
+        //strip html tags to body
+        $formulario['text'] = strip_tags($formulario['text']);
+        $formulario['IdFilename'] = $idfn;
+        $formulario['IdFile'] = $id;
+        $formulario['IdUser'] = $auth->getIdentity()->IdUser;
+        $formulario['lang'] = $this->view->lang;
+        $this->umodel->saveComment( $formulario );
+        $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Comment published succesfully!' ) );
+        $form->reset();
+    }
+
     /**
      *
      * @return Form_Search
@@ -124,6 +159,26 @@ class DownloadController extends Zend_Controller_Action
 
         return $form;
     }
+
+    /**
+     *
+     * @return Form_AdEdit
+     */
+    protected function _getCommentForm() {
+        //if user logged in, show the comment form, if not show the login link
+        $auth = Zend_Auth::getInstance ();
+        $this->view->isAuth = $auth->hasIdentity ();
+        if ($this->view->isAuth) {
+            require_once APPLICATION_PATH . '/forms/Comment.php';
+            $form = new Form_Comment();
+            if ($this->getRequest ()->isPost () ) $form->populate($this->getRequest()->getPost());
+            $this->view->createcomment = $form;
+            return $form;
+        } else {
+            $this->view->createcomment ='<a href="/' . $this->view->lang . '/auth/login">' . $this->view->translate ( 'login to post a comment' ) . '</a> ';
+        }
+    }
+
 
     //TODO refactor this function ,is duplicated from search controller (this sucks)
     protected function _formatSize($bytes)

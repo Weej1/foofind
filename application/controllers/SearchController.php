@@ -5,7 +5,7 @@ define(MAX_RESULTS, 1000);
 
 function encodeFilename($filename)
 {
-    return str_replace(" ", "+", $filename);
+    return str_replace(" ", "%20", $filename);
 }
 
 function formatSize($bytes)
@@ -14,19 +14,19 @@ function formatSize($bytes)
     if($size < 1024)
     {
         $size = number_format($size, 2);
-        $size .= ' KB';
+        $size .= '&nbsp;KB';
     }
     else
     {
         if ($size / 1024 < 1024)
         {
             $size = number_format($size / 1024, 2);
-            $size .= ' MB';
+            $size .= '&nbsp;MB';
         }
         else if ($size / 1024 / 1024 < 1024)
         {
             $size = number_format($size / 1024 / 1024, 2);
-            $size .= ' GB';
+            $size .= '&nbsp;GB';
         }
     }
     return $size;
@@ -70,7 +70,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetSelect("*, sum(@weight*isources*sources/fnCount) as fileWeight");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "@weight DESC, fnWeight DESC, isources DESC" );
         $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
-        $this->cl->SetMaxQueryTime(500);
+        $this->cl->SetMaxQueryTime(1000);
     }
     public function setFilters($conditions)
     {
@@ -269,7 +269,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         // get sources for files
                         $start_time = microtime(true);
                         $sourcepos = array();
-                        foreach ($model->getSources("IdFile in ($ids)") as $row)
+                        $sources = $model->getSources("IdFile in ($ids)");
+                        foreach ($sources as $row)
                         {
                             $id = $row['IdFile'];
                             $t = $row['Type'];
