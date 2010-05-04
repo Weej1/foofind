@@ -132,43 +132,50 @@ class UserController extends Zend_Controller_Action {
 
        public function editAction() {
 
+           $id = (int)$this->getRequest()->getParam('id');
+
+           $auth = Zend_Auth::getInstance ();
+           $model = $this->_getModel ();
+           $user = $model->fetchUser( $id )->IdUser;
+
+
+            if (($auth->getIdentity()->IdUser  == $user) ){ //if is the user profile owner lets edit
+
                 require_once APPLICATION_PATH . '/forms/UserEdit.php';
 		$form = new Form_UserEdit ( );
-                $form->submit->setLabel('Save');
-
-                
+                $form->submit->setLabel('Save profile');
                 $this->view->form = $form;
+
+
 
 		if ($this->getRequest ()->isPost ()) {
 
 			    $formData = $this->getRequest()->getPost();
                             if ($form->isValid($formData)) {
-                                $id = (int)$this->getRequest()->getParam('id');
+                                
 
                                 $data['IdUser'] = $id;
                                 $data['email'] = $form->getValue('email');
                                 $data['username'] = $form->getValue('username');
                                 $data['location'] = $form->getValue('location');
 
-
                                 if ($form->getValue('password') ){
                                 $data['password'] = sha1 ( $form->getValue('password') );
                                 }
 
-                                //$data['password'] = $form->getValue('password');
-
                                 $model = $this->_getModel ();
 				$model->updateUser ( $data );
-                                
+
+                                //update the auth data stored 
                                 $auth = Zend_Auth::getInstance ();
                                 $auth->getStorage()->write( (object)$data);
 
-                                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your prfile was edited succesfully!' ) );
+                                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your profile was edited succesfully!' ) );
 				$this->_redirect ( '/' );
 
                             } else {
                                  $form->populate($formData);
-                                 Zend_Debug::dump($formData);
+                                 
                             }
 
                         } else {
@@ -180,6 +187,11 @@ class UserController extends Zend_Controller_Action {
 
 
 		}
+
+            } else {
+                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your are not allowed to view this page' ) );
+		$this->_redirect ( '/' );
+            }
 
 	}
 
