@@ -2,6 +2,28 @@
 "Next";"Siguiente"
 
 
+$auth = Zend_Auth::getInstance ();
+            if ($auth->getIdentity()->IdUser)
+
+
+#user profile
+
+"Edit your profile";"Edita tu cuenta"
+"Your profile was edited succesfully!";"Tu perfil se ha actualizado con éxito"
+"hello,";"hola,"
+"logout";"salir"
+"login";"acceder"
+"new user";"nuevo usuario"
+"or";"o"
+"New user";"Nuevo usuario"
+"Register";"Registrarse"
+"Choose a nickname:";"Elige un nick:"
+"Please, fill this form to be a Foofind registered member.";"Por favor, rellena este formulario para ser usuario registrado de Foofind."
+"User login";"Acceder"
+"Your location:";"Tu ubicación:"
+"Change your password here: (otherwise leave it blank)";"Introduce una nueva password (si no deseas cambiarla, deja este campo en blanco)"
+"Save profile";"Guardar cambios"
+
 #main layout
 
 "About Foofind";"Acerca de Foofind"
