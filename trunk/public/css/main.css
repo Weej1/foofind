@@ -656,12 +656,6 @@ h3 {
     border-bottom: 1px solid #cd0069;
 }
 
-.comment a {
-    color: #cd0069;
-    display: inline-block;
-    margin-top: 5px;
-}
-
 .comment_form textarea {
     height: 4em;
     border:1px solid #cd0069;
@@ -686,6 +680,16 @@ h3 {
     font-size: 25px;
     margin-right: 8px;
     font-weight: bold;
+}
+
+.file_comment_nick
+{
+    clear:left;
+    margin-top: 3px;
+}
+
+.file_comment_nick a {
+    color: #cd0069;
 }
 
 /*start corner box stuff*/
