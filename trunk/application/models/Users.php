@@ -5,7 +5,7 @@ class Model_Users extends Zend_Db_Table_Abstract
     public function getComments($idFile)
     {
         $table = new ff_comment();
-        $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)->joinNatural("ff_users")->where("IdFile=?", $idFile);
+        $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)->join("ff_users", "ff_users.IdUser=ff_comment.IdUser", "username")->where("IdFile=?", $idFile);
         return $table->fetchAll($select);
     }
 

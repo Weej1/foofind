@@ -478,9 +478,15 @@ if (count ( $this->mensajes ) > 0) {
 
 <? if ($this->comments): ?>
 
-       <?php foreach ($this->comments as $key => $val): ?>
-
+       <?php
+            $i = 0;
+            foreach ($this->comments as $key => $val):
+                $i++; ?>
+        <a name="<?=$i?>"></a>
         <div class="comment">
+            
+            <div class="file_comment_number">#<?=$i?></div>
+            <div class="file_comment_vote"><a href="#"><img src="/images/hand_up.gif" width="24" height="24" /></a>&nbsp;<a href="#"><img src="/images/hand_down.gif" width="24" height="24" /></a></div>
            <div><?php echo $this->escape($val['text']) ?></div>
            <a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a>
         </div>
