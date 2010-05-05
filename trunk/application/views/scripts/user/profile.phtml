@@ -1,16 +1,14 @@
 <?php
-//register page
-$this->page_title = $this->translate ( 'Register' ) . ' - nolotiro.com';
-
 $locale = Zend_Registry::get ( "Zend_Locale" );
 $this->lang = $locale->getLanguage ();
 
 ?>
 
-<div id="default_header_section">
-<h3><?=$this->translate ( 'User profile' ).'  -  '.$this->user['username'];?></h3>
 
-</div>
+
+<div id="container_page">
+
+    <h2><?=$this->translate ( 'User profile' ).'  -  '.$this->user['username'];?></h2>
 
 
 <?php
@@ -22,8 +20,6 @@ if (isset ( $this->error )) :
 
 <?php endif;?>
 
-<div id="main">
-<div class="span-18">
 
 
   <ul id="tabnav">
@@ -35,8 +31,8 @@ if (isset ( $this->error )) :
 
 <?//=var_dump($this->user);?>
     <div class="user_profile">
-        <span><?=$this->translate('User name:').': '.$this->user['username'];?></span>
-        <span><?=$this->translate('Member since:').': '.$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($this->user['created'])));?></span>
+        <h3><?=$this->translate('User name:').' '.$this->user['username'];?></h3>
+        <h3><?=$this->translate('Member since:').' '.$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($this->user['created'])));?></h3>
     </div>
 
 </div>

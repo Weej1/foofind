@@ -9,9 +9,9 @@ class Form_UserEdit extends Zend_Form {
 		// set the method for the display form to POST
 		$this->setMethod ( 'post' );
 
-		$this->addElement ( 'text', 'email', array ('label' => 'Your email:', 'filters' => array ('StringTrim', 'StringToLower' ),
-		 'validators' => array ('EmailAddress' ), 'required' => true )
-		 );
+//		$this->addElement ( 'text', 'email', array ('label' => 'Your email:', 'filters' => array ('StringTrim', 'StringToLower' ),
+//		 'validators' => array ('EmailAddress' ), 'required' => true )
+//		 );
 
                 $this->addElement ( 'text', 'username', array ('label' => 'Choose a nickname:', 'filters' => array ('StringTrim', 'StringToLower' ),
                     'validators' => array ('alnum', array ('regex', false, array ('/^[a-z]/i' ) ), array ('StringLength', false, array (3, 20 ) ) ), 'required' => true )

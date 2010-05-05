@@ -256,10 +256,19 @@ html input[type="text"] {
 }
 
 
-
-html dd, dl{
+form.searchbox dd{
+    margin-top: 10px;
     margin-bottom: 10px;
     display: inline;
+}
+
+html dd, dl{
+    
+}
+
+form dd{
+    margin-bottom: 20px;
+    /*display: block!important;*/
 }
 
 .home_form dd {

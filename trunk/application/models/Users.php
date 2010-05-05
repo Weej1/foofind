@@ -13,94 +13,124 @@ class Model_Users extends Zend_Db_Table_Abstract
     {
         $table = new ff_vote();
         $select = $table->select()
-                        ->from("ff_vote", "VoteType, count(*) c, sum(karma) k")
-                        ->where("IdFile=?", $idFile)
-                        ->group(array("IdFile", "VoteType"));
+                ->from("ff_vote", "VoteType, count(*) c, sum(karma) k")
+                ->where("IdFile=?", $idFile)
+                ->group(array("IdFile", "VoteType"));
         return $table->fetchAll($select);
     }
 
-    	/**
-	 *	 * Save a new entry
-	 * * @param  array $data
-	 * * @return int|string
-	 * */
-	public function saveComment(array $data) {
-            $table = new ff_comment();
-            $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
-            foreach ( $data as $field => $value ) {
-                    if (! in_array ( $field, $fields )) {
-                            unset ( $data [$field] );
-                    }
+
+    public function saveComment(array $data)
+    {
+        $table = new ff_comment();
+        $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
+        foreach ( $data as $field => $value )
+        {
+            if (! in_array ( $field, $fields ))
+            {
+                unset ( $data [$field] );
             }
-            return $table->insert ( $data );
-	}
-
-	/**
-	 *	 * Save a new entry
-	 * * @param  array $data
-	 * * @return int|string
-	 * */
-	public function saveUser(array $data) {
-		$table = new ff_users();
-		$fields = $table->info ( Zend_Db_Table_Abstract::COLS );
-		foreach ( $data as $field => $value ) {
-			if (! in_array ( $field, $fields )) {
-				unset ( $data [$field] );
-			}
-		}
-		return $table->insert ( $data );
-	}
-
-	public function updateUser(array $data) {
-		$table = new ff_users();
-                $where = $table->getAdapter ()->quoteInto ( 'IdUser = ?', $data ['IdUser'] );
-                $table->update ( $data, $where );
+        }
+        return $table->insert ( $data );
+    }
 
 
-	}
+    public function saveUser(array $data)
+    {
+        $table = new ff_users();
+        $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
+        foreach ( $data as $field => $value )
+        {
+            if (! in_array ( $field, $fields ))
+            {
+                unset ( $data [$field] );
+            }
+        }
+        return $table->insert ( $data );
+    }
 
-	public function checkUserEmail($email) {
-		$table = new ff_users();
-		return $table-> fetchRow ( $table->select()->where( 'email = ?', $email ) );
-	}
+    public function updateUser(array $data)
+    {
+        $table = new ff_users();
+        $where = $table->getAdapter ()->quoteInto ( 'IdUser = ?', $data ['IdUser'] );
+        $table->update ( $data, $where );
+    }
 
-	public function checkUsername($username) {
-		$table = new ff_users();
-		return $table->fetchRow ( $table->select()->where( 'username = ?', $username ));
-	}
 
-	public function getUserToken($email) {
-		$table = new ff_users();
-		return $table->fetchRow ( $table->select()->where(  'email = ?', $email ))->token;
-	}
+    function deleteUser($id)
+    {
+        $table = new ff_users();
+        $table->delete('IdUser =' . (int)$id);
+    }
 
-	public function validateUserToken($token) {
-		$table = new ff_users();
-		return $table->fetchRow (  $table->select()->where( 'token = ?', $token ));
-	}
+    function deleteUserComments ($id)
+    {
+        $table = new ff_comment();
+        $table->delete('IdUser =' . (int)$id);
+    }
 
-        public function checkUserIsLocked($id) {
-		$table = new ff_users();
-		return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
-	}
+    function deleteUserCommentsVotes ($id)
+    {
+        $table = new ff_comment_vote();
+        $table->delete('IdUser =' . (int)$id);
+    }
 
-	public function fetchUser($id) {
-		$table = new ff_users();
-                return $table->fetchRow(  $table->select()->where( 'IdUser = ?', $id ) );
-	}
+    function deleteUserVotes ($id)
+    {
+        $table = new ff_vote();
+        $table->delete('IdUser =' . (int)$id);
+    }
+
+
+    public function checkUserEmail($email)
+    {
+        $table = new ff_users();
+        return $table-> fetchRow ( $table->select()->where( 'email = ?', $email ) );
+    }
+
+    public function checkUsername($username)
+    {
+        $table = new ff_users();
+        return $table->fetchRow ( $table->select()->where( 'username = ?', $username ));
+    }
+
+    public function getUserToken($email)
+    {
+        $table = new ff_users();
+        return $table->fetchRow ( $table->select()->where(  'email = ?', $email ))->token;
+    }
+
+    public function validateUserToken($token)
+    {
+        $table = new ff_users();
+        return $table->fetchRow (  $table->select()->where( 'token = ?', $token ));
+    }
+
+    public function checkUserIsLocked($id)
+    {
+        $table = new ff_users();
+        return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
+    }
+
+    public function fetchUser($id)
+    {
+        $table = new ff_users();
+        return $table->fetchRow(  $table->select()->where( 'IdUser = ?', $id ) );
+    }
 }
 
 class ff_users extends Zend_Db_Table
 {
     protected $_primary = 'IdUser';
-    	
-        public function insert(array $data) {
-            $data ['created'] = date ( 'Y-m-d H:i:s' );
-            $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
 
-            return parent::insert ( $data );
+    public function insert(array $data)
+    {
+        $data ['created'] = date ( 'Y-m-d H:i:s' );
+        $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
 
-	}
+        return parent::insert ( $data );
+
+    }
 }
 
 class ff_vote extends Zend_Db_Table

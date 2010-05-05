@@ -2,17 +2,15 @@
 "Next";"Siguiente"
 
 
-$auth = Zend_Auth::getInstance ();
-            if ($auth->getIdentity()->IdUser)
-
 
 #user profile
-
+"Nickname:";"Nick:"
 "Edit your profile";"Edita tu cuenta"
 "Your profile was edited succesfully!";"Tu perfil se ha actualizado con éxito"
 "hello,";"hola,"
 "logout";"salir"
 "login";"acceder"
+"Login";"Acceder"
 "new user";"nuevo usuario"
 "or";"o"
 "New user";"Nuevo usuario"
@@ -23,6 +21,9 @@ $auth = Zend_Auth::getInstance ();
 "Your location:";"Tu ubicación:"
 "Change your password here: (otherwise leave it blank)";"Introduce una nueva password (si no deseas cambiarla, deja este campo en blanco)"
 "Save profile";"Guardar cambios"
+"You are not allowed to view this page";"No tienes permisos para acceder a esta página"
+"This username is taken. Please choose another one.";"Ese nombre de usuario ya existe. Por favor, elige otro diferente."
+"<a href=\'/en/user/forgot\'>Forgot</a> your password?";"<a href=\'/es/user/forgot\'>Forgot</a>¿Olvidaste tu contraseña?"
 
 #main layout
 
