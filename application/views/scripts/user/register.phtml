@@ -1,33 +1,31 @@
-<?=$this->headTitle()->append($this->translate('New user'));?>
-
 <div id="container_page">
 
-<h2><?=$this->translate('New user')?></h2>
+    <h2><?=$this->translate('New user')?></h2>
 
 
-<?php
-if (isset ( $this->error )) :
-	?>
-<div class="error">
-		<?=$this->escape ( $this->error );?>
-	</div>
+    <?php
+    if (isset ( $this->error )) :
+        ?>
+    <div class="error">
+            <?=$this->escape ( $this->error );?>
+    </div>
 
-<?php endif;?>
+    <?php endif;?>
 
-<fieldset>
+    <fieldset>
 
-<span><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
-<a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</span>
+        <span><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
+            <a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</span>
 
 
-<form action="<?=$this->escape ( $this->form->getAction () )?>"
-	method="<?=$this->escape ( $this->form->getMethod () )?>">
+        <form action="<?=$this->escape ( $this->form->getAction () )?>"
+              method="<?=$this->escape ( $this->form->getMethod () )?>">
 
-<legend><?=$this->translate ( 'Please, fill this form to be a Foofind registered member' );?></legend>
+            <legend><?=$this->translate ( 'Please, fill this form to be a Foofind registered member' );?></legend>
 
-<?=$this->form;?>
+            <?=$this->form;?>
 
-</form>
+        </form>
     </fieldset>
 
 </div><!-- end of container_page --->

@@ -31,7 +31,8 @@ class AuthController extends Zend_Controller_Action {
 		$request = $this->getRequest ();
 		$form = $this->_getUserLoginForm ();
 
-		
+		$this->view->headTitle()->append( $this->view->translate ( 'Login' ) );
+
 		if ($this->getRequest ()->isPost ()) {
 
 			
@@ -40,7 +41,7 @@ class AuthController extends Zend_Controller_Action {
 				// collect the data from the user
 				$f = new Zend_Filter_StripTags ( );
 				$email = $f->filter ( trim( $this->_request->getPost ( 'email' ) ) );
-				$password = $f->filter ( trim( $this->_request->getPost ( 'password' ) ) );
+				$password = $f->filter ( trim( $this->_request->getPost ( 'password' ) ) ); //trim whitespaces from copy&pasting the pass from email
 
 				//DDBB validation
 				// setup Zend_Auth adapter for a database table
@@ -54,7 +55,7 @@ class AuthController extends Zend_Controller_Action {
 				$authAdapter->setCredentialColumn ( 'password' );
 				// Set the input credential values to authenticate against
 				$authAdapter->setIdentity ( $email );
-				$authAdapter->setCredential  ( sha1 ( $password  ) ); //trim whitespaces from copy&pasting the pass from email
+				$authAdapter->setCredential  ( sha1 ( $password  ) ); 
 
 				// do the authentication
 				$auth = Zend_Auth::getInstance ();
@@ -75,7 +76,7 @@ class AuthController extends Zend_Controller_Action {
 					$data = $authAdapter->getResultRowObject ( null, 'password' );
 					$auth->getStorage ()->write ( $data );
 
-					$this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in, ' ) . $username );
+					$this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in, ' ) . $auth->getIdentity()->username );
 
 
 					//check the redir value if setted
@@ -128,9 +129,8 @@ class AuthController extends Zend_Controller_Action {
 		Zend_Auth::getInstance ()->clearIdentity ();
 		$this->session->logged_in = false;
 		$this->session->username = false;
-
-
 		$this->_redirect ( '/' );
+                
 	}
 
 }

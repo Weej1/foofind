@@ -1,0 +1,18 @@
+<div id="container_page">
+
+    <h2><?=$this->translate('Are you sure you want to delete your foofind account?')?></h2>
+
+
+    <fieldset>
+        <form action="<?php echo $this->url(array('action'=>'delete')); ?>" method="post">
+            <div>
+                
+                <input type="submit" name="del" value="Yes" />
+                <input type="submit" name="del" value="No" />
+            </div>
+        </form>
+    </fieldset>
+
+</div><!-- end of container_page --->
+
+
