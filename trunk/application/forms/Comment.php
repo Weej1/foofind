@@ -10,7 +10,7 @@ class Form_Comment extends Zend_Form {
         $text = $this->getElement('text');
         $val = $text->getValidator("StringLength")->setEncoding('UTF-8');
         $text->addFilter(new Zend_Filter_StringTrim());
-        $text->addFilter(new Zend_Filter_StripTags());
+        $text->addFilter(new Zend_Filter_PregReplace(array('match'=>"/\\\\([^\\\\])/", 'replace'=>"\$1")));
         
         // add the submit button
         $this->addElement ( 'submit', 'submit', array ('label' => 'Post comment', 'class'=>'magenta awesome') );
