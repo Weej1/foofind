@@ -488,7 +488,7 @@ if (count ( $this->mensajes ) > 0) {
         <div class="comment">
             <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
             <div class="file_comment_vote"><a href="#"><img src="/images/hand_up.gif" width="24" height="24" /></a>&nbsp;<a href="#"><img src="/images/hand_down.gif" width="24" height="24" /></a><br/>0</div>
-           <div id="c<?=$i?>"><?= $this->format_comment($this->escape($val['text'])); ?></div>
+           <div id="c<?=$i?>"><?= $this->format_comment($val['text']); ?></div>
            <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a> - <?=$this->show_date_span($val['date'])?></div>
         </div>
 
@@ -498,7 +498,7 @@ if (count ( $this->mensajes ) > 0) {
 
         <?php foreach ($this->comments_refs as $val):
                     $comment = $this->comments[$this->count-$val];
-                    echo "tooltips[$val] = '<b>{$comment['username']}: </b>".$this->escape($comment['text'])."';";
+                    echo "tooltips[$val] = '<b>{$comment['username']}: </b>".$this->format_comment($comment['text'])."';";
               endforeach;?>
 
             $('.ttlink').tooltip({
