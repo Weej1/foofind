@@ -40,25 +40,17 @@ class UserController extends Zend_Controller_Action
         if ($this->getRequest ()->isPost ())
         {
 
-
             if ($form->isValid ( $request->getPost () ))
             {
-
                 $formulario = $form->getValues ();
                
                 //check 2 passwords matches
                 $checkpasswords = ($formulario['password1']  == $formulario['password2'] );
 
-//                var_dump($checkpasswords);
-//                die ();
-
                 if ( $checkpasswords == FALSE)
                 {
-
                     $view = $this->initView();
-                    $view->error .= $this->view->translate('The new passwords entered do not match.');
-                     
-                   
+                    $view->error .= $this->view->translate('The new passwords entered do not match.');                       
                 }
 
 
@@ -67,8 +59,6 @@ class UserController extends Zend_Controller_Action
                 //check user email and nick if exists
                 $checkemail = $model->checkUserEmail ( $formulario ['email'] );
                 $checkuser = $model->checkUsername ( $formulario ['username'] );
-
-
 
                 //not allow to use the email as username
                 if ( $formulario['email'] == $formulario['username'])
@@ -132,15 +122,11 @@ class UserController extends Zend_Controller_Action
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to finish the register process' ) );
 
                     $this->_redirect ( '/' );
-
-
                 }
 
             }
         }
-
         $this->view->form = $form;
-
     }
 
 
@@ -455,9 +441,6 @@ class UserController extends Zend_Controller_Action
             $model = $this->_getModel ();
             $validatetoken = $model->validateUserToken ( $token );
 
-            //$validatetoken = $validatetoken->toArray ();
-            //Zend_Debug::dump ( $validatetoken );
-
             if ($validatetoken !== NULL)
             {
 
@@ -472,13 +455,15 @@ class UserController extends Zend_Controller_Action
                 $data ['active'] = '1';
                 $data ['IdUser'] = $validatetoken ['IdUser'];
 
-                //Zend_Debug::dump($data);
+                //reset the token
+                $data['token'] = NULL;
                 $model->updateUser($data);
 
                 //LETS OPEN THE GATE!
                 //update the auth data stored
                 $data = $model->fetchUser($validatetoken ['IdUser']);
                 $auth = Zend_Auth::getInstance ();
+                
                 $auth->getStorage()->write( (object)$data);
 
 
@@ -487,9 +472,9 @@ class UserController extends Zend_Controller_Action
 
             } else
             {
-                // just redirect to index, dont tell anything to badboys
-                throw new Zend_Controller_Action_Exception ( 'This token does not exist', 404 );
-
+               $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Sorry, this token does not exist or has been already used' )  );
+               $this->_redirect ( '/' );
+                
             }
 
         } else

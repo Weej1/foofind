@@ -24,6 +24,14 @@
 "You are not allowed to view this page";"No tienes permisos para acceder a esta página"
 "This username is taken. Please choose another one.";"Ese nombre de usuario ya existe. Por favor, elige otro diferente."
 "<a href=\'/en/user/forgot\'>Forgot</a> your password?";"<a href=\'/es/user/forgot\'>Forgot</a>¿Olvidaste tu contraseña?"
+"Are you sure you want to delete your foofind account?";"¿Estás seguro de querer borrar tu cuenta de foofind?"
+"Yes";"Si"
+"Nice to hear that";"Nos alegramos por ello"
+"profile";"perfil"
+"edit profile";"editar perfil"
+"User name:";"Nick:"
+"Member since:";"Miembro desde:"
+"Delete your foofind.com account";"Eliminar tu cuenta de foofind.com"
 
 #main layout
 
@@ -113,8 +121,9 @@
 "Send";"Enviar"
 "Value is required and can't be empty";"Este campo no puede estar vacío"
 "Captcha value is wrong";"Los caracteres introducidos no coinciden con los de la imagen"
-"'%value%' is less than 20 characters long";"'%value%' tiene menos de 20 caracteres."
-"'%value%' is less than 9 characters long";"'%value%' tiene menos de 9 caracteres."
+"'%value%' is less than 20 characters long";"'%value%' tiene menos de 20 caracteres"
+"'%value%' is less than 9 characters long";"'%value%' tiene menos de 9 caracteres"
+"'%value%' is less than 5 characters long";"'%value%' tiene menos de 5 caracteres"
 
 "'%value%' is no valid email address in the basic format local-part@hostname";"'%value%' no es una dirección de correo válida con el formato: usuario@ejemplo.com"
 "'%hostname%' is no valid hostname for email address '%value%'";"'%hostname%' no es nombre correcto de dominio para la dirección de correo '%value%'"

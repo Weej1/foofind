@@ -1,7 +1,6 @@
 * {
     padding: 0px;
-    margin: 0px;
-    
+    margin: 0px; 
 }
 
 html, body {
@@ -9,37 +8,29 @@ html, body {
 }
 
 body {
-   /* font-family: arial, sans-serif;*/
     font-family:  Arial,Verdana,Helvetica,sans-serif;
     font-size: 13px;
-    font-stretch: normal;
     font-style: normal;
     font-variant: normal;
-
 }
-
 
 img{
     border: 0;
     vertical-align: middle;
 }
 
-
 .logo_home {
     font-size: 2.3em;
     height: 130px;
     width: 280px;
     background: transparent url(../images/foofind.gif) no-repeat scroll 0 0;
-
 }
 
 .logo_home p{
     font-size: 10px;
     text-align: right;
     color: #999;
-    padding-top: 80px;
-    
-    
+    padding-top: 80px;  
 }
 
 p {
@@ -56,8 +47,6 @@ p {
     padding-bottom: 30px;
     background-color: #fff;
     min-height: 300px;
-
-
 }
 
 #container_search {
@@ -109,7 +98,6 @@ p {
     padding-left: 0px;
     margin-left:  172px;
     margin-top: 10px;
-
 }
 
 .page_text{
@@ -130,7 +118,6 @@ p {
     left: 4px;
     top: -5px;
     display: block;
-   
 }
 
 
@@ -247,7 +234,7 @@ html textarea {
 
 }
 
-html input[type="text"] {
+html input[type="text"] ,input[type="password"] {
    /* font-weight: bold;*/
     font-size: 1.1em;
     border: 1px solid gray;
@@ -262,13 +249,19 @@ form.searchbox dd{
     display: inline;
 }
 
-html dd, dl{
-    
+
+form dt{
+   margin-bottom:  5px;
 }
 
 form dd{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /*display: block!important;*/
+}
+
+dd img{
+    margin-bottom: 10px;
+    border: 0px ;
 }
 
 .home_form dd {
@@ -400,6 +393,16 @@ h3 {
 #container_page{
     padding-top:  10px;
     z-index: 300;
+}
+
+#container_user{
+    margin-left: 50px;
+    padding-top:  20px;
+    z-index: 300;
+}
+
+h2{
+    margin-bottom: 10px;
 }
 
 .success {
