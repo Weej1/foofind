@@ -474,7 +474,7 @@ if (count ( $this->mensajes ) > 0) {
 
         <div class="comments">
 <? if (count($this->comments)>0 || $this->isAuth): ?>
-        <img src="/images/baloon.gif"/><h4>Your Comments</h4>
+        <img src="/images/baloon.gif"/><h4><?=$this->translate('Your comments')?></h4>
 <? endif;?>
 
 <? if ($this->comments): ?>
