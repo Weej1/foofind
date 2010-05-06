@@ -497,18 +497,14 @@ h2{
 }
 
 .file_download{
-    /*text-align: left;*/
-    
     display: inline-block;
     width: 68%;
-   /* min-width: 30%;*/
-   /* width: 750px;*/
     vertical-align: top;
     margin-right: 60px;
 }
 
 .file_download h2 {
-    padding-top: 8px;
+    padding-top: 20px;
     font-size: 1.6em;
 }
 
@@ -554,7 +550,7 @@ h2{
 }
 .download_file_metadata{
     max-width: 430px;
-    display: inline-block;
+    display: inline-table;
     margin-left: 20px;
     vertical-align: middle;
 }
@@ -686,7 +682,6 @@ h2{
 
 .comments_paginator {
     text-align:right;
-    margin-bottom:
 }
 
 .file_comment_vote {
