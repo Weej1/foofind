@@ -5,7 +5,7 @@ class Comments_View_Helper extends Zend_View_Helper_Abstract
     
     function format_comment($text)
     {
-        $text = htmlentities($text, ENT_QUOTES);
+        $text = htmlentities($text, ENT_QUOTES, "UTF-8");
         $text = str_replace(array("\n", "\r", "\l"), '<br>', $text);
 
         return preg_replace_callback('/#(\d+)/', array($this, 'replace_callback'), $text);

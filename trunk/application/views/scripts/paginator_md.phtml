@@ -2,9 +2,9 @@
 <div class="pagination">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="'<?php echo "?page={$this->previous}"; ?>">«&nbsp;Previous</a>
+  <a href="'<?php echo "?page={$this->previous}"; ?>">«&nbsp;<?=$this->translate('Previous');?></a>
 <?php else: ?>
-  «&nbsp;Previous
+  «&nbsp;<?=$this->translate('Previous');?>
 <?php endif; ?>
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?>
@@ -16,9 +16,9 @@
 <?php endforeach; ?>
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo "?page={$this->next}"; ?>">Next&nbsp;»</a>
+  <a href="<?php echo "?page={$this->next}"; ?>"><?=$this->translate('Next'); ?>&nbsp;»</a>
 <?php else: ?>
-  Next&nbsp;»
+  <?=$this->translate('Next'); ?>&nbsp;»
 <?php endif; ?>
 </div>
 <?php endif; ?>

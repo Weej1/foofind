@@ -159,15 +159,6 @@ class DownloadController extends Zend_Controller_Action
 
         //anti hoygan to body
         $formulario = $form->getValues();
-        $split=explode(". ", $formulario['text']);
-
-        foreach ($split as $sentence) {
-                $sentencegood = ucfirst(mb_convert_case($sentence, MB_CASE_LOWER, "UTF-8"));
-                $formulario['text'] = str_replace($sentence, $sentencegood, $formulario['text']);
-        }
-
-        //strip html tags to body
-        $formulario['text'] = strip_tags($formulario['text']);
         $formulario['IdFilename'] = $idfn;
         $formulario['IdFile'] = $id;
         $formulario['IdUser'] = $auth->getIdentity()->IdUser;
@@ -197,6 +188,7 @@ class DownloadController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance ();
         $this->view->isAuth = $auth->hasIdentity ();
         if ($this->view->isAuth) {
+
             require_once APPLICATION_PATH . '/forms/Comment.php';
             $form = new Form_Comment();
             if ($this->getRequest ()->isPost () ) $form->populate($this->getRequest()->getPost());
