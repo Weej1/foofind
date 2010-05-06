@@ -1,4 +1,4 @@
-<div id="container_page">
+<div id="container_user">
 
     <h2><?=$this->translate('Edit your profile')?></h2>
 
@@ -14,9 +14,9 @@
 
     <fieldset>
 
-        <form action="<?=$this->escape ( $this->form->getAction () )?>"method="<?=$this->escape ( $this->form->getMethod () )?>">
+        
             <?=$this->form;?>
-        </form>
+        
 
         <a href="/<?=$this->lang ?>/user/delete/id/<?=$this->escape ( $this->id ); ?>" ><?=$this->translate('Delete your foofind.com account') ?></a>
 
