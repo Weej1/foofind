@@ -111,6 +111,19 @@
 "send by email";"envíalo por correo"
 "Download";"Descargar"
 "Soundtype";"Tipo de sonido"
+"since";"hace %1$d %2$s"
+"year";"año"
+"years";"años"
+"month";"mes"
+"months";"meses"
+"day";"dia"
+"days";"dias"
+"hour";"hora"
+"hours";"horas"
+"minute";"minuto"
+"minutes";"minutos"
+"second";"segundo"
+"seconds";"segundos"
 
 
 #contact

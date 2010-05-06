@@ -13,8 +13,8 @@ class UserController extends Zend_Controller_Action
         $this->view->headTitle()->append(' - ');
 
         $lang = Zend_Registry::get('Zend_Locale');
-        $this->view->lang = $lang;
-        $this->lang = $lang;
+        $this->view->lang = $lang->getLanguage();
+        $this->lang = $lang->getLanguage();
 
         $aNamespace = new Zend_Session_Namespace('Foofind');
         $this->location = $aNamespace->location;

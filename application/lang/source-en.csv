@@ -2,6 +2,7 @@
 #search
 "NoTypeCount";"No results were found for your search in <i>%s</i>, but there are about %d results for your search in <a href='%s'>other categories</a>."
 "DownloadExplanation";"To download the linked file, you could need an external software. Here are some compatible applications:"
+"since";"%1$d %2$s ago"
 
 #about
 "About";"About"

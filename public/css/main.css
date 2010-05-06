@@ -664,6 +664,7 @@ h2{
 }
 
 .comment {
+    clear: both;
     padding: 8px;
     border-bottom: 1px solid #cd0069;
 }
@@ -683,25 +684,48 @@ h2{
     float: right;
 }
 
-.file_comment_vote {
-    float:right;
+.comments_paginator {
+    text-align:right;
+    margin-bottom:
 }
 
-.file_comment_number {
+.file_comment_vote {
+    float:right;
+    text-align: center;
+    font-size: 10px;
+}
+
+.file_comment_number a {
     float:left;
     font-size: 25px;
     margin-right: 8px;
     font-weight: bold;
+    color: black;
+    text-decoration: none;
 }
 
 .file_comment_nick
 {
     clear:left;
     margin-top: 3px;
+    font-size: 0.9em;
 }
 
 .file_comment_nick a {
     color: #cd0069;
+}
+
+#tooltip {
+    position: absolute;
+    z-index: 3000;
+    border: 1px solid #cd0069;
+    background-color: #FBEFFB;
+    padding: 5px;
+    opacity: 0.9;
+    max-width: 500px;
+}
+#tooltip h3, #tooltip div {
+    margin: 0;
 }
 
 /*start corner box stuff*/

@@ -13,6 +13,10 @@ class DownloadController extends Zend_Controller_Action
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
         $this->view->lang =  $this->_helper->checklang->check();
+
+        $this->view->headScript()->appendFile("/js/jquery.bgiframe.js");
+        $this->view->headScript()->appendFile("/js/jquery.dimensions.js");
+        $this->view->headScript()->appendFile("/js/jquery.tooltip.js");
     }
 
     public function fileAction()
@@ -113,11 +117,35 @@ class DownloadController extends Zend_Controller_Action
         }
 
         $this->createComment($id, $idfn);
-        $this->view->comments = $this->umodel->getComments( $id );
+        $this->view->comments = $this->umodel->getComments( $id, $this->view->lang );
+
+        require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
+        $helper = new Comments_View_Helper();
+        $this->view->registerHelper($helper, 'format_comment');
+
+        require_once APPLICATION_PATH.'/views/helpers/TimeSpan_View_Helper.php';
+        $helper = new TimeSpan_View_Helper();
+        $this->view->registerHelper($helper, 'show_date_span');
+
+        $jquery = $this->view->jQuery();
+        $jquery->enable(); // enable jQuery Core Library
+
+        // get current jQuery handler based on noConflict settings
+        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+        
+        $paginator = Zend_Paginator::factory($this->view->comments);
+        $paginator->setItemCountPerPage(10);
+        $paginator->setCurrentPageNumber($this->_getParam('page'));
+        Zend_Paginator::setDefaultScrollingStyle('Sliding');
+        $paginator->setView($this->view);
+
+        //this is paginator
+        $this->view->paginator = $paginator;
         
     }
 
     public function createComment($id, $idfn) {
+
         $request = $this->getRequest();
         $form = $this->_getCommentForm();
         if (!$request->isPost() || !$form) return;
