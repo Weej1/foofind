@@ -159,10 +159,12 @@ class DownloadController extends Zend_Controller_Action
 
         //anti hoygan to body
         $formulario = $form->getValues();
+
         $formulario['IdFilename'] = $idfn;
         $formulario['IdFile'] = $id;
         $formulario['IdUser'] = $auth->getIdentity()->IdUser;
         $formulario['lang'] = $this->view->lang;
+        
         $this->umodel->saveComment( $formulario );
         $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Comment published succesfully!' ) );
         $this->_redirect($_SERVER['REQUEST_URI']);
@@ -192,6 +194,7 @@ class DownloadController extends Zend_Controller_Action
             require_once APPLICATION_PATH . '/forms/Comment.php';
             $form = new Form_Comment();
             if ($this->getRequest ()->isPost () ) $form->populate($this->getRequest()->getPost());
+
             $this->view->createcomment = $form;
             return $form;
         } else {
