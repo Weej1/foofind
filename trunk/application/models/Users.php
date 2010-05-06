@@ -2,10 +2,10 @@
 
 class Model_Users extends Zend_Db_Table_Abstract
 {
-    public function getComments($idFile)
+    public function getComments($idFile, $lang)
     {
         $table = new ff_comment();
-        $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)->join("ff_users", "ff_users.IdUser=ff_comment.IdUser", "username")->where("IdFile=?", $idFile);
+        $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)->join("ff_users", "ff_users.IdUser=ff_comment.IdUser", "username")->where("IdFile=?",$idFile)->where("ff_comment.lang=?", $lang)->order("date desc");
         return $table->fetchAll($select);
     }
 

@@ -15,8 +15,9 @@ class IndexController extends Zend_Controller_Action
     {
 
         $this->view->lang =  $this->_helper->checklang->check();
-        $this->view->totalFilesIndexed = number_format($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"));
-
+        $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"),
+                                        array( 'locale' => $this->view->lang));
+        
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
         
