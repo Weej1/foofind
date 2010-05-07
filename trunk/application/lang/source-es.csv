@@ -4,6 +4,8 @@
 
 
 #user profile
+"Choose your password:";"Elige tu password:"
+"Insert your password (yep, again):";"Introduce tu password (si, otra vez):"
 "Nickname:";"Nick:"
 "Edit your profile";"Edita tu cuenta"
 "Your profile was edited succesfully!";"Tu perfil se ha actualizado con éxito"
@@ -32,6 +34,9 @@
 "User name:";"Nick:"
 "Member since:";"Miembro desde:"
 "Delete your foofind.com account";"Eliminar tu cuenta de foofind.com"
+"Forgot your password?";"¿Olvidaste tu contraseña?"
+"Send";"Enviar"
+"The email address must be the same you used to register.";"La dirección de email debe ser la misma que utilizaste para registrarte."
 
 #main layout
 
