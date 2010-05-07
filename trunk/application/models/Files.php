@@ -15,7 +15,8 @@ class Model_Files extends Zend_Db_Table_Abstract
         $table = new ff_file();
         
         // By default, check blocked = 0, else use given criteria
-        $where = ($blocked===true?"blocked=0":"blocked $blocked");
+        $where = ($check_blocked===true?"blocked=0":"blocked $check_blocked");
+        $where .= " AND IdFile = $id";
         return $table->fetchRow ($where);
     }
 
