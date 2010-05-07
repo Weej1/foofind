@@ -19,6 +19,10 @@ img{
     vertical-align: middle;
 }
 
+input#submit {
+    min-width: 80px;
+}
+
 .logo_home {
     font-size: 2.3em;
     height: 130px;
@@ -239,7 +243,6 @@ html input[type="text"] ,input[type="password"] {
     font-size: 1.1em;
     border: 1px solid gray;
     padding: 4px;
-
 }
 
 
@@ -520,11 +523,31 @@ h2{
     font-size:0.9em;
 }
 
-.votes_up {
+.vote_up div {
+    background: url(/images/hand_upd.gif) center center;
+    width: 48px;
+    height: 48px;
+}
+
+.vote_down div{
+    background: url(/images/hand_downd.gif) center center;
+    width: 48px;
+    height: 48px;
+}
+
+.upactive .vote_up div, .vote_up:hover div {
+    background: url(/images/hand_up.gif) center center !important;
+}
+
+.downactive .vote_down div, .vote_down:hover div {
+    background: url(/images/hand_down.gif) center center !important;
+}
+
+.vote_up span {
     color: gray;
 }
 
-.votes_down {
+.vote_down span {
     color: #cd0069;
 }
 
@@ -673,7 +696,7 @@ h2{
     margin-right: 3px;
     padding: 3px;
     float: left;
-    width: 72%;
+    width: 70%;
 }
 
 .comment_form input {

@@ -17,14 +17,17 @@ class DownloadController extends Zend_Controller_Action
         $this->view->headScript()->appendFile("/js/jquery.bgiframe.js");
         $this->view->headScript()->appendFile("/js/jquery.dimensions.js");
         $this->view->headScript()->appendFile("/js/jquery.tooltip.js");
+        
+        // get auth info
+        $auth = Zend_Auth::getInstance ();
+        $this->view->isAuth = $auth->hasIdentity ();
+        if ($this->view->isAuth) $this->identity = $auth->getIdentity();
     }
 
     public function fileAction()
     {
-
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
-
 
         //plugin Qs
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
@@ -70,7 +73,7 @@ class DownloadController extends Zend_Controller_Action
         $this->view->form = $form;
 
         //*************************************************************************** get file
-        $id = $this->_request->getParam ( 'id' );
+        $id = (int)$this->_request->getParam ( 'id' );
         $fmodel = new Model_Files();
         $this->view->file = $fmodel->getFile( $id );
 
@@ -116,6 +119,21 @@ class DownloadController extends Zend_Controller_Action
             }
         }
 
+        if ($this->view->isAuth)
+        {
+            $myvote = $this->umodel->getUserVote($this->identity->IdUser, $id);
+            if (count($myvote)>0)
+            {
+                switch ($myvote[0]['VoteType']) {
+                    case 1:
+                       $this->view->myvote = "upactive";
+                       break;
+                    case 2:
+                       $this->view->myvote = "downactive";
+                       break;
+                }
+            }
+        }
         $this->createComment($id, $idfn);
         $this->view->comments = $this->umodel->getComments( $id, $this->view->lang );
 
@@ -150,9 +168,6 @@ class DownloadController extends Zend_Controller_Action
         $form = $this->_getCommentForm();
         if (!$request->isPost() || !$form) return;
 
-        //first we check if user is logged, if not redir to login
-        $auth = Zend_Auth::getInstance ();
-        
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form
         if (!$form->isValid($request->getPost())) return;
@@ -162,7 +177,7 @@ class DownloadController extends Zend_Controller_Action
 
         $formulario['IdFilename'] = $idfn;
         $formulario['IdFile'] = $id;
-        $formulario['IdUser'] = $auth->getIdentity()->IdUser;
+        $formulario['IdUser'] = $this->identity->IdUser;
         $formulario['lang'] = $this->view->lang;
         
         $this->umodel->saveComment( $formulario );
@@ -187,8 +202,6 @@ class DownloadController extends Zend_Controller_Action
      */
     protected function _getCommentForm() {
         //if user logged in, show the comment form, if not show the login link
-        $auth = Zend_Auth::getInstance ();
-        $this->view->isAuth = $auth->hasIdentity ();
         if ($this->view->isAuth) {
 
             require_once APPLICATION_PATH . '/forms/Comment.php';

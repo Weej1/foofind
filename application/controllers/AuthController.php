@@ -12,8 +12,6 @@ class AuthController extends Zend_Controller_Action {
 
                 $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
 		$this->view->mensajes = $this->_flashMessenger->getMessages ();
-
-
 	}
 
 	/**
@@ -58,9 +56,7 @@ class AuthController extends Zend_Controller_Action {
 				$authAdapter->setCredential  (  hash('sha256', $password, TRUE)  );
 
 				// do the authentication
-				$auth = Zend_Auth::getInstance ();
-
-                                
+				$auth = Zend_Auth::getInstance();
 
 				//check first if the user is activated (by confirmed email)
 				$select = $authAdapter->getDbSelect ();
@@ -78,29 +74,21 @@ class AuthController extends Zend_Controller_Action {
 
 					$this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in, ' ) . $auth->getIdentity()->username );
 
-
 					//check the redir value if setted
 					$aNamespace = new Zend_Session_Namespace('Foofind');
 					$redir = $aNamespace->redir;
 
 					if ($redir !== null){
-
 					  $aNamespace->redir = null; //reset redir value
 					  $this->_redirect ( $redir );
-
 					}else {
-
 					  //if redir empty goto main home ads and set the welcome logged in message
 					 $this->_redirect ( '/' );
 					}
-
-
-
 				} else {
 					// failure: wrong username
 					$view = $this->initView ();
 					$view->error = $this->view->translate ( 'Wrong email or password, please try again' );
-
 				}
 
 			//_redirect('/');

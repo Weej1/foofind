@@ -430,7 +430,7 @@ if (count ( $this->mensajes ) > 0) {
 
     <div class="wrap_download">
     <div class="file_download">
-        <div class="file_download_vote"><a href="#"><img src="/images/hand_up.gif" /><br/><?=$this->translate('I like it!')?><br/><span class="votes_up">(<?=$this->votes['pos']?>)</span></a>&nbsp;<a href="#"><img src="/images/hand_down.gif" /><br/><?=$this->translate('Booo!')?><br/><span class="votes_down">(<?=$this->votes['neg']?>)</span></a></div>
+        <div class="file_download_vote <?=$this->myvote?>"><a href="#" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->votes['pos']?>)</span></a>&nbsp;<a href="#" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->votes['neg']?>)</span></a></div>
         <h2><?=$this->filename['Filename'];?></h2>
         
         <div class="top_download">
@@ -507,6 +507,35 @@ if (count ( $this->mensajes ) > 0) {
                 showURL: false,
                 bodyHandler: function() { return tooltips[$(this).attr("tooltip")]; },
                 fade: 250
+            });
+
+            $('.file_download_vote a').click(function(event)
+            {
+                event.preventDefault();
+                $.ajax({dataType:"json", 
+                        url: "/<?=$this->lang?>/vote/file/<?=$this->file['IdFile']?>/"+$(this).attr('type')+"/idfilename/<?=$this->filename['IdFilename']?>",
+                        context: $(this),
+                        success: function(data){
+
+                            parent = this.context.parent();
+                            if (this.context.attr('type')=='1') {
+                                parent.addClass("upactive");
+                                parent.removeClass("downactive");
+                            }
+                            else
+                            {
+                                parent.addClass("downactive");
+                                parent.removeClass("upactive");
+                            }
+
+
+                            votes = [0,0];
+                            for (vote in data) votes[data[vote].VoteType-1] = data[vote].c;
+                            
+                            counter = $(".vote_up span", parent).text('('+votes[0]+')');
+                            counter = $(".vote_down span", parent).text('('+-votes[1]+')');
+                        }
+                });
             });
         </script>
         <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>

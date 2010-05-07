@@ -9,6 +9,13 @@ class Model_Users extends Zend_Db_Table_Abstract
         return $table->fetchAll($select);
     }
 
+    public function getUserVote($idUser, $idFile)
+    {
+        $table = new ff_vote();
+        $select = $table->select()->where("IdFile=$idFile and IdUser=$idUser");
+        return $table->fetchAll($select);
+    }
+
     public function getVotes($idFile)
     {
         $table = new ff_vote();
@@ -19,32 +26,38 @@ class Model_Users extends Zend_Db_Table_Abstract
         return $table->fetchAll($select);
     }
 
+    public function deleteVote($idFile, $idUser, $type)
+    {
+        $table = new ff_vote();
+        return $table->delete("IdFile=$idFile and IdUser=$idUser and VoteType=$type");
+    }
+
+    public function saveCommentVote(array $data)
+    {
+        return $this->save(new ff_comment_vote(), $data);
+    }
 
     public function saveComment(array $data)
     {
-        $table = new ff_comment();
-        $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
-        foreach ( $data as $field => $value )
-        {
-            if (! in_array ( $field, $fields ))
-            {
-                unset ( $data [$field] );
-            }
-        }
-        return $table->insert ( $data );
+        return $this->save(new ff_comment(), $data);
     }
 
+    public function saveVote(array $data)
+    {
+        return $this->save(new ff_vote(), $data);
+    }
 
     public function saveUser(array $data)
     {
-        $table = new ff_users();
+        return $this->save(new ff_users(), $data);
+    }
+
+    public function save($table, array $data)
+    {
         $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
         foreach ( $data as $field => $value )
         {
-            if (! in_array ( $field, $fields ))
-            {
-                unset ( $data [$field] );
-            }
+            if (! in_array ( $field, $fields )) unset ( $data [$field] );
         }
         return $table->insert ( $data );
     }
@@ -129,7 +142,6 @@ class ff_users extends Zend_Db_Table
         $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
         $data['password'] = hash('sha256', $data['password'], TRUE);
         return parent::insert ( $data );
-
     }
 
 
@@ -138,7 +150,7 @@ class ff_users extends Zend_Db_Table
 
 class ff_vote extends Zend_Db_Table
 {
-    protected $_primary = array('IdFile','IdFilename', 'IdUser', 'VoteType');
+    protected $_primary = array('IdFile', 'IdFilename', 'IdUser', 'VoteType');
 }
 
 class ff_comment extends Zend_Db_Table
@@ -148,5 +160,5 @@ class ff_comment extends Zend_Db_Table
 
 class ff_comment_vote extends Zend_Db_Table
 {
-    protected $_primary = array('IdComment','IdUser');
+    protected $_primary = array('IdComment', 'IdUser', 'VoteType');
 }
