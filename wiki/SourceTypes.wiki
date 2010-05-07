@@ -12,6 +12,7 @@
   * 8->http crawler
   * 9->ftp crawler
   * 10->http mu crawler
+  * 11->http rs crawler
 
 = Content Type =
   * 1->audio
@@ -33,3 +34,4 @@
   * 4->crawler http
   * 5->P2P ED2K
   * 6->crawler mu
+  * 7->crawler rs
