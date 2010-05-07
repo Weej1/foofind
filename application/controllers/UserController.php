@@ -50,7 +50,7 @@ class UserController extends Zend_Controller_Action
                 if ( $checkpasswords == FALSE)
                 {
                     $view = $this->initView();
-                    $view->error .= $this->view->translate('The new passwords entered do not match.');                       
+                    $view->error .= $this->view->translate('The  passwords entered do not match.');
                 }
 
 
@@ -117,7 +117,6 @@ class UserController extends Zend_Controller_Action
                     $mail->addTo($formulario['email']);
                     $mail->setSubject ( $formulario ['username'] . $this->view->translate ( ', confirm your email' ) );
                     $mail->send ();
-
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to finish the register process' ) );
 
                     $this->_redirect ( '/' );
@@ -354,29 +353,31 @@ class UserController extends Zend_Controller_Action
 
                 } else
                 { // success: the email exists , so lets change the password and send to user by mail
-                    //Zend_Debug::dump($mailcheck->toArray());
+                    
                     $mailcheck = $mailcheck->toArray ();
 
-                    //update the ddbb with new password
-                    $password = $this->_generatePassword ();
-                    $data ['password'] = $password;
-                    $data ['IdUser'] = $mailcheck ['IdUser'];
+                    //regenerate the token
+                    $mailcheck['token'] = md5 ( uniqid ( rand (), 1 ) );
+     
+                    $model->updateUser($mailcheck);
+                                
+                    //now lets send the validation token by email to confirm the user email
+                    $hostname = 'http://' . $this->getRequest ()->getHttpHost ();
 
-                    //Zend_Debug::dump($data);
-                    $model->updateUser($data);
-
-                    //lets send the new password..
                     $mail = new Zend_Mail ( );
-                    $mail->setBodyHtml ( utf8_decode ( $this->view->translate ( 'Hi, this is your new password:<br />' ) ) . $password );
+                    $mail->setBodyHtml ( $this->view->translate ( 'Somebody , probably you, wants to restore your foofind access. Click on this url to restore your foofind account:<br />' )
+                            . $hostname . $this->view->translate ( '/en/user/validate/t/' ) .  $mailcheck['token'] .
+                            '<br /><br />'.
+                            $this->view->translate('Otherwise, ignore this message.').
+                            '<br />' . utf8_decode ( $this->view->translate ( '-- The foofind bot.' ) ) );
                     $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
 
-                    $mail->addTo ( $mailcheck ['email'] );
-                    $mail->setSubject ( utf8_decode ( $this->view->translate ( 'Your foofind.com new password' ) ) );
+                    $mail->addTo($mailcheck ['email']);
+                    $mail->setSubject ( $mailcheck ['username'] . $this->view->translate ( ', restore your foofind access' ) );
                     $mail->send ();
+                    $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to restore your foofind.com access' ) );
 
-                    $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to get your new password' ) );
-
-                    $this->_redirect ( '/'.$this->view->lang.'/' );
+                    $this->_redirect ( '/' );
 
                 }
 
@@ -387,25 +388,7 @@ class UserController extends Zend_Controller_Action
 
     }
 
-    /**
-     * @abstract generate a text plain random password
-     * remember it's no encrypted !
-     * @return string (7) $pass
-     */
-    protected function _generatePassword()
-    {
-        $salt = "abcdefghjkmnpqrstuvwxyz123456789";
-        mt_srand( ( double ) microtime () * 1000000 );
-        $i = 0;
-        while ( $i <= 6 )
-        {
-            $num = mt_rand() %33;
-            $pass .= substr ( $salt, $num, 1 );
-            $i ++;
-        }
-
-        return $pass;
-    }
+   
 
     /**
      *
