@@ -14,9 +14,7 @@ class AuthController extends Zend_Controller_Action {
 		$this->view->mensajes = $this->_flashMessenger->getMessages ();
 	}
 
-	/**
-	 * The default action - show the home page
-	 */
+	
 	public function indexAction() {
 		$this->_redirect ( '/' );
 	}
@@ -53,10 +51,11 @@ class AuthController extends Zend_Controller_Action {
 				$authAdapter->setCredentialColumn ( 'password' );
 				// Set the input credential values to authenticate against
 				$authAdapter->setIdentity ( $email );
-				$authAdapter->setCredential  (  hash('sha256', $password, TRUE)  );
+				$authAdapter->setCredential  ( hash('sha256', $password, TRUE) );
 
 				// do the authentication
 				$auth = Zend_Auth::getInstance();
+                        
 
 				//check first if the user is activated (by confirmed email)
 				$select = $authAdapter->getDbSelect ();
@@ -82,7 +81,7 @@ class AuthController extends Zend_Controller_Action {
 					  $aNamespace->redir = null; //reset redir value
 					  $this->_redirect ( $redir );
 					}else {
-					  //if redir empty goto main home ads and set the welcome logged in message
+					  //if redir empty goto main home and set the welcome logged in message
 					 $this->_redirect ( '/' );
 					}
 				} else {
@@ -91,7 +90,6 @@ class AuthController extends Zend_Controller_Action {
 					$view->error = $this->view->translate ( 'Wrong email or password, please try again' );
 				}
 
-			//_redirect('/');
 			}
 		}
 		// assign the form to the view
