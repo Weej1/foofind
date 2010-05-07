@@ -1,8 +1,6 @@
-<?=$this->headTitle()->append($this->translate('New user'));?>
+<div id="container_user">
 
-<div id="container_page">
-
-<h2><?=$this->translate('New user')?></h2>
+<h2><?=$this->translate('Forgot your password?')?></h2>
 
 <?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
 <a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)
@@ -12,7 +10,7 @@ if (isset ( $this->error )) :
 	?>
 <div class="error">
 		<?=$this->escape ( $this->error );?>
-	</div>
+</div>
 
 <?php endif;?>
 

@@ -127,10 +127,13 @@ class ff_users extends Zend_Db_Table
     {
         $data ['created'] = date ( 'Y-m-d H:i:s' );
         $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
-
+        $data['password'] = hash('sha256', $data['password'], TRUE);
         return parent::insert ( $data );
 
     }
+
+
+
 }
 
 class ff_vote extends Zend_Db_Table
