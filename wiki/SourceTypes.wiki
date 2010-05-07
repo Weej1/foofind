@@ -10,6 +10,8 @@
   * 6->MD5 Hash
   * 7->BTH Hash
   * 8->http crawler
+  * 9->ftp crawler
+  * 10->http mu crawler
 
 = Content Type =
   * 1->audio
@@ -30,3 +32,4 @@
   * 3->dump musica copyleft
   * 4->crawler http
   * 5->P2P ED2K
+  * 6->crawler mu
