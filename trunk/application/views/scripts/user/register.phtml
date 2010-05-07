@@ -4,6 +4,7 @@
 
 
     <?php
+
     if (isset ( $this->error )) :
         ?>
     <div class="error">
@@ -13,7 +14,6 @@
     <?php endif;?>
 
     <fieldset>
-
         <span><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
             <a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</span>
 
@@ -22,9 +22,7 @@
               method="<?=$this->escape ( $this->form->getMethod () )?>">
 
             <legend><?=$this->translate ( 'Please, fill this form to be a Foofind registered member' );?></legend>
-
             <?=$this->form;?>
-
         </form>
     </fieldset>
 

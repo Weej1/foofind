@@ -95,10 +95,9 @@ class UserController extends Zend_Controller_Action
 
                     // success: insert the new user on ddbb
                     //update the ddbb with new password
-                    $password = $this->_generatePassword ();
-                    $data ['password'] = sha1 ( $password );
+                   
                     $data ['email'] = $formulario ['email'];
-                    $data ['password'] = sha1( $formulario ['password1'] );
+                    $data ['password'] =  $formulario ['password1'] ;
                     $data ['username'] = $formulario ['username'];
 
                     $model->saveUser ( $data );
@@ -172,13 +171,12 @@ class UserController extends Zend_Controller_Action
 
 
                     $data['IdUser'] = $id;
-                    //$data['email'] = $form->getValue('email');
                     $data['username'] = $form->getValue('username');
                     $data['location'] = $form->getValue('location');
 
                     if ($form->getValue('password') )
                     {
-                        $data['password'] = sha1 ( $form->getValue('password') );
+                        $data['password'] = hash('sha256', trim( $form->getValue('password') ), TRUE);
                     }
 
                     $model = $this->_getModel ();
@@ -186,7 +184,7 @@ class UserController extends Zend_Controller_Action
 
                     //update the auth data stored
                     $auth = Zend_Auth::getInstance ();
-                    $auth->getStorage()->write( (object)$data);
+                    $auth->getStorage()->write( (object)$data );
 
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your profile was edited succesfully!' ) );
                     $this->_redirect ( '/' );
@@ -331,6 +329,7 @@ class UserController extends Zend_Controller_Action
 
     public function forgotAction()
     {
+        $this->view->headTitle()->append($this->view->translate('Forgot your password?'));
         $request = $this->getRequest ();
         $form = $this->_getUserForgotForm ();
 
@@ -360,7 +359,7 @@ class UserController extends Zend_Controller_Action
 
                     //update the ddbb with new password
                     $password = $this->_generatePassword ();
-                    $data ['password'] = sha1 ( $password );
+                    $data ['password'] = $password;
                     $data ['IdUser'] = $mailcheck ['IdUser'];
 
                     //Zend_Debug::dump($data);
