@@ -1,9 +1,9 @@
 <?php
 
 if ( !file_exists('/tmp') ){
-     define('TMP_PATH',  'c:/tmp');
+    defined('TMP_PATH') ||  define('TMP_PATH',  'c:/tmp');
 } else {
-    define('TMP_PATH',  '/tmp');
+    defined('TMP_PATH') || define('TMP_PATH',  '/tmp');
 }
 
 
