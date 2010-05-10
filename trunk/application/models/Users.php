@@ -6,7 +6,7 @@ class Model_Users extends Zend_Db_Table_Abstract
     {
         $table = new ff_comment();
         $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)
-                ->joinLeft("ff_comment_vote", "ff_comment.idcomment=ff_comment_vote.idcomment", "sum(voteType=1) pos, sum(voteType=2) neg, max(if(ff_comment.iduser=$idUser,votetype,0)) myvote")
+                ->joinLeft("ff_comment_vote", "ff_comment.idcomment=ff_comment_vote.idcomment", array("sum(voteType=1) pos", "sum(voteType=2) neg", "max(if(ff_comment.iduser=$idUser,votetype,0)) myvote"))
                 ->join("ff_users", "ff_users.IdUser=ff_comment.IdUser", array("username", "location"))
                 ->where("IdFile=?",$idFile)->where("ff_comment.lang=?", $lang)->order("date desc")
                 ->group("IdComment");

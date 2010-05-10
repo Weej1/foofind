@@ -17,6 +17,8 @@ class DownloadController extends Zend_Controller_Action
         $this->view->headScript()->appendFile("/js/jquery.bgiframe.js");
         $this->view->headScript()->appendFile("/js/jquery.dimensions.js");
         $this->view->headScript()->appendFile("/js/jquery.tooltip.js");
+        $this->view->headScript()->appendFile("/js/jquery.superbox-min.js");
+        
         
         // get auth info
         $auth = Zend_Auth::getInstance ();
