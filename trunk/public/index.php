@@ -1,5 +1,12 @@
 <?php
 
+if ( !file_exists('/tmp') ){
+     define('TMP_PATH',  'c:/tmp');
+} else {
+    define('TMP_PATH',  '/tmp');
+}
+
+
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));

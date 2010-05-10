@@ -13,6 +13,18 @@ class Model_Users extends Zend_Db_Table_Abstract
         return $table->fetchAll($select);
     }
 
+
+    public function getUserComments($idUser, $limit)
+    {
+        $table = new ff_comment();
+        $select = $table->select()->from("ff_comment")
+                ->where("IdUser=?", $idUser)
+                ->order("date desc")
+                ->limit( $limit );
+                
+        return $table->fetchAll($select);
+    }
+
     public function getUserVote($idUser, $idFile)
     {
         $table = new ff_vote();
