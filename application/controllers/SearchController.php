@@ -310,6 +310,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     break;
                                 case 4: // JAMENDO
                                 case 8: // WEB
+                                case 10: // MU
+                                case 11: // RS
                                     $tip = "Web";
                                     $source = "web";
                                     $link = $row['Uri'];

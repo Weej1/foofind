@@ -135,7 +135,7 @@ class DownloadController extends Zend_Controller_Action
             }
         }
         $this->createComment($id, $idfn);
-        $this->view->comments = $this->umodel->getComments( $this->identity->IdUser, $id, $this->view->lang );
+        $this->view->comments = $this->umodel->getComments( ($this->view->isAuth?$this->identity->IdUser:0), $id, $this->view->lang );
 
         require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
         $helper = new Comments_View_Helper();
