@@ -14,14 +14,14 @@
     <?php endif;?>
 
     <fieldset>
-        <span><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
-            <a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</span>
+        <p><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
+            <a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</p>
 
 
         <form action="<?=$this->escape ( $this->form->getAction () )?>"
               method="<?=$this->escape ( $this->form->getMethod () )?>">
 
-            <legend><?=$this->translate ( 'Please, fill this form to be a Foofind registered member' );?></legend>
+            <p><?=$this->translate ( 'Please, fill this form to be a Foofind registered member:' );?></p>
             <?=$this->form;?>
         </form>
     </fieldset>

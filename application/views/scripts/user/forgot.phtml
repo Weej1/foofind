@@ -2,8 +2,10 @@
 
 <h2><?=$this->translate('Forgot your password?')?></h2>
 
+<p>
 <?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
 <a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)
+</p>
 
 <?php
 if (isset ( $this->error )) :
@@ -18,7 +20,7 @@ if (isset ( $this->error )) :
 <form action="<?=$this->escape ( $this->form->getAction () )?>"
 	method="<?=$this->escape ( $this->form->getMethod () )?>">
 
-<legend><?=$this->translate ( 'Please, enter your email address. A new password will be emailed to you' );?></legend>
+<p><?=$this->translate ( 'Please, enter your email address. An email to recover your access will be sent to you.' );?></p>
 
 <?=$this->form;?>
 </form>
