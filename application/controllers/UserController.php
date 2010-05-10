@@ -286,13 +286,15 @@ class UserController extends Zend_Controller_Action
         }
 
         $model = $this->_getModel ();
-        $modelarray = $model->fetchUser($user_id);
+        $this->view->user= $model->fetchUser($user_id);
 
         //lets overwrite the password and token values to assure not passed to the view ever!
-        unset ($modelarray['password']);
-        unset ($modelarray['token']);
+        unset ($this->view->user['password']);
+        unset ($this->view->user['token']);
 
-        $this->view->user = $modelarray;
+         //lets fetch last 5 user comments
+
+        $this->view->comments = $model->getUserComments( $user_id, 5 )->toArray() ;
 
         $this->view->headTitle()->append( $this->view->translate ( 'User profile - ' ).$this->view->user['username'] );
 

@@ -33,6 +33,8 @@
 "edit profile";"editar perfil"
 "User name:";"Nick:"
 "Member since:";"Miembro desde:"
+"l dS \o\f F Y H:i:s";"j-m-Y, \a\ \l\a\s g:i a"
+"Last 5 comments:";"Últimos 5 comentarios:"
 "Delete your foofind.com account";"Eliminar tu cuenta de foofind.com"
 "Forgot your password?";"¿Olvidaste tu contraseña?"
 "Send";"Enviar"
@@ -135,6 +137,7 @@
 "from";"desde"
 "I like it!";"¡Me gusta!"
 "Booo!";"¡Buuu!"
+"Comment published succesfully!";"Comentario publicado con éxito."
 
 
 #contact

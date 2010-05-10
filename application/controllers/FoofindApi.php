@@ -50,7 +50,7 @@ class FoofindApi
 
             //setting the paginator cache
             $fO = array('lifetime' => 3600, 'automatic_serialization' => true);
-            $bO = array('cache_dir'=>'/tmp');
+            $bO = array('cache_dir'=>TMP_PATH);
             $cache = Zend_Cache::factory('Core', 'File', $fO, $bO);
 
             $paginator->setCache($cache);
