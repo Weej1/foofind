@@ -511,12 +511,13 @@ h2{
     font-size: 1.6em;
 }
 
-.file_download_vote {
+.file_download_vote, .file_comment_vote  {
     float:right;
     text-align:center;
+    font-size: 10px;
 }
 
-.file_download_vote a {
+.file_download_vote a, .file_comment_vote a {
     display:inline-block;
     text-decoration: none;
     color:black;
@@ -527,6 +528,26 @@ h2{
     background: url(/images/hand_upd.gif) center center;
     width: 48px;
     height: 48px;
+}
+
+.small .vote_up div {
+    background: url(/images/hand_upsl.gif) center center;
+    width: 24px;
+    height: 24px;
+}
+
+.small .vote_down div {
+    background: url(/images/hand_downsl.gif) center center;
+    width: 24px;
+    height: 24px;
+}
+
+.small.upactive .vote_up div, .small .vote_up:hover div {
+    background: url(/images/hand_ups.gif) center center !important;
+}
+
+.small.downactive .vote_down div, .small .vote_down:hover div {
+    background: url(/images/hand_downs.gif) center center !important;
 }
 
 .vote_down div{
@@ -707,11 +728,6 @@ h2{
     text-align:right;
 }
 
-.file_comment_vote {
-    float:right;
-    text-align: center;
-    font-size: 10px;
-}
 
 .file_comment_number a {
     float:left;

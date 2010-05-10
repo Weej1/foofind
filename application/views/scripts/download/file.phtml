@@ -486,8 +486,8 @@ if (count ( $this->mensajes ) > 0) {
             foreach ($this->paginator as $key => $val):
                 $i--; ?>
         <div class="comment">
-            <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
-            <div class="file_comment_vote"><a href="#"><img src="/images/hand_up.gif" width="24" height="24" /></a>&nbsp;<a href="#"><img src="/images/hand_down.gif" width="24" height="24" /></a><br/>0</div>
+           <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
+           <div class="file_comment_vote small <? switch($val['myvote']) {case 1: echo 'upactive'; break; case 2: echo 'downactive'; break;}?>" idcomment="<?=$val['IdComment']?>"><a href="#" type="1" class="vote_up"><div></div><span><?=$val['pos']?></span></a>&nbsp;<a href="#" type="2" class="vote_down"><div></div><span><?=-$val['neg']?></span></a></div>
            <div id="c<?=$i?>"><?= $this->format_comment($val['text']); ?></div>
            <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a> - <?=$this->show_date_span($val['date'])?></div>
         </div>
@@ -507,6 +507,34 @@ if (count ( $this->mensajes ) > 0) {
                 showURL: false,
                 bodyHandler: function() { return tooltips[$(this).attr("tooltip")]; },
                 fade: 250
+            });
+
+            $('.file_comment_vote a').click(function(event)
+            {
+                event.preventDefault();
+                $.ajax({dataType:"json",
+                        url: "/<?=$this->lang?>/vote/comment/"+$(this).parent().attr('idcomment')+"/"+$(this).attr('type'),
+                        context: $(this),
+                        success: function(data){
+                            parent = this.context.parent();
+                            if (this.context.attr('type')=='1') {
+                                parent.addClass("upactive");
+                                parent.removeClass("downactive");
+                            }
+                            else
+                            {
+                                parent.addClass("downactive");
+                                parent.removeClass("upactive");
+                            }
+
+
+                            votes = [0,0];
+                            for (vote in data) votes[data[vote].VoteType-1] = data[vote].c;
+
+                            counter = $(".vote_up span", parent).text(votes[0]);
+                            counter = $(".vote_down span", parent).text(-votes[1]);
+                        }
+                });
             });
 
             $('.file_download_vote a').click(function(event)

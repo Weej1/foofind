@@ -48,9 +48,28 @@ class VoteController extends Zend_Controller_Action
     {
         $request = $this->getRequest ();
 
-        $data = $this->getData($request);
-        $data['IdComment'] = (int)$request->getParam('id');
-        $this->umodel->saveCommentVote($data);
+        try {
+            $id = (int)$request->getParam('id');
+            $data = $this->getData($request);
+            $data['IdComment'] = (int)$request->getParam('id');
+
+            switch ((int)$data['VoteType'])
+            {
+                case 1:
+                    $this->umodel->deleteCommentVote($id, $this->identity->IdUser, 2);
+                    break;
+                case 2:
+                    $this->umodel->deleteCommentVote($id, $this->identity->IdUser, 1);
+                    break;
+            }
+
+            $this->umodel->saveCommentVote($data);
+        } catch (Exception $e)
+        {
+        }
+
+        $votes = $this->umodel->getCommentVotes($id);
+        echo Zend_Json::encode($votes->toArray());
     }
 
     private function getData($request)
