@@ -4,25 +4,20 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
     
     function init()
     {
-
         $this->lang = $this->getRequest()->getParam("language");
-        if ($this->lang != null)
+        if ($this->lang == null)
         {
-            if (Zend_Registry::isRegistered( "Zend_Locale")) $locale = Zend_Registry::get ( "Zend_Locale" );
-        } else {
             $auth = Zend_Auth::getInstance();
             if ($auth->hasIdentity()) $this->lang = $auth->getIdentity()->lang;
-            if ($this->lang == null) $this->lang = $_COOKIE['lang'];
         }
+        if ($this->lang == null)
+            $this->lang = $_COOKIE['lang'];
 
-        if ( $locale == null) {
-            $locale = new Zend_Locale ($this->lang);
-            if (!in_array($locale->getLanguage(), array('en', 'es'))) {
-                $locale->setLocale ('en');
-            }
-            $this->lang = $locale->getLanguage ();
-            Zend_Registry::set ( 'Zend_Locale', $locale );
+        $locale = new Zend_Locale ($this->lang);
+        if (!in_array($locale->getLanguage(), array('en', 'es'))) {
+            $locale->setLocale ('en');
         }
+        $this->lang = $locale->getLanguage ();
 
         $options = array ('scan' => Zend_Translate::LOCALE_FILENAME );
         $translate = new Zend_Translate ( 'csv', FOOFIND_PATH . '/application/lang/', 'auto', $options );
@@ -32,12 +27,12 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
             Zend_Form::setDefaultTranslator ( $translate );
             Zend_Registry::set ( 'Zend_Translate', $translate );
         } else {
-            //header('Location: /en');
+            header('Location: /en');
             exit;
         }
     }
 
-    function check(){
+    function check(){;
         return $this->lang;
     }
     

@@ -20,7 +20,10 @@ class IndexController extends Zend_Controller_Action
         if ($auth->hasIdentity())
         {
             $umodel = new Model_Users();
-            $umodel->updateUser(array('IdUser'=>$auth->getIdentity()->IdUser,'lang'=>$lang));
+            $data = (array)$auth->getIdentity();
+            $data['lang'] = $lang;
+            $umodel->updateUser($data);
+            $auth->getStorage()->write((object)$data);
         }
 
         setcookie ( "lang", $lang, null, '/' );
@@ -28,7 +31,7 @@ class IndexController extends Zend_Controller_Action
         if ($this->hasValidReferer())
         {
             $new_url = explode("/", $this->referer);
-            if (count($new_url)>2) $new_url[3] = $lang;
+            if (count($new_url)>3 && strlen($new_url[3])>0) $new_url[3] = $lang;
             $this->_redirect(join("/",$new_url));
         }
         else
