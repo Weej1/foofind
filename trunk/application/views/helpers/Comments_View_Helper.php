@@ -2,7 +2,6 @@
 
 class Comments_View_Helper extends Zend_View_Helper_Abstract
 {
-    
     function format_comment($text)
     {
         $text = htmlentities($text, ENT_QUOTES, "UTF-8");
