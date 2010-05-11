@@ -2,16 +2,12 @@
 
 class AuthController extends Zend_Controller_Action {
 	public function init() {
+            $locale = Zend_Registry::get ( "Zend_Locale" );
+            $this->lang = $locale->getLanguage ();
+            $this->view->lang = $locale->getLanguage ();
 
-                $this->_helper->layout()->setLayout('with_search_form');
-                $this->view->headTitle()->append(' - ');
-                
-		$locale = Zend_Registry::get ( "Zend_Locale" );
-		$this->lang = $locale->getLanguage ();
-                $this->view->lang = $locale->getLanguage ();
-
-                $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
-		$this->view->mensajes = $this->_flashMessenger->getMessages ();
+            $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
+            $this->view->mensajes = $this->_flashMessenger->getMessages ();
 	}
 
 	
@@ -25,13 +21,26 @@ class AuthController extends Zend_Controller_Action {
 	 */
 	public function loginAction() {
 		$request = $this->getRequest ();
-		$form = $this->_getUserLoginForm ();
+		$form = $this->_getUserLoginForm();
+                $this->view->source = $request->getParam('source');
+                switch ($this->view->source ) {
+                    case '.vote':
+                        $aNamespace = new Zend_Session_Namespace('Foofind');
+                        $ref = $_SERVER['HTTP_REFERER'];
+                        $aNamespace->redir = $ref;
+                        $this->view->message = "Please, login to vote";
+                        $form->setAction("/{$this->view->lang}/auth/login");
+                        $this->_helper->layout()->disableLayout();
+                        break;
+                    default:
+                        $this->_helper->layout()->setLayout('with_search_form');
+                        $this->view->headTitle()->append(' - ');
+                        break;
+                }
 
 		$this->view->headTitle()->append( $this->view->translate ( 'Login' ) );
 
 		if ($this->getRequest ()->isPost ()) {
-
-			
 			if ($form->isValid ( $request->getPost () )) {
 
 				// collect the data from the user

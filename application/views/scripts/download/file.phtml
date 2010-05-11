@@ -432,7 +432,7 @@ if (count ( $this->mensajes ) > 0) {
 
     <div class="wrap_download">
     <div class="file_download">
-        <div class="file_download_vote <?=$this->myvote?>"><a href="#mustLoginBox" rel="superbox[content]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->votes['pos']?>)</span></a>&nbsp;<a href="#mustLoginBox" rel="superbox[content]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->votes['neg']?>)</span></a></div>
+        <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/.vote]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->votes['pos']?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/.vote]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->votes['neg']?>)</span></a></div>
         <h2><?=$this->filename['Filename'];?></h2>
         
         <div class="top_download">
@@ -489,7 +489,7 @@ if (count ( $this->mensajes ) > 0) {
                 $i--; ?>
         <div class="comment">
            <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
-           <div class="file_comment_vote small <? switch($val['myvote']) {case 1: echo 'upactive'; break; case 2: echo 'downactive'; break;}?>" idcomment="<?=$val['IdComment']?>"><a href="#mustLoginBox" rel="superbox[content]" type="1" class="vote_up"><div></div><span><?=0+$val['pos']?></span></a>&nbsp;<a href="#mustLoginBox" type="2" rel="superbox[content]" class="vote_down"><div></div><span><?=0-$val['neg']?></span></a></div>
+           <div class="file_comment_vote small <? switch($val['myvote']) {case 1: echo 'upactive'; break; case 2: echo 'downactive'; break;}?>" idcomment="<?=$val['IdComment']?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/.vote]" type="1" class="vote_up"><div></div><span><?=0+$val['pos']?></span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/.vote]" type="2" class="vote_down"><div></div><span><?=0-$val['neg']?></span></a></div>
            <div id="c<?=$i?>"><?= $this->format_comment($val['text']); ?></div>
            <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a> - <? echo $this->show_date_span($val['date']); if ($val['location']!=null) echo  " ". $this->translate("from") ." ". $val['location']; ?></div>
         </div>
@@ -571,22 +571,22 @@ if (count ( $this->mensajes ) > 0) {
 <? else: ?>
             $(document).ready(function(){$.superbox();} );
             $.superbox.settings = {
+                boxWidth: 400,
+                boxHeight: 300,
                 overlayOpacity: .4, // Background opaqueness
-                boxWidth: "200", // Default width of the box
-                boxHeight: "100", // Default height of the box
-                loadTxt: "Loading...", // Loading text
-                closeTxt: "Close", // "Close" button text
-                prevTxt: "Previous", // "Previous" button text
-                nextTxt: "Next" // "Next" button text
-        };
+                loadTxt: "<?=$this->translate("Loading...")?>",
+                closeTxt: "<?=$this->translate("Close")?>",
+                prevTxt: "<?=$this->translate("Previous")?>",
+                nextTxt: "<?=$this->translate("Next")?>"
+            };
 <?php endif;?>
 
         </script>
         <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
 
 <?php endif;?>
-        <div id="mustLoginBox" style="display:none">You must be logged to vote. <a href="/<?=$this->lang?>/auth/login">Login</a> or <a href="/<?=$this->lang?>/user/register">register</a>.</div>
-<div class="comment_form"><?=$this->createcomment?></div>
+    <div id="mustLoginBox" style="display:none">You must be logged to vote. <a href="/<?=$this->lang?>/auth/login">Login</a> or <a href="/<?=$this->lang?>/user/register">register</a>.</div>
+    <div class="comment_form"><?=$this->createcomment?></div>
 
     </div>
     </div>

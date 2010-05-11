@@ -1,10 +1,12 @@
 <div id="container_user">
-
-<h2><?=$this->translate('User login')?></h2>
-
+<? if (strlen($this->message)>0): ?>
+    <h2><?=$this->translate($this->message)?></h2>
+<? else: ?>
+    <h2><?=$this->translate('User login')?></h2>
+<? endif; ?>
 <p>
 <?=$this->translate ( '(If you are a new user, please' );?>
-&nbsp;<a href="/<?=$this->view->lang;?>es/user/register" title="user register"><?=$this->translate ( 'register here' );?></a>)
+&nbsp;<a href="/<?=$this->lang?>/user/register" title="user register"><?=$this->translate ( 'register here' );?></a>)
 </p>
 
 <?php
@@ -24,8 +26,6 @@ if (isset ( $this->error )) :
 <br />
 <a href="/<?=$this->lang ?>/user/forgot">
 <?=$this->translate ( 'Forgot' );?></a> <?=$this->translate ( 'your password?' );?>
-
-
 
 </form>
 </div><!-- end of container_page --->

@@ -935,8 +935,8 @@ background: #FBEFFB;
 /* Default Theme */
 #superbox-overlay{background:#000;}
 #superbox-container .loading{text-align:center;font-size:40px;color:#fff;}
-#superbox{padding:10px;background:#fff;}
-#superbox-innerbox{padding:10px 0;}
+#superbox{padding:5px;background:#fff;}
+#superbox-innerbox{padding:5px 0;}
 #superbox.image{text-align:center;}
 #superbox .close,
-#superbox .nextprev{overflow:hidden;margin:0;}
+#superbox .nextprev{overflow:hidden;margin:0; float:right; cursor: pointer;}
