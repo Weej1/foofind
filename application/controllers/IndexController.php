@@ -9,6 +9,7 @@ class IndexController extends Zend_Controller_Action
     {
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
+        $this->view->lang =  $this->_helper->checklang->check();
     }
 
     public function setlangAction()
@@ -25,14 +26,18 @@ class IndexController extends Zend_Controller_Action
         setcookie ( "lang", $lang, null, '/' );
 
         if ($this->hasValidReferer())
-            $this->_redirect($this->referer);
+        {
+            $new_url = explode("/", $this->referer);
+            if (count($new_url)>2) $new_url[3] = $lang;
+            $this->_redirect(join("/",$new_url));
+        }
         else
             $this->_redirect ( '/' );
     }
 
     public function indexAction()
     {
-        $this->view->lang =  $this->_helper->checklang->check();
+
         $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"),
                                         array( 'locale' => $this->view->lang));
         

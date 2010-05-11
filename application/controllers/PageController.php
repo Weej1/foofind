@@ -18,9 +18,8 @@ class PageController extends Zend_Controller_Action
 
             $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
             $this->view->mensajes = $this->_flashMessenger->getMessages ();
+            $this->view->lang =  $this->_helper->checklang->check();
 
-            $lang = Zend_Registry::get('Zend_Locale') ;
-            $this->view->lang = $lang;
 
         }
 
