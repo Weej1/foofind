@@ -186,15 +186,15 @@ if (count ( $this->mensajes ) > 0) {
                     echo $func($this, $val['md'], !$val['in_filename']);
                 }
               ?></span>
-            <?php if ($val["sources"]): ?><span><?=$this->translate('Sources');?>:
+            <?php if ($val["sources"]): ?><cite><span><? if ($val['size']) echo $val["size"]." - ";?><?=$this->translate('Sources');?>:
                 <?php foreach ($val["sources"] as $k => $v):
                      if ($v['count']):?>
                     <?= "<a title='${v['tip']}' href='${v['link']}'><img alt='${v['tip']}' src='/images/icons/${k}d.gif' style='vertical-align:middle'></a>${v['count']} " ?>
                 <?php endif;
-                     endforeach; ?></span>
+                     endforeach; ?>
             <?php endif; ?>
-            <cite><?=$val['link']?></cite>
-            <? if ($val['size']) echo " - ".$val["size"]?>
+            
+            </span></cite>
         </li>
         <?php elseif (APPLICATION_ENV!='production'):?>
             <span class="debuginfo" style="background: red">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
