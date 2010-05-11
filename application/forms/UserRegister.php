@@ -29,7 +29,9 @@ class Form_UserRegister extends Zend_Form {
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
 		// add the submit button
 
-                $this->addElement ( 'submit', 'submit', array ('label' => 'Register' ) );
+                $this->addElement ( 'submit', 'submit',
+                        array ('label' => 'Register',
+                             'class' => 'large magenta awesome') );
 	}
 }
 

@@ -17,7 +17,9 @@ class Form_UserForgot extends Zend_Form {
 
                
 		// add the submit button
-		$this->addElement ( 'submit', 'submit', array ('label' => 'Send' ) );
+		$this->addElement ( 'submit', 'submit', 
+                        array ('label' => 'Send',
+                                   'class' => 'large magenta awesome') );
 	}
 }
 

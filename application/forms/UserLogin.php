@@ -17,7 +17,9 @@ class Form_UserLogin extends Zend_Form {
 		$this->addElement ( 'password', 'password', array ('filters' => array ('StringTrim' ), 'validators' => array (array ('StringLength', false, array (5, 20 ) ) ), 'required' => true, 'label' => 'Password:' ) );
 
 		// add the submit button
-		$this->addElement ( 'submit', 'submit', array ('label' => 'Login' ) );
+		$this->addElement ( 'submit', 'submit', array (
+                    'label' => 'Login',
+                     'class' => 'large magenta awesome' ) );
 	}
 }
 
