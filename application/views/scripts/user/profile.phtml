@@ -2,24 +2,16 @@
 
     <h2><?=$this->translate ( 'User profile' ).'  -  '.$this->user['username'];?></h2>
 
+    <?php
+    if (isset ( $this->error )) :
+        ?>
+    <div class="error">
+            <?=$this->escape ( $this->error );?>
+    </div>
 
-<?php
-if (isset ( $this->error )) :
-?>
-<div class="error">
-		<?=$this->escape ( $this->error );?>
-</div>
+    <?php endif;?>
 
-<?php endif;?>
-
-
-
-  <ul id="tabnav">
-	<li class="tab1"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->user[IdUser] ?>"><?=$this->translate('profile');?></a></li>
-	<li class="tab2"><a href="/<?=$this->lang ?>/user/edit/id/<?=$this->user[IdUser] ?>"><?=$this->translate('edit profile');?></a></li>
- </ul>
-
-
+<?=$this->editprofile ?>
 
     <div class="user_profile">
         <h3><?=$this->translate('User name:').' '.$this->user['username'];?></h3>
@@ -28,26 +20,24 @@ if (isset ( $this->error )) :
     </div>
 
 
-<br />
-<h3><?=$this->translate('Last 5 comments:').' '.$this->user['username'];?></h3>
- <? if ($this->comments): ?>
+    <br />
+    <h3><?=$this->translate('Last 5 comments:');?></h3>
+    <? if ($this->comments): ?>
 
-       <?php            
-            foreach ($this->comments as $key => $val):?>
-        <div class="comment">
-           
-       <div id="c<?=$i?>"><?=$val['text']; ?></div>
-           <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a> - <? echo $val['date']; if ($val['location']!=null) echo  " ". $this->translate("from") ." ". $val['location']; ?></div>
-        </div>
+    <? //Zend_Debug::dump($this->comments)  ?>
 
-        <?php endforeach; ?>
-        
+        <?php
+        foreach ($this->comments as $key => $val):?>
+    <br />
+    <div >
+        <div ><a href="/<?=$this->lang ?>/download/<?=$val['IdFile'] ?>"> <?=$val['text']; ?></a> </div>
+        <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a> 
+                <?=$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($val['date']))); ?></div>
+    </div>
+    
+
+    <?php endforeach; ?>
 
 <?php endif;?>
-
-
-
-
-
 </div>
 
