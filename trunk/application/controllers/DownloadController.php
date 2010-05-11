@@ -175,7 +175,6 @@ class DownloadController extends Zend_Controller_Action
 
         //anti hoygan to body
         $formulario = $form->getValues();
-
         $formulario['IdFilename'] = $idfn;
         $formulario['IdFile'] = $id;
         $formulario['IdUser'] = $this->identity->IdUser;
