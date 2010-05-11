@@ -2,7 +2,7 @@
 
 class Model_Users extends Zend_Db_Table_Abstract
 {
-    public function getComments($idUser, $idFile, $lang)
+    public function getFileComments($idUser, $idFile, $lang)
     {
         $table = new ff_comment();
         $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)
