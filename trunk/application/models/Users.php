@@ -52,6 +52,14 @@ class Model_Users extends Zend_Db_Table_Abstract
         return $table->fetchAll($select);
     }
 
+    public function getFilesVotes($where)
+    {
+        $table = new ff_vote();
+        $select = $table->select()->from("ff_vote", "IdFile, count(*) c, VoteType")->where($where)->group(array("IdFile", "VoteType"));
+        return $table->fetchAll($select);
+
+    }
+
     public function deleteVote($idFile, $idUser, $type)
     {
         $table = new ff_vote();

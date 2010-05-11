@@ -175,6 +175,8 @@ if (count ( $this->mensajes ) > 0) {
             if ($val['filename']):?>
         <li class="file_excerpt">
             <h3><a href="/<?=$this->lang?>/download/<?=$val['dlink'] ?>"><?=$val['filename'] ?></a>
+                <?php if ($val['votes'][1]) echo "<img src='/images/hand_ups.gif'/>{$val['votes'][1]} "; ?>
+                <?php if ($val['votes'][2]) echo "<img src='/images/hand_downs.gif'/>{$val['votes'][2]} "; ?>
             <?php if (APPLICATION_ENV!='production'):?>
                 <span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
             <?php endif; ?>

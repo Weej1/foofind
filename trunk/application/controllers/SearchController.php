@@ -373,6 +373,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $total_time += (microtime(true) - $start_time);
                         $this->time_desc .= " - md:".number_format(microtime(true) - $start_time, 3);
 
+                        $umodel = new Model_Users();
+                        foreach ($umodel->getFilesVotes("IdFile in ($ids)") as $row)
+                        {
+                            $id = $row['IdFile'];
+                            $docs[$id]['votes'][$row['VoteType']] = $row['c'];
+                        }
+
                         // choose better type for each file and get description for file
                         $start_time = microtime(true);
                         foreach ($docs as $id => $doc)
@@ -381,7 +388,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             //replace dot by underscore remove extension to filename in the url (google bot thinks its a image or a video, this is bad)
                             //$docs[$id]['rfilename'] = str_replace('.', '_', $docs[$id]['rfilename']);
                             $docs[$id]['rfilename'] = $docs[$id]['rfilename'].'.html';
-
                             $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}"; //
 
                             if (!$doc['filename']) {
