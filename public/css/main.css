@@ -742,6 +742,7 @@ h2{
     clear: both;
     padding: 8px;
     border-bottom: 1px solid #cd0069;
+    overflow-x:hidden;
 }
 
 .comment_form {
@@ -797,6 +798,7 @@ h2{
     padding: 5px;
     opacity: 0.9;
     max-width: 500px;
+    overflow-x: hidden;
 }
 #tooltip h3, #tooltip div {
     margin: 0;
