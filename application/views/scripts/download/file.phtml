@@ -476,6 +476,7 @@ if (count ( $this->mensajes ) > 0) {
 
         <div class="comments">
 <? if (count($this->comments)>0 || $this->isAuth): ?>
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
         <img src="/images/baloon.gif"/><h4><?=$this->translate('Your comments')?></h4>
 <? endif;?>
 
@@ -572,7 +573,7 @@ if (count ( $this->mensajes ) > 0) {
             $(document).ready(function(){$.superbox();} );
             $.superbox.settings = {
                 boxWidth: 400,
-                boxHeight: 300,
+                boxHeight: 320,
                 overlayOpacity: .4, // Background opaqueness
                 loadTxt: "<?=$this->translate("Loading...")?>",
                 closeTxt: "<?=$this->translate("Close")?>",
@@ -582,10 +583,9 @@ if (count ( $this->mensajes ) > 0) {
 <?php endif;?>
 
         </script>
-        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
 
 <?php endif;?>
-    <div id="mustLoginBox" style="display:none">You must be logged to vote. <a href="/<?=$this->lang?>/auth/login">Login</a> or <a href="/<?=$this->lang?>/user/register">register</a>.</div>
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
     <div class="comment_form"><?=$this->createcomment?></div>
 
     </div>
