@@ -11,9 +11,27 @@ class IndexController extends Zend_Controller_Action
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
     }
 
+    public function setlangAction()
+    {
+        $this->referer = $_SERVER['HTTP_REFERER'];
+        $lang = $this->_getParam("language");
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity())
+        {
+            $umodel = new Model_Users();
+            $umodel->updateUser(array('IdUser'=>$auth->getIdentity()->IdUser,'lang'=>$lang));
+        }
+
+        setcookie ( "lang", $lang, null, '/' );
+
+        if ($this->hasValidReferer())
+            $this->_redirect($this->referer);
+        else
+            $this->_redirect ( '/' );
+    }
+
     public function indexAction()
     {
-
         $this->view->lang =  $this->_helper->checklang->check();
         $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"),
                                         array( 'locale' => $this->view->lang));
@@ -34,33 +52,6 @@ class IndexController extends Zend_Controller_Action
         // assign the form to the view
         $this->view->form = $form;
         
-    }
-
-
-    public function kkAction()
-    {
-        $this->_helper->viewRenderer->setNoRender();
-        $this->_helper->layout()->disableLayout();
-
-        $urlrequest = 'http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&page=';
-
-           $xml = file_get_contents( $urlrequest );
-
-          $doc = new DOMDocument();
-          $doc->load( $urlrequest );
-
-           
-           $items = $doc->getElementsByTagName( "item" );
-          
-                  foreach( $items as $item )
-                  {
-                  $dlinks = $item->getElementsByTagName( "dlink" );
-                  $dlink = $dlinks->item(0)->nodeValue;
-
-                  var_dump($item);
-
-                  echo "$dlink \n";
-                  }
     }
 
     public function queryAction()
@@ -96,5 +87,20 @@ class IndexController extends Zend_Controller_Action
         $form = new Form_Search( );
 
         return $form;
+    }
+    
+    function hasValidReferer()
+    {
+        if (!$this->referer) return false;
+
+        # invalid if is the same URL
+        $currentURI = $_SERVER['SCRIPT_URI'];
+        if (strcmp($this->referer, $currentURI) == 0) return false;
+
+        # invalid if is not in this site
+        $barpos = strpos($currentURI, "/", 8);
+        if (strncmp($this->referer, $currentURI, $barpos ) != 0) return false;
+
+        return true;
     }
 }

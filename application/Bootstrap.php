@@ -75,18 +75,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initPlugins()
     {
-
         Zend_Controller_Action_HelperBroker::addPath( APPLICATION_PATH .'/controllers/helpers');
 
         $front = Zend_Controller_Front::getInstance();
-        $front->registerPlugin ( new Foofind_Controller_Plugin_Language() );        
-
+        //$front->registerPlugin ( new Foofind_Controller_Plugin_Language() );
+        
         //init the routes
         $router = $front->getRouter ();
 
-        
         //set the language route url (the default also)
         $routeLang = new Zend_Controller_Router_Route ( ':language/:controller/:action/*', array ('language' => $_COOKIE['lang'], 'controller' => 'index', 'action' => 'index', 'module' =>'default' ) );
+
         //set the download file page route
         $routeDownload = new Zend_Controller_Router_Route( ':language/download/:id/*', array( 'language' => $_COOKIE['lang'], 'controller' => 'download', 'action' => 'file') );
         
@@ -96,7 +95,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //set the api route
         $routeApi = new Zend_Controller_Router_Route('/api/:action/*', array(  'controller' => 'api', 'action' => 'index') );
 
-
         $router->addRoute ( 'default', $routeLang );//important, put the default route first!
         $router->addRoute ( 'download/id', $routeDownload );
         $router->addRoute ( 'vote', $routeVote );
@@ -104,9 +102,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         //set all routes
 	$front->setRouter ( $router );
-        
-        
-         return $front;
+
+        return $front;
     }
 
 

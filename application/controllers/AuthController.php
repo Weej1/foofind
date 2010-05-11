@@ -35,9 +35,9 @@ class AuthController extends Zend_Controller_Action {
             }
 
             switch ($this->view->source ) {
-                case '.vote':
-                case '.comment':
-                    $this->view->message = "Please, login to ".substr($this->view->source,1);
+                case 'vote.foo':
+                case 'comment.foo':
+                    $this->view->message = "Please, login to ".substr($this->view->source,0,strpos($this->view->source, "."));
                     $form->setAction("/{$this->view->lang}/auth/login");
                     $this->_helper->layout()->disableLayout();
                     break;
@@ -140,7 +140,7 @@ class AuthController extends Zend_Controller_Action {
                 
 	}
 
-        public function hasValidReferer()
+        function hasValidReferer()
         {
             if (!$this->referer) return false;
 

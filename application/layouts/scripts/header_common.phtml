@@ -60,21 +60,7 @@
                 </span>&nbsp;&nbsp;
 
                 <span class="select_language_box">
-
-                    <?
-                    $url = $_SERVER['REQUEST_URI'] ;
-                    if ($url=='/') $url .= $this->lang.'/';
-                    if ($this->lang == 'es')
-                    {
-                        $url = str_replace('/es/', '/en/', $url);
-                        echo "<a href= '{$url}'>English</a>";
-                    }
-                    elseif ($this->lang == 'en')
-                    {
-                        $url = str_replace('/en/', '/es/', $url);
-                        echo "<a href= '{$url}'>Español</a>";
-}
-?>
+                    <?= ($this->lang == 'es')?"<a href='/en/index/setlang'>English</a>":"<a href= '/es/index/setlang'>Español</a>";?>
                 </span>
 
 
