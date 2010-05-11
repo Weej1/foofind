@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"> 
     <ShortName>Foofind</ShortName>
-    <Description>Buscar usando Foofind</Description>
+    <Description>Search files using Foofind</Description>
     <InputEncoding>UTF-8</InputEncoding>
     <Image height="16" width="16">http://foofind.com/images/favicon.ico</Image>
     <Url type="text/html" method="GET" template="http://foofind.com/en/search/">
