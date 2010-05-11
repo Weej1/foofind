@@ -250,7 +250,7 @@ class UserController extends Zend_Controller_Action
                 {
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Nice to hear that' ) );
                     $this->_redirect ( '/' );
-
+                     return ;
                 }
 
             } else
@@ -304,7 +304,7 @@ class UserController extends Zend_Controller_Action
         { //if is the user profile owner lets delete it
 
             $this->view->editprofile = '<ul id="tabnav">
-        <li class="tab2"><a href="/'.$this->lang .'/user/edit/id/'.$auth->getIdentity()->IdUser. ' ">'.$this->view->translate('edit profile').'</a></li></ul>';
+        <li class="tab2"><a href="/'.$this->view->lang .'/user/edit/id/'.$auth->getIdentity()->IdUser. ' ">'.$this->view->translate('edit profile').'</a></li></ul>';
 
         }
 
