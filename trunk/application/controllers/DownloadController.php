@@ -154,7 +154,7 @@ class DownloadController extends Zend_Controller_Action
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
         
         $paginator = Zend_Paginator::factory($this->view->comments);
-        $paginator->setItemCountPerPage(10);
+        $paginator->setItemCountPerPage(3);
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         $paginator->setView($this->view);
@@ -213,7 +213,7 @@ class DownloadController extends Zend_Controller_Action
             $this->view->createcomment = $form;
             return $form;
         } else {
-            $this->view->createcomment ='<a href="/' . $this->view->lang . '/auth/login">' . $this->view->translate ( 'login to post a comment' ) . '</a> ';
+            $this->view->createcomment ="<a style='float:left' href='/{$this->view->lang}/auth/login' rel='superbox[ajax][/{$this->view->lang}/auth/login/source/.comment]'>".$this->view->translate('Add a comment')."</a>";
         }
     }
 

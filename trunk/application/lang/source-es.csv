@@ -54,6 +54,7 @@
 "The email address must be the same you used to register.";"La dirección de email debe ser la misma que utilizaste para registrarte."
 "This email is not in our database. Please, try again.";"La dirección de correo introducida no está en nuestra base de datos. Por favor, inténtalo de nuevo."
 "Please, login to vote";"Por favor, accede para votar"
+"Please, login to comment";"Por favor, accede para añadir un comentario"
 
 #main layout
 
@@ -148,6 +149,7 @@
 "second";"segundo"
 "seconds";"segundos"
 "Post comment";"Enviar comentario"
+"Add a comment";"Añadir un comentario"
 "from";"desde"
 "I like it!";"¡Me gusta!"
 "Booo!";"¡Buuu!"

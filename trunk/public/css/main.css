@@ -3,6 +3,15 @@
     margin: 0px; 
 }
 
+a {
+    color: #cd0069;
+}
+
+#header-navigation a, #footer_main a {
+    color: #00e !important;
+}
+
+
 html, body {
     height: 100%;
 }
@@ -64,6 +73,7 @@ p {
     min-height: 300px;
 
 }
+
 
 #no_results a{
     color:#DF1279;
@@ -442,7 +452,7 @@ h2{
 /*paginator  ***********/
 .pagination {
     clear: both;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     margin-top: 30px;
     text-align: center;
     font-size: 1.1em;
@@ -458,14 +468,31 @@ h2{
     margin-right:2px;
     text-align: center;
     padding: 4px;
-    
-  
 }
 
 .pagination a{
     text-decoration: none;
-    color: #df1279;
+}
 
+.comments .cpagination {
+    border:0;
+    float: right;
+    margin-right:5px;
+    margin-top:-3px;
+}
+
+.comments .cpagination span {
+    padding: 4px;
+}
+
+.comments .cpagination a {
+    text-decoration: none;
+    color: black;
+}
+
+.comments .cpagination #current {
+    font-weight: bold;
+    color: #cd0096;
 }
 
 #prev {
@@ -479,13 +506,12 @@ h2{
     text-align: center;
 }
 
-#current{
+.pagination #current{
    background-color:  #df1279;
    display: inline-block;
    color: #fff;
    text-align: center;
 }
-
 
 #next {
    
@@ -719,8 +745,7 @@ h2{
 }
 
 .comment_form {
-    margin-top: 20px;
-    
+    margin-top: 15px;
 }
 
 
@@ -935,8 +960,8 @@ background: #FBEFFB;
 /* Default Theme */
 #superbox-overlay{background:#000;}
 #superbox-container .loading{text-align:center;font-size:40px;color:#fff;}
-#superbox{padding:5px;background:#fff;}
-#superbox-innerbox{padding:5px 0;}
+#superbox{padding:1px;background:#cd0069;}
+#superbox-innerbox{padding:10px 0;background:#fff;}
 #superbox.image{text-align:center;}
 #superbox .close,
-#superbox .nextprev{overflow:hidden;margin:0; float:right; cursor: pointer;}
+#superbox .nextprev{overflow:hidden;margin:10px;float:right; cursor: pointer;}
