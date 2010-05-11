@@ -8,8 +8,6 @@ class FoofindApi
 {
 
     public function getSearch($q, $lang, $src, $type, $size, $year, $brate, $results)
-    
-
     {
 
         global $content;

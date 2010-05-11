@@ -11,10 +11,7 @@ class UserController extends Zend_Controller_Action
 
         $this->_helper->layout()->setLayout('with_search_form');
         $this->view->headTitle()->append(' - ');
-
-        $lang = Zend_Registry::get('Zend_Locale');
-        $this->view->lang = $lang->getLanguage();
-        $this->lang = $lang->getLanguage();
+        $this->view->lang =  $this->_helper->checklang->check();
 
         $aNamespace = new Zend_Session_Namespace('Foofind');
         $this->location = $aNamespace->location;
