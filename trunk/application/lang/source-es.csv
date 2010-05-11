@@ -56,8 +56,9 @@
 "Please, login to vote";"Por favor, accede para votar"
 "Please, login to comment";"Por favor, accede para añadir un comentario"
 
-#main layout
 
+
+#main layout
 "About Foofind";"Acerca de Foofind"
 "About";"Acerca de"
 "Contact";"Contacto"
@@ -167,6 +168,8 @@
 "'%value%' is less than 20 characters long";"'%value%' tiene menos de 20 caracteres"
 "'%value%' is less than 9 characters long";"'%value%' tiene menos de 9 caracteres"
 "'%value%' is less than 5 characters long";"'%value%' tiene menos de 5 caracteres"
+"'%value%' is less than %min% characters long";"Este campo debe contener %min% ó mas caracteres"
+
 
 "'%value%' is no valid email address in the basic format local-part@hostname";"'%value%' no es una dirección de correo válida con el formato: usuario@ejemplo.com"
 "'%hostname%' is no valid hostname for email address '%value%'";"'%hostname%' no es nombre correcto de dominio para la dirección de correo '%value%'"
