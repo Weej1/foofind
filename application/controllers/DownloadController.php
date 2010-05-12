@@ -1,14 +1,17 @@
 <?php
 
-require_once ( APPLICATION_PATH . '/models/ContentType.php' );
-require_once APPLICATION_PATH . '/models/Files.php';
-require_once APPLICATION_PATH . '/models/Users.php';
 
 class DownloadController extends Zend_Controller_Action
 {
 
     public function init()
     {
+        
+        require_once APPLICATION_PATH . '/models/ContentType.php';
+        require_once APPLICATION_PATH . '/models/Files.php';
+        require_once APPLICATION_PATH . '/models/Users.php';
+
+
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();

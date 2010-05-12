@@ -104,9 +104,9 @@ class UserController extends Zend_Controller_Action
                     $hostname = 'http://' . $this->getRequest ()->getHttpHost ();
 
                     $mail = new Zend_Mail ( );
-                    $mail->setBodyHtml ( $this->view->translate ( 'Please, click on this url to finish your register process:<br />' )
+                    $mail->setBodyHtml ( $this->view->translate ( 'Please, click on this url to finish your register process:' ).'<br />'
                             . $hostname . $this->view->translate ( '/en/user/validate/t/' ) . $token .
-                            '<br /><br />' . utf8_decode ( $this->view->translate ( '-- The foofind bot.' ) ) );
+                            '<br /><br />-----------------<br />' . utf8_decode ( $this->view->translate ( 'The foofind team.' ) ) );
                     $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
 
                     $mail->addTo($formulario['email']);
@@ -371,11 +371,11 @@ class UserController extends Zend_Controller_Action
                     $hostname = 'http://' . $this->getRequest ()->getHttpHost ();
 
                     $mail = new Zend_Mail ( );
-                    $mail->setBodyHtml ( $this->view->translate ( 'Somebody , probably you, wants to restore your foofind access. Click on this url to restore your foofind account:<br />' )
+                    $mail->setBodyHtml ( $this->view->translate ( 'Somebody , probably you, wants to restore your foofind access. Click on this url to restore your foofind account:' ).'<br />'
                             . $hostname . $this->view->translate ( '/en/user/validate/t/' ) .  $mailcheck['token'] .
                             '<br /><br />'.
                             $this->view->translate('Otherwise, ignore this message.').
-                            '<br />' . utf8_decode ( $this->view->translate ( '-- The foofind bot.' ) ) );
+                            '<br />--------------<br />' . utf8_decode ( $this->view->translate ( 'The foofind team.' ) ) );
                     $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
 
                     $mail->addTo($mailcheck ['email']);
