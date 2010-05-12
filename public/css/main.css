@@ -863,7 +863,7 @@ border-bottom: none;
 ul#tabnav a:hover   {
 background: #FFF;
 color: #000;
-border-bottom: 1px solid #fff;
+
 }
 
 .tab_actual  {
@@ -938,7 +938,7 @@ border-bottom: 1px solid #fff!important;
 * html #superbox-wrapper{position:absolute;margin-top:expression(0 - parseInt(this.offsetHeight / 2) + (document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');}
 
 /* Default Theme */
-#superbox-overlay{background:#000;}
+#superbox-overlay{background:#848484;}
 #superbox-container .loading{text-align:center;font-size:40px;color:#fff;}
 #superbox{padding:1px;background:#cd0069;}
 #superbox-innerbox{padding:10px;background:#fff;}
