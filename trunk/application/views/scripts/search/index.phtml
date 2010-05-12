@@ -100,38 +100,44 @@ function formatArchive($context, $md, $show_title)
         <a class="<?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Software'), array('page'=>1)) ?>" ><?=$this->translate('Software');?></a>
         <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
+
+
+
+
 <?php if ($this->info['total']>0): ?>
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
-        <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?><?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div><style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
+        <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
+            <?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div>
+        <style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
 <?php endif;?>
-    <hr />
+
+
+
+    <ul id="tabnav">
+        <li><a class="<?=(preg_match("/^wftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
+        <li><a class="<?=(preg_match("/^t$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'t'), array('page'=>1))?>"><?=$this->translate('Torrents');?></a></li>
+        <li><a class="<?=(preg_match("/^wf$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wf'), array('page'=>1)) ?>" ><?=$this->translate('Direct download');?></a></li>
+        <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'g'), array('page'=>1)) ?>" ><?=$this->translate('Gnutella');?></a></li>
+        <li><a class="<?=(preg_match("/^e$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'e'), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
+    </ul>
+
+   
+
+
+
+    
         <?
 if (count ( $this->mensajes ) > 0) {
 	echo '<div class="success">';
 	foreach ( $this->mensajes as $msg ) {
-		echo $msg . '<br>';
+		echo $msg . '<br />';
 	}
 	echo '</div>';
 }
 ?>
     
-    <div id="options">
-   <div class="cornerBox">
-    <div class="corner TL"></div>
-    <div class="corner TR"></div>
-    <div class="corner BL"></div>
-    <div class="corner BR"></div>
-    <div class="cornerBoxInner">
-        <p><?=$this->translate('Include results from:')?></p>
-            <ul class="sourcetype">
-                <li><a href="<?= $this->qs(array('src'=>$this->src['ed2k']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ed2k'], 'e')===false)?"on":"off" ?>"><img src='/images/icons/ed2ki.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ed2k');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['gnutella']), array('page'=>1)) ?>" class="<?=(strpos($this->src['gnutella'], 'g')===false)?"on":"off"?>"><img src='/images/icons/gnutellai.gif' style='vertical-align:middle;border:none'><?=$this->translate('Gnutella');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['torrent']), array('page'=>1)) ?>" class="<?=(strpos($this->src['torrent'], 't')===false)?" on":"off"?>"><img src='/images/icons/torrenti.gif' style='vertical-align:middle;border:none'><?=$this->translate('Torrent');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['web']), array('page'=>1)) ?>" class="<?=(strpos($this->src['web'], 'w')===false)?" on":"off"?>"><img src='/images/icons/webi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Web');?></a></li>
-                <li><a href="<?= $this->qs(array('src'=>$this->src['ftp']), array('page'=>1)) ?>" class="<?=(strpos($this->src['ftp'], 'f')===false)?" on":"off"?>"><img src='/images/icons/ftpi.gif' style='vertical-align:middle;border:none'><?=$this->translate('Ftp');?></a></li>
-            </ul>
-    </div>
-    </div>
+
+
 
     <div id="socontainer"><a id="show_options" href="#" active="<?=$this->qs['opt']?>"><?$this->translate("advanced seach")?></a></div>
     <div id="advsearch">
@@ -166,7 +172,7 @@ if (count ( $this->mensajes ) > 0) {
         </ul>
         <?php endif; ?>
     </div>
-    </div>
+    
 
 <?php if ($this->info['total']>0): ?>
     <div id="results">

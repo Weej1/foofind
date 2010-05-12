@@ -85,7 +85,7 @@ p {
     top:-22px;
     left:5px;
     float: left;
-    height: 77px;
+    /*height: 77px;*/
     width: 175px;
     z-index: 100; /*over the form*/
     background: transparent;
@@ -97,7 +97,7 @@ p {
     display: block;
     width: auto;
     padding-left: 180px; /*reserve the a logo space to fix it*/
-    top: -10px;
+    top: 0px;
 }
 
 #container_search input#q{
@@ -130,7 +130,7 @@ p {
     position: relative;
     float: left;
     left: 4px;
-    top: -5px;
+    top: -48px;
     display: block;
 }
 
@@ -294,13 +294,15 @@ dd#message-element{
 
 .search_info{
     display: block;
-    float:right;
-    position: relative;
+    right: 20px;
+    position: absolute;
     text-align: right;
-    top:6px;
-    margin-bottom:  0px;
+    top:96px;
+    margin-bottom:  -20px;
     margin-right: 5px;
 }
+
+
 
 
 hr {
@@ -340,18 +342,25 @@ h3 {
 }
 
 #options {
-    float: right;
-    width:15em;
+    /*float: right;
+    width:15em;*/
+   /* position: relative;
+    display: inline;*/
+   /* clear: left;*/
+    
 }
 
 
-#options #advsearch {
-    display: block;
+
+#advsearch {
+    display: inline-block;
     padding:3px;
     text-align:left;
+    clear: left;
+    float: right;
 }
 
-#options #advsearch ul {
+#advsearch ul {
     margin-top: 15px;
     margin-left: 30px;
     margin-bottom: 15px;
@@ -389,6 +398,7 @@ h3 {
 #results {
     padding-left:10px;
     word-wrap: break-word;
+    text-align: left;
     overflow: hidden;
 }
 
@@ -804,75 +814,31 @@ h2{
     margin: 0;
 }
 
-/*start corner box stuff*/
-.cornerBox {
-	width: auto;
-        margin-left: 10px;
-	position: relative;
-	background: #df1279;
-}
-.corner {
-	position: absolute;
-	width: 10px;
-	height: 10px;
-	background: url('../images/corners.gif') no-repeat;
-	font-size: 0%;
-}
-.cornerBoxInner {
-    padding: 20px;
-    color: #fff !important;
-}
 
-.cornerBoxInner a {
-    color: #fff !important;
-    padding-left: 18px;
-}
-
-.cornerBoxInner a.off {
-    background: url('../images/checkbox_off.gif') 0px 1px no-repeat;
-}
-
-.cornerBoxInner a.on {
-    background: url('../images/checkbox_on.gif') 0px 1px no-repeat;
-}
-
-.TL {
-	top: 0;
-	left: 0;
-	background-position: 0 0;
-}
-.TR {
-	top: 0;
-	right: 0;
-	background-position: -10px 0;
-}
-.BL {
-	bottom: 0;
-	left: 0;
-	background-position: 0 -10px;
-}
-.BR {
-	bottom: 0;
-	right: 0;
-	background-position: -10px -10px;
-}
-
-/*EO corner box stuff*/
 
 /* begin css tabs */
 
 ul#tabnav {
+clear: left;
+line-height: 22px;
 text-align: left; /* set to left, right or center */
 margin: 1em 0 1em 0; /* set margins as desired */
-font-size: 12px;
+font-size: 13px;
 font-weight: bold;
 border-bottom: 1px solid #CD0069;
 list-style-type: none;
-padding: 3px 15px 3px 15px;
+
+padding-bottom: 0px;
+padding-left: 40px;
+margin: 0;
 }
 
 ul#tabnav li {
-display: inline;
+display: inline-block;
+padding-left: 5px;
+padding-right: 5px;
+line-height: 22px!important;
+
 }
 
 li#tab_active {
@@ -881,17 +847,29 @@ li#tab_active {
 
 
 ul#tabnav li a {
-padding: 3px 10px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
-border: 1px solid #CD0069; /* set border COLOR as desired; usually matches border color specified in #tabnav */
-background-color: #fff; /* set unselected tab background color as desired */
-color: #000; /* set unselected tab link color as desired */
-margin-right: 0px; /* set additional spacing between tabs as desired */
+/*padding: 3px 10px;  set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+padding-top: 5px;
+padding-left: 12px;
+padding-right: 12px;
+padding-bottom: 3px;
+border: 1px solid #CD0069; 
+background: #FBEFFB; 
+color: #CD0069; 
+
 text-decoration: none;
 border-bottom: none;
 }
 
-ul#tabnav a:hover {
-background: #FBEFFB;
+ul#tabnav a:hover   {
+background: #FFF;
+color: #000;
+border-bottom: 1px solid #fff;
+}
+
+.tab_actual  {
+background: #FFF!important;
+color: #000!important;
+border-bottom: 1px solid #fff!important;
 }
 
 /* end css tabs */
