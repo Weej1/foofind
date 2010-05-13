@@ -51,9 +51,31 @@ class Model_Files extends Zend_Db_Table_Abstract
             $select = $select->order("(Filename='$fn') DESC, MaxSources DESC");
         }
 
-        return $table->fetchRow($select);
+        return $table->fetchRow( $select );
     }
+
+    public function getLastFilesIndexed( $limit ){
+        $table = new ff_file();
+
+        $select = $table->select()->setIntegrityCheck(false)
+             ->from(array('file' => 'ff_file'), array('file.*' ))
+             ->joinInner(array('filename' => 'ff_filename'), 'file.IdFile = filename.IdFile' , array('filename.Filename'))
+             //->joinInner(array('metadata' => 'ff_metadata'), 'file.IdFile = metadata.IdFile' , array('metadata.*'))
+             ->where('blocked=?',0 )
+             ->order( 'IdFile DESC' )
+             ->limit($limit);
+               
+
+
+         return $table->fetchAll($select);
+
+
+    }
+
 }
+
+
+
 
 class ff_file extends Zend_Db_Table
 {

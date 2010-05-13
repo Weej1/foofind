@@ -1,12 +1,13 @@
 <?php
 
-require_once APPLICATION_PATH . '/models/Files.php';
-
 class IndexController extends Zend_Controller_Action
 {
 
     public function init()
     {
+
+        require_once APPLICATION_PATH . '/models/Files.php';
+
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();
@@ -80,6 +81,32 @@ class IndexController extends Zend_Controller_Action
         
         if ($table) $this->view->value = $this->fetchQuery($table, $query);
     }
+
+
+    public function lastfilesAction()
+    {
+        $this->view->headTitle()->append(' - ');
+        $this->view->headTitle()->append($this->view->translate('Last indexed files'));
+        $this->_helper->layout()->setLayout('with_search_form');
+        
+        $this->view->lang =  $this->_helper->checklang->check();
+
+        $limit = 500;
+
+        $fmodel = new Model_Files();
+        //$this->view->lastFilesIndexed = $fmodel->getLastFilesIndexed();
+
+        $paginator = Zend_Paginator::factory( $fmodel->getLastFilesIndexed( (int) $limit ));
+        $paginator->setItemCountPerPage(25);
+        $paginator->setCurrentPageNumber($this->_getParam('page'));
+        Zend_Paginator::setDefaultScrollingStyle('Sliding');
+
+
+        $this->view->lastfiles = $paginator;
+
+
+    }
+
 
     function fetchQuery($table, $query)
     {

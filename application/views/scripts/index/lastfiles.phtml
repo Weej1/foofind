@@ -1,0 +1,25 @@
+<? //Zend_Debug::dump($this->lastfiles);?>
+<div id="container_user">
+    <h2><?=$this->translate('Last indexed files') . date( $this->translate('l dS \o\f F Y H:i:s') ) . ' (GMT+01:00) , Madrid' ?></h2>
+<div id="results">
+    <ul>
+       <?php foreach ($this->lastfiles as $key => $val):
+            if ($val['Filename']):?>
+        <li class="file_excerpt">
+            <h3><a href="/<?=$this->lang?>/download/<?=$val['IdFile'] ?>/<?=$val['Filename'].'.html' ?>"><?=$val['Filename'] ?></a>
+               
+            </h3>
+            
+      
+        </li>
+       
+        <?php
+              endif;
+            endforeach; ?>
+    </ul>
+    </div>
+
+
+    <?=$this->paginationControl($this->lastfiles,'Sliding','paginator_md.phtml'); ?>
+
+    </div>
