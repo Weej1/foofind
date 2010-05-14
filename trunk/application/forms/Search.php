@@ -21,6 +21,7 @@ class Form_Search extends Zend_Form
                 'filters' => array ('StringTrim' )
                 ) );
 
+        $this->removeElement('src');
         $this->removeDecorator('HtmlTag');
         $this->removeDecorator('DtDdWrapper');
         $this->removeDecorator('dd');

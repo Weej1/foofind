@@ -271,11 +271,10 @@ form dd{
 }
 
 input#q{
-    width: 400px;
+    width: 440px;
 }
 
-dd#src-element{
-    
+dd#src-element{   
     margin-bottom: 10px;
     display: block;
     clear: both;
@@ -291,12 +290,16 @@ dd#src-element label{
 
 input[type="radio"], input[type="checkbox"] {
     vertical-align: sub;
-    border: 0px!important;
+    margin-right: 3px;
+    
 }
 
 input[type="radio"]:focus, input[type="checkbox"]:focus {
     border-style: none!important;
     border: 0px!important;
+    border: 0px!important;
+    background-color: blue!important;
+color: green!important;
 }
 
 
