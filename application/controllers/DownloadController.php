@@ -48,7 +48,7 @@ class DownloadController extends Zend_Controller_Action
             $src = $f->filter ( $src );
             $form->getElement('q')->setValue($q);
             $form->addElement("hidden", "type", array("value"=>$type));
-            $form->addElement("hidden", "src", array("value"=>$src));
+            //$form->addElement("hidden", "src", array("value"=>$src));
         }
 
         if(!$src) if ($_COOKIE['src']) $src = $_COOKIE['src'];

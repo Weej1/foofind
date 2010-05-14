@@ -60,9 +60,10 @@ class IndexController extends Zend_Controller_Action
             'multioptions'   => array(
                             'wftge' => 'All',
                             't' => 'Torrents',
-                            'wf' => 'Direct download',
+                            'wf' => 'Direct downloads',
                             'g' => 'Gnutella',
-                            'e' => 'Ed2k'
+                            'e' => 'Ed2k',
+                            'foo' => 'Streaming'
                             ),
             'separator'     => '',
             'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge',
