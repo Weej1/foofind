@@ -492,7 +492,7 @@ class SearchController extends Zend_Controller_Action {
         $form->loadDefaultDecoratorsIsDisabled(false);
 
         $form->addElement("hidden", "type", array("value"=>$type));
-        $form->addElement("hidden", "src", array("value"=>$src));
+        //$form->addElement("hidden", "src", array("value"=>$src));
         $form->addElement("hidden", "opt", array("value"=>$opt));
         
         foreach($form->getElements() as $element) {

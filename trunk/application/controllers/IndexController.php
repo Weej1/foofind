@@ -48,15 +48,35 @@ class IndexController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
         
-        if ($_COOKIE['src']) {
-            $form->addElement('hidden', 'src', array('value'=>$_COOKIE['src']));
-        }
+//        if ($_COOKIE['src']) {
+//            $form->addElement('hidden', 'src', array('value'=>$_COOKIE['src']));
+//        }
+
+        $form->addElement('radio', 'src', array(
+           
+            'label'      => 'source:',
+            'required'   => true,
+            'order'         => 2,
+            'multioptions'   => array(
+                            'wftge' => 'All',
+                            't' => 'Torrents',
+                            'wf' => 'Direct download',
+                            'g' => 'Gnutella',
+                            'e' => 'Ed2k'
+                            ),
+            'separator'     => '',
+            'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge',
+             
+        ));
+
+
 
         $form->setAction( '/'. $this->view->lang.'/search/');
         $form->loadDefaultDecoratorsIsDisabled(false);
         foreach($form->getElements() as $element) {
             $element->removeDecorator('DtDdWrapper');
             $element->removeDecorator('Label');
+
         }
         // assign the form to the view
         $this->view->form = $form;
