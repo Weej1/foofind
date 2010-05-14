@@ -198,9 +198,9 @@ p {
 }
 
 .file_excerpt a{
-     color: #000;
-     text-decoration: underline;
-     border: 0;
+    color: #000;
+    text-decoration: underline;
+    border: 0;
 }
 
 
@@ -249,7 +249,6 @@ html textarea {
 }
 
 html input[type="text"] ,input[type="password"] {
-   /* font-weight: bold;*/
     font-size: 1.1em;
     border: 1px solid gray;
     padding: 4px;
@@ -264,13 +263,43 @@ form.searchbox dd{
 
 
 form dt{
-   margin-bottom:  5px;
+    margin-bottom:  5px;
 }
 
 form dd{
     margin-bottom: 10px;
-    /*display: block!important;*/
 }
+
+input#q{
+    width: 400px;
+}
+
+dd#src-element{
+    
+    margin-bottom: 10px;
+    display: block;
+    clear: both;
+    cursor: hand;
+    cursor: pointer;
+}
+
+dd#src-element label{
+    padding: 10px;
+    vertical-align: middle;
+
+}
+
+input[type="radio"], input[type="checkbox"] {
+    vertical-align: sub;
+    border: 0px!important;
+}
+
+input[type="radio"]:focus, input[type="checkbox"]:focus {
+    border-style: none!important;
+    border: 0px!important;
+}
+
+
 
 dd img{
     margin-bottom: 10px;
@@ -301,8 +330,6 @@ dd#message-element{
     margin-bottom:  -20px;
     margin-right: 5px;
 }
-
-
 
 
 hr {
@@ -344,10 +371,10 @@ h3 {
 #options {
     /*float: right;
     width:15em;*/
-   /* position: relative;
-    display: inline;*/
-   /* clear: left;*/
-    
+    /* position: relative;
+     display: inline;*/
+    /* clear: left;*/
+
 }
 
 
@@ -425,11 +452,11 @@ h3 {
 }
 
 #container_user p{
-    
+
     margin-bottom: 10px;
     margin-top: 10px;
     padding: 0px;
-    
+
 }
 
 
@@ -506,7 +533,7 @@ h2{
 }
 
 #prev {
-   
+
     display: inline-block;
     margin-right: 0;  
 }
@@ -517,18 +544,18 @@ h2{
 }
 
 .pagination #current{
-   background-color:  #df1279;
-   display: inline-block;
-   color: #fff;
-   text-align: center;
+    background-color:  #df1279;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
 }
 
 #next {
-   
+
     width: 85px;
     display: inline-block;
-   
-   
+
+
 }
 
 
@@ -625,7 +652,7 @@ h2{
     padding-top: 30px;
     width: 100%;
     min-height: 120px;
-    
+
 }
 
 .download_button{
@@ -634,8 +661,8 @@ h2{
     display: inline-block;
     top:-20px;
     vertical-align: middle;
-   
-    
+
+
 }
 .download_file_metadata{
     max-width: 430px;
@@ -692,7 +719,7 @@ h2{
     position: relative;
     top: 5px;
     height: 40px;
-    
+
 }
 
 .download_source a{
@@ -701,7 +728,7 @@ h2{
     position: relative;
     display: block;
     width: 110px;
-   
+
 }
 
 .download_source span{
@@ -819,25 +846,25 @@ h2{
 /* begin css tabs */
 
 ul#tabnav {
-clear: left;
-line-height: 22px;
-text-align: left; /* set to left, right or center */
-margin: 1em 0 1em 0; /* set margins as desired */
-font-size: 13px;
-font-weight: bold;
-border-bottom: 1px solid #CD0069;
-list-style-type: none;
+    clear: left;
+    line-height: 22px;
+    text-align: left; /* set to left, right or center */
+    margin: 1em 0 1em 0; /* set margins as desired */
+    font-size: 13px;
+    font-weight: bold;
+    border-bottom: 1px solid #CD0069;
+    list-style-type: none;
 
-padding-bottom: 0px;
-padding-left: 40px;
-margin: 0;
+    padding-bottom: 0px;
+    padding-left: 40px;
+    margin: 0;
 }
 
 ul#tabnav li {
-display: inline-block;
-padding-left: 5px;
-padding-right: 5px;
-line-height: 22px!important;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 22px!important;
 
 }
 
@@ -847,29 +874,29 @@ li#tab_active {
 
 
 ul#tabnav li a {
-/*padding: 3px 10px;  set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
-padding-top: 5px;
-padding-left: 12px;
-padding-right: 12px;
-padding-bottom: 3px;
-border: 1px solid #CD0069; 
-background: #FBEFFB; 
-color: #CD0069; 
+    /*padding: 3px 10px;  set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+    padding-top: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 3px;
+    border: 1px solid #CD0069;
+    background: #FBEFFB;
+    color: #CD0069;
 
-text-decoration: none;
-border-bottom: none;
+    text-decoration: none;
+    border-bottom: none;
 }
 
 ul#tabnav a:hover   {
-background: #FFF;
-color: #000;
+    background: #FFF;
+    color: #000;
 
 }
 
 .tab_actual  {
-background: #FFF!important;
-color: #000!important;
-border-bottom: 1px solid #fff!important;
+    background: #FFF!important;
+    color: #000!important;
+    border-bottom: 1px solid #fff!important;
 }
 
 /* end css tabs */
@@ -878,21 +905,21 @@ border-bottom: 1px solid #fff!important;
 /*start button stuff*/
 
 .awesome, .awesome:visited {
-	background: transparent url(/images/alert-overlay.png) repeat-x;
-	display: inline-block;
-	padding: 5px 10px 6px;
-	color: #fff;
-	text-decoration: none;
-        font-weight: bold;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
-	border-bottom: 1px solid rgba(0,0,0,0.25);
-	position: relative;
-	cursor: pointer;
-        border: 0px;
+    background: transparent url(/images/alert-overlay.png) repeat-x;
+    display: inline-block;
+    padding: 5px 10px 6px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    position: relative;
+    cursor: pointer;
+    border: 0px;
 }
 
 

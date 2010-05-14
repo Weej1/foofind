@@ -6,29 +6,31 @@
 require_once ( APPLICATION_PATH . '/models/ContentType.php' );
 
 
-class Form_Search extends Zend_Form {
+class Form_Search extends Zend_Form
+{
 
-        public function init() {
-                global $content;
-                
-                $this->setMethod ( 'get' );
-                $this->setAttrib("class", "searchbox");
-               
-                $this->addElement ( 'text', 'q', array (
-                    'required' => false,
-                    'filters' => array ('StringTrim' )
-                     ) );
+    public function init()
+    {
+        global $content;
 
-                    $this->removeDecorator('HtmlTag');
-                    $this->removeDecorator('DtDdWrapper');
-                    $this->removeDecorator('dd');
+        $this->setMethod ( 'get' );
+        $this->setAttrib("class", "searchbox");
+
+        $this->addElement ( 'text', 'q', array (
+                'required' => false,
+                'filters' => array ('StringTrim' )
+                ) );
+
+        $this->removeDecorator('HtmlTag');
+        $this->removeDecorator('DtDdWrapper');
+        $this->removeDecorator('dd');
 
 
-                // add the submit button
-                $this->addElement ( 'submit', 'submit', array (
-                    'label' => 'Search',
-                    'class' => 'large magenta awesome') );
-        }
+        // add the submit button
+        $this->addElement ( 'submit', 'submit', array (
+                'label' => 'Search',
+                'class' => 'large magenta awesome') );
+    }
 
 }
 
