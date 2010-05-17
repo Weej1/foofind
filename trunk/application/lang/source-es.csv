@@ -46,8 +46,9 @@
 "Delete your foofind.com account";"Eliminar tu cuenta de foofind.com"
 "Forgot your password?";"¿Olvidaste tu contraseña?"
 "Wrong email or password, please try again";"Dirección de correo o contraseña erronea. Inténtalo de nuevo."
-"Register finished succesfully. Welcome %value%";"Proceso de registro completado. Welcome %value%"
+"Welcome %value%";"Bienvenido %value%"
 "Please, click on this url to finish your register process:";"Por favor, haz click en este enlace para completar tu proceso de registro:"
+"Sorry, this token does not exist or has been already used";"Lo sentimos, esa url de autenticación no existe o ya ha sido usada"
 ", confirm your email";", confirma tu email"
 ", restore your foofind access";", restaura tu acceso a foofind"
 "Please, enter your email address. An email to recover your access will be sent to you.";"Por favor, introduce tu dirección de email. Te enviaremos un mensaje para recuperar el acceso."
@@ -211,32 +212,68 @@ Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en 
  <a href='http://code.google.com/p/foofind/'>Código fuente</a> bajo licencia <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
 "Last indexed files.";"Últimos archivos indexados."
 
+
+
+
+
 #privacy
-"this is the privacy text";"Por la presente y de conformidad con la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) le informa de la existencia de un fichero automatizado de datos creado por la misma y bajo su responsabilidad.
+"this is the privacy text";"
+<b>Finalidad y responsable del fichero</b><br />
+Por la presente y de conformidad con la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) le informa de la existencia de un fichero automatizado de datos creado por la misma y bajo su responsabilidad.
 <br /><br />
-La finalidad de dicho fichero es la de gestionar las dudas y comentarios, así como las reclamaciones efectuadas por el usuario que desee notificar la existencia de resultados y enlaces que dirijan a contenidos ilícitos o difundidos sin la preceptiva autorización. LA EMPRESA podrá enviar correos electrónicos a la cuenta facilitada por el usuario con objeto de informarle sobre la tramitación de la reclamación por él efectuada.<br /><br />
-El envío de datos personales mediante cualquiera de nuestros formularios supone la aceptación expresa de su tratamiento automatizado.
-<br />
+La finalidad de dicho fichero es la de gestionar las funciones de acceso a la web de los usuarios registrados, dar el trámite que sea necesario a las dudas y comentarios dirigidos a LA EMPRESA, optimizar el orden de los resultados de las búsquedas en función de la ubicación geográfica de quien las realiza y de los votos del resto de usuarios, así como atender a las reclamaciones efectuadas por quien desee notificar la existencia de resultados y enlaces que dirijan a contenidos que considere ilícitos o difundidos sin la preceptiva autorización.  
+
+
+<br /><br />
+LA EMPRESA podrá  enviar correos electrónicos a la cuenta facilitada por el usuario con objeto de informarle sobre la tramitación de la reclamación por él efectuada, para responder a la duda o comentario que le haya sido remitido utilizando cualquiera de nuestros formularios de contacto y, especialmente, para informar a los usuarios registrados sobre los cambios producidos en el servicio, en sus términos de uso o en su política de privacidad. Una vez cumplimentado y enviado el formulario de registro, el usuario recibirá en la cuenta de correo electrónico que haya facilitado información sobre los pasos a seguir para la activación de su cuenta.
+<br /> <br />
+El envío de datos personales mediante cualquiera de nuestros formularios supone la aceptación expresa de su tratamiento automatizado. 
+<br /> <br />
+<b>Prohibiciones de uso por razón de edad</b><br />
+No se aceptarán datos de usuarios menores de 18 años. LA EMPRESA eliminará los datos y cuentas de usuarios de los que tenga constancia o fundadas sospechas de que son menores de edad. <br /><br />
+
+<b>Derechos de acceso, rectificación, cancelación y oposición</b><br />
 El usuario podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición comunicando con el responsable del fichero en la siguiente dirección:
 <br /><br />
 <img src='/images/privacy.png' /><br />
 M Punto 2 Punto Technologies, S.A.<br />
-
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
 <br /><br />
-El usuario consiente el uso de cookies que, en ningún caso, permitirán la identificación del mismo, a fin de facilitar su navegación en esta página web. No obstante lo anterior, el usuario podrá deshabilitar las cookies mediante la oportuna configuración de su navegador a tal efecto.
-<br />
-Los servidores capturan de forma automática algunos datos que no permiten la identificación del usuario tales como: hora de visita de la web, el navegador y el sistema operativo que utiliza y el nombre de dominio del proveedor y/o dirección IP que les da acceso a la red.
+
+<b>Datos recabados del usuario registrado</b><br />
+Los datos mínimos que han de comunicarse a LA EMPRESA obligatoriamente al crear su cuenta como usuario registrado de Foofind son nombre de usuario/nick y correo electrónico. Opcionalmente usted podrá aportar a su perfil de usuario la dirección de su página web así como su país y ciudad de residencia.
+<br /><br />
+Su nombre de usuario/nick, su ciudad y país de residencia, así como su dirección de página web serán visibles para el resto de usuarios, sean o no usuarios registrados. Su dirección de correo electrónico no será visible para el resto de usuarios en ningún caso.
+<br /><br />
+El usuario registrado puede votar positiva o negativamente los enlaces ofrecidos por Foofind así como los comentarios de otros usuarios, siendo consciente y aceptando que esos votos pueden ser asociados a su cuenta de usuario tanto por LA EMPRESA como por el resto de usuarios.
+<br /><br />
+Con la cancelación de su cuenta de usuario, sus datos de perfil serán eliminados y dejarán de ser visibles para el resto de usuarios, si bien los votos o comentarios realizados mientras era usuario de Foofind podrían seguir permaneciendo accesibles.
+<br /><br />
+
+<b>Servicio de mensajes entre usuarios registrados</b><br />
+Foofind pone a disposición de sus usuarios registrados un servicio de mensajes a fin de que puedan enviarlos y recibirlos de otros usuarios registrados desde su propia cuenta. Con objeto de proteger la privacidad de sus comunicaciones, Foofind ha incorporado a este servicio las siguientes medidas de seguridad:
+ cifrado de los mensajes mediante encriptación fuerte.<br /><br />
+El usuario podrá  configurar su perfil para solicitar que Foofind le remita un aviso al correo facilitado al completar el proceso de registro cada vez que un usuario del servicio le envíe un mensaje a su cuenta de usuario de Foofind. La activación de esta opción en la configuración de su perfil supondrá la autorización expresa para el envío a su cuenta de correo de los mensajes de aviso referidos por parte de Foofind. 
+<br /><br />
+Cuando el usuario proceda a darse de baja, se borrarán automáticamente los mensajes que guarde en su cuenta de Foofind, tanto los enviados como los recibidos.
+<br /><br />
+<b>Uso de cookies y datos capturados automáticamente por los servidores de Foofind</b><br />
+El usuario conoce y consiente el uso de cookies que, en ningún caso, permitirán la identificación del mismo, a fin de facilitar su navegación en esta página web. No obstante lo anterior, el usuario podrá en cualquier momento deshabilitar las cookies mediante la oportuna configuración de su navegador a tal efecto.
+<br /></br>
+Los servidores de Foofind capturan de forma automática algunos datos que no permiten la identificación del usuario tales como: fecha y hora de visita de la web,  navegador y sistema operativo que utiliza, dirección de Foofind que ha sido visitada y el nombre de dominio del proveedor y/o dirección IP que les da acceso a la red. Estos datos se guardan con objeto de diagnosticar posibles problemas técnicos eventuales y son eliminados de forma automática a los 24 horas.
+
 
 <br /><br />
-Esta página web utiliza Google Analytics, un servicio analítico de web prestado por Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre Parkway, Mountain View (California), CA 94043, Estados Unidos (“Google”). Google Analytics utiliza “cookies”, que son archivos de texto ubicados en su ordenador, para ayudar al website a analizar el uso que hacen los usuarios del sitio web. La información que genera la cookie acerca de su uso del website (incluyendo su dirección IP) será directamente transmitida y archivada por Google en los servidores de Estados Unidos. Google usará esta información por cuenta nuestra con el propósito de seguir la pista de su uso del website, recopilando informes de la actividad del website y prestando otros servicios relacionados con la actividad del website y el uso de Internet. Google podrá transmitir dicha información a terceros cuando así se lo requiera la legislación, o cuando dichos terceros procesen la información por cuenta de Google. Google no asociará su dirección IP con ningún otro dato del que disponga Google. Puede Usted rechazar el tratamiento de los datos o la información rechazando el uso de cookies mediante la selección de la configuración apropiada de su navegador, sin embargo, debe Usted saber que si lo hace puede ser que no pueda usar la plena funcionabilidad de este website.
- Al utilizar este website Usted consiente el tratamiento de información acerca de Usted por Google en la forma y para los fines arriba indicados.
-<br />
-A fin de proteger su privacidad, ni Google Analytics ni LA EMPRESA guardarán registro alguno de las búsquedas realizadas por los usuarios de foodind.
+<b>Google Analytics</b><br />
+Esta página web utiliza Google Analytics, un servicio analítico de web prestado por Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre Parkway, Mountain View (California), CA 94043, Estados Unidos (“Google”). Google Analytics utiliza “cookies”, que son archivos de texto ubicados en su ordenador, para ayudar al website a analizar el uso que hacen los usuarios del sitio web. La información que genera la cookie acerca de su uso del website (incluyendo su dirección IP) será directamente transmitida y archivada por Google en los servidores de Estados Unidos. Google usará esta información por cuenta nuestra con el propósito de seguir la pista de su uso del website, recopilando informes de la actividad del website y prestando otros servicios relacionados con la actividad del website y el uso de Internet. Google podrá transmitir dicha información a terceros cuando así se lo requiera la legislación, o cuando dichos terceros procesen la información por cuenta de Google. Google no asociará su dirección IP con ningún otro dato del que disponga Google. Puede Usted rechazar el tratamiento de los datos o la información rechazando el uso de cookies mediante la selección de la configuración apropiada de su navegador, sin embargo, debe Usted saber que si lo hace puede ser que no pueda usar la plena funcionabilidad de este website. Al utilizar este website Usted consiente el tratamiento de información acerca de Usted por Google en la forma y para los fines arriba indicados. 
 <br /><br />
-LA EMPRESA se reserva el derecho a modificar la presente política de privacidad en atención a futuras novedades legales o jurisprudenciales que lo hicieran aconsejable. Cualquier cambio en la política de privacidad será inmediatamente comunicado al usuario por medio de la dirección de correo electrónico que el mismo haya facilitado a LA EMPRESA desde cualquier de sus formularios de contacto.
+A fin de proteger su privacidad, ni Google Analytics ni LA EMPRESA guardarán registro alguno de las concretas búsquedas realizadas por los usuarios de foodind, sean o no registrados, de modo que los términos de búsqueda y sus resultados generados en ningún caso podrán vincularse a personas concretas e identificables.
+<br /><br />
+
+<b>Cambios en esta política de privacidad.</b><br />
+LA EMPRESA se reserva el derecho a modificar la presente política de privacidad. Cualquier cambio en la política de privacidad será inmediatamente comunicada al usuario por medio de la dirección de correo electrónico que el mismo haya facilitado a LA EMPRESA en su registro como usuario. 
 <br />
-El uso de esta página web supone la aceptación por el usuario de su política de privacidad.
+El uso del servicio con posterioridad a la modificación de la política de privacidad supone el conocimiento y aceptación de la nueva versión modificada de la misma.
 "
 
 
@@ -247,37 +284,66 @@ El uso de esta página web supone la aceptación por el usuario de su política 
               El presente acuerdo regula el acceso y uso de la página web foofind.com que M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) pone a disposición de los usuarios interesados en el servicio.<br>
               El uso de los servicios prestados en esta web supone la aceptación por parte del usuario de estos términos de uso.<br />
               LA EMPRESA podrá cesar en cualquier momento y sin previo aviso en la prestación de sus servicios a través de foofind.com así como modificar el servicio prestado, ya sea en aspectos accidentales o sustanciales.<br />
-              LA EMPRESA no garantiza que el servicio prestado a través de Foofind sea ininterrumpido o sin errores.<br /><br />
-
+              LA EMPRESA no garantiza que el servicio prestado a través de Foofind sea ininterrumpido o sin errores.<br />
+              LA EMPRESA podrá  cancelar o suspender la cuenta o el acceso a la web sin previo aviso del USUARIO que, según su criterio unilateral, considere que está incumplimiento los presentes Términos de Uso y/o la legalidad vigente. <br /><br />
 
               <b>2.- Precio por el uso del servicio</b><br>
-              La utilización de este servicio por parte de sus usuarios es completamente gratuita.<br /><br />
+              La utilización de este servicio por parte de sus usuarios, sean o no usuarios registrados, es completamente gratuita.<br /><br />
 
-              <b>3.- Idioma de los “términos de uso”.</b><br>
-              Los presentes términos de uso se presentan en idioma español.<br /><br />
+              <b>3.- Idioma de los “términos de uso”.</b><br />
+              Los presentes términos de uso se presentan en idioma español.<br />
               En el caso de que desde esta web se le proporcione una traducción de estos términos de uso en cualquier otro idioma distinto al español, usted reconoce que se realiza por razones de conveniencia y que su relación con LA EMPRESA se regirá por lo dispuesto en estos términos de uso en en su versión en español.<br /><br />
-              <b>4.- Responsabilidad por la posible ilicitud de los archivos aparecidos como resultado de la búsqueda.</b><br />
+
+              <b>4.- Privacidad</b><br />
+              Con la aceptación de estos términos de uso el USUARIO declara conocer y aceptar igualmente nuestra <a href='/es/page/privacy'>política de privacidad</a>.<br />
+              Los datos personales remitidos por el USUARIO utilizando cualquiera de nuestros formularios se incorporarán a un fichero automatizado creado por LA EMPRESA y bajo su responsabilidad.<br /><br />
+
+              <b>5.- Responsabilidad por la posible ilicitud de los archivos enlazados en los resultados de la búsqueda.</b><br />
               Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Desde esta página web no se reproduce, distribuye, comunica públicamente o transforma obra intelectual alguna. Los resultados generados por las búsquedas de sus usuarios muestran únicamente los enlaces a los archivos o páginas que respondan a los criterios de búsqueda introducidos y se encuentran alojados en lugares ajenos a esta página web.
-
-
-              El usuario es consciente de que LA EMPRESA no asume ninguna obligación de control, vigilancia e inspección de los archivos o páginas que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.
-
+              <br />
+              El usuario es consciente de que LA EMPRESA no asume ninguna obligación de control, vigilancia e inspección de los archivos o páginas que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 de la Ley de Servicios de la Sociedad de la Información, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.
+              <br />
               LA EMPRESA no se responsabiliza de la fiabilidad o seguridad de los archivos que aparezcan enlazados como resultados de las búsquedas ni de que estos estén libres de virus, debiendo el usuario encargarse personalmente de proteger su equipo con las medidas de seguridad necesarias.<br /><br />
 
-              <b>5.- Notificación de enlaces a archivos ilícitos o difundidos sin autorización.</b><br>
+              <b>6.- Notificación de enlaces a archivos ilícitos o difundidos sin autorización.</b><br />
               El USUARIO podrá reportar a LA EMPRESA la existencia de todos aquellos archivos enlazados desde Foofind y de cuya ilicitud tenga conocimiento o fundadas sospechas.
-              EL USUARIO que ponga en conocimiento de LA EMPRESA la existencia de páginas o archivos presumiblemente ilícitos o difundidos sin la correspondiente autorización utilizará exclusivamente <a href='/es/page/complaint'>el formulario de contacto ofrecido al efecto</a> por LA EMPRESA y facilitará fielmente los datos requeridos en el mismo. Para ello, el usuario debe previamente leer y aceptar la política de privacidad de LA EMPRESA.
-              LA EMPRESA se reserva el derecho a retirar los enlaces a archivos o páginas cuya ilicitud le conste o de las que tenga fundadas sospechas.
-              LA EMPRESA se reserva también el derecho a utilizar cuantas medidas tecnológicas estén en su mano con objeto de eliminar de los resultados de las búsquedas aquellos que enlacen a contenidos que pudieran ser ilícitos o difundidos sin la preceptiva autorización. No obstante el usuario reconoce que la eficacia plena de estas medidas para lograr en todos los casos el fin para el que han sido diseñadas no puede garantizarse.<br><br>
+              EL USUARIO que ponga en conocimiento de LA EMPRESA la existencia de páginas o archivos presumiblemente ilícitos o
+            difundidos sin la correspondiente autorización utilizará exclusivamente el <a href='/es/page/complaint'>formulario de contacto ofrecido al efecto</a> por LA EMPRESA y facilitará fielmente los datos requeridos en el mismo. Para ello, el usuario debe previamente leer y aceptar la política de privacidad de LA EMPRESA.
+<br /><br />
+A fin de facilitar la tarea de revisión para reportar aquellos enlaces que pudieran dirigir a contenido presuntamente ilícito o difundido sin autorización, Foofind muestra de forma transparente los archivos que están siendo indexados por el buscador en tiempo real y ordenándolos cronológicamente en un listado de acceso público y gratuito. 
+<br /><br />
+LA EMPRESA se reserva el derecho a retirar los enlaces a archivos o páginas cuya ilicitud le conste o de las que tenga fundadas sospechas. LA EMPRESA se reserva también el derecho a utilizar cuantas medidas tecnológicas estén en su mano con objeto de eliminar de los resultados de las búsquedas aquellos que enlacen a contenidos que pudieran ser ilícitos o difundidos sin la preceptiva autorización. No obstante el usuario reconoce que la eficacia plena de estas medidas para lograr en todos los casos el fin para el que han sido diseñadas no puede garantizarse.
+<br><br>
+              <b>7.- Usuarios registrados </b><br/>
+              Los USUARIOS pueden registrarse en Foofind de forma gratuita para acceder a servicios añadidos, que actualmente consisten, y con reserva de la opción de añadir otros en el futuro, en la posibilidad de realizar comentarios en la ficha de los archivos enlazados, votar positiva o negativamente a esos enlaces o a los comentarios de otros usuarios registrados en el servicio y enviar mensajes privados a la cuenta de otros usuarios de Foofind. <br /><br />
 
+              Los usuarios registrados pueden cancelar su cuenta en cualquier momento desde la página de configuración de su perfil.<br /><br />
 
+              <b>8.- Responsabilidad por uso indebido del servicio e infracción de derechos.</b><br />
+              EL USUARIO reconoce que LA EMPRESA no es responsable de la posible ilicitud o lesión de derechos de las actividades realizadas por los usuarios.<br />
 
-              <b>6.- Ley y jurisdicción aplicable</b><br />
-              Ambas partes acuerdan someter el presente acuerdo a las leyes españolas y a su jurisdicción y, en concreto, a la de los Juzgados de Madrid (España).<br /><br />
-              <b>7.- Cambios en los términos de uso</b><br />
+              El USUARIO se compromete a utilizar el servicio conforme a legislación vigente y, a título enunciativo, se abstendrá de:<br/><br />
+              &nbsp;&nbsp;&nbsp;&nbsp;1.- Publicar comentarios ofensivos, injuriosos, calumniosos, racistas,  discriminatorios o que de cualquier otro modo puedan lesionar derechos de  terceros.<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;2.- Publicar con sus comentarios datos o información privada de terceros.<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;3.- Crear perfiles falsos suplantando la personalidad de terceros.<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;4.- Utilizar el servicio para realizar comunicaciones comerciales no  autorizadas.<br /><br />
+              Asimismo, el USUARIO se compromete a reportar a LA EMPRESA todos aquellos contenidos o actividades cuya ilicitud le conste o de la que tenga fundadas sospechas.<br /><br />
+              LA EMPRESA se reserva el derecho a cancelar y eliminar la cuenta del usuario que realice actividades contrarias a la ley o a estos términos de uso, así como a borrar los comentarios que pudieran infringir la ley o lesionar derechos de terceros.
+<br /><br />
+
+              <b>9.- Publicidad </b><br />
+              El usuario es consciente y acepta que LA EMPRESA puede ahora o en el futuro incluir publicidad en el sitio web, ya sea de sus propias actividades, productos o servicios o de terceros. <br /><br />
+
+              <b>10.- Ley y jurisdicción aplicable</b><br />
+              Para cuantas controversias pudieran surgir en la interpretación o cumplimiento de los presentes Términos de Uso, así como los derivados de la utilización del servicio, ambas partes acuerdan que serán competentes los Juzgados y Tribunales de Madrid (España).<br /><br />
+              <b>11.- Cambios en los términos de uso</b><br />
               LA EMPRESA podrá modificar estos términos de uso.<br />
               Los usuarios deben supervisar estos términos de uso con frecuencia a fin de conocer los posibles cambios realizados desde la última vez que accedieron al sitio web.<br />
-              El uso del servicio con posterioridad a la modificación de los términos de uso supone el conocimiento y aceptación por parte del usuario de la nueva versión modificada de los mismos."
+
+Los usuarios registrados son conscientes y aceptan que es posible que se les envíe un correo electrónico a la cuenta que hayan facilitado al completar el proceso de registro para informarles de que estos términos de uso o la política de privacidad han sido  modificados.
+<br />
+
+El uso del servicio con posterioridad a la modificación de los términos de uso supone el conocimiento y aceptación por parte del usuario de la nueva versión modificada de los mismos."
 
 
 #legal

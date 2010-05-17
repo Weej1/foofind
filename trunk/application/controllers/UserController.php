@@ -453,7 +453,7 @@ class UserController extends Zend_Controller_Action
                 
                 $auth->getStorage()->write( (object)$data);
 
-                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Register finished succesfully. Welcome' ) .' '. $data['username'] );
+                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Welcome' ) .' '. $data['username'] );
                 $this->_redirect ( '/' );
 
             } else
