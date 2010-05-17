@@ -252,7 +252,7 @@ Con la cancelación de su cuenta de usuario, sus datos de perfil serán eliminad
 
 <b>Servicio de mensajes entre usuarios registrados</b><br />
 Foofind pone a disposición de sus usuarios registrados un servicio de mensajes a fin de que puedan enviarlos y recibirlos de otros usuarios registrados desde su propia cuenta. Con objeto de proteger la privacidad de sus comunicaciones, Foofind ha incorporado a este servicio las siguientes medidas de seguridad:
- cifrado de los mensajes mediante encriptación fuerte.<br /><br />
+ cifrado de los mensajes mediante algoritmo criptográfico.<br /><br />
 El usuario podrá  configurar su perfil para solicitar que Foofind le remita un aviso al correo facilitado al completar el proceso de registro cada vez que un usuario del servicio le envíe un mensaje a su cuenta de usuario de Foofind. La activación de esta opción en la configuración de su perfil supondrá la autorización expresa para el envío a su cuenta de correo de los mensajes de aviso referidos por parte de Foofind. 
 <br /><br />
 Cuando el usuario proceda a darse de baja, se borrarán automáticamente los mensajes que guarde en su cuenta de Foofind, tanto los enviados como los recibidos.
