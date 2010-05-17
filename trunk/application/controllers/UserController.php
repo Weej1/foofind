@@ -274,14 +274,14 @@ class UserController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $user_id = (int)$this->_request->getParam ( 'id' );
 
-        if ($user_id == null)
+        $model = $this->_getModel ();
+        $this->view->user = $model->fetchUser($user_id);
+
+        if ( $this->view->user == NULL )
         {
-            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'this user does not exist' ) );
+            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This user does not exist' ) );
             $this->_redirect ( '/' );
         }
-
-        $model = $this->_getModel ();
-        $this->view->user= $model->fetchUser($user_id);
 
         //lets overwrite the password and token values to assure not passed to the view ever!
         unset ($this->view->user['password']);
