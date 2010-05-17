@@ -722,19 +722,20 @@ h2{
 .download_source a {
     color: #000;
     text-decoration: none;
+   
     display: block;
     width: 180px;
     font-weight: bold;
-    line-height: 32px;
+    line-height: 28px;
     height: 36px;
-    padding-left: 29px;
+    padding-left: 34px;
 }
 
 .download_source input{
     float: right;
     width: 70%;
     padding: 1px !important;
-    border: 1px solid #00CCC9 !important;
+    border: 1px solid #A9D0F5 !important;
     color: #cd0069;
     display: inline-block;
     margin: 4px;
