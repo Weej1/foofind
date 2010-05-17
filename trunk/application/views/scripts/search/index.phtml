@@ -115,8 +115,9 @@ function formatArchive($context, $md, $show_title)
 
     <ul id="tabnav">
         <li><a class="<?=(preg_match("/^wftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
+        <li><a class="<?=(preg_match("/^wf$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wf'), array('page'=>1)) ?>" ><?=$this->translate('Direct downloads');?></a></li>
         <li><a class="<?=(preg_match("/^t$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'t'), array('page'=>1))?>"><?=$this->translate('Torrents');?></a></li>
-        <li><a class="<?=(preg_match("/^wf$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wf'), array('page'=>1)) ?>" ><?=$this->translate('Direct download');?></a></li>
+        <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'s'), array('page'=>1)) ?>" ><?=$this->translate('Streaming');?></a></li>
         <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'g'), array('page'=>1)) ?>" ><?=$this->translate('Gnutella');?></a></li>
         <li><a class="<?=(preg_match("/^e$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'e'), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
     </ul>

@@ -63,7 +63,7 @@ class IndexController extends Zend_Controller_Action
                             'wf' => 'Direct downloads',
                             'g' => 'Gnutella',
                             'e' => 'Ed2k',
-                            'foo' => 'Streaming'
+                            's' => 'Streaming'
                             ),
             'separator'     => '',
             'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge',
