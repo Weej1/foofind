@@ -266,6 +266,8 @@ function convertS2String($time) {
 foreach ($this->sources as $key => $val) {
         $t = $val['Type'];
         unset($mlinkadd2);
+        $separateSources = false;
+
         switch ($t)
         {
             case 1: //GNUTELLA
@@ -283,6 +285,7 @@ foreach ($this->sources as $key => $val) {
                 $tip = "Torrent";
                 $source = "torrent";
                 $link = $val['Uri'];
+                $separateSources = true;
                 break;
             case 5: //TIGER HASH
                 $tip = "Gnutella";
@@ -295,7 +298,7 @@ foreach ($this->sources as $key => $val) {
                 $mlinkadd = "&xt=urn:md5:".$val['Uri'];
                 break;
             case 7: //BTH HASH
-                $tip = "Torrent";
+                $tip = "Torrent&nbsp;MagnetLink";
                 $source = "tmagnet";
                 if (($size=$this->file['Size'])>0) $size = "xl=".$this->file['Size']."&"; else $size = "";
                 $link = "magnet:?{$size}dn=".encodeFilename($this->filename['Filename'])."&xt=urn:btih:".$val['Uri'];
@@ -308,11 +311,13 @@ foreach ($this->sources as $key => $val) {
                 $tip = "Web";
                 $source = "web";
                 $link = $val['Uri'];
+                $separateSources = true;
                 break;
             case 9: // FTP
                 $tip = "FTP";
                 $source = "ftp";
                 $link = $val['Uri'];
+                $separateSources = true;
                 break;
             default:
                 continue;
@@ -338,6 +343,10 @@ foreach ($this->sources as $key => $val) {
         $srcs[$source]['rlink'] = $link;
         $srcs[$source]['tip'] = $tip;
         $srcs[$source]['count'] += $val['MaxSources'];
+        if ($separateSources)
+        {
+            $srcs[$source]['links'][] = $link;
+        }
 }
 foreach ($this->metadata as $key => $val)
 {
@@ -451,16 +460,31 @@ if (count ( $this->mensajes ) > 0) {
        <?php if ($this->sources): ?>
         <div class="dowload_file_sources">                
                     <? foreach ($srcs as $key => $val):
-                        if ($val['link']): ?>
+                        $links = null;
+                        if ($val['links']) {
+                            $links = $val['links'];
+                            $multiple = true;
+                        }
+                        else {
+                            if ($val['link']) $links = array($val['link']);
+                            $multiple = false;
+                        }
+                        ?>
                         <div class="download_source" >
-                            <a  title="<?=$val['link'] ?>" href="<?=$val['link'] ?>"><img alt="" src="/images/icons/<?=$key ?>_download.gif" />
-                                <?='<b>'.ucfirst ( $val['tip'] ).'</b><span>'.$val['count'].' '.$this->translate('sources');?></span></a>
-                                <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$val['link'].'" />'; ?>
-                                <? unset ($type, $pinta, $link) ?>
+                        <?php
+                        $i = 0;
+                        foreach ($links as $link):
+                             $i+=1;
+                             if ($i>5) break;?>
+                            <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$link.'" />'; ?>
+                            <div style='background:url(/images/icons/<?=$key ?>_download.gif) left 0px no-repeat'><a title="<?=$link ?>" href="<?=$link ?>">
+                            <? echo ucfirst ( $val['tip'] );
+                                if (!$multiple && $val['count']>1) echo '<span>'.$val['count'].' '.$this->translate('sources').'</span>';?>
+                            </a></div>
+                 <?php  endforeach; ?>
                         </div>
 
-                 <?php  endif;
-                       endforeach; ?>
+                   <?php    endforeach; ?>
 
             
         </div>

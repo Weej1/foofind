@@ -98,11 +98,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         if ($this->src)
         {
             $this->srcs = array();
-            foreach (str_split("wftge") as $s)
+            foreach (str_split("swftge") as $s)
             {
                 if (strstr($this->src, $s)) $this->srcs = array_merge($this->srcs, $content['sources'][$s]['types']);
             }
-
+            if ($this->src=='s') $this->cl->SetFilterRange('sources', 2, 2);
+            
             if (count($this->srcs)>0)
                 $this->cl->SetFilter('types', $this->srcs);
         }
@@ -274,6 +275,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         {
                             $id = $row['IdFile'];
                             $t = $row['Type'];
+                            $separateSources = false;
                             switch ($t)
                             {
                                 case 1: //GNUTELLA
@@ -290,6 +292,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 case 3: // TORRENT
                                     $tip = "Torrent";
                                     $source = "torrent";
+                                    $separateSources = true;
                                     $link = $row['Uri'];
                                     break;
                                 case 5: //TIGER HASH
@@ -315,11 +318,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                     $tip = "Web";
                                     $source = "web";
                                     $link = $row['Uri'];
+                                    $separateSources = true;
                                     break;
                                 case 9: // FTP
                                     $tip = "FTP";
                                     $source = "ftp";
                                     $link = $row['Uri'];
+                                    $separateSources = true;
                                     break;
                                 default:
                                     continue;
@@ -340,6 +345,16 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
                             $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES, "UTF-8");
                             $docs[$id]['sources'][$source]['rlink'] = $link;
+                            if ($separateSources)
+                            {
+                                $domain = substr(strstr($link, "//"), 2);
+                                $domain = strstr($domain, '/', true);
+                                $dotpos2 = false;
+                                $dotpos = strrpos($domain, '.', -1);
+                                if ($dotpos!==false) $dotpos2 = strrpos($domain, '.', -(strlen($domain)-$dotpos+1));
+                                if ($dotpos2!==false) $domain = substr($domain, $dotpos2+1);
+                                $docs[$id]['sources'][$source]['links'][$domain] = $link;
+                            }
                             $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                             $docs[$id]['sources'][$source]['tip'] = $tip;
                         }
@@ -437,17 +452,13 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 class SearchController extends Zend_Controller_Action {
 
     public function init() {
-
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
     }
 
-
     public function indexAction() {
-
-
         $this->view->lang =  $this->_helper->checklang->check();
-
+        
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
@@ -600,12 +611,7 @@ class SearchController extends Zend_Controller_Action {
         protected function _getSearchForm() {
                 require_once APPLICATION_PATH . '/forms/Search.php';
                 $form = new Form_Search( );
-
                 return $form;
         }
-
-
-
-
 }
 

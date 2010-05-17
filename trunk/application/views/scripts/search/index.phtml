@@ -123,10 +123,6 @@ function formatArchive($context, $md, $show_title)
     </ul>
 
    
-
-
-
-    
         <?
 if (count ( $this->mensajes ) > 0) {
 	echo '<div class="success">';
@@ -136,9 +132,6 @@ if (count ( $this->mensajes ) > 0) {
 	echo '</div>';
 }
 ?>
-    
-
-
 
     <div id="socontainer"><a id="show_options" href="#" active="<?=$this->qs['opt']?>"><?$this->translate("advanced seach")?></a></div>
     <div id="advsearch">
@@ -182,11 +175,12 @@ if (count ( $this->mensajes ) > 0) {
             if ($val['filename']):?>
         <li class="file_excerpt">
             <h3><a href="/<?=$this->lang?>/download/<?=$val['dlink'] ?>"><?=$val['filename'] ?></a>
-                <?php if ($val['votes'][1]) echo "<img src='/images/hand_ups.gif'/>{$val['votes'][1]} "; ?>
-                <?php if ($val['votes'][2]) echo "<img src='/images/hand_downs.gif'/>{$val['votes'][2]} "; ?>
-            <?php if (APPLICATION_ENV!='production'):?>
-                <span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
-            <?php endif; ?>
+                <?php if ($val['votes'][1]) echo " - <img src='/images/hand_ups.gif'/>{$val['votes'][1]} "; ?>
+                <?php if ($val['votes'][2]) echo " - <img src='/images/hand_downs.gif'/>{$val['votes'][2]} "; ?>
+                <?php if (APPLICATION_ENV!='production'):?>
+                    <span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
+                <?php endif;?>
+
             </h3>
             <span>
               <?php
@@ -195,15 +189,29 @@ if (count ( $this->mensajes ) > 0) {
                     echo $func($this, $val['md'], !$val['in_filename']);
                 }
               ?></span>
-            <?php if ($val["sources"]): ?><cite><span><? if ($val['size']) echo $val["size"]." - ";?><?=$this->translate('Sources');?>:
-                <?php foreach ($val["sources"] as $k => $v):
-                     if ($v['count']):?>
-                    <?= "<a title='${v['tip']}' href='${v['link']}'><img alt='${v['tip']}' src='/images/icons/${k}d.gif' style='vertical-align:middle'></a>${v['count']} " ?>
-                <?php endif;
-                     endforeach; ?>
-            <?php endif; ?>
-            
-            </span></cite>
+              <span>
+                <?php if ($val['size']) echo $val["size"]." - ";?>
+            <?php 
+            if ($val["sources"]) {
+                foreach ($val["sources"] as $k => $v) 
+                {
+                    if ($v['links']) {
+                        $links = array_splice($v['links'],-3);
+                    }else {
+                        if ($v['count']>1) 
+                            $info = "${v['tip']}&nbsp;({$v['count']}&nbsp;".$this->translate('Sources').")";
+                        else
+                            $info = "${v['tip']}";
+                        $links = array($info=>$v['link']);
+                    }
+                    foreach ($links as $info=>$link) {
+                     if ($v['count']) {
+                        echo "<a class='source' title='${v['tip']}' href='$link'><img alt='${v['tip']}' src='/images/icons/${k}d.gif' style='vertical-align:middle'><span>$info</span></a>&nbsp;&nbsp; ";
+                     }
+                    }
+                }
+            } ?>
+            </span>
         </li>
         <?php elseif (APPLICATION_ENV!='production'):?>
             <span class="debuginfo" style="background: red">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
