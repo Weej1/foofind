@@ -9,10 +9,11 @@
   * 5->Tiger Hash
   * 6->MD5 Hash
   * 7->BTH Hash
-  * 8->http crawler
-  * 9->ftp crawler
-  * 10->http mu crawler
-  * 11->http rs crawler
+  * 8->http
+  * 9->ftp
+  * 10->http mu
+  * 11->http rs
+  * 12->streaming mv
 
 = Content Type =
   * 1->audio
