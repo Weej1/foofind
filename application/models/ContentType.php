@@ -27,6 +27,7 @@ $content = array(
         ),
 
     'sources' => array(
+        's' => array('types' => array(10)),
         'w' => array('types' => array(4,8,10,11)),
         'f' => array('types' => array(9)),
         't' => array('types' => array(3,7001)),
