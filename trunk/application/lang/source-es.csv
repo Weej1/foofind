@@ -46,7 +46,7 @@
 "Delete your foofind.com account";"Eliminar tu cuenta de foofind.com"
 "Forgot your password?";"¿Olvidaste tu contraseña?"
 "Wrong email or password, please try again";"Dirección de correo o contraseña erronea. Inténtalo de nuevo."
-"Welcome %value%";"Bienvenido %value%"
+"Welcome";"Bienvenido"
 "Please, click on this url to finish your register process:";"Por favor, haz click en este enlace para completar tu proceso de registro:"
 "Sorry, this token does not exist or has been already used";"Lo sentimos, esa url de autenticación no existe o ya ha sido usada"
 ", confirm your email";", confirma tu email"
