@@ -383,6 +383,10 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             }
                             else
                                 $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $this->query, false);
+
+                            $docs[$id]['votes'][1] = rand(0, 10);
+                            $docs[$id]['votes'][2] = rand(0, 10);
+                            $docs[$id]['comments'] = rand(0, 10);
                             
                         }
                         $total_time += (microtime(true) - $start_time);
@@ -393,6 +397,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         {
                             $id = $row['IdFile'];
                             $docs[$id]['votes'][$row['VoteType']] = $row['c'];
+                        }
+
+                        foreach ($umodel->getFilesComments("IdFile in ($ids)") as $row)
+                        {
+                            $id = $row['IdFile'];
+                            $docs[$id]['comments'] = $row['c'];
                         }
 
                         // choose better type for each file and get description for file
