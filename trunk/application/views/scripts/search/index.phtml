@@ -174,7 +174,8 @@ if (count ( $this->mensajes ) > 0) {
        <?php foreach ($this->paginator as $key => $val):
             if ($val['filename']):?>
         <li class="file_excerpt">
-            <h3><a href="/<?=$this->lang?>/download/<?=$val['dlink'] ?>"><?=$val['filename'] ?></a>
+            <h3>
+                <a href="/<?=$this->lang?>/download/<?=$val['dlink'] ?>"><?=$val['filename'] ?></a>
                 <?php 
                 if ($val['votes'][1]) echo "<span class='useract votes_up'>{$val['votes'][1]}</span>";
                 if ($val['votes'][2]) echo "<span class='useract votes_down'>{$val['votes'][2]}</span>";
@@ -182,7 +183,6 @@ if (count ( $this->mensajes ) > 0) {
                 if (APPLICATION_ENV!='production'):?>
                     <span class="debuginfo">id: <?=$key ?> w:<?=$val['weight'] ?> fw:<?=$val['fileweight'] ?> fnc:<?=$val['attrs']['fncount'] ?> s:<?=$val['isources'] ?></span>
                 <?php endif;?>
-
             </h3>
             <span>
               <?php
