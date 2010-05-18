@@ -260,6 +260,12 @@ html form {
     display: block;
 }
 
+#agree {
+    display: inline;
+    line-height: 10px;
+    height: 20px;
+}
+
 html ul {
     list-style: none;
 }

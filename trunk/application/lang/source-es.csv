@@ -53,6 +53,7 @@
 ", restore your foofind access";", restaura tu acceso a foofind"
 "Please, enter your email address. An email to recover your access will be sent to you.";"Por favor, introduce tu dirección de email. Te enviaremos un mensaje para recuperar el acceso."
 "Check your inbox email to restore your foofind.com access";"Comprueba tu correo para recuperar tu acceso a foofind.com"
+"Check your inbox email to finish the register process";"Comprueba tu correo para completar el proceso de registro"
 "Somebody , probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Alguien, probablemente tu, ha solicitado restaurar el acceso a tu cuenta de foofind.com. Haz click en esta url para recuperar tu cuenta:"
 "Otherwise, ignore this message.";"En caso contrario, ignora este mensaje."
 "The foofind team.";"El equipo de foofind.com."
@@ -199,8 +200,8 @@
 "Please, insert the url where this content appears:";"Por favor, introduce la url donde aparece el contenido reclamado:"
 "Reason of your complaint:";"Motivo de tu reclamación:"
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
-"literal_check_agree";"He leído y acepto la política de privacidad."
-
+"literal_check_agree";"He leído y acepto los <a href='/es/page/tos'>términos de uso</a> y la <a href='/es/page/privacy'>política de privacidad</a>."
+"Please, accept the terms of use and privacy policy ";"Por favor, debes leer y aceptar los términos de uso y la política de privacidad"
 
 #about
 "this is the about text";"Foofind es un motor de búsqueda universal. En Foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.
