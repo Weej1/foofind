@@ -22,8 +22,15 @@ if (isset ( $this->error )) :
 <form action="<?=$this->escape ( $this->form->getAction () )?>"
 	method="<?=$this->escape ( $this->form->getMethod () )?>">
 
-<?=$this->form;?>
-<br />
+<?        echo $this->form->email;
+            echo $this->form->password; ?>
+
+            <span id="agree">
+            <?=$this->form->rememberme.$this->translate('Remember me');?>
+            </span>
+            <? echo $this->form->submit; ?>
+
+    <br />
 <a href="/<?=$this->lang ?>/user/forgot">
 <?=$this->translate ( 'Forgot' );?></a> <?=$this->translate ( 'your password?' );?>
 

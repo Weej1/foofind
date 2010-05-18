@@ -50,6 +50,7 @@ class AuthController extends Zend_Controller_Action {
             if ($this->getRequest ()->isPost ()) {
                     if ($form->isValid ( $request->getPost () )) {
 
+                            
                             // collect the data from the user
                             $f = new Zend_Filter_StripTags ( );
                             $email = $f->filter ( trim( $this->_request->getPost ( 'email' ) ) );
@@ -88,6 +89,19 @@ class AuthController extends Zend_Controller_Action {
                                     $auth->getStorage ()->write ( $data );
 
                                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in, ' ) . $auth->getIdentity()->username );
+
+                                    //check if user wants to be remembered by 7 days
+                                    $seconds  = 60 * 60 * 24 * 7;
+
+                                    if ($this->_request->getPost ( 'rememberme' ) == "1" ) {
+                                        Zend_Session::RememberMe($seconds);
+                                    }
+                                    else {
+                                        die ('no te recuerdoooo');
+                                        Zend_Session::ForgetMe();
+                                    }
+
+
 
                                     //check the redir value if setted
                                     $aNamespace = new Zend_Session_Namespace('Foofind');
