@@ -201,7 +201,7 @@
 "Reason of your complaint:";"Motivo de tu reclamación:"
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
 "literal_check_agree";"He leído y acepto los <a href='/es/page/tos'>términos de uso</a> y la <a href='/es/page/privacy'>política de privacidad</a>."
-"Please, accept the terms of use and privacy policy ";"Por favor, debes leer y aceptar los términos de uso y la política de privacidad"
+"Please, accept the terms of use and privacy policy";"Por favor, debes leer y aceptar los términos de uso y la política de privacidad"
 
 #about
 "this is the about text";"Foofind es un motor de búsqueda universal. En Foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.
