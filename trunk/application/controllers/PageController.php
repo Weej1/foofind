@@ -62,7 +62,7 @@ class PageController extends Zend_Controller_Action
 
                 if ($this->getRequest ()->isPost ()) {
 
-                        $formData = $this->getRequest()->getPost();
+                        
                         if ($form->isValid ( $request->getPost () )) {
 
                                 //check agree tos and privacy
@@ -152,6 +152,17 @@ class PageController extends Zend_Controller_Action
                         // if the values passed in are valid for this form
                         if ($form->isValid ( $request->getPost () )) {
 
+
+                                //check agree tos and privacy
+                                $checkagree = ($this->_request->getPost ( 'agree' ) == '1');
+                                if ( $checkagree == FALSE  )
+                                {
+                                    $view = $this->initView();
+                                    $view->error .= $this->view->translate('Please, accept the terms of use and privacy policy');
+
+                                } else {
+
+
                                 // collect the data from the user
                                 $f = new Zend_Filter_StripTags ( );
                                 $email = $f->filter ( $this->_request->getPost ( 'email' ) );
@@ -166,7 +177,7 @@ class PageController extends Zend_Controller_Action
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
                                 $mail->addTo ( 'hola@foofind.com', 'hola foofind' );
-                                
+
                                 $mail->setSubject ( 'foofind.com - message contact  from ' . $email );
                                  try {
                                       $mail->send();
@@ -178,7 +189,10 @@ class PageController extends Zend_Controller_Action
                                 $this->_redirect ( '/' );
 
                         }
+
+                        }
                 }
+
                 // assign the form to the view
                 $this->view->form = $form;
 
