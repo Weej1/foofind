@@ -80,14 +80,3 @@ class VoteController extends Zend_Controller_Action
         return $data;
     }
 }
-
-/*
-CREATE TABLE `ff_comment_vote` (
-  `IdComment` int(4) unsigned NOT NULL,
-  `IdUser` int(4) unsigned NOT NULL,
-  `VoteType` int(1) unsigned NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `karma` float NOT NULL DEFAULT '0',
-  PRIMARY KEY (`IdComment`,`IdUser`,`VoteType`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
-*/

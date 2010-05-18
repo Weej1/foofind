@@ -60,6 +60,14 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     }
 
+    public function getFilesComments($where)
+    {
+        $table = new ff_comment();
+        $select = $table->select()->from("ff_comment", "IdFile, count(*) c")->where($where)->group(array("IdFile"));
+        return $table->fetchAll($select);
+
+    }
+
     public function deleteVote($idFile, $idUser, $type)
     {
         $table = new ff_vote();

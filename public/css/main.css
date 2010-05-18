@@ -197,6 +197,40 @@ p {
     max-width:42em;
 }
 
+.file_excerpt span.useract {
+    display: inline-block;
+    font-size: 13px;
+    height: 17px;
+    text-align: left;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    vertical-align: top;
+    margin: 0px;
+    color: black;
+    margin-left: 5px;
+    background-color: #FFEEEE;
+    background-repeat: no-repeat;
+    padding-right: 4px;
+}
+
+.file_excerpt span.comments{
+    background-image: url(/images/baloons.gif);
+    background-position: 0px -1px;
+    padding-left: 22px;
+}
+
+.file_excerpt span.votes_up{
+    background-image: url(/images/hand_ups.gif);
+    background-position: 0px -2px;
+    padding-left: 21px;
+}
+
+.file_excerpt span.votes_down{
+    background-image: url(/images/hand_downs.gif);
+    background-position: 0px -3px;
+    padding-left: 21px;
+}
+
 .file_excerpt a{
     text-decoration: underline;
     border: 0;
