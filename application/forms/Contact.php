@@ -23,7 +23,19 @@ class Form_Contact extends Zend_Form {
                      'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
 
-                $this->addElement('checkbox', 'agree', array(   'label' => 'literal_check_agree', 'required' => true, 'checked' => true));
+                $checkboxDecorator = array(
+                                'ViewHelper',
+                                'Errors',
+                                array(array('data' => 'HtmlTag'), array('tag' => 'span', 'class' => 'element')),
+                                array('Label', array('tag' => 'dt'),
+                                array(array('row' => 'HtmlTag'), array('tag' => 'span')),
+                            ));
+
+                $this->addElement('checkbox', 'agree', array(
+                    'decorators' => $checkboxDecorator,
+                    'required' => true,
+                    'checked' =>false
+                    ));
 
                 // add the submit button
                 $this->addElement ( 'submit', 'submit', array (
