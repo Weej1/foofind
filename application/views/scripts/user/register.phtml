@@ -8,7 +8,7 @@
     if (isset ( $this->error )) :
         ?>
     <div class="error">
-            <?=$this->escape ( $this->error );?>
+            <?=$this->error ;?>
     </div>
 
     <?php endif;?>
@@ -22,7 +22,19 @@
               method="<?=$this->escape ( $this->form->getMethod () )?>">
 
             <p><?=$this->translate ( 'Please, fill this form to be a Foofind registered member:' );?></p>
-            <?=$this->form;?>
+            <?
+            echo $this->form->email;
+            echo $this->form->username;
+            echo $this->form->password1;
+            echo $this->form->password2;
+            echo $this->form->captcha; ?>
+
+            <span id="agree">
+            <?=$this->form->agree.$this->translate('literal_check_agree');?>
+            </span>
+            <? echo $this->form->submit; ?>
+ 
+         
         </form>
     </fieldset>
 

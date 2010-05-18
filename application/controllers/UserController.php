@@ -40,15 +40,26 @@ class UserController extends Zend_Controller_Action
             if ($form->isValid ( $request->getPost () ))
             {
                 $formulario = $form->getValues ();
-               
-                //check 2 passwords matches
-                $checkpasswords = ($formulario['password1']  == $formulario['password2'] );
 
+                 //check 2 passwords matches
+                $checkpasswords = ($formulario['password1']  == $formulario['password2'] );
                 if ( $checkpasswords == FALSE)
                 {
                     $view = $this->initView();
                     $view->error .= $this->view->translate('The  passwords entered do not match.');
                 }
+
+                //check agree tos and privacy
+                $checkagree = ($formulario['agree'] == '1');
+                if ( $checkagree == FALSE  )
+                {
+                    $view = $this->initView();
+                    $view->error .= $this->view->translate('Please, accept the terms of use and privacy policy');
+                    //die('ceroooooooooooooo');
+                }
+
+//                Zend_Debug::dump($formulario['agree']);
+//                die ();
 
 
                  $model = $this->_getModel ();
@@ -62,12 +73,10 @@ class UserController extends Zend_Controller_Action
                 {
 
                     $view = $this->initView();
-                    $view->error .= '<br />'.$this->view->translate('You can not use your email as username. Please,
+                    $view->error .= $this->view->translate('You can not use your email as username. Please,
 									      choose other username');
                 }
 
-
-                 $model = $this->_getModel ();
 
                 //check user email and nick if exists
                 $checkemail = $model->checkUserEmail ( $formulario ['email'] );
@@ -76,18 +85,18 @@ class UserController extends Zend_Controller_Action
                 if ($checkemail !== NULL)
                 {
                     $view = $this->initView ();
-                    $view->error .= '<br />'.$this->view->translate ( 'This email is taken.' );
+                    $view->error .= $this->view->translate ( 'This email is taken.' );
 
                 }
 
                 if ($checkuser !== NULL)
                 {
                     $view = $this->initView ();
-                    $view->error .= '<br />'.$this->view->translate ( 'This username is taken.' );
+                    $view->error .= $this->view->translate ( 'This username is taken.' );
 
                 }
 
-                if ($checkemail == NULL and $checkuser == NULL and $checkpasswords == TRUE)
+                if ($checkemail == NULL and $checkuser == NULL and $checkpasswords == TRUE and $checkagree == TRUE )
                 {
 
                     // success: insert the new user on ddbb

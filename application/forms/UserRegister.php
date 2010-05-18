@@ -27,11 +27,30 @@ class Form_UserRegister extends Zend_Form {
                     'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 300,
                      'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
-		// add the submit button
 
+
+                $checkboxDecorator = array(
+                                'ViewHelper',
+                                'Errors',
+                                array(array('data' => 'HtmlTag'), array('tag' => 'span', 'class' => 'element')),
+                                array('Label', array('tag' => 'dt'),
+                                array(array('row' => 'HtmlTag'), array('tag' => 'span')),
+                            ));
+
+                $this->addElement('checkbox', 'agree', array(
+                    'decorators' => $checkboxDecorator,
+                    'required' => true,
+                    'checked' =>false
+                    ));
+
+                $this->removeDecorator('DtDdWrapper');
+                $this->removeDecorator('dt');
+                $this->removeDecorator('dd');
+  
                 $this->addElement ( 'submit', 'submit',
                         array ('label' => 'Register',
                              'class' => 'large magenta awesome') );
+               
 	}
 }
 

@@ -84,7 +84,7 @@ You should read and accept our <a href='/en/page/tos'>terms of use</a> and our <
 "
 
 #complaint
-"literal_check_agree";"I have read and accept the privacy policy."
+"literal_check_agree";"I have read and accept the <a href='/en/page/tos'>terms of use</a> and <a href='/en/page/privacy'>privacy policy</a>."
 
 #about
 "this is the about text";"Foofind is a universal search engine. In Foofind we work creating software that crawls every network and indexes every file. This way, we intend to offer the largest collection of links available.
