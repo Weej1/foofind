@@ -199,10 +199,10 @@ p {
 
 .file_excerpt span.useract {
     display: inline-block;
-    font-size: 13px;
-    height: 17px;
+    font-size: 12px;
+    height: 15px;
     text-align: left;
-    padding-top: 2px;
+    padding-top: 3px;
     padding-bottom: 1px;
     vertical-align: top;
     margin: 0px;
@@ -215,7 +215,7 @@ p {
 
 .file_excerpt span.comments{
     background-image: url(/images/baloons.gif);
-    background-position: 0px -1px;
+    background-position: 0px -2px;
     padding-left: 22px;
 }
 
@@ -227,7 +227,7 @@ p {
 
 .file_excerpt span.votes_down{
     background-image: url(/images/hand_downs.gif);
-    background-position: 0px -3px;
+    background-position: 0px -4px;
     padding-left: 21px;
 }
 
@@ -763,6 +763,7 @@ h2{
     line-height: 28px;
     height: 36px;
     padding-left: 34px;
+    padding-top: 4px;
 }
 
 .download_source input{
