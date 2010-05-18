@@ -60,12 +60,19 @@ class PageController extends Zend_Controller_Action
                 $form = $this->_getComplaintForm ();
 
 
-                // check to see if this action has been POST'ed to
                 if ($this->getRequest ()->isPost ()) {
 
-                        // now check to see if the form submitted exists, and
-                        // if the values passed in are valid for this form
+                        $formData = $this->getRequest()->getPost();
                         if ($form->isValid ( $request->getPost () )) {
+
+                                //check agree tos and privacy
+                                $checkagree = ($this->_request->getPost ( 'agree' ) == '1');
+                                if ( $checkagree == FALSE  )
+                                {
+                                    $view = $this->initView();
+                                    $view->error .= $this->view->translate('Please, accept the terms of use and privacy policy');
+                    
+                                } else {
 
                                 // collect the data from the user
                                 $f = new Zend_Filter_StripTags ( );
@@ -111,6 +118,9 @@ class PageController extends Zend_Controller_Action
                                 $this->_redirect ( '/' );
 
                         }
+                        
+                        }
+
                 }
                 // assign the form to the view
                 $this->view->form = $form;

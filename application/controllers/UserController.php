@@ -55,11 +55,8 @@ class UserController extends Zend_Controller_Action
                 {
                     $view = $this->initView();
                     $view->error .= $this->view->translate('Please, accept the terms of use and privacy policy');
-                    //die('ceroooooooooooooo');
+                    
                 }
-
-//                Zend_Debug::dump($formulario['agree']);
-//                die ();
 
 
                  $model = $this->_getModel ();
