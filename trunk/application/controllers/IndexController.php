@@ -48,9 +48,6 @@ class IndexController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
         
-//        if ($_COOKIE['src']) {
-//            $form->addElement('hidden', 'src', array('value'=>$_COOKIE['src']));
-//        }
 
         $form->addElement('radio', 'src', array(
            
