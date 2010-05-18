@@ -348,7 +348,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             if ($separateSources)
                             {
                                 $domain = substr(strstr($link, "//"), 2);
-                                $domain = substr($domain, 1, strpos($domain, '/')-1);
+                                $domain = substr($domain, 0, strpos($domain, '/'));
                                 $dotpos2 = false;
                                 $dotpos = strrpos($domain, '.', -1);
                                 if ($dotpos!==false) $dotpos2 = strrpos($domain, '.', -(strlen($domain)-$dotpos+1));
