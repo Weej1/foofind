@@ -101,7 +101,7 @@ class AuthController extends Zend_Controller_Action {
                                         Zend_Session::ForgetMe();
                                     }
 
-
+                                    Zend_Session::start();
 
                                     //check the redir value if setted
                                     $aNamespace = new Zend_Session_Namespace('Foofind');
