@@ -1,6 +1,6 @@
-<center id="container_home">
+<center>
+    <div  id="container_home">
     <div title="foofind" class="logo_home"><p><?=$this->totalFilesIndexed.' '.$this->translate('files indexed');?></p></div>
-
 <?
 if (count ( $this->mensajes ) > 0) {
 	echo '<div class="success">';
@@ -10,11 +10,9 @@ if (count ( $this->mensajes ) > 0) {
 	echo '</div>';
 }
 ?>
-
     <div class="home_form">
         <?=$this->form;?>
     </div>
-
     <div id="footer_home">
         <div id="footer-navigation" >
             <a class="navtype" href="/<?=$this->lang?>/page/legal/"><?=$this->translate('Legal');?></a>
@@ -22,4 +20,5 @@ if (count ( $this->mensajes ) > 0) {
             <a class="navtype" href="/<?=$this->lang?>/page/privacy"><?=$this->translate('Privacy');?></a>
         </div>
     </div>
+ </div>
 </center>

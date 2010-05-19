@@ -1,14 +1,11 @@
 <div id="container_user">
-
     <h2><?=$this->translate ( 'User profile' ).'  -  '.$this->user['username'];?></h2>
-
     <?php
     if (isset ( $this->error )) :
         ?>
     <div class="error">
             <?=$this->escape ( $this->error );?>
     </div>
-
     <?php endif;?>
 
 <?=$this->editprofile ?>
@@ -18,8 +15,6 @@
         <h3><?=$this->translate('Location:').' '.$this->escape( $this->user['location'] );?></h3>
         <h3><?=$this->translate('Member since:').' '.$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($this->user['created'])));?></h3>
     </div>
-
-
     <br />
     <h3><?=$this->translate('Last 5 comments:');?></h3>
     <? if ($this->comments): ?>
@@ -34,10 +29,7 @@
         <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a> 
                 <?=$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($val['date']))); ?></div>
     </div>
-    
-
     <?php endforeach; ?>
-
 <?php endif;?>
 </div>
 
