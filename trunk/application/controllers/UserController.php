@@ -111,15 +111,14 @@ class UserController extends Zend_Controller_Action
 
                     $mail = new Zend_Mail ( );
                     $mail->setBodyHtml ( $this->view->translate ( 'Please, click on this url to finish your register process:' ).'<br />'
-                            . $hostname . $this->view->translate ( '/en/user/validate/t/' ) . $token .
-                            '<br /><br />-----------------<br />' . utf8_decode ( $this->view->translate ( 'The foofind team.' ) ) );
+                            . $hostname  . '/' . $this->view->lang  . '/user/validate/t/'  . $token .
+                            '<br /><br />_______________________________<br />' . utf8_decode ( $this->view->translate ( 'The foofind team.' ) ) );
                     $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
 
                     $mail->addTo($formulario['email']);
                     $mail->setSubject ( $formulario ['username'] . $this->view->translate ( ', confirm your email' ) );
                     $mail->send ();
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to finish the register process' ) );
-
                     $this->_redirect ( '/' );
                 }
 
