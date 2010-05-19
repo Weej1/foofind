@@ -277,16 +277,22 @@ class UserController extends Zend_Controller_Action
     public function profileAction()
     {
         $request = $this->getRequest ();
-        $user_id = (int)$this->_request->getParam ( 'id' );
+        $username = (string)$this->_request->getParam ( 'username' );
 
         $model = $this->_getModel ();
-        $this->view->user = $model->fetchUser($user_id);
+        $this->view->user = $model->fetchUserByUsername($username);
 
         if ( $this->view->user == NULL )
         {
-            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This user does not exist' ) );
-            $this->_redirect ( '/' );
+            //$this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This user does not exist' ) );
+            //$this->_redirect ( '/' );
         }
+
+//
+//        var_dump($this->view->user);
+//        die();
+
+        $user_id = $this->view->user['IdUser'];
 
         //lets overwrite the password and token values to assure not passed to the view ever!
         unset ($this->view->user['password']);

@@ -91,12 +91,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //set the vote page route
         $routeVote = new Zend_Controller_Router_Route( ':language/vote/:action/:id/:type/*', array( 'language' => null, 'controller' => 'vote', 'action' => 'file') );
 
+        //set the user profile route
+        $routeProfile = new Zend_Controller_Router_Route( ':language/user/:username', array( 'language' => null, 'controller' => 'user', 'action' => 'profile') );
+
         //set the api route
         $routeApi = new Zend_Controller_Router_Route('/api/:action/*', array(  'controller' => 'api', 'action' => 'index') );
 
         $router->addRoute ( 'default', $routeLang );//important, put the default route first!
         $router->addRoute ( 'download/id', $routeDownload );
         $router->addRoute ( 'vote', $routeVote );
+        $router->addRoute ( 'user/username', $routeProfile );
         $router->addRoute ( 'api', $routeApi );
 
         //set all routes

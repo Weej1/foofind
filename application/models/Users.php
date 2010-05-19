@@ -185,6 +185,14 @@ class Model_Users extends Zend_Db_Table_Abstract
         $table = new ff_users();
         return $table->fetchRow(  $table->select()->where( 'IdUser = ?', $id ) );
     }
+
+     public function fetchUserByUsername($username)
+    {
+        $table = new ff_users();
+        return $table->fetchRow(  $table->select()->where( 'username = ?', $username ) );
+    }
+
+
 }
 
 class ff_users extends Zend_Db_Table
