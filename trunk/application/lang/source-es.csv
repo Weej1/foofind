@@ -36,6 +36,7 @@
 "'%password%' is less than 5 characters long";"'%password% tiene menos de 5 carácteres'"
 "Are you sure you want to delete your foofind account?";"¿Estás seguro de querer borrar tu cuenta de foofind?"
 "Yes";"Si"
+"Your account has been deleted.";"Tu cuenta ha sido eliminada."
 "Nice to hear that";"Nos alegramos por ello"
 "profile";"perfil"
 "edit profile";"editar perfil"
