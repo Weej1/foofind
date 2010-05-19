@@ -92,7 +92,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $routeVote = new Zend_Controller_Router_Route( ':language/vote/:action/:id/:type/*', array( 'language' => null, 'controller' => 'vote', 'action' => 'file') );
 
         //set the user profile route
-        $routeProfile = new Zend_Controller_Router_Route( ':language/user/:username', array( 'language' => null, 'controller' => 'user', 'action' => 'profile') );
+        $routeProfile = new Zend_Controller_Router_Route( ':language/profile/:username', array( 'language' => null, 'controller' => 'user', 'action' => 'profile') );
 
         //set the api route
         $routeApi = new Zend_Controller_Router_Route('/api/:action/*', array(  'controller' => 'api', 'action' => 'index') );
@@ -100,7 +100,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute ( 'default', $routeLang );//important, put the default route first!
         $router->addRoute ( 'download/id', $routeDownload );
         $router->addRoute ( 'vote', $routeVote );
-        $router->addRoute ( 'user/username', $routeProfile );
+        $router->addRoute ( 'profile/username', $routeProfile );
         $router->addRoute ( 'api', $routeApi );
 
         //set all routes
