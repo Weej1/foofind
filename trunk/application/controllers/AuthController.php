@@ -97,7 +97,7 @@ class AuthController extends Zend_Controller_Action {
                                         Zend_Session::RememberMe($seconds);
                                     }
                                     else {
-                                        die ('no te recuerdoooo');
+                                       
                                         Zend_Session::ForgetMe();
                                     }
 
