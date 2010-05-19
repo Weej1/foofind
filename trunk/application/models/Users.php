@@ -173,6 +173,13 @@ class Model_Users extends Zend_Db_Table_Abstract
         return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
     }
 
+    public function checkUserType($id)
+    {
+        $table = new ff_users();
+        return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
+    }
+
+
     public function fetchUser($id)
     {
         $table = new ff_users();

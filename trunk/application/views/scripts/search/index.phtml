@@ -101,17 +101,12 @@ function formatArchive($context, $md, $show_title)
         <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
 
-
-
-
 <?php if ($this->info['total']>0): ?>
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
         <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
             <?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?> - <?=$this->info['time_desc']?></div>
         <style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
 <?php endif;?>
-
-
 
     <ul id="tabnav">
         <li><a class="<?=(preg_match("/^wftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
@@ -121,7 +116,6 @@ function formatArchive($context, $md, $show_title)
         <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'g'), array('page'=>1)) ?>" ><?=$this->translate('Gnutella');?></a></li>
         <li><a class="<?=(preg_match("/^e$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'e'), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
     </ul>
-
    
         <?
 if (count ( $this->mensajes ) > 0) {
@@ -167,7 +161,6 @@ if (count ( $this->mensajes ) > 0) {
         <?php endif; ?>
     </div>
     
-
 <?php if ($this->info['total']>0): ?>
     <div id="results">
     <ul>
@@ -234,5 +227,4 @@ if (count ( $this->mensajes ) > 0) {
         <p id="no_results"><?=sprintf($this->translate("NoTypeCount"), $this->qs['type'], $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
     <?php endif;?>
 <?php endif;?>
-
-</div><!-- end of container_search --->
+</div>
