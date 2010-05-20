@@ -172,7 +172,7 @@ class DownloadController extends Zend_Controller_Action
         if (!$request->isPost() || !$form) return;
 
         //if userType = 1 dont let vote
-       if ( ($this->identity->userType == 1 ) and ( APPLICATION_ENV == 'production') ){
+       if ( $this->identity->userType == 1 ){
            echo 'You are not allowed to do that. (user type 1)';
            return ;
        }
