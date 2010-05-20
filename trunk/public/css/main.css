@@ -783,6 +783,13 @@ h2{
     height: 22px;
 }
 
+.download_source span {
+    display:block;
+    margin-top:-17px;
+    font-weight: normal;
+    font-size: 10px;
+}
+
 a.source 
 {
     display:inline-block;
