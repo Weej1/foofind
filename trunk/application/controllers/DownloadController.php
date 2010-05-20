@@ -11,7 +11,6 @@ class DownloadController extends Zend_Controller_Action
         require_once APPLICATION_PATH . '/models/Files.php';
         require_once APPLICATION_PATH . '/models/Users.php';
 
-
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();
@@ -171,6 +170,12 @@ class DownloadController extends Zend_Controller_Action
         $request = $this->getRequest();
         $form = $this->_getCommentForm();
         if (!$request->isPost() || !$form) return;
+
+        //if userType = 1 dont let vote
+       if ( ($this->identity->userType == 1 ) and ( APPLICATION_ENV == 'production') ){
+           echo 'You are not allowed to do that. (user type 1)';
+           return ;
+       }
 
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form

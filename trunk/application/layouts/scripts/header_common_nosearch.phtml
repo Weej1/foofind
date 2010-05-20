@@ -1,6 +1,6 @@
 <?=$this->doctype();?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <?=$this->headMeta();?>
         <?=$this->headTitle()->setPrefix('foofind.com');?>
@@ -13,7 +13,8 @@
         <script type="text/javascript">
             var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
         </script>
-    </head>
+</head>
+<?php flush();// this is good for performance, i swear?>
     <body>
         <div id="header" >
             <div id="header-navigation" >
@@ -25,15 +26,13 @@
                         echo '<a href="/' .  $this->lang . '/user/register">' . $this->translate ( 'new user' ) . '</a> ' .
                                 $this->translate ( 'or' ) . ' ';
                         echo '<a href="/'  . $this->lang . '/auth/login">' . $this->translate ( 'login' ) . '</a>';
-                    } else
-                    {
+                    }  else     {
                         $auth_username = $auth->getIdentity()->username;
                         $auth_userid = $auth->getIdentity()->IdUser;
                         echo $this->translate ( 'hello,' ) . '<b>&nbsp;<a href="/' .
                                 $this->lang . '/profile/' . $this->escape ( $auth_username ) . '">' . $this->escape ( $auth_username ) . '</a></b> | ' . '<a href="/' . $this->lang . '/auth/logout">' .
                                 $this->translate ( 'logout' ) . '</a>';
-                    }?>
-                </span>&nbsp;&nbsp;
-                <span class="select_language_box"><?= ($this->lang == 'es')?"<a href='/en/index/setlang'>English</a>":"<a href= '/es/index/setlang'>Español</a>";?></span>
-            </div>
-        </div>
+         }?></span>&nbsp;&nbsp;
+      <span class="select_language_box"><?= ($this->lang == 'es')?"<a href='/en/index/setlang'>English</a>":"<a href= '/es/index/setlang'>Español</a>";?></span>
+   </div>
+</div>
