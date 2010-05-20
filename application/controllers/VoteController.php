@@ -18,6 +18,12 @@ class VoteController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
 
+      //if userType = 1 dont let vote
+       if ( ($this->identity->userType == 1 ) and ( APPLICATION_ENV == 'production') ){
+           echo 'You are not allowed to do that. (user type 1)';
+           return ;
+       }
+
         try {
             $id = (int)$request->getParam('id');
             $data = $this->getData($request);
@@ -47,9 +53,17 @@ class VoteController extends Zend_Controller_Action
     public function commentAction()
     {
         $request = $this->getRequest ();
+        $id = (int)$request->getParam('id');
 
+       //if userType = 1 dont let vote
+       if ( ($this->identity->userType == 1 ) and ( APPLICATION_ENV == 'production') ){
+           echo 'You are not allowed to do that. (user type 1)';
+           return ;
+       }
+       
+        
         try {
-            $id = (int)$request->getParam('id');
+            
             $data = $this->getData($request);
             $data['IdComment'] = (int)$request->getParam('id');
 
