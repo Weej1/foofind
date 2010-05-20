@@ -28,7 +28,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 
 //define the static assets path
-if ( APPLICATION_ENV == 'development' ){
+if ( APPLICATION_ENV == 'developmdent' ){
     defined('STATIC_PATH') ||  define('STATIC_PATH',  '');
 } else {
     defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foofind.com');

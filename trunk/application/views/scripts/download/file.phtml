@@ -402,23 +402,14 @@ if (!$ctype)
 }
 $ctype = strtolower($ctype);
 
-
 //add meta to file related (better seo)
 $this->headMeta()->appendName('description', 'download, '.$ctype.', '.$this->filename['Filename']);
 $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->filename['Filename']);
-
-
-
-
-
 ?>
-
 <div id="container_search">
-
     <h1>
-        <a href="/" ><img  src="/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
+        <a href="/" ><img  src="<?=STATIC_PATH;?>/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
     </h1>
-
     <?=$this->form; ?>
     <?if ($this->qs['q']):?>
     <div class="contentype">
@@ -431,9 +422,7 @@ $this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->filen
         <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
     <?endif?>
-
     <hr />
-
 <?
 if (count ( $this->mensajes ) > 0) {
 	echo '<div class="success">';
@@ -451,7 +440,7 @@ if (count ( $this->mensajes ) > 0) {
         
         <div class="top_download">
         <div class="download_button">
-            <img alt="" src="/images/icons/content_<?=$ctype ?>.gif" /><br />
+            <img alt="" src="<?=STATIC_PATH;?>/images/icons/content_<?=$ctype ?>.gif" /><br />
             <a title="<?=$this->translate('Download')?>" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').($this->file_size<1 ? '':' ('.$this->file_size.')');?></a>
          </div>
         <div class="download_file_metadata"><?php showMetadata($this, $ctype, $this->filename['Filename'], $this->filename['Extension'], $md) ?></div>
@@ -477,15 +466,13 @@ if (count ( $this->mensajes ) > 0) {
                              $i+=1;
                              if ($i>5) break;?>
                             <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$link.'" />'; ?>
-                            <div style='background:url(/images/icons/<?=$key ?>_download.gif) left 0px no-repeat'><a title="<?=$link ?>" href="<?=$link ?>">
+                            <div style='background:url(<?=STATIC_PATH;?>/images/icons/<?=$key ?>_download.gif) left 0px no-repeat'><a title="<?=$link ?>" href="<?=$link ?>">
                             <? echo ucfirst ( $val['tip'] );
                                 if (!$multiple && $val['count']>1) echo ' <span>'.$val['count'].' '.$this->translate('sources').'</span>';?>
                             </a></div>
                  <?php  endforeach; ?>
                         </div>
-
-                   <?php    endforeach; ?>
-
+                   <?php  endforeach; ?>
             
         </div>
        <?php endif; ?>
@@ -496,17 +483,17 @@ if (count ( $this->mensajes ) > 0) {
 
         <div class="sharelinks"><?=$this->translate('Share this:');?>
             <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
-                <img alt="<?=$this->translate('share on facebook');?>" src="/images/icons/ico_facebook.gif" border = "0"/></a>
+                <img alt="<?=$this->translate('share on facebook');?>" src="<?=STATIC_PATH;?>/images/icons/ico_facebook.gif" border = "0"/></a>
                 <a href="mailto:?subject=<?=$this->filename['Filename'];?>&body=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile']);?>">
-                <img alt="<?=$this->translate('send by email');?>" src="/images/icons/ico_email_link.png" border = "0"/></a>
+                <img alt="<?=$this->translate('send by email');?>" src="<?=STATIC_PATH;?>/images/icons/ico_email_link.png" border = "0"/></a>
                 <a href="http://twitter.com/home?status=http://foof.in/<?=$langcode;?>/<?=dechex($this->file['IdFile'] );?>">
-                <img alt="<?=$this->translate('share on twitter');?>" src="/images/icons/ico_twitter.png" border = "0"/></a>
+                <img alt="<?=$this->translate('share on twitter');?>" src="<?=STATIC_PATH;?>/images/icons/ico_twitter.png" border = "0"/></a>
         </div>
 
         <div class="comments">
 <? if (count($this->comments)>0 || $this->isAuth): ?>
         <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
-        <img src="/images/baloon.gif"/><h4><?=$this->translate('Your comments')?></h4>
+        <img src="<?=STATIC_PATH;?>/images/baloon.gif"/><h4><?=$this->translate('Your comments')?></h4>
 <? endif;?>
 
 <? if ($this->comments): ?>
@@ -623,9 +610,9 @@ if (count ( $this->mensajes ) > 0) {
     <div class="download_more_info">
         <h3><?=$this->translate('How to download?'); ?></h3>
         <p><?=$this->translate('DownloadExplanation'); ?></p>
-        <p><img title="eDonkey, eMule, MLDonkey, aMule" alt="eDonkey, eMule, MLDonkey, aMule"  src="/images/icons/ed2k.gif" /> eMule, MLDonkey, aMule.</p>
-        <p><img title="Gnutella, Frostwire,Limewire, Shareaza, Phex" alt="Gnutella, Frostwire, Limewire, Shareaza, Phex"  src="/images/icons/gnutella.gif" /> Limewire, Shareaza, Phex.</p>
-        <p><img title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission"  src="/images/icons/torrent.gif" /> µTorrent, Transmission.</p>
+        <p><img title="eDonkey, eMule, MLDonkey, aMule" alt="eDonkey, eMule, MLDonkey, aMule"  src="<?=STATIC_PATH;?>/images/icons/ed2k.gif" /> eMule, MLDonkey, aMule.</p>
+        <p><img title="Gnutella, Frostwire,Limewire, Shareaza, Phex" alt="Gnutella, Frostwire, Limewire, Shareaza, Phex"  src="<?=STATIC_PATH;?>/images/icons/gnutella.gif" /> Limewire, Shareaza, Phex.</p>
+        <p><img title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission"  src="<?=STATIC_PATH;?>/images/icons/torrent.gif" /> µTorrent, Transmission.</p>
     </div>
 
 

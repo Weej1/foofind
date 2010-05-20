@@ -87,7 +87,7 @@ function formatArchive($context, $md, $show_title)
 
 <div id="container_search">
     <h1>
-        <a href="/" ><img border="0" src="/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
+        <a href="/" ><img border="0" src="<?=STATIC_PATH ;?>/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
     </h1>
 
 <?=$this->form; ?>
@@ -201,7 +201,7 @@ if (count ( $this->mensajes ) > 0) {
                     }
                     foreach ($links as $info=>$link) {
                      if ($v['count']) {
-                        echo "<a class='source' title='${v['tip']}' href='$link'><img alt='${v['tip']}' src='/images/icons/${k}d.gif' style='vertical-align:middle'><span>$info</span></a>&nbsp;&nbsp; ";
+                        echo "<a class='source' title='${v['tip']}' href='$link'>" . '<img alt="'.$v['tip'].' " src=" ' . STATIC_PATH .'/images/icons/'.$k .'d.gif" style="vertical-align:middle"><span>'.$info.'</span></a>&nbsp;&nbsp;';
                      }
                     }
                 }
@@ -215,9 +215,7 @@ if (count ( $this->mensajes ) > 0) {
             endforeach; ?>
     </ul>
     </div>
-
     <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
-
 <?php else: ?>
     
     <h2><?=$this->translate('No results for:').' ';?><?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?>
