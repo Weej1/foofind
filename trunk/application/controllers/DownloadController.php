@@ -16,10 +16,10 @@ class DownloadController extends Zend_Controller_Action
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();
 
-        $this->view->headScript()->appendFile("/js/jquery.bgiframe.js");
-        $this->view->headScript()->appendFile("/js/jquery.dimensions.js");
-        $this->view->headScript()->appendFile("/js/jquery.tooltip.js");
-        $this->view->headScript()->appendFile("/js/jquery.superbox-min.js");
+        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.bgiframe.js');
+        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.dimensions.js');
+        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.tooltip.js');
+        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.superbox-min.js');
         
         
         // get auth info

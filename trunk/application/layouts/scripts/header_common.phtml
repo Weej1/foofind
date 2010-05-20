@@ -4,10 +4,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <?=$this->headMeta();?>
         <?= $this->headTitle()->setPrefix('foofind.com');?>
-        <?=$this->headLink()->appendStylesheet('/css/main.css');?>
+        <?=$this->headLink()->appendStylesheet( STATIC_PATH . '/css/main.css');?>
         <link rel="shortcut icon" href="/images/favicon.ico" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?=$this->lang?>.xml" title="Foofind" />
-        <?=$this->jQuery()->setLocalPath($this->baseUrl().'/js/jquery.min.js');?>
+        <?=$this->jQuery()->setLocalPath( STATIC_PATH  . '/js/jquery.min.js');?>
         <?= $this->headScript(); ?>
         <script type="text/javascript">if (window != top) top.location.href = location.href;</script>
         <script type="text/javascript">

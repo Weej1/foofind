@@ -25,10 +25,17 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
-/** Zend_Application */
+
+
+//define the static assets path
+if ( APPLICATION_ENV == 'development' ){
+    defined('STATIC_PATH') ||  define('STATIC_PATH',  '');
+} else {
+    defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foofind.com');
+}
+
 require_once 'Zend/Application.php';
 
-// Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
