@@ -479,7 +479,7 @@ if (count ( $this->mensajes ) > 0) {
                             <?='<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$link.'" />'; ?>
                             <div style='background:url(/images/icons/<?=$key ?>_download.gif) left 0px no-repeat'><a title="<?=$link ?>" href="<?=$link ?>">
                             <? echo ucfirst ( $val['tip'] );
-                                if (!$multiple && $val['count']>1) echo ' <span><wbr/>'.$val['count'].' <wbr/>'.$this->translate('sources').'</span>';?>
+                                if (!$multiple && $val['count']>1) echo ' <span>'.$val['count'].' '.$this->translate('sources').'</span>';?>
                             </a></div>
                  <?php  endforeach; ?>
                         </div>
