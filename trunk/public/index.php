@@ -31,7 +31,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 if ( APPLICATION_ENV == 'development' ){
     defined('STATIC_PATH') ||  define('STATIC_PATH',  '');
 } else {
-    defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foofind.com');
+    defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foof.in');
 }
 
 require_once 'Zend/Application.php';
