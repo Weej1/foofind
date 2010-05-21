@@ -411,7 +411,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                             $docs[$id]['rfilename'] = $docs[$id]['rfilename'].'.html';
                             $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}"; //
 
-                            if (!$doc['filename'] || !$doc['filename']) {
+                            if (!$doc['filename'] || !$doc['sources']) {
                                 $this->cl->UpdateAttributes("idx_files idx_files_week", array("blocked"), array($docs[$id]['idfilename'] => array(3)));
                                 $this->tcount--;
                                 continue;
