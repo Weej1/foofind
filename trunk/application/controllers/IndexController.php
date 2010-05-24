@@ -122,6 +122,22 @@ class IndexController extends Zend_Controller_Action
 
         $this->view->lastfiles = $paginator;
 
+    }
+
+
+    public function sitemapAction()
+    {
+        $this->view->headTitle()->append(' - ');
+        $this->view->headTitle()->append($this->view->translate('Last indexed files'));
+        $this->_helper->layout->disableLayout();
+
+        $this->view->lang =  $this->_helper->checklang->check();
+
+        $limit = 200;
+
+        $fmodel = new Model_Files();
+        $this->view->lastfiles = $fmodel->getLastFilesIndexed( (int) $limit );
+
 
     }
 
