@@ -181,9 +181,13 @@ class UserController extends Zend_Controller_Action
                     $model = $this->_getModel ();
                     $model->updateUser ( $data );
 
+                    //now need to get the fresh user row to pass to auth
+                    $freshuser = $model->fetchUser($id);
+                    unset ($freshuser['password']); //not accesible ever, but just in case...
+
                     //update the auth data stored
                     $auth = Zend_Auth::getInstance ();
-                    $auth->getStorage()->write( (object)$data );
+                    $auth->getStorage()->write( (object)$freshuser );
 
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your profile was edited succesfully!' ) );
                     $this->_redirect ( '/' );
