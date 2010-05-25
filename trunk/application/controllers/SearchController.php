@@ -551,36 +551,65 @@ class SearchController extends Zend_Controller_Action {
             $this->_redirect("/{$this->view->lang}/search/".$helper->qs(array(), array('page'=>1)));
             return;
         }
-        $SphinxPaginator = new Sphinx_Paginator('idx_files, idx_files_week');
-        $SphinxPaginator->setFilters($conds);
 
-        if ($SphinxPaginator !== null) {
-                //paginator
-                $paginator = new Zend_Paginator($SphinxPaginator);
 
-                $paginator->setDefaultScrollingStyle('Elastic');
-                $paginator->setItemCountPerPage(10);
-               
-                //setting the paginator cache 
-                $fO = array('lifetime' => 3600, 'automatic_serialization' => true);
-                $bO = array('cache_dir'=>TMP_PATH );
-                $cache = Zend_Cache::factory('Core', 'File', $fO, $bO);
+        // memcached results !!!!
+                $oBackend = new Zend_Cache_Backend_Memcached(
+                        array(
+                                'servers' => array( array(
+                                        'host' => '127.0.0.1',
+                                        'port' => '11211'
+                                ) ),
+                                'compression' => true
+                ) );
 
-                $paginator->setCache($cache);
-                $paginator->setCurrentPageNumber($page);
+                $oFrontend = new Zend_Cache_Core(
+                        array(
+                                'caching' => true,
+                                'lifetime' => 3600,
+                                'cache_id_prefix' => 'foofy_search',
+                                'automatic_serialization' => true,
+                                
+                        ) );
 
-                $paginator->getCurrentItems();
+                // build a caching object
+                $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
-                if ($conds['type']!=null && $SphinxPaginator->count()==0)
-                {
-                    $conds['type']=null;
-                    $SphinxPaginator->setFilters($conds);
-                    $noTypeCount = $SphinxPaginator->justCount();
+                $key =  $q.md5($src2.$opt.$type.$size.$year.$brate.$page ).$this->lang;
+                $existsCache = $oCache->test($key);
+                if  (! $existsCache  ) {
+
+                        $SphinxPaginator = new Sphinx_Paginator('idx_files, idx_files_week');
+                        $SphinxPaginator->setFilters($conds);
+                        $paginator = new Zend_Paginator($SphinxPaginator);
+
+                        $paginator->setDefaultScrollingStyle('Elastic');
+                        $paginator->setItemCountPerPage(10);
+                        $paginator->setCurrentPageNumber($page);
+                        $paginator->getCurrentItems();
+
+                        $paginator->tcount = $SphinxPaginator->tcount;
+                        $paginator->time = $SphinxPaginator->time;
+                        $paginator->time_desc = $SphinxPaginator->time_desc;
+                        if ($conds['type']!=null && $SphinxPaginator->count()==0)
+                        {
+                            $conds['type']=null;
+                            $SphinxPaginator->setFilters($conds);
+                            $paginator->noTypeCount = $SphinxPaginator->justCount();
+
+                         }
+
+                        $oCache->save( $paginator, $key );
+                    } else {
+                        //cache hit, load from memcache. 
+                        $paginator = $oCache->load( $key  );
+                        
                 }
-                
-                $this->view->info = array('total'=>$SphinxPaginator->tcount, 'time_desc'=>$SphinxPaginator->time_desc, 'time'=>$SphinxPaginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($SphinxPaginator->tcount, $page*10), 'notypecount' => $noTypeCount);
+                      
+                $this->view->info = array('total'=>$paginator->tcount, 'time_desc'=>$paginator->time_desc, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
                 $this->view->paginator = $paginator;
-        }
+         
+        
 
         $jquery = $this->view->jQuery();
         $jquery->enable(); // enable jQuery Core Library
