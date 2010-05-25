@@ -575,7 +575,7 @@ class SearchController extends Zend_Controller_Action {
                 // build a caching object
                 $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
-                $key =  $q.md5($src2.$opt.$type.$size.$year.$brate.$page ).$this->lang;
+                $key =  md5("$q - $src2 $opt $type $size $year $brate $page).$this->lang;
                 $existsCache = $oCache->test($key);
                 if  (! $existsCache  ) {
 
