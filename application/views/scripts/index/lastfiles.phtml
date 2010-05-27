@@ -13,4 +13,22 @@
     </ul>
     </div>
 <?=$this->paginationControl($this->lastfiles,'Sliding','paginator_md.phtml'); ?>
+
+<br />
+
+
+    <div class="alfa">
+        <?
+        $LETRAS = range( 'a', 'z' );
+        foreach( $LETRAS as $LETRA ) {
+             $letras = range( 'a', 'z' );
+             foreach( $letras as $letra ) {
+                echo '<a href="/'.$this->lang.'/search/?q='.$LETRA.$letra.'*">'.$LETRA.$letra.'</a>&nbsp;<wbr>';
+             }
+        }
+        ?>
+    </div>
+
+
+
 </div>
