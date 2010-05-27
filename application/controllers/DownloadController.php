@@ -72,13 +72,50 @@ class DownloadController extends Zend_Controller_Action
             $element->removeDecorator('Label');
         }
 
-        // assign the form to the view
         $this->view->form = $form;
 
-        //*************************************************************************** get file
+        //lets fetch the file
         $id = (int)$this->_request->getParam ( 'id' );
         $fmodel = new Model_Files();
-        $this->view->file = $fmodel->getFile( $id );
+        //**************************************************************************************************
+        // memcached results !!!!
+                $oBackend = new Zend_Cache_Backend_Memcached(
+                        array(
+                                'servers' => array( array(
+                                        'host' => '127.0.0.1',
+                                        'port' => '11211'
+                                ) ),
+                                'compression' => true
+                ) );
+
+                $oFrontend = new Zend_Cache_Core(
+                        array(
+                                'caching' => true,
+                                'lifetime' => 3600*24*7, //one week
+                                'cache_id_prefix' => 'foofy_download',
+                                'automatic_serialization' => true,
+
+                        ) );
+
+                // build a caching object
+                $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+
+                $keyfile =  md5($id).$this->lang;
+                $existsCache = $oCache->test($keyfile);
+
+                //check file cache
+                if  (! $existsCache  ) {
+                     $this->view->file = $fmodel->getFile( $id );
+                     $oCache->save( $this->view->file, $keyfile );
+                    } else {
+                      //cache hit, load from memcache.
+                      $this->view->file = $oCache->load( $keyfile  );
+                }
+
+        //**************************************************************************************************
+
+
+        //var_dump($this->view->file);
 
         // if the id file exists then go for the rest of data
         if (!$this->view->file){
@@ -95,14 +132,44 @@ class DownloadController extends Zend_Controller_Action
             $fn = $url[4];
             if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
         }
-        $this->view->filename = $fmodel->getFileFilename( $id, $fn);
+
+
+        //check filename cache
+        $keyfilename =  md5( $id ).$this->lang.'fn';
+                if  (! $existsCache  ) {
+                      $this->view->filename = $fmodel->getFileFilename( $id, $fn);
+                     $oCache->save( $this->view->filename, ''.$keyfilename );
+                    } else {
+                      //cache hit, load from memcache.
+                      $this->view->filename = $oCache->load( $keyfilename  );
+                }
+
         $idfn = $this->view->filename['IdFilename'];
-        $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
-        $this->view->sources = $fmodel->getSources( "IdFile = $id" );
+
+         //check metadata cache
+        $keymetadata =  md5( $id ).$this->lang.'metadata';
+                if  (! $existsCache  ) {
+                     $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
+                     $oCache->save( $this->view->metadata, ''.$keymetadata );
+                    } else {
+                      //cache hit, load from memcache.
+                      $this->view->metadata = $oCache->load( $keymetadata );
+                }
+
+
+         //check sources cache
+        $keysources =  md5( $id ).$this->lang.'sources';
+                if  (! $existsCache  ) {
+                     $this->view->sources = $fmodel->getSources( "IdFile = $id" );
+                     $oCache->save( $this->view->sources, ''.$keysources );
+                    } else {
+                      //cache hit, load from memcache.
+                      $this->view->sources = $oCache->load( $keysources );
+                }
+        
 
         $this->view->file_size = $this->_formatSize($this->view->file['Size']);
         $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
-
         $this->view->headTitle()->append($this->view->filename['Filename']);
 
         $this->umodel = new Model_Users();
