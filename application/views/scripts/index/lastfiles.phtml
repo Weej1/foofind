@@ -27,6 +27,20 @@
              }
         }
         ?>
+
+        <?
+        $NUMEROS = range( '0', '9' );
+        foreach( $NUMEROS as $NUMERO ) {
+             $numeros = range( '0', '9' );   
+                  foreach( $numeros as $numero ) {
+                        if ( $NUMERO.$numero != '00'){
+                            echo '<a href="/'.$this->lang.'/search/?q='.$NUMERO.$numero.'*">'.$NUMERO.$numero.'</a>&nbsp;<wbr>';
+                         }
+             }      
+        }
+        ?>
+
+
     </div>
 
 
