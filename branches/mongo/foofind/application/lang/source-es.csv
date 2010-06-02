@@ -1,0 +1,374 @@
+"Previous";"Anterior"
+"Next";"Siguiente"
+"Close";"Cerrar"
+"Loading...";"Cargando..."
+
+
+#user profile
+"Choose your password:";"Elige tu contraseña:"
+"Insert your password (yep, again):";"Introduce tu contraseña (si, otra vez):"
+"Please, fill this form to be a Foofind registered member:";"Por favor, rellena este formulario para ser un usuario registrado de Foofind:"
+"Nickname:";"Nick:"
+"Edit your profile";"Edita tu cuenta"
+"Your profile was edited succesfully!";"Tu perfil se ha actualizado con éxito"
+"hello,";"hola,"
+"logout";"salir"
+"login";"acceder"
+"Login";"Acceder"
+"new user";"nuevo usuario"
+"or";"o"
+"New user";"Nuevo usuario"
+"Register";"Registrarse"
+"(If you are a new user, please";"(Si eres un nuevo usuario, por favor"
+"register here";"regístrate aquí"
+"Choose a nickname:";"Elige un nick:"
+"Please, fill this form to be a Foofind registered member.";"Por favor, rellena este formulario para ser usuario registrado de Foofind."
+"User login";"Acceder"
+"Remember me";"Recordarme"
+"Your location:";"Tu ubicación:"
+"Change your password here: (otherwise leave it blank)";"Introduce una nueva contraseña (si no deseas cambiarla, deja este campo en blanco)"
+"Save profile";"Guardar cambios"
+"You are not allowed to view this page";"No tienes permisos para acceder a esta página"
+"This username is taken. Please choose another one.";"Ese nombre de usuario ya existe. Por favor, elige otro diferente."
+"Forgot";"¿Olvidaste"
+"your password?";"tu contraseña?"
+"Password:";"Contraseña:"
+"'%password%' is less than 5 characters long";"'%password% tiene menos de 5 carácteres'"
+"Are you sure you want to delete your foofind account?";"¿Estás seguro de querer borrar tu cuenta de foofind?"
+"Yes";"Si"
+"Your account has been deleted.";"Tu cuenta ha sido eliminada."
+"Nice to hear that";"Nos alegramos por ello"
+"profile";"perfil"
+"edit profile";"editar perfil"
+"User name:";"Nick:"
+"Member since:";"Miembro desde:"
+"l dS \o\f F Y H:i:s";"j-m-Y, \a\ \l\a\s g:i:s a"
+"Last 5 comments:";"Últimos 5 comentarios:"
+"Location:";"Ubicación:"
+"Delete your foofind.com account";"Eliminar tu cuenta de foofind.com"
+"Forgot your password?";"¿Olvidaste tu contraseña?"
+"Wrong email or password, please try again";"Dirección de correo o contraseña erronea. Inténtalo de nuevo."
+"Welcome ";"Bienvenido "
+"Please, click on this url to finish your register process:";"Por favor, haz click en este enlace para completar tu proceso de registro:"
+"Sorry, this token does not exist or has been already used";"Lo sentimos, esa url de autenticación no existe o ya ha sido usada"
+", confirm your email";", confirma tu email"
+", restore your foofind access";", restaura tu acceso a foofind"
+"Please, enter your email address. An email to recover your access will be sent to you.";"Por favor, introduce tu dirección de email. Te enviaremos un mensaje para recuperar el acceso."
+"Check your inbox email to restore your foofind.com access";"Comprueba tu correo para recuperar tu acceso a foofind.com"
+"Check your inbox email to finish the register process";"Comprueba tu correo para completar el proceso de registro"
+"Somebody , probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Alguien, probablemente tu, ha solicitado restaurar el acceso a tu cuenta de foofind.com. Haz click en esta url para recuperar tu cuenta:"
+"Otherwise, ignore this message.";"En caso contrario, ignora este mensaje."
+"The foofind team.";"El equipo de foofind.com."
+"This user does not exist";"Este usuario no existe"
+
+"You are now logged in, ";"Has iniciado sesión, "
+"(If you already are a registered user, please";"(Si ya eres un usuario registrado, por favor"
+"login here";"accede aquí"
+"Send";"Enviar"
+"The email address must be the same you used to register.";"La dirección de email debe ser la misma que utilizaste para registrarte."
+"This email is not in our database. Please, try again.";"La dirección de correo introducida no está en nuestra base de datos. Por favor, inténtalo de nuevo."
+"Please, login to vote";"Por favor, accede para votar"
+"Please, login to comment";"Por favor, accede para añadir un comentario"
+
+
+
+#main layout
+"About Foofind";"Acerca de Foofind"
+"About";"Acerca de"
+"Contact";"Contacto"
+"Legal";"Legal"
+"Terms";"Términos de uso"
+"Privacy";"Política de privacidad"
+"Licenses";"Licencias"
+"Direct downloads";"Descargas directas"
+"Links";"Enlaces"
+"Submit links";"Enviar enlace"
+"Report links";"Reclamar enlace"
+"Developers";"Desarrolladores"
+"Source code";"Código fuente"
+
+"files indexed";"archivos indexados"
+"Last indexed files";"Últimos archivos indexados"
+
+#search
+"Search";"Buscar"
+"All";"Todos"
+"Audio";"Audio"
+"Video";"Video"
+"Image";"Imagen"
+"Document";"Documento"
+"Software";"Software"
+"Archive";"Archivo"
+"No results for:";"No hay resultados para:"
+"Hey! Write something";"¡Escribe algo!"
+
+"All sizes";"Todos los tamaños"
+"advanced search";"búsqueda avanzada"
+"hide advanced search";"ocultar búsqueda avanzada"
+"Smaller than";"Menor de"
+"Larger than";"Mayor de"
+"All qualities";"Cualquier calidad"
+"or better";"o superior"
+"All years";"Todos los años"
+"Before";"Previo a"
+"Last year";"Último año"
+
+"sources";"fuentes"
+"Artist";"Artista"
+"Title";"Título"
+"Author";"Autor"
+"Format";"Formato"
+"Pages";"Páginas"
+"Album";"Álbum"
+"Length";"Duración"
+"Bitrate";"Tasa de bits"
+"Genre";"Género"
+"Seconds";"Segundos"
+"Minutes";"Minutos"
+"Sources";"Fuentes"
+"Source";"Fuente"
+"Height";"Alto"
+"Width";"Ancho"
+"Track";"Pista"
+"Quality";"Calidad"
+"Num. of pages";"Nº de páginas"
+"Include results from:";"Incluir resultados de:"
+"Size";"Tamaño"
+"Unpacked Size";"Tamaño sin empaquetar"
+"Colors";"Colores"
+"Version";"Versión"
+"Files";"Archivos"
+"of about";"de aprox."
+"results for";"resultados para"
+"NoTypeCount";"No se han encontrado resultados de <i>%s</i>, pero existen aproximadamente %d resultados para su búsqueda en <a href='%s'>otras categorías</a>."
+"Foofind does not allow browse results after page 1000.";"Foofind no permite navegar resultados posteriores a la página 1000."
+"How to download?";"¿Cómo descargar?"
+"DownloadExplanation";"Para descargar el archivo enlazado en esta página se puede precisar un software externo. Aquí tienes algunos programas compatibles:"
+"Share this:";"Comparte este enlace:"
+"share on facebook";"compartir en facebook"
+"share on twitter";"compartir en twitter"
+"send by email";"envíalo por correo"
+"Download";"Descargar"
+"Soundtype";"Tipo de sonido"
+"Your comments";"Tus comentarios"
+"since";"hace %1$d %2$s"
+"year";"año"
+"years";"años"
+"month";"mes"
+"months";"meses"
+"day";"dia"
+"days";"dias"
+"hour";"hora"
+"hours";"horas"
+"minute";"minuto"
+"minutes";"minutos"
+"second";"segundo"
+"seconds";"segundos"
+"Post comment";"Enviar comentario"
+"Add a comment";"Añadir un comentario"
+"from";"desde"
+"I like it!";"¡Me gusta!"
+"Booo!";"¡Buuu!"
+"Comment published succesfully!";"Comentario publicado con éxito."
+
+
+#contact
+"Contact form";"Formulario de contacto"
+"Your email:";"Tu email:"
+"Your message:";"Tu mensaje:"
+"Please, insert the 5 characters shown:";"Por favor, introduce los 5 caracteres que se muestran:"
+"Send";"Enviar"
+"Value is required and can't be empty";"Este campo no puede estar vacío"
+"Captcha value is wrong";"Los caracteres introducidos no coinciden con los de la imagen"
+"'%value%' is less than 20 characters long";"'%value%' tiene menos de 20 caracteres"
+"'%value%' is less than 9 characters long";"'%value%' tiene menos de 9 caracteres"
+"'%value%' is less than 5 characters long";"'%value%' tiene menos de 5 caracteres"
+"'%value%' is less than %min% characters long";"Este campo debe contener %min% ó mas caracteres"
+
+
+"'%value%' is no valid email address in the basic format local-part@hostname";"'%value%' no es una dirección de correo válida con el formato: usuario@ejemplo.com"
+"'%hostname%' is no valid hostname for email address '%value%'";"'%hostname%' no es nombre correcto de dominio para la dirección de correo '%value%'"
+"'%value%' appears to be a local network name but local network names are not allowed";"'%value%' parece ser una dirección de red local"
+"'%value%' does not match the expected structure for a DNS hostname";"'%value%' no concide con la estructura requerida para un nombre de dominio DNS"
+"'%value%' appears to be a DNS hostname but cannot match TLD against known list";"'%value%' parece ser un nombre de dominio pero no coincide con ningun TLD conocido"
+"Message sent successfully!";"Tu mensaje se ha enviado correctamente."
+
+
+#complaint
+"Your name:";"Tu nombre:"
+"Your surname:";"Tus apellidos:"
+"Your company:";"Tu empresa:"
+"Your phone number:";"Tu número de teléfono:"
+"Please, insert the link to be reviewed:";"Por favor, introduce el enlace que cree que debe ser revisado:"
+"Please, insert the url where this content appears:";"Por favor, introduce la url donde aparece el contenido reclamado:"
+"Reason of your complaint:";"Motivo de tu reclamación:"
+"'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
+"literal_check_agree";"He leído y acepto los <a href='/es/page/tos'>términos de uso</a> y la <a href='/es/page/privacy'>política de privacidad</a>."
+"Please, accept the terms of use and privacy policy";"Por favor, debes leer y aceptar los términos de uso y la política de privacidad"
+
+#about
+"this is the about text";"Foofind es un motor de búsqueda universal. En Foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.
+<br /><br />
+Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en Madrid, España por MP2P Technologies."
+
+#footer
+"this is the footer text";"Sitio web <a href='/es/page/about'>Foofind</a> bajo licencia Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.es'>BY-NC-SA</a>.
+ <a href='http://code.google.com/p/foofind/'>Código fuente</a> bajo licencia <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
+"Last indexed files.";"Últimos archivos indexados."
+
+
+
+
+
+#privacy
+"this is the privacy text";"
+<b>Finalidad y responsable del fichero</b><br />
+Por la presente y de conformidad con la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) le informa de la existencia de un fichero automatizado de datos creado por la misma y bajo su responsabilidad.
+<br /><br />
+La finalidad de dicho fichero es la de gestionar las funciones de acceso a la web de los usuarios registrados, dar el trámite que sea necesario a las dudas y comentarios dirigidos a LA EMPRESA, optimizar el orden de los resultados de las búsquedas en función de la ubicación geográfica de quien las realiza y de los votos del resto de usuarios, así como atender a las reclamaciones efectuadas por quien desee notificar la existencia de resultados y enlaces que dirijan a contenidos que considere ilícitos o difundidos sin la preceptiva autorización.  
+
+
+<br /><br />
+LA EMPRESA podrá  enviar correos electrónicos a la cuenta facilitada por el usuario con objeto de informarle sobre la tramitación de la reclamación por él efectuada, para responder a la duda o comentario que le haya sido remitido utilizando cualquiera de nuestros formularios de contacto y, especialmente, para informar a los usuarios registrados sobre los cambios producidos en el servicio, en sus términos de uso o en su política de privacidad. Una vez cumplimentado y enviado el formulario de registro, el usuario recibirá en la cuenta de correo electrónico que haya facilitado información sobre los pasos a seguir para la activación de su cuenta.
+<br /> <br />
+El envío de datos personales mediante cualquiera de nuestros formularios supone la aceptación expresa de su tratamiento automatizado. 
+<br /> <br />
+<b>Prohibiciones de uso por razón de edad</b><br />
+No se aceptarán datos de usuarios menores de 18 años. LA EMPRESA eliminará los datos y cuentas de usuarios de los que tenga constancia o fundadas sospechas de que son menores de edad. <br /><br />
+
+<b>Derechos de acceso, rectificación, cancelación y oposición</b><br />
+El usuario podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición comunicando con el responsable del fichero en la siguiente dirección:
+<br /><br />
+<img src='/images/privacy.png' /><br />
+M Punto 2 Punto Technologies, S.A.<br />
+Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
+<br /><br />
+
+<b>Datos recabados del usuario registrado</b><br />
+Los datos mínimos que han de comunicarse a LA EMPRESA obligatoriamente al crear su cuenta como usuario registrado de Foofind son nombre de usuario/nick y correo electrónico. Opcionalmente usted podrá aportar a su perfil de usuario la dirección de su página web así como su país y ciudad de residencia.
+<br /><br />
+Su nombre de usuario/nick, su ciudad y país de residencia, así como su dirección de página web serán visibles para el resto de usuarios, sean o no usuarios registrados. Su dirección de correo electrónico no será visible para el resto de usuarios en ningún caso.
+<br /><br />
+El usuario registrado puede votar positiva o negativamente los enlaces ofrecidos por Foofind así como los comentarios de otros usuarios, siendo consciente y aceptando que esos votos pueden ser asociados a su cuenta de usuario tanto por LA EMPRESA como por el resto de usuarios.
+<br /><br />
+Con la cancelación de su cuenta de usuario, sus datos de perfil serán eliminados y dejarán de ser visibles para el resto de usuarios, si bien los votos o comentarios realizados mientras era usuario de Foofind podrían seguir permaneciendo accesibles.
+<br /><br />
+
+<b>Servicio de mensajes entre usuarios registrados</b><br />
+Foofind pone a disposición de sus usuarios registrados un servicio de mensajes a fin de que puedan enviarlos y recibirlos de otros usuarios registrados desde su propia cuenta. Con objeto de proteger la privacidad de sus comunicaciones, Foofind ha incorporado a este servicio las siguientes medidas de seguridad:
+ cifrado de los mensajes mediante algoritmo criptográfico.<br /><br />
+El usuario podrá  configurar su perfil para solicitar que Foofind le remita un aviso al correo facilitado al completar el proceso de registro cada vez que un usuario del servicio le envíe un mensaje a su cuenta de usuario de Foofind. La activación de esta opción en la configuración de su perfil supondrá la autorización expresa para el envío a su cuenta de correo de los mensajes de aviso referidos por parte de Foofind. 
+<br /><br />
+Cuando el usuario proceda a darse de baja, se borrarán automáticamente los mensajes que guarde en su cuenta de Foofind, tanto los enviados como los recibidos.
+<br /><br />
+<b>Uso de cookies y datos capturados automáticamente por los servidores de Foofind</b><br />
+El usuario conoce y consiente el uso de cookies que, en ningún caso, permitirán la identificación del mismo, a fin de facilitar su navegación en esta página web. No obstante lo anterior, el usuario podrá en cualquier momento deshabilitar las cookies mediante la oportuna configuración de su navegador a tal efecto.
+<br /></br>
+Los servidores de Foofind capturan de forma automática algunos datos que no permiten la identificación del usuario tales como: fecha y hora de visita de la web,  navegador y sistema operativo que utiliza, dirección de Foofind que ha sido visitada y el nombre de dominio del proveedor y/o dirección IP que les da acceso a la red. Estos datos se guardan con objeto de diagnosticar posibles problemas técnicos eventuales y son eliminados de forma automática a los 24 horas.
+
+
+<br /><br />
+<b>Google Analytics</b><br />
+Esta página web utiliza Google Analytics, un servicio analítico de web prestado por Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre Parkway, Mountain View (California), CA 94043, Estados Unidos (“Google”). Google Analytics utiliza “cookies”, que son archivos de texto ubicados en su ordenador, para ayudar al website a analizar el uso que hacen los usuarios del sitio web. La información que genera la cookie acerca de su uso del website (incluyendo su dirección IP) será directamente transmitida y archivada por Google en los servidores de Estados Unidos. Google usará esta información por cuenta nuestra con el propósito de seguir la pista de su uso del website, recopilando informes de la actividad del website y prestando otros servicios relacionados con la actividad del website y el uso de Internet. Google podrá transmitir dicha información a terceros cuando así se lo requiera la legislación, o cuando dichos terceros procesen la información por cuenta de Google. Google no asociará su dirección IP con ningún otro dato del que disponga Google. Puede Usted rechazar el tratamiento de los datos o la información rechazando el uso de cookies mediante la selección de la configuración apropiada de su navegador, sin embargo, debe Usted saber que si lo hace puede ser que no pueda usar la plena funcionabilidad de este website. Al utilizar este website Usted consiente el tratamiento de información acerca de Usted por Google en la forma y para los fines arriba indicados. 
+<br /><br />
+A fin de proteger su privacidad, ni Google Analytics ni LA EMPRESA guardarán registro alguno de las concretas búsquedas realizadas por los usuarios de foodind, sean o no registrados, de modo que los términos de búsqueda y sus resultados generados en ningún caso podrán vincularse a personas concretas e identificables.
+<br /><br />
+
+<b>Cambios en esta política de privacidad.</b><br />
+LA EMPRESA se reserva el derecho a modificar la presente política de privacidad. Cualquier cambio en la política de privacidad será inmediatamente comunicada al usuario por medio de la dirección de correo electrónico que el mismo haya facilitado a LA EMPRESA en su registro como usuario. 
+<br />
+El uso del servicio con posterioridad a la modificación de la política de privacidad supone el conocimiento y aceptación de la nueva versión modificada de la misma.
+"
+
+
+
+#tos
+"Terms of use";"Términos de uso"
+"this is the tos text";"<b>1.- Objeto y modo de aceptación de los términos de uso</b><br />
+              El presente acuerdo regula el acceso y uso de la página web foofind.com que M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) pone a disposición de los usuarios interesados en el servicio.<br>
+              El uso de los servicios prestados en esta web supone la aceptación por parte del usuario de estos términos de uso.<br />
+              LA EMPRESA podrá cesar en cualquier momento y sin previo aviso en la prestación de sus servicios a través de foofind.com así como modificar el servicio prestado, ya sea en aspectos accidentales o sustanciales.<br />
+              LA EMPRESA no garantiza que el servicio prestado a través de Foofind sea ininterrumpido o sin errores.<br />
+              LA EMPRESA podrá  cancelar o suspender la cuenta o el acceso a la web sin previo aviso del USUARIO que, según su criterio unilateral, considere que está incumplimiento los presentes Términos de Uso y/o la legalidad vigente. <br /><br />
+
+              <b>2.- Precio por el uso del servicio</b><br>
+              La utilización de este servicio por parte de sus usuarios, sean o no usuarios registrados, es completamente gratuita.<br /><br />
+
+              <b>3.- Idioma de los “términos de uso”.</b><br />
+              Los presentes términos de uso se presentan en idioma español.<br />
+              En el caso de que desde esta web se le proporcione una traducción de estos términos de uso en cualquier otro idioma distinto al español, usted reconoce que se realiza por razones de conveniencia y que su relación con LA EMPRESA se regirá por lo dispuesto en estos términos de uso en en su versión en español.<br /><br />
+
+              <b>4.- Privacidad</b><br />
+              Con la aceptación de estos términos de uso el USUARIO declara conocer y aceptar igualmente nuestra <a href='/es/page/privacy'>política de privacidad</a>.<br />
+              Los datos personales remitidos por el USUARIO utilizando cualquiera de nuestros formularios se incorporarán a un fichero automatizado creado por LA EMPRESA y bajo su responsabilidad.<br /><br />
+
+              <b>5.- Responsabilidad por la posible ilicitud de los archivos enlazados en los resultados de la búsqueda.</b><br />
+              Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Desde esta página web no se reproduce, distribuye, comunica públicamente o transforma obra intelectual alguna. Los resultados generados por las búsquedas de sus usuarios muestran únicamente los enlaces a los archivos o páginas que respondan a los criterios de búsqueda introducidos y se encuentran alojados en lugares ajenos a esta página web.
+              <br />
+              El usuario es consciente de que LA EMPRESA no asume ninguna obligación de control, vigilancia e inspección de los archivos o páginas que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 de la Ley de Servicios de la Sociedad de la Información, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.
+              <br />
+              LA EMPRESA no se responsabiliza de la fiabilidad o seguridad de los archivos que aparezcan enlazados como resultados de las búsquedas ni de que estos estén libres de virus, debiendo el usuario encargarse personalmente de proteger su equipo con las medidas de seguridad necesarias.<br /><br />
+
+              <b>6.- Notificación de enlaces a archivos ilícitos o difundidos sin autorización.</b><br />
+              El USUARIO podrá reportar a LA EMPRESA la existencia de todos aquellos archivos enlazados desde Foofind y de cuya ilicitud tenga conocimiento o fundadas sospechas.
+              EL USUARIO que ponga en conocimiento de LA EMPRESA la existencia de páginas o archivos presumiblemente ilícitos o
+            difundidos sin la correspondiente autorización utilizará exclusivamente el <a href='/es/page/complaint'>formulario de contacto ofrecido al efecto</a> por LA EMPRESA y facilitará fielmente los datos requeridos en el mismo. Para ello, el usuario debe previamente leer y aceptar la política de privacidad de LA EMPRESA.
+<br /><br />
+A fin de facilitar la tarea de revisión para reportar aquellos enlaces que pudieran dirigir a contenido presuntamente ilícito o difundido sin autorización, Foofind muestra de forma transparente los archivos que están siendo indexados por el buscador en tiempo real y ordenándolos cronológicamente en un listado de acceso público y gratuito. 
+<br /><br />
+LA EMPRESA se reserva el derecho a retirar los enlaces a archivos o páginas cuya ilicitud le conste o de las que tenga fundadas sospechas. LA EMPRESA se reserva también el derecho a utilizar cuantas medidas tecnológicas estén en su mano con objeto de eliminar de los resultados de las búsquedas aquellos que enlacen a contenidos que pudieran ser ilícitos o difundidos sin la preceptiva autorización. No obstante el usuario reconoce que la eficacia plena de estas medidas para lograr en todos los casos el fin para el que han sido diseñadas no puede garantizarse.
+<br><br>
+              <b>7.- Usuarios registrados </b><br/>
+              Los USUARIOS pueden registrarse en Foofind de forma gratuita para acceder a servicios añadidos, que actualmente consisten, y con reserva de la opción de añadir otros en el futuro, en la posibilidad de realizar comentarios en la ficha de los archivos enlazados, votar positiva o negativamente a esos enlaces o a los comentarios de otros usuarios registrados en el servicio y enviar mensajes privados a la cuenta de otros usuarios de Foofind. <br /><br />
+
+              Los usuarios registrados pueden cancelar su cuenta en cualquier momento desde la página de configuración de su perfil.<br /><br />
+
+              <b>8.- Responsabilidad por uso indebido del servicio e infracción de derechos.</b><br />
+              EL USUARIO reconoce que LA EMPRESA no es responsable de la posible ilicitud o lesión de derechos de las actividades realizadas por los usuarios.<br />
+
+              El USUARIO se compromete a utilizar el servicio conforme a legislación vigente y, a título enunciativo, se abstendrá de:<br/><br />
+              &nbsp;&nbsp;&nbsp;&nbsp;1.- Publicar comentarios ofensivos, injuriosos, calumniosos, racistas,  discriminatorios o que de cualquier otro modo puedan lesionar derechos de  terceros.<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;2.- Publicar con sus comentarios datos o información privada de terceros.<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;3.- Crear perfiles falsos suplantando la personalidad de terceros.<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;4.- Utilizar el servicio para realizar comunicaciones comerciales no  autorizadas.<br /><br />
+              Asimismo, el USUARIO se compromete a reportar a LA EMPRESA todos aquellos contenidos o actividades cuya ilicitud le conste o de la que tenga fundadas sospechas.<br /><br />
+              LA EMPRESA se reserva el derecho a cancelar y eliminar la cuenta del usuario que realice actividades contrarias a la ley o a estos términos de uso, así como a borrar los comentarios que pudieran infringir la ley o lesionar derechos de terceros.
+<br /><br />
+
+              <b>9.- Publicidad </b><br />
+              El usuario es consciente y acepta que LA EMPRESA puede ahora o en el futuro incluir publicidad en el sitio web, ya sea de sus propias actividades, productos o servicios o de terceros. <br /><br />
+
+              <b>10.- Ley y jurisdicción aplicable</b><br />
+              Para cuantas controversias pudieran surgir en la interpretación o cumplimiento de los presentes Términos de Uso, así como los derivados de la utilización del servicio, ambas partes acuerdan que serán competentes los Juzgados y Tribunales de Madrid (España).<br /><br />
+              <b>11.- Cambios en los términos de uso</b><br />
+              LA EMPRESA podrá modificar estos términos de uso.<br />
+              Los usuarios deben supervisar estos términos de uso con frecuencia a fin de conocer los posibles cambios realizados desde la última vez que accedieron al sitio web.<br />
+
+Los usuarios registrados son conscientes y aceptan que es posible que se les envíe un correo electrónico a la cuenta que hayan facilitado al completar el proceso de registro para informarles de que estos términos de uso o la política de privacidad han sido  modificados.
+<br />
+
+El uso del servicio con posterioridad a la modificación de los términos de uso supone el conocimiento y aceptación por parte del usuario de la nueva versión modificada de los mismos."
+
+
+#legal
+"Legal";"Aviso legal"
+"this is the legal text";"M Punto 2 Punto Technologies, S.A.
+<br>
+Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
+<br />
+<img src='/images/hola.png' /><br />
+<br />
+Inc. en el R.M. de Madrid,<br />
+Tomo 19.853, Folio 160, Hoja M-349777.
+<br />
+C.I.F. A-83940825
+<br /><br />
+Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Foofind no aloja y, en consecuencia, no reproduce ni comunica públicamente los archivos enlazados que aparecen como resultados de las búsquedas. Foofind no asume ninguna obligación de control, vigilancia e inspección de las obras que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.<br /><br />
+ Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, puede solicitarnos su retirada desde el siguiente <a href='/es/page/complaint'>formulario de reclamación.</a><br /><br />
+              Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde foofind.com."
+
+
+#error
+"Foofind.com is under maintenance. Please, come back later.";"Foofind.com está en parada de mantenimiento. Por favor, vuelve dentro de un rato."
+"This link does not exist or may have been deleted!";"¡Este enlace no existe o ha sido eliminado!"
+
