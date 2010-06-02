@@ -188,9 +188,15 @@ class Model_Users extends Zend_Db_Table_Abstract
 
      public function fetchUserByUsername($username)
     {
-        $table = new ff_users();
-        return $table->fetchRow(  $table->select()->where( 'username = ?', $username ) );
+       $connection = new Mongo();
+       $db = $connection->foofy;
+       $collection = $db->users;
+
+       $user = $collection->findOne( array('username' =>$username) );
+
+        return $user;
     }
+    
 
 
 }

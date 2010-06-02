@@ -288,9 +288,14 @@ class UserController extends Zend_Controller_Action
 
         if ( $this->view->user == NULL )
         {
-            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This user does not exist' ) );
-            $this->_redirect ( '/' );
+//            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This user does not exist' ) );
+//            $this->_redirect ( '/' );
         }
+
+
+//        var_dump($this->view->user);
+//        die ();
+
 
 
         $user_id = $this->view->user['IdUser'];
