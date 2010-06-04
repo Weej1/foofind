@@ -1,7 +1,20 @@
 <?php
 
 class Model_Users extends Zend_Db_Table_Abstract
+
 {
+
+    public function init()
+    {
+       $connection = new Mongo();
+       $db = $connection->foofy;
+       $this->collection = $db->users;
+
+       
+    }
+
+
+
     public function getFileComments($idUser, $idFile, $lang)
     {
         $table = new ff_comment();
@@ -145,14 +158,15 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     public function checkUserEmail($email)
     {
-        $table = new ff_users();
-        return $table-> fetchRow ( $table->select()->where( 'email = ?', $email ) );
+       $user = $this->collection->findOne( array('email' =>$email) );
+       return $user;
+
     }
 
     public function checkUsername($username)
     {
-        $table = new ff_users();
-        return $table->fetchRow ( $table->select()->where( 'username = ?', $username ));
+       $user = $this->collection->findOne( array('username' =>$username) );
+       return $user;
     }
 
     public function getUserToken($email)
@@ -182,18 +196,13 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     public function fetchUser($id)
     {
-        $table = new ff_users();
-        return $table->fetchRow(  $table->select()->where( 'IdUser = ?', $id ) );
+       $user = $this->collection->findOne( array('IdUser' =>$id) );
+       return $user;
     }
 
      public function fetchUserByUsername($username)
     {
-       $connection = new Mongo();
-       $db = $connection->foofy;
-       $collection = $db->users;
-
-       $user = $collection->findOne( array('username' =>$username) );
-
+       $user = $this->collection->findOne( array('username' =>$username) );
         return $user;
     }
     
