@@ -59,8 +59,7 @@ class UserController extends Zend_Controller_Action
                 }
 
 
-                 $model = $this->_getModel ();
-
+                $model = $this->_getModel ();
                 //check user email and nick if exists
                 $checkemail = $model->checkUserEmail ( $formulario ['email'] );
                 $checkuser = $model->checkUsername ( $formulario ['username'] );
@@ -79,17 +78,19 @@ class UserController extends Zend_Controller_Action
                 $checkemail = $model->checkUserEmail ( $formulario ['email'] );
                 $checkuser = $model->checkUsername ( $formulario ['username'] );
 
+               
+
                 if ($checkemail !== NULL)
                 {
                     $view = $this->initView ();
-                    $view->error .= $this->view->translate ( 'This email is taken.' );
+                    $view->error .= $this->view->translate ( 'This email is taken. Please use another one.' );
 
                 }
 
                 if ($checkuser !== NULL)
                 {
                     $view = $this->initView ();
-                    $view->error .= $this->view->translate ( 'This username is taken.' );
+                    $view->error .= $this->view->translate ( 'This username is taken. Please choose another one.' );
 
                 }
 
