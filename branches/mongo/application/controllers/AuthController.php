@@ -55,38 +55,29 @@ class AuthController extends Zend_Controller_Action {
                             $f = new Zend_Filter_StripTags ( );
                             $email = $f->filter ( trim( $this->_request->getPost ( 'email' ) ) );
                             $password = $f->filter ( trim( $this->_request->getPost ( 'password' ) ) ); //trim whitespaces from copy&pasting the pass from email
-
+                            $password = hash('sha256', $password, FALSE);
+                            
                             //DDBB validation
-                            // setup Zend_Auth adapter for a database table
-
-                            $readConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-                            $dbAdapter = Zend_Db::factory ($readConf->resources->db);
-
-                            $authAdapter = new Zend_Auth_Adapter_DbTable ( $dbAdapter );
-                            $authAdapter->setTableName ( 'ff_users' );
-                            $authAdapter->setIdentityColumn ( 'email' );
-                            $authAdapter->setCredentialColumn ( 'password' );
-                            // Set the input credential values to authenticate against
-                            $authAdapter->setIdentity ( $email );
-                            $authAdapter->setCredential  ( hash('sha256', $password, TRUE) );
-
-                            // do the authentication
-                            $auth = Zend_Auth::getInstance();
+                             require_once APPLICATION_PATH . '/models/Users.php';
+                             $model = new Model_Users();
+                             $checkuser  = $model->checkUserLogin($email,$password);
 
 
-                            //check first if the user is activated (by confirmed email)
-                            $select = $authAdapter->getDbSelect ();
-                            $select->where ( 'active > 0' );
-                            //check if the user is not locked (spammers, bad users, etc)
-                            $select->where ( 'locked = 0' );
-
-                            $result = $authAdapter->authenticate ();
-
-                            if ($result->isValid ()) {
+                            if ( $checkuser  ) {
+                              
                                     // success: store database row to auth's storage
                                     // system. (Not the password though!)
-                                    $data = $authAdapter->getResultRowObject ( null, 'password' );
-                                    $auth->getStorage ()->write ( $data );
+                                    unset ( $checkuser['password'] );
+                                    unset ( $checkuser['_id']); // unset the _id mongo , the casting to object in zend auth is unable to convert to array value
+
+//                                     var_dump($checkuser);
+//                                       die();
+
+                                    // do the authentication
+                                    $auth = Zend_Auth::getInstance ();
+                                    $auth->getStorage ()->write ( (object)$checkuser );
+                                    
+                                   
 
                                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in, ' ) . $auth->getIdentity()->username );
 
@@ -125,6 +116,10 @@ class AuthController extends Zend_Controller_Action {
             $this->view->form = $form;
 
 	}
+
+
+
+
 
 	/**
 	 *

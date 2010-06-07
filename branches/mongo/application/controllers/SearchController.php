@@ -181,7 +181,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             }
         }
 
-        $this->query = $conditions['q'];
+         $this->query = preg_replace("/[\W_]-[\W_]/iu", " ", $conditions['q']);
     }
 
     public function justCount()

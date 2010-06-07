@@ -27,16 +27,20 @@ class Model_Users extends Zend_Db_Table_Abstract
     }
 
 
-    public function getUserComments($idUser, $limit)
+    public function getUserComments($username, $limit)
     {
-        $table = new ff_comment();
-        $select = $table->select()->from("ff_comment")
-                ->where("IdUser=?", $idUser)
-                ->order("date desc")
-                ->limit( $limit );
-                
-        return $table->fetchAll($select);
-    }
+//        $table = new ff_comment();
+//        $select = $table->select()->from("ff_comment")
+//                ->where("IdUser=?", $idUser)
+//                ->order("date desc")
+//                ->limit( $limit );
+//
+//        return $table->fetchAll($select);
+
+
+
+
+        }
 
     public function getUserVote($idUser, $idFile)
     {
@@ -110,7 +114,15 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     public function saveUser(array $data)
     {
-        return $this->save(new ff_users(), $data);
+        $data ['created'] = date ( 'Y-m-d H:i:s' );
+        $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
+        $data['password'] = hash('sha256', $data['password'], FALSE);
+        $data['karma'] = 0.2;
+
+
+        $safe_insert = true;
+        return $this->collection->insert($data, $safe_insert);
+
     }
 
     public function save($table, array $data)
@@ -125,9 +137,8 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     public function updateUser(array $data)
     {
-        $table = new ff_users();
-        $where = $table->getAdapter ()->quoteInto ( 'IdUser = ?', $data ['IdUser'] );
-        $table->update ( $data, $where );
+        $newdata = array('$set' => $data);
+        return $this->collection->update(array("username" => $data['username']), $newdata);
     }
 
 
@@ -156,6 +167,15 @@ class Model_Users extends Zend_Db_Table_Abstract
     }
 
 
+
+     public function checkUserLogin( $email, $password )
+    {
+        return  $this->collection->findOne(  array('email' =>$email,'password' =>$password, 'active' => "1" ) );
+       
+    }
+
+
+
     public function checkUserEmail($email)
     {
        $user = $this->collection->findOne( array('email' =>$email) );
@@ -171,14 +191,14 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     public function getUserToken($email)
     {
-        $table = new ff_users();
-        return $table->fetchRow ( $table->select()->where(  'email = ?', $email ))->token;
+       $user = $this->collection->findOne( array('email' =>$email), array('token') );
+       return $user['token'];
     }
 
     public function validateUserToken($token)
     {
-        $table = new ff_users();
-        return $table->fetchRow (  $table->select()->where( 'token = ?', $token ));
+        return $this->collection->findOne( array('token' =>$token) );
+
     }
 
     public function checkUserIsLocked($id)
@@ -196,35 +216,21 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     public function fetchUser($id)
     {
-       $user = $this->collection->findOne( array('IdUser' =>$id) );
-       return $user;
+       return $this->collection->findOne( array('IdUser' =>$id) );
     }
 
      public function fetchUserByUsername($username)
     {
-       $user = $this->collection->findOne( array('username' =>$username) );
-        return $user;
+
+      return $this->collection->findOne( array('username' =>$username) );
+
     }
     
 
-
 }
 
-class ff_users extends Zend_Db_Table
-{
-    protected $_primary = 'IdUser';
-
-    public function insert(array $data)
-    {
-        $data ['created'] = date ( 'Y-m-d H:i:s' );
-        $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
-        $data['password'] = hash('sha256', $data['password'], TRUE);
-        return parent::insert ( $data );
-    }
 
 
-
-}
 
 class ff_vote extends Zend_Db_Table
 {
