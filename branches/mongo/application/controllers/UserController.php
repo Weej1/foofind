@@ -152,7 +152,7 @@ class UserController extends Zend_Controller_Action
                 $formData = $this->getRequest()->getPost();
                 if ($form->isValid($formData))
                 {
-                   //chekusername if exists, dont let change it
+                    //chekusername if exists, dont let change it
                     $checkuser = $model->checkUsername ( $form->getValue('username') );
 
                     if ( !is_null($checkuser) and ($checkuser['username'] != $auth->getIdentity()->username) )
@@ -177,7 +177,7 @@ class UserController extends Zend_Controller_Action
                     $freshuser = $model->fetchUserByUsername($data['username']);
                     unset ($freshuser['password']); //not accesible ever, but just in case...
                     unset ($freshuser['_id']); //remove the mongo id object, we can not put into zend auth
-                    
+
                     //update the auth data stored
                     $auth = Zend_Auth::getInstance ();
                     $auth->getStorage()->write( (object)$freshuser );
@@ -195,7 +195,7 @@ class UserController extends Zend_Controller_Action
                 $username = $this->_getParam('username', 0);
                 if ($username != null)
                 {
-                    
+
                     $form->populate($model->fetchUserByUsername($username) );
                 }
 
@@ -266,7 +266,7 @@ class UserController extends Zend_Controller_Action
     }
 
 
-
+    
 
     public function profileAction()
     {
@@ -354,20 +354,21 @@ class UserController extends Zend_Controller_Action
                 } else
                 { // success: the email exists , so lets change the password and send to user by mail
 
-                    $mailcheck = $mailcheck->toArray ();
+                   
                     //regenerate the token
-                    $mailcheck['token'] = md5 ( uniqid ( rand (), 1 ) );
-                    $model->updateUser($mailcheck);
+                    $data['token'] = md5 ( uniqid ( rand (), 1 ) );
+
+                    $model->updateUser($mailcheck['username'], $data);
 
                     //now lets send the validation token by email to confirm the user email
                     $hostname = 'http://' . $this->getRequest ()->getHttpHost ();
 
                     $mail = new Zend_Mail ( );
                     $mail->setBodyHtml ( $this->view->translate ( 'Somebody , probably you, wants to restore your foofind access. Click on this url to restore your foofind account:' ).'<br />'
-                            . $hostname . $this->view->translate ( '/en/user/validate/t/' ) .  $mailcheck['token'] .
+                            . $hostname .'/'. $this->view->lang.'/user/validate/t/'  .  $data['token'] .
                             '<br /><br />'.
                             $this->view->translate('Otherwise, ignore this message.').
-                            '<br />--------------<br />' . utf8_decode ( $this->view->translate ( 'The foofind team.' ) ) );
+                            '<br />____<br />' . utf8_decode ( $this->view->translate ( 'The foofind team.' ) ) );
                     $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
 
                     $mail->addTo($mailcheck ['email']);
@@ -409,10 +410,8 @@ class UserController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender ( true );
         $token = $this->_request->getParam ( 't' ); //the token
 
-
         if (! is_null ( $token ))
         {
-
             //lets check this token against ddbb
             $model = $this->_getModel ();
             $validatetoken = $model->validateUserToken ( $token );
@@ -430,14 +429,14 @@ class UserController extends Zend_Controller_Action
                 //update the active status to 1 of the user
                 $data ['active'] = '1';
                 $data ['username'] = $validatetoken ['username'];
-
                 //reset the token
                 $data['token'] = NULL;
-                $model->updateUser($data);
+                
+                $model->updateUser( $validatetoken ['username'] , $data);
 
                 //LETS OPEN THE GATE!
                 //update the auth data stored
-                $data = $model->fetchUserByUsername($validatetoken ['username']);
+                $data = $model->fetchUserByUsername( $validatetoken ['username'] );
                 $auth = Zend_Auth::getInstance ();
 
                 $auth->getStorage()->write( (object)$data);
