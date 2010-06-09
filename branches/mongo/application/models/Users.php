@@ -1,16 +1,14 @@
 <?php
 
-class Model_Users extends Zend_Db_Table_Abstract
-
+class Model_Users 
 {
 
-    public function init()
+    function  __construct()
     {
-       $connection = new Mongo();
-       $db = $connection->foofy;
-       $this->collection = $db->users;
-
-       
+            $connection = new Mongo("mongo.users.foofind.com:27017");
+             //$connection = new Mongo();
+            $db = $connection->foofind;
+            $this->collection = $db->users;       
     }
 
 
@@ -36,8 +34,6 @@ class Model_Users extends Zend_Db_Table_Abstract
 //                ->limit( $limit );
 //
 //        return $table->fetchAll($select);
-
-
 
 
         }
@@ -125,27 +121,19 @@ class Model_Users extends Zend_Db_Table_Abstract
 
     }
 
-    public function save($table, array $data)
-    {
-        $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
-        foreach ( $data as $field => $value )
-        {
-            if (! in_array ( $field, $fields )) unset ( $data [$field] );
-        }
-        return $table->insert ( $data );
-    }
+   
 
-    public function updateUser(array $data)
+    public function updateUser( $username, array $data)
     {
         $newdata = array('$set' => $data);
-        return $this->collection->update(array("username" => $data['username']), $newdata);
+        return $this->collection->update(array("username" => $username), $newdata);
     }
 
 
-    function deleteUser($id)
+    function deleteUser($username)
     {
-        $table = new ff_users();
-        $table->delete('IdUser =' . (int)$id);
+        $filter = array('username' => $username);
+        $this->collection->remove($filter);
     }
 
     function deleteUserComments ($id)
@@ -229,20 +217,3 @@ class Model_Users extends Zend_Db_Table_Abstract
 
 }
 
-
-
-
-class ff_vote extends Zend_Db_Table
-{
-    protected $_primary = array('IdFile', 'IdFilename', 'IdUser', 'VoteType');
-}
-
-class ff_comment extends Zend_Db_Table
-{
-    protected $_primary = 'IdComment';
-}
-
-class ff_comment_vote extends Zend_Db_Table
-{
-    protected $_primary = array('IdComment', 'IdUser', 'VoteType');
-}

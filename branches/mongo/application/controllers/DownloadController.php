@@ -7,9 +7,9 @@ class DownloadController extends Zend_Controller_Action
     public function init()
     {
         
-        require_once APPLICATION_PATH . '/models/ContentType.php';
-        require_once APPLICATION_PATH . '/models/Files.php';
-        require_once APPLICATION_PATH . '/models/Users.php';
+//        require_once APPLICATION_PATH . '/models/ContentType.php';
+//
+//        require_once APPLICATION_PATH . '/models/Users.php';
 
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
@@ -74,48 +74,18 @@ class DownloadController extends Zend_Controller_Action
 
         $this->view->form = $form;
 
-        //lets fetch the file
-        $id = (int)$this->_request->getParam ( 'id' );
+        //lets fetch the file  ***************************************************
+        $uri = (string)$this->_request->getParam ( 'uri' );
+
+        require_once APPLICATION_PATH . '/models/Files.php';
         $fmodel = new Model_Files();
-        //**************************************************************************************************
-        // memcached results !!!!
-                $oBackend = new Zend_Cache_Backend_Memcached(
-                        array(
-                                'servers' => array( array(
-                                        'host' => '127.0.0.1',
-                                        'port' => '11211'
-                                ) ),
-                                'compression' => true
-                ) );
+        $this->view->file = $fmodel->getFile( $uri );
 
-                $oFrontend = new Zend_Cache_Core(
-                        array(
-                                'caching' => true,
-                                'lifetime' => 3600*24*7, //one week
-                                'cache_id_prefix' => 'foofy_download',
-                                'automatic_serialization' => true,
+               
+                     var_dump( $this->view->file );
+    
+                     die();
 
-                        ) );
-
-                // build a caching object
-                $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
-
-                $keyfile =  md5($id).$this->lang;
-                $existsCache = $oCache->test($keyfile);
-
-                //check file cache
-                if  (! $existsCache  ) {
-                     $this->view->file = $fmodel->getFile( $id );
-                     $oCache->save( $this->view->file, $keyfile );
-                    } else {
-                      //cache hit, load from memcache.
-                      $this->view->file = $oCache->load( $keyfile  );
-                }
-
-        //**************************************************************************************************
-
-
-        //var_dump($this->view->file);
 
         // if the id file exists then go for the rest of data
         if (!$this->view->file){
