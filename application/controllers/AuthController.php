@@ -64,21 +64,15 @@ class AuthController extends Zend_Controller_Action {
 
 
                             if ( $checkuser  ) {
-                              
-                                    // success: store database row to auth's storage
-                                    // system. (Not the password though!)
+                                   // success: store database row to auth's storage
+                                   // system. (Not the password though!)
                                     unset ( $checkuser['password'] );
                                     unset ( $checkuser['_id']); // unset the _id mongo , the casting to object in zend auth is unable to convert to array value
-
-//                                     var_dump($checkuser);
-//                                       die();
 
                                     // do the authentication
                                     $auth = Zend_Auth::getInstance ();
                                     $auth->getStorage ()->write ( (object)$checkuser );
                                     
-                                   
-
                                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in, ' ) . $auth->getIdentity()->username );
 
                                     //check if user wants to be remembered by 7 days
@@ -88,7 +82,6 @@ class AuthController extends Zend_Controller_Action {
                                         Zend_Session::RememberMe($seconds);
                                     }
                                     else {
-                                       
                                         Zend_Session::ForgetMe();
                                     }
 

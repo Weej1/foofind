@@ -2,19 +2,18 @@
 class UserController extends Zend_Controller_Action
 {
 
-    protected $session = null;
-    protected $_model;
-
 
     public function init()
     {
-
         $this->_helper->layout()->setLayout('with_search_form');
         $this->view->headTitle()->append(' - ');
         $this->view->lang =  $this->_helper->checklang->check();
 
         $aNamespace = new Zend_Session_Namespace('Foofind');
         $this->location = $aNamespace->location;
+
+        $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
+        $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
     }
 
@@ -37,7 +36,7 @@ class UserController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $form = $this->_getUserRegisterForm ();
 
-        $model = $this->_getModel ();
+
 
 
         if ($this->getRequest ()->isPost ())
@@ -47,7 +46,7 @@ class UserController extends Zend_Controller_Action
             {
                 $formulario = $form->getValues ();
 
-                 //check 2 passwords matches
+                //check 2 passwords matches
                 $checkpasswords = ($formulario['password1']  == $formulario['password2'] );
                 if ( $checkpasswords == FALSE)
                 {
@@ -61,7 +60,7 @@ class UserController extends Zend_Controller_Action
                 {
                     $view = $this->initView();
                     $view->error .= $this->view->translate('Please, accept the terms of use and privacy policy');
-                    
+
                 }
 
 
@@ -79,25 +78,20 @@ class UserController extends Zend_Controller_Action
 									      choose other username');
                 }
 
-
                 //check user email and nick if exists
                 $checkemail = $model->checkUserEmail ( $formulario ['email'] );
                 $checkuser = $model->checkUsername ( $formulario ['username'] );
-
-               
 
                 if ($checkemail !== NULL)
                 {
                     $view = $this->initView ();
                     $view->error .= $this->view->translate ( 'This email is taken. Please use another one.' );
-
                 }
 
                 if ($checkuser !== NULL)
                 {
                     $view = $this->initView ();
                     $view->error .= $this->view->translate ( 'This username is taken. Please choose another one.' );
-
                 }
 
                 if ($checkemail == NULL and $checkuser == NULL and $checkpasswords == TRUE and $checkagree == TRUE )
@@ -145,9 +139,6 @@ class UserController extends Zend_Controller_Action
         $model = $this->_getModel ();
         $user = $model->fetchUserByUsername( $username );
 
-        var_dump($user);
-        //die();
-
         if (($auth->getIdentity()->username  == $user['username']) )
         { //if is the user profile owner lets edit
 
@@ -156,17 +147,12 @@ class UserController extends Zend_Controller_Action
             $form->submit->setLabel('Save profile');
             $this->view->form = $form;
 
-
-
             if ($this->getRequest ()->isPost ())
             {
-
                 $formData = $this->getRequest()->getPost();
                 if ($form->isValid($formData))
                 {
-
-
-                    //chekusername if exists, dont let change it
+                   //chekusername if exists, dont let change it
                     $checkuser = $model->checkUsername ( $form->getValue('username') );
 
                     if ( !is_null($checkuser) and ($checkuser['username'] != $auth->getIdentity()->username) )
@@ -185,24 +171,23 @@ class UserController extends Zend_Controller_Action
                     }
 
                     $model = $this->_getModel ();
-                    $model->updateUser ( $data );
-
+                    $model->updateUser ( $user['username'], $data ) ;
 
                     //now need to get the fresh user row to pass to auth
-                    $freshuser = $model->fetchUserByUsername($username);
+                    $freshuser = $model->fetchUserByUsername($data['username']);
                     unset ($freshuser['password']); //not accesible ever, but just in case...
-
+                    unset ($freshuser['_id']); //remove the mongo id object, we can not put into zend auth
+                    
                     //update the auth data stored
                     $auth = Zend_Auth::getInstance ();
                     $auth->getStorage()->write( (object)$freshuser );
 
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your profile was edited succesfully!' ) );
-                    $this->_redirect ( '/' );
+                    $this->_redirect ( '/'.$this->view->lang .'/profile/'.$auth->getIdentity()->username );
 
                 } else
                 {
                     $form->populate($formData);
-
                 }
 
             } else
@@ -210,10 +195,9 @@ class UserController extends Zend_Controller_Action
                 $username = $this->_getParam('username', 0);
                 if ($username != null)
                 {
-                    $user = new Model_Users();
-                    $form->populate($user->fetchUserByUsername($username) );
+                    
+                    $form->populate($model->fetchUserByUsername($username) );
                 }
-
 
             }
 
@@ -231,8 +215,7 @@ class UserController extends Zend_Controller_Action
     {
         $this->view->headTitle()->append( $this->view->translate ( 'Delete your profile' ) );
 
-        $username = (int)$this->getRequest()->getParam('username');
-
+        $username = (string)$this->getRequest()->getParam('username');
         $auth = Zend_Auth::getInstance ();
         $model = $this->_getModel ();
         $user = $model->fetchUserByUsername($username);
@@ -248,9 +231,9 @@ class UserController extends Zend_Controller_Action
                 {
                     //delete user, and all his content
                     $model->deleteUser($user['username']);
-                    $model->deleteUserComments($user['username']);
-                    $model->deleteUserCommentsVotes($id);
-                    $model->deleteUserVotes($id);
+//                    $model->deleteUserComments($user['username']);
+//                    $model->deleteUserCommentsVotes($id);
+//                    $model->deleteUserVotes($id);
 
                     //kill the session and go home
                     Zend_Auth::getInstance ()->clearIdentity ();
@@ -264,7 +247,7 @@ class UserController extends Zend_Controller_Action
                 {
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Nice to hear that' ) );
                     $this->_redirect ( '/' );
-                     return ;
+                    return ;
                 }
 
             } else
@@ -304,7 +287,7 @@ class UserController extends Zend_Controller_Action
         unset ($this->view->user['password']);
         unset ($this->view->user['token']);
 
-         //lets fetch last 5 user comments
+        //lets fetch last 5 user comments
         $this->view->comments = $model->getUserComments( $this->view->user['username'], 5 );
         $this->view->headTitle()->append( $this->view->translate ( 'User profile - ' ).$this->view->user['username'] );
 
@@ -313,7 +296,7 @@ class UserController extends Zend_Controller_Action
         { //if is the user profile owner lets delete it
 
             $this->view->editprofile = '
-        <a href="/'.$this->view->lang .'/user/edit/username/'.$auth->getIdentity()->username. ' ">'.$this->view->translate('edit profile').'</a>';
+        <a href="/'.$this->view->lang .'/user/edit/'.$auth->getIdentity()->username. ' ">'.$this->view->translate('edit profile').'</a>';
 
         }
 
@@ -353,14 +336,12 @@ class UserController extends Zend_Controller_Action
 
         if ($this->getRequest ()->isPost ())
         {
-
             if ($form->isValid ( $request->getPost () ))
             {
 
                 // collect the data from the form
                 $f = new Zend_Filter_StripTags ( );
                 $email = $f->filter ( $this->_request->getPost ( 'email' ) );
-
                 $model = $this->_getModel ();
                 $mailcheck = $model->checkUserEmail( $email );
 
@@ -372,14 +353,12 @@ class UserController extends Zend_Controller_Action
 
                 } else
                 { // success: the email exists , so lets change the password and send to user by mail
-                    
-                    $mailcheck = $mailcheck->toArray ();
 
+                    $mailcheck = $mailcheck->toArray ();
                     //regenerate the token
                     $mailcheck['token'] = md5 ( uniqid ( rand (), 1 ) );
-     
                     $model->updateUser($mailcheck);
-                                
+
                     //now lets send the validation token by email to confirm the user email
                     $hostname = 'http://' . $this->getRequest ()->getHttpHost ();
 
@@ -395,19 +374,17 @@ class UserController extends Zend_Controller_Action
                     $mail->setSubject ( $mailcheck ['username'] . $this->view->translate ( ', restore your foofind access' ) );
                     $mail->send ();
                     $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to restore your foofind.com access' ) );
-
                     $this->_redirect ( '/' );
 
                 }
 
             }
         }
-        // assign the form to the view
         $this->view->form = $form;
 
     }
 
-   
+
 
     /**
      *
@@ -428,7 +405,6 @@ class UserController extends Zend_Controller_Action
      */
     public function validateAction()
     {
-
         // Do not attempt to render a view
         $this->_helper->viewRenderer->setNoRender ( true );
         $token = $this->_request->getParam ( 't' ); //the token
@@ -441,7 +417,6 @@ class UserController extends Zend_Controller_Action
             $model = $this->_getModel ();
             $validatetoken = $model->validateUserToken ( $token );
 
-           
 
             if ($validatetoken !== NULL)
             {
@@ -464,7 +439,7 @@ class UserController extends Zend_Controller_Action
                 //update the auth data stored
                 $data = $model->fetchUserByUsername($validatetoken ['username']);
                 $auth = Zend_Auth::getInstance ();
-                
+
                 $auth->getStorage()->write( (object)$data);
 
                 $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Welcome' ) .' '. $data['username'] );
@@ -472,9 +447,9 @@ class UserController extends Zend_Controller_Action
 
             } else
             {
-               $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Sorry, this token does not exist or has been already used' )  );
-               $this->_redirect ( '/' );
-                
+                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Sorry, this token does not exist or has been already used' )  );
+                $this->_redirect ( '/' );
+
             }
 
         } else
@@ -484,6 +459,4 @@ class UserController extends Zend_Controller_Action
         }
 
     }
-
 }
-

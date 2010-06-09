@@ -84,23 +84,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         //set the language route url (the default also)
         $routeLang = new Zend_Controller_Router_Route ( ':language/:controller/:action/*', array ('language' => null, 'controller' => 'index', 'action' => 'index', 'module' =>'default' ) );
-
         //set the download file page route
-        $routeDownload = new Zend_Controller_Router_Route( ':language/download/:id/*', array( 'language' => null, 'controller' => 'download', 'action' => 'file') );
-
+        $routeDownload = new Zend_Controller_Router_Route( ':language/download/:uri/*', array( 'language' => null, 'controller' => 'download', 'action' => 'file') );
         //set the vote page route
         $routeVote = new Zend_Controller_Router_Route( ':language/vote/:action/:id/:type/*', array( 'language' => null, 'controller' => 'vote', 'action' => 'file') );
-
         //set the user profile route
         $routeProfile = new Zend_Controller_Router_Route( ':language/profile/:username', array( 'language' => null, 'controller' => 'user', 'action' => 'profile') );
-
+        //set the edit username route
+        $routeEdituser = new Zend_Controller_Router_Route( ':language/user/edit/:username', array( 'language' => null, 'controller' => 'user', 'action' => 'edit') );
         //set the api route
         $routeApi = new Zend_Controller_Router_Route('/api/:action/*', array(  'controller' => 'api', 'action' => 'index') );
 
         $router->addRoute ( 'default', $routeLang );//important, put the default route first!
-        $router->addRoute ( 'download/id', $routeDownload );
+        $router->addRoute ( 'download/uri', $routeDownload );
         $router->addRoute ( 'vote', $routeVote );
         $router->addRoute ( 'profile/username', $routeProfile );
+        $router->addRoute ( 'user/edit', $routeEdituser );
         $router->addRoute ( 'api', $routeApi );
 
         //set all routes
