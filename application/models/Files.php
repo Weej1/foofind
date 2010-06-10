@@ -13,6 +13,11 @@ class Model_Files
     }
 
 
+    public function countFiles()
+    {
+        $files = $this->collection->count();
+        return $files;
+    }
 
 
     public function getFile($uri)
