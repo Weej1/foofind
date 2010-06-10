@@ -42,9 +42,10 @@ class IndexController extends Zend_Controller_Action
     public function indexAction()
     {
 
-        $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"),
-                                        array( 'locale' => $this->view->lang));
-        
+        $model = new Model_Files();
+        $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $model->countFiles(), array( 'locale' => $this->view->lang));
+
+
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
         
