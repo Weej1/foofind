@@ -2,13 +2,15 @@
     <h2><?=$this->translate('Last indexed files') .' '. date( $this->translate('l dS \o\f F Y H:i:s') ) . ' (GMT+01:00) , Madrid' ?></h2>
 <div id="results">
     <ul>
-       <?php foreach ($this->lastfiles as $key => $val):
-            if ($val['Filename']):?>
+       <?php foreach ($this->lastfiles as $key => $file):
+//               var_dump($file);
+               var_dump($file['src'][0]['fn']);
+
+           ?>
         <li class="file_excerpt">
-            <h3><a href="/<?=$this->lang?>/download/<?=$val['IdFile'] ?>/<?=$val['Filename'].'.html' ?>"><?=$val['Filename'] ?></a></h3>
+            <h3><a href="/<?=$this->lang?>/download/<?=$file['src'][0]['uri'] ?>/<?=$file['src'][0][1]['n'].'.html'; ?>"><?=$file['src'][0]['uri']; ?></a></h3>
         </li>
-        <?php
-              endif;
+        <?php          
             endforeach; ?>
     </ul>
     </div>

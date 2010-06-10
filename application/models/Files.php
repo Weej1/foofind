@@ -4,26 +4,24 @@ class Model_Files
 
 
     function  __construct()
-    {
-    
+    {  
        $connection = new Mongo("mongo.files.foofind.com:27018");
        $db = $connection->foofind;
        $this->collection = $db->foo;
-
     }
 
 
     public function countFiles()
     {
-        $files = $this->collection->count();
-        return $files;
+        
+        return $this->collection->count( );
     }
 
 
     public function getFile($uri)
     {
         //TODO  check blocked = 1
-        $file = $this->collection->findOne( array("src.uri" =>$uri) );
+       $file = $this->collection->findOne( array("src.uri" =>$uri) );
        return $file;
 
     }
@@ -70,27 +68,20 @@ class Model_Files
         return $table->fetchRow( $select );
     }
 
-    public function getLastFilesIndexed( $limit ){
-        $table = new ff_file();
+    public function getLastFilesIndexed( $limit )
+    {
+      $cursor =  $this->collection->find( )->limit( (int)$limit)->sort(  array( "_id"  => -1) ) ;
 
-        $select = $table->select()->setIntegrityCheck(false)
-             ->from(array('file' => 'ff_file'), array('file.*' ))
-             ->joinInner(array('filename' => 'ff_filename'), 'file.IdFile = filename.IdFile' , array('filename.Filename'))
-             //->joinInner(array('metadata' => 'ff_metadata'), 'file.IdFile = metadata.IdFile' , array('metadata.*'))
-             ->where('blocked=?',0 )
-             ->order( 'IdFile DESC' )
-             ->limit($limit);
-               
+      foreach ($cursor as $file) {
+            $files[] = $file;
+        }
+      
+        return $files;
 
+      }
 
-         return $table->fetchAll($select);
-
-
-    }
 
 }
-
-
 
 
 class ff_file extends Zend_Db_Table
