@@ -249,204 +249,204 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $ids = join($ids, ",");
 
                         $start_time = microtime(true);
-                        $model = new Model_Files();
-                        foreach ($model->getFilenames(substr($where, 4)) as $row)
-                        {
-                            $id = $row['IdFile'];
-                            // try to guess type from extensionss
-                            if ($docs[$id]['type']==null)
-                            {
-                                try {$docs[$id]['type_prop'] []= $content['extAssoc'][$row['Extension']];}
-                                catch (Exception $ex) {};
-                            }
-
-                            $docs[$id]['rfilename'] = $row['Filename'];
-                            $docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES, "UTF-8"), $this->query, false, $found);
-                            $docs[$id]['in_filename'] = $found;
-                        }
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - fn:".number_format(microtime(true) - $start_time, 3);
-                        
+//                        //$model = new Model_Files();
+//                        foreach ($model->getFilenames(substr($where, 4)) as $row)
+//                        {
+//                            $id = $row['IdFile'];
+//                            // try to guess type from extensionss
+//                            if ($docs[$id]['type']==null)
+//                            {
+//                                try {$docs[$id]['type_prop'] []= $content['extAssoc'][$row['Extension']];}
+//                                catch (Exception $ex) {};
+//                            }
+//
+//                            $docs[$id]['rfilename'] = $row['Filename'];
+//                            $docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES, "UTF-8"), $this->query, false, $found);
+//                            $docs[$id]['in_filename'] = $found;
+//                        }
+//                        $total_time += (microtime(true) - $start_time);
+//                        $this->time_desc .= " - fn:".number_format(microtime(true) - $start_time, 3);
+//
                         // get sources for files
-                        $start_time = microtime(true);
-                        $sourcepos = array();
-                        $sources = $model->getSources("IdFile in ($ids)");
-                        foreach ($sources as $row)
-                        {
-                            $id = $row['IdFile'];
-                            $t = $row['Type'];
-                            $separateSources = false;
-                            switch ($t)
-                            {
-                                case 1: //GNUTELLA
-                                    $tip = "Gnutella";
-                                    $source = "gnutella";
-                                    $mlinkadd = "&xt=urn:sha1:".$row['Uri'];
-                                    break;
-                                case 2: //ED2K
-                                    $tip = "ED2K";
-                                    $source = "ed2k";
-                                    $link = "ed2k://|file|".encodeFilename($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
-                                    //$mlinkadd = "&xt=urn:ed2k:".$row['Uri'];
-                                    break;
-                                case 3: // TORRENT
-                                    $tip = "Torrent";
-                                    $source = "torrent";
-                                    $separateSources = true;
-                                    $link = $row['Uri'];
-                                    break;
-                                case 5: //TIGER HASH
-                                    $tip = "Gnutella";
-                                    $source = "gnutella";
-                                    $mlinkadd = "&xt=urn:tiger:".$row['Uri'];
-                                    break;
-                                case 6: //MD5 HASH
-                                    $tip = "Gnutella";
-                                    $source = "gnutella";
-                                    $mlinkadd = "&xt=urn:md5:".$row['Uri'];
-                                    break;
-                                case 7: //BTH HASH
-                                    $tip = "Torrent MagnetLink";
-                                    $source = "tmagnet";
-				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
-                                    $link = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:btih:".$row['Uri'];
-                                    break;
-                                case 4: // JAMENDO
-                                case 8: // WEB
-                                case 10: // MU
-                                case 11: // RS
-                                    $tip = "Web";
-                                    $source = "web";
-                                    $link = $row['Uri'];
-                                    $separateSources = true;
-                                    break;
-                                case 9: // FTP
-                                    $tip = "FTP";
-                                    $source = "ftp";
-                                    $link = $row['Uri'];
-                                    $separateSources = true;
-                                    break;
-                                default:
-                                    continue;
-                                    break;
-                            }
-
-                            if ($source=="gnutella")
-                            {
-                                $rlink = $docs[$id]['sources']['gnutella']['rlink'];
-                                if ($rlink)
-                                    $mlink = $rlink.$mlinkadd;
-                                else {
-				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
-                                    $mlink = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename']).$mlinkadd;
-				}
-                                $link = $mlink;
-                            }
-
-                            $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES, "UTF-8");
-                            $docs[$id]['sources'][$source]['rlink'] = $link;
-                            if ($separateSources)
-                            {
-                                $domain = substr(strstr($link, "//"), 2);
-                                $domain = substr($domain, 0, strpos($domain, '/'));
-                                $dotpos2 = false;
-                                $dotpos = strrpos($domain, '.', -1);
-                                if ($dotpos!==false) $dotpos2 = strrpos($domain, '.', -(strlen($domain)-$dotpos+1));
-                                if ($dotpos2!==false) $domain = substr($domain, $dotpos2+1);
-                                $docs[$id]['sources'][$source]['links'][$domain] = $link;
-                            }
-                            $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
-                            $docs[$id]['sources'][$source]['tip'] = $tip;
-                        }
-
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - src:".number_format(microtime(true) - $start_time, 3);
-                        // get metadata for files
-                        $start_time = microtime(true);
-                        
-                        // search for shown metadata
-                        $mdList = join($content['crcMD'], ",");
-                        // add bittorrent metadata
-                        $mdList .= ", 4009003051, 4119033687";
-                        
-                        foreach ($model->getMetadata("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
-                        {
-                            $id = $row['IdFile'];
-                            if (($row['KeyMD']=='torrent:trackers') || ($row['KeyMD']=='torrent:tracker'))
-                            {
-                                foreach (explode(' ', $row['ValueMD']) as $tr)
-                                {
-                                    $docs[$id]['sources']['tmagnet']['rlink'] .= '&tr='.urlencode($tr);
-                                    $docs[$id]['sources']['tmagnet']['link'] = htmlentities($docs[$id]['sources']['tmagnet']['rlink'], ENT_QUOTES, "UTF-8");
-                                    $docs[$id]['sources']['tmagnet']['has_trackers'] = true;
-                                }
-                            }
-                            else
-                                $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $this->query, false);
-                           
-                        }
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - md:".number_format(microtime(true) - $start_time, 3);
-
-                        $umodel = new Model_Users();
-                        foreach ($umodel->getFilesVotes("IdFile in ($ids)") as $row)
-                        {
-                            $id = $row['IdFile'];
-                            $docs[$id]['votes'][$row['VoteType']] = $row['c'];
-                        }
-
-                        foreach ($umodel->getFilesComments("IdFile in ($ids)") as $row)
-                        {
-                            $id = $row['IdFile'];
-                            $docs[$id]['comments'] = $row['c'];
-                        }
-
-                        // choose better type for each file and get description for file
-                        $start_time = microtime(true);
-                        foreach ($docs as $id => $doc)
-                        {
-
-                            //replace dot by underscore remove extension to filename in the url (google bot thinks its a image or a video, this is bad)
-                            //$docs[$id]['rfilename'] = str_replace('.', '_', $docs[$id]['rfilename']);
-                            $docs[$id]['rfilename'] = $docs[$id]['rfilename'].'.html';
-                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}"; //
-
-                            if (!$doc['filename'] || !$doc['sources']) {
-                                $this->cl->UpdateAttributes("idx_files idx_files_week", array("blocked"), array($docs[$id]['idfilename'] => array(3)));
-                                $this->tcount--;
-                                continue;
-                            }
-                            
-                            if ($doc['type']==null && count($doc['type_prop'])>0)
-                            {
-                                $docs[$id]['type'] = $doc['type_prop'][0];
-                            }
-
-                            if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
-                            $docs[$id]['isources'] = $doc['attrs']['isources'];
-                            $docs[$id]['md'] = $md[$id];
-                            
-                            // search for better link
-                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
-                                    if (strstr($this->src, $srci[0]) && $docs[$id]['sources'][$srcLink])
-                                            if ($srcLink!='tmagnet' || $docs[$id]['sources']['tmagnet']['has_trackers'])
-                                                break;
-
-                            $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES, "UTF-8");
-                            
-                            $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $this->query, true);
-                            $docs[$id]['link_type'] = $srcLink;
-                        }
-                        
-                        unset ($doc);
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time = $total_time;
-                        return $docs;
-                }
-        }
-
-        $this->time = 0;
-       return array();
+//                        $start_time = microtime(true);
+//                        $sourcepos = array();
+//                        $sources = $model->getSources("IdFile in ($ids)");
+//                        foreach ($sources as $row)
+//                        {
+//                            $id = $row['IdFile'];
+//                            $t = $row['Type'];
+//                            $separateSources = false;
+//                            switch ($t)
+//                            {
+//                                case 1: //GNUTELLA
+//                                    $tip = "Gnutella";
+//                                    $source = "gnutella";
+//                                    $mlinkadd = "&xt=urn:sha1:".$row['Uri'];
+//                                    break;
+//                                case 2: //ED2K
+//                                    $tip = "ED2K";
+//                                    $source = "ed2k";
+//                                    $link = "ed2k://|file|".encodeFilename($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
+//                                    //$mlinkadd = "&xt=urn:ed2k:".$row['Uri'];
+//                                    break;
+//                                case 3: // TORRENT
+//                                    $tip = "Torrent";
+//                                    $source = "torrent";
+//                                    $separateSources = true;
+//                                    $link = $row['Uri'];
+//                                    break;
+//                                case 5: //TIGER HASH
+//                                    $tip = "Gnutella";
+//                                    $source = "gnutella";
+//                                    $mlinkadd = "&xt=urn:tiger:".$row['Uri'];
+//                                    break;
+//                                case 6: //MD5 HASH
+//                                    $tip = "Gnutella";
+//                                    $source = "gnutella";
+//                                    $mlinkadd = "&xt=urn:md5:".$row['Uri'];
+//                                    break;
+//                                case 7: //BTH HASH
+//                                    $tip = "Torrent MagnetLink";
+//                                    $source = "tmagnet";
+//				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
+//                                    $link = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:btih:".$row['Uri'];
+//                                    break;
+//                                case 4: // JAMENDO
+//                                case 8: // WEB
+//                                case 10: // MU
+//                                case 11: // RS
+//                                    $tip = "Web";
+//                                    $source = "web";
+//                                    $link = $row['Uri'];
+//                                    $separateSources = true;
+//                                    break;
+//                                case 9: // FTP
+//                                    $tip = "FTP";
+//                                    $source = "ftp";
+//                                    $link = $row['Uri'];
+//                                    $separateSources = true;
+//                                    break;
+//                                default:
+//                                    continue;
+//                                    break;
+//                            }
+//
+//                            if ($source=="gnutella")
+//                            {
+//                                $rlink = $docs[$id]['sources']['gnutella']['rlink'];
+//                                if ($rlink)
+//                                    $mlink = $rlink.$mlinkadd;
+//                                else {
+//				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
+//                                    $mlink = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename']).$mlinkadd;
+//				}
+//                                $link = $mlink;
+//                            }
+//
+//                            $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES, "UTF-8");
+//                            $docs[$id]['sources'][$source]['rlink'] = $link;
+//                            if ($separateSources)
+//                            {
+//                                $domain = substr(strstr($link, "//"), 2);
+//                                $domain = substr($domain, 0, strpos($domain, '/'));
+//                                $dotpos2 = false;
+//                                $dotpos = strrpos($domain, '.', -1);
+//                                if ($dotpos!==false) $dotpos2 = strrpos($domain, '.', -(strlen($domain)-$dotpos+1));
+//                                if ($dotpos2!==false) $domain = substr($domain, $dotpos2+1);
+//                                $docs[$id]['sources'][$source]['links'][$domain] = $link;
+//                            }
+//                            $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
+//                            $docs[$id]['sources'][$source]['tip'] = $tip;
+//                        }
+//
+//                        $total_time += (microtime(true) - $start_time);
+//                        $this->time_desc .= " - src:".number_format(microtime(true) - $start_time, 3);
+//                        // get metadata for files
+//                        $start_time = microtime(true);
+//
+//                        // search for shown metadata
+//                        $mdList = join($content['crcMD'], ",");
+//                        // add bittorrent metadata
+//                        $mdList .= ", 4009003051, 4119033687";
+//
+//                        foreach ($model->getMetadata("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
+//                        {
+//                            $id = $row['IdFile'];
+//                            if (($row['KeyMD']=='torrent:trackers') || ($row['KeyMD']=='torrent:tracker'))
+//                            {
+//                                foreach (explode(' ', $row['ValueMD']) as $tr)
+//                                {
+//                                    $docs[$id]['sources']['tmagnet']['rlink'] .= '&tr='.urlencode($tr);
+//                                    $docs[$id]['sources']['tmagnet']['link'] = htmlentities($docs[$id]['sources']['tmagnet']['rlink'], ENT_QUOTES, "UTF-8");
+//                                    $docs[$id]['sources']['tmagnet']['has_trackers'] = true;
+//                                }
+//                            }
+//                            else
+//                                $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $this->query, false);
+//
+//                        }
+//                        $total_time += (microtime(true) - $start_time);
+//                        $this->time_desc .= " - md:".number_format(microtime(true) - $start_time, 3);
+//
+//                        $umodel = new Model_Users();
+//                        foreach ($umodel->getFilesVotes("IdFile in ($ids)") as $row)
+//                        {
+//                            $id = $row['IdFile'];
+//                            $docs[$id]['votes'][$row['VoteType']] = $row['c'];
+//                        }
+//
+//                        foreach ($umodel->getFilesComments("IdFile in ($ids)") as $row)
+//                        {
+//                            $id = $row['IdFile'];
+//                            $docs[$id]['comments'] = $row['c'];
+//                        }
+//
+//                        // choose better type for each file and get description for file
+//                        $start_time = microtime(true);
+//                        foreach ($docs as $id => $doc)
+//                        {
+//
+//                            //replace dot by underscore remove extension to filename in the url (google bot thinks its a image or a video, this is bad)
+//                            //$docs[$id]['rfilename'] = str_replace('.', '_', $docs[$id]['rfilename']);
+//                            $docs[$id]['rfilename'] = $docs[$id]['rfilename'].'.html';
+//                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}"; //
+//
+//                            if (!$doc['filename'] || !$doc['sources']) {
+//                                $this->cl->UpdateAttributes("idx_files idx_files_week", array("blocked"), array($docs[$id]['idfilename'] => array(3)));
+//                                $this->tcount--;
+//                                continue;
+//                            }
+//
+//                            if ($doc['type']==null && count($doc['type_prop'])>0)
+//                            {
+//                                $docs[$id]['type'] = $doc['type_prop'][0];
+//                            }
+//
+//                            if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
+//                            $docs[$id]['isources'] = $doc['attrs']['isources'];
+//                            $docs[$id]['md'] = $md[$id];
+//
+//                            // search for better link
+//                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
+//                                    if (strstr($this->src, $srci[0]) && $docs[$id]['sources'][$srcLink])
+//                                            if ($srcLink!='tmagnet' || $docs[$id]['sources']['tmagnet']['has_trackers'])
+//                                                break;
+//
+//                            $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES, "UTF-8");
+//
+//                            $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $this->query, true);
+//                            $docs[$id]['link_type'] = $srcLink;
+//                        }
+//
+//                        unset ($doc);
+//                        $total_time += (microtime(true) - $start_time);
+//                        $this->time = $total_time;
+//                        return $docs;
+//                }
+//        }
+//
+//        $this->time = 0;
+//       return array();
     }
 
     public function count()

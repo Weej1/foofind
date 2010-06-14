@@ -2,7 +2,6 @@
 class Model_Files 
 {
 
-
     function  __construct()
     {  
        $connection = new Mongo("mongo.files.foofind.com:27018");
@@ -13,7 +12,6 @@ class Model_Files
 
     public function countFiles()
     {
-        
         return $this->collection->count( );
     }
 
@@ -50,23 +48,7 @@ class Model_Files
         return $table->fetchRow("IdFilename=$idFilename");
     }
 
-    public function getFileFilename($idFile, $filename = NULL)
-    {
-        $table = new ff_filename();
-
-        $select = $table->select()->where("IdFile=?", $idFile);
-
-        // By default, select filename with more sources
-        if ($filename==NULL) {
-            $select = $select->order("MaxSources DESC");
-        // If a filename is given, priorize that one if exists
-        } else {
-            $fn = $table->getDefaultAdapter()->quoteInto("'?'",$filename);
-            $select = $select->order("(Filename='$fn') DESC, MaxSources DESC");
-        }
-
-        return $table->fetchRow( $select );
-    }
+    
 
     public function getLastFilesIndexed( $limit )
     {
@@ -81,30 +63,4 @@ class Model_Files
       }
 
 
-}
-
-
-class ff_file extends Zend_Db_Table
-{
-    protected $_primary = 'IdFile';
-}
-
-class ff_filename extends Zend_Db_Table
-{
-    protected $_primary = array('IdFilename', 'IdFile');
-}
-
-class ff_sources extends Zend_Db_Table
-{
-    protected $_primary = array('Type', 'ShaUri');
-}
-
-class ff_metadata extends Zend_Db_Table
-{
-    protected $_primary = array('IdFile', 'CrcKey');
-}
-
-class ff_touched extends Zend_Db_Table
-{
-    protected $_primary = 'IdFile';
 }
