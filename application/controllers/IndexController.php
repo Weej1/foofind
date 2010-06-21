@@ -110,17 +110,21 @@ class IndexController extends Zend_Controller_Action
         
         $this->view->lang =  $this->_helper->checklang->check();
 
+
         $limit = 100;
 
         $fmodel = new Model_Files();
+
+
+//        var_dump($fmodel->getLastFilesIndexed($limit));
+//        die();
 
         $paginator = Zend_Paginator::factory( $fmodel->getLastFilesIndexed( (int) $limit ));
         $paginator->setItemCountPerPage(25);
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
 
-        $this->view->lastfiles = $paginator;
-       
+        $this->view->lastfiles = $paginator;       
 
     }
 
