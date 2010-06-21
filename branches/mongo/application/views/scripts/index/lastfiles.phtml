@@ -2,13 +2,34 @@
     <h2><?=$this->translate('Last indexed files') .' '. date( $this->translate('l dS \o\f F Y H:i:s') ) . ' (GMT+01:00) , Madrid' ?></h2>
 <div id="results">
     <ul>
-       <?php foreach ($this->lastfiles as $key => $file):
-                    foreach ($file['src'][0]['fn'] as $key => $value)
+       <?php
+
+  //     var_dump($this->lastfiles);
+       foreach ($this->lastfiles as $file ):
+
+//           var_dump($file);
+//          var_dump($file['fn']);
+
+
+
+                    foreach ($file['fn'] as $key => $value)
                             { //   bazinga!
-                            } 
+                            }
+          
+                     
+                      foreach ($file['src'] as $key => $value2)
+                            { //   bazinga!
+                            }
+
+                         $url = base64_encode(  pack("H*" ,$key )  );
+                         $url = str_replace('+', '!', $url);
+                         $url = str_replace('/', '-', $url);
+            var_dump($url);
+                        
+
            ?>
         <li class="file_excerpt">
-            <h3><a href="/<?=$this->lang?>/download/<?=$file['src'][0]['uri'] ?>/<?=$value['n'].'.html'; ?>"><?=$value['n']; ?></a></h3>
+            <h3><a href="/<?=$this->lang?>/download/<?=$url ?>/<?=$value['n'].'.html'; ?>"><?=$value['n'] ?></a></h3>
         </li>
         <?php          
             endforeach; ?>

@@ -4,7 +4,7 @@ class Model_Files
 
     function  __construct()
     {  
-       $connection = new Mongo("mongo.files.foofind.com:27018");
+       $connection = new Mongo("mongo.files.foofind.com:27017");
        $db = $connection->foofind;
        $this->collection = $db->foo;
     }
@@ -19,7 +19,7 @@ class Model_Files
     public function getFile($uri)
     {
         //TODO  check blocked = 1
-       $file = $this->collection->findOne( array("src.uri" =>$uri) );
+       $file = $this->collection->findOne( array("src.url" =>$uri) );
        return $file;
 
     }
