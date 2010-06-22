@@ -12,14 +12,46 @@ class Model_Files
 
     public function countFiles()
     {
-        return $this->collection->count( );
+        $count = 0;
+        for ($port=10001; $port<10004; $port++)
+        {
+            $filter = array( 'fs' => array('$gt' => new MongoDate(strtotime("1999-01-01 00:00:00")) ));
+            $connection = new Mongo("mongo.files.foofind.com:$port");
+            $count += $connection->foofind->foo->count($filter );
+        }
+        return $count;
+       // return $this->collection->count( array( "fs" ));
+       // $filter = array( 'fs' => array('$gt' => 0) );
+
     }
 
 
     public function getFile($uri)
     {
         //TODO  check blocked = 1
-       $file = $this->collection->findOne( array("src.url" =>$uri) );
+
+        //reverse id
+
+        
+        //$uri = base64_decode(  $uri  );
+       $uri = str_replace('-', '/', $uri);
+       $uri = str_replace('!', '+', $uri);
+        
+        $uri = base64_decode(  $uri   );
+
+
+        $uri = bin2hex($uri);
+       
+
+         var_dump($uri);
+//      die();
+
+         
+
+       
+
+        $id = new MongoId($uri);
+       $file = $this->collection->findOne( array("_id" =>$id) );
        return $file;
 
     }
@@ -52,7 +84,12 @@ class Model_Files
 
     public function getLastFilesIndexed( $limit )
     {
-      $cursor =  $this->collection->find( )->limit( (int)$limit)->sort(  array( "_id"  => -1) ) ;
+
+
+      $filter = array( 't' => array('$exists' => false) );
+      //$cursor =  $this->collection->find( $filter  )->limit( (int)$limit)->sort(  array( "_id"  => -1) ) ;
+      $cursor =  $this->collection->find( $filter  )->limit( (int)$limit)->sort(  array( "fs"  => -1) ) ;
+
 
       foreach ($cursor as $file) {
             $files[] = $file;

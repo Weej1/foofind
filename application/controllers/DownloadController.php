@@ -75,8 +75,11 @@ class DownloadController extends Zend_Controller_Action
         $this->view->form = $form;
 
         //lets fetch the file  ***************************************************
-        $uri = (string)$this->_request->getParam ( 'uri' );
+        $uri = $this->_request->getParam ( 'uri' );
 
+       // var_dump($uri);
+        //die();
+        
         require_once APPLICATION_PATH . '/models/Files.php';
         $fmodel = new Model_Files();
         $this->view->file = $fmodel->getFile( $uri );
