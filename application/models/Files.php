@@ -29,28 +29,13 @@ class Model_Files
     public function getFile($uri)
     {
         //TODO  check blocked = 1
-
         //reverse id
-
-        
-        //$uri = base64_decode(  $uri  );
        $uri = str_replace('-', '/', $uri);
-       $uri = str_replace('!', '+', $uri);
-        
-        $uri = base64_decode(  $uri   );
-
-
-        $uri = bin2hex($uri);
-       
-
+       $uri = str_replace('!', '+', $uri);        
+       $uri = bin2hex( base64_decode($uri ) );
          var_dump($uri);
-//      die();
 
-         
-
-       
-
-        $id = new MongoId($uri);
+       $id = new MongoId($uri);
        $file = $this->collection->findOne( array("_id" =>$id) );
        return $file;
 
@@ -85,16 +70,16 @@ class Model_Files
     public function getLastFilesIndexed( $limit )
     {
 
-
       $filter = array( 't' => array('$exists' => false) );
       //$cursor =  $this->collection->find( $filter  )->limit( (int)$limit)->sort(  array( "_id"  => -1) ) ;
-      $cursor =  $this->collection->find( $filter  )->limit( (int)$limit)->sort(  array( "fs"  => -1) ) ;
-
+      //$fs = new MongoDate();
+      $cursor =  $this->collection->find(  )->sort(  array( "fs"  => -1) )->limit( (int)$limit) ;
 
       foreach ($cursor as $file) {
             $files[] = $file;
+           // var_dump($file['fs])
         }
-      
+
         return $files;
 
       }

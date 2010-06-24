@@ -1,6 +1,4 @@
 <?php
-
-
 class DownloadController extends Zend_Controller_Action
 {
 
@@ -8,8 +6,9 @@ class DownloadController extends Zend_Controller_Action
     {
         
 //        require_once APPLICATION_PATH . '/models/ContentType.php';
-//
-//        require_once APPLICATION_PATH . '/models/Users.php';
+         require_once APPLICATION_PATH . '/models/Users.php';
+         require_once APPLICATION_PATH . '/models/Comments.php';
+
 
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
@@ -77,24 +76,39 @@ class DownloadController extends Zend_Controller_Action
         //lets fetch the file  ***************************************************
         $uri = $this->_request->getParam ( 'uri' );
 
-       // var_dump($uri);
-        //die();
-        
+       
         require_once APPLICATION_PATH . '/models/Files.php';
         $fmodel = new Model_Files();
-        $this->view->file = $fmodel->getFile( $uri );
+        $this->file = $fmodel->getFile( $uri );
 
-               
-                     var_dump( $this->view->file );
-    
-                     die();
-
-
-        // if the id file exists then go for the rest of data
-        if (!$this->view->file){
+        
+         // if the id file exists then go for the rest of data
+        if (!$this->file){
             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
             $this->_redirect ( '/'.$this->view->lang );
         }
+
+         foreach ($this->file['fn'] as $key => $file)
+                                    { //   bazinga!
+                                    }
+
+        $this->view->filename = $file['n'];
+
+         var_dump( $this->file );
+        
+
+        $this->view->file_size = $this->_formatSize($this->file['s']);
+        $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
+        $this->view->headTitle()->append($this->view->filename);
+
+        //add meta to file related (better seo)
+        $this->view->headMeta()->appendName('description', 'download, '.$file['x'].', '.$file['n']);
+        $this->view->headMeta()->appendName('keywords',  'download, '.$file['x'].', '.$file['n']);
+
+
+
+
+       
 
         //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
@@ -107,78 +121,81 @@ class DownloadController extends Zend_Controller_Action
         }
 
 
-        //check filename cache
-        $keyfilename =  md5( $id ).$this->lang.'fn';
-                if  (! $existsCache  ) {
-                      $this->view->filename = $fmodel->getFileFilename( $id, $fn);
-                     $oCache->save( $this->view->filename, ''.$keyfilename );
-                    } else {
-                      //cache hit, load from memcache.
-                      $this->view->filename = $oCache->load( $keyfilename  );
-                }
+//        //check filename cache
+//        $keyfilename =  md5( $id ).$this->lang.'fn';
+//                if  (! $existsCache  ) {
+//                      $this->view->filename = $fmodel->getFileFilename( $id, $fn);
+//                     $oCache->save( $this->view->filename, ''.$keyfilename );
+//                    } else {
+//                      //cache hit, load from memcache.
+//                      $this->view->filename = $oCache->load( $keyfilename  );
+//                }
+//
+//        $idfn = $this->view->filename['IdFilename'];
+//
+//         //check metadata cache
+//        $keymetadata =  md5( $id ).$this->lang.'metadata';
+//                if  (! $existsCache  ) {
+//                     $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
+//                     $oCache->save( $this->view->metadata, ''.$keymetadata );
+//                    } else {
+//                      //cache hit, load from memcache.
+//                      $this->view->metadata = $oCache->load( $keymetadata );
+//                }
+//
+//
+//         //check sources cache
+//        $keysources =  md5( $id ).$this->lang.'sources';
+//                if  (! $existsCache  ) {
+//                     $this->view->sources = $fmodel->getSources( "IdFile = $id" );
+//                     $oCache->save( $this->view->sources, ''.$keysources );
+//                    } else {
+//                      //cache hit, load from memcache.
+//                      $this->view->sources = $oCache->load( $keysources );
+//                }
+//        
 
-        $idfn = $this->view->filename['IdFilename'];
-
-         //check metadata cache
-        $keymetadata =  md5( $id ).$this->lang.'metadata';
-                if  (! $existsCache  ) {
-                     $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
-                     $oCache->save( $this->view->metadata, ''.$keymetadata );
-                    } else {
-                      //cache hit, load from memcache.
-                      $this->view->metadata = $oCache->load( $keymetadata );
-                }
-
-
-         //check sources cache
-        $keysources =  md5( $id ).$this->lang.'sources';
-                if  (! $existsCache  ) {
-                     $this->view->sources = $fmodel->getSources( "IdFile = $id" );
-                     $oCache->save( $this->view->sources, ''.$keysources );
-                    } else {
-                      //cache hit, load from memcache.
-                      $this->view->sources = $oCache->load( $keysources );
-                }
         
+       
+//        $this->view->votes = array('neg'=> 0, 'pos'=> 0);
+//
+//        $votes = $this->umodel->getVotes( $id );
+//        foreach ($votes as $v)
+//        {
+//            switch ($v['VoteType'])
+//            {
+//                case 1:
+//                    $this->view->votes['pos'] = $v['c'];
+//                    break;
+//                case 2:
+//                    $this->view->votes['neg'] = -$v['c'];
+//                    break;
+//            }
+//        }
 
-        $this->view->file_size = $this->_formatSize($this->view->file['Size']);
-        $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
-        $this->view->headTitle()->append($this->view->filename['Filename']);
+//        if ($this->view->isAuth)
+//        {
+//            $myvote = $this->umodel->getUserVote($this->identity->IdUser, $id);
+//            if (count($myvote)>0)
+//            {
+//                switch ($myvote[0]['VoteType']) {
+//                    case 1:
+//                       $this->view->myvote = "upactive";
+//                       break;
+//                    case 2:
+//                       $this->view->myvote = "downactive";
+//                       break;
+//                }
+//            }
+//        }
 
-        $this->umodel = new Model_Users();
-        $this->view->votes = array('neg'=> 0, 'pos'=> 0);
-        
-        $votes = $this->umodel->getVotes( $id );
-        foreach ($votes as $v)
-        {
-            switch ($v['VoteType'])
-            {
-                case 1:
-                    $this->view->votes['pos'] = $v['c'];
-                    break;
-                case 2:
-                    $this->view->votes['neg'] = -$v['c'];
-                    break;
-            }
-        }
 
-        if ($this->view->isAuth)
-        {
-            $myvote = $this->umodel->getUserVote($this->identity->IdUser, $id);
-            if (count($myvote)>0)
-            {
-                switch ($myvote[0]['VoteType']) {
-                    case 1:
-                       $this->view->myvote = "upactive";
-                       break;
-                    case 2:
-                       $this->view->myvote = "downactive";
-                       break;
-                }
-            }
-        }
-        $this->createComment($id, $idfn);
-        $this->view->comments = $this->umodel->getFileComments( ($this->view->isAuth?$this->identity->IdUser:0), $id, $this->view->lang );
+          $this->umodel = new Model_Users();
+          $this->cmodel = new Model_Comments();
+ 
+
+        $this->createComment( (string)  $this->file['_id']);
+        $this->view->comments = $this->cmodel->getFileComments( $this->file['_id'], $this->view->lang );
 
         require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
         $helper = new Comments_View_Helper();
@@ -193,19 +210,23 @@ class DownloadController extends Zend_Controller_Action
 
         // get current jQuery handler based on noConflict settings
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
-        
-        $paginator = Zend_Paginator::factory($this->view->comments);
-        $paginator->setItemCountPerPage(25);
-        $paginator->setCurrentPageNumber($this->_getParam('page'));
-        Zend_Paginator::setDefaultScrollingStyle('Sliding');
-        $paginator->setView($this->view);
 
-        //this is paginator
-        $this->view->paginator = $paginator;
+
+         //die();
+
+//        $paginator = Zend_Paginator::factory($this->view->comments);
+//        $paginator->setItemCountPerPage(25);
+//        $paginator->setCurrentPageNumber($this->_getParam('page'));
+//        Zend_Paginator::setDefaultScrollingStyle('Sliding');
+//        $paginator->setView($this->view);
+//
+//        //this is paginator
+//        $this->view->paginator = $paginator;
+
         
     }
 
-    public function createComment($id, $idfn) {
+    public function createComment($file_id) {
 
         $request = $this->getRequest();
         $form = $this->_getCommentForm();
@@ -223,12 +244,12 @@ class DownloadController extends Zend_Controller_Action
 
         //anti hoygan to body
         $formulario = $form->getValues();
-        $formulario['IdFilename'] = $idfn;
-        $formulario['IdFile'] = $id;
+        
+        $formulario['IdFile'] = $file_id;
         $formulario['IdUser'] = $this->identity->IdUser;
         $formulario['lang'] = $this->view->lang;
         
-        $this->umodel->saveComment( $formulario );
+        //$this->cmodel->saveComment( $formulario );
         $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Comment published succesfully!' ) );
         $this->_redirect($_SERVER['REQUEST_URI']);
     }
@@ -288,9 +309,4 @@ class DownloadController extends Zend_Controller_Action
         }
         return $size;
     }
-
-
-
-
-
 }

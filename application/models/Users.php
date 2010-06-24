@@ -13,17 +13,6 @@ class Model_Users
 
 
 
-    public function getFileComments($idUser, $idFile, $lang)
-    {
-        $table = new ff_comment();
-        $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)
-                ->joinLeft("ff_comment_vote", "ff_comment.idcomment=ff_comment_vote.idcomment", array("sum(voteType=1) pos", "sum(voteType=2) neg", "max(if(ff_comment.iduser=$idUser,votetype,0)) myvote"))
-                ->join("ff_users", "ff_users.IdUser=ff_comment.IdUser", array("username", "location"))
-                ->where("IdFile=?",$idFile)->where("ff_comment.lang=?", $lang)->order("date desc")
-                ->group("IdComment");
-        return $table->fetchAll($select);
-    }
-
 
     public function getUserComments($username, $limit)
     {
@@ -40,9 +29,9 @@ class Model_Users
 
     public function getUserVote($idUser, $idFile)
     {
-        $table = new ff_vote();
-        $select = $table->select()->where("IdFile=?", $idFile)->where("IdUser=?", $idUser);
-        return $table->fetchAll($select);
+//        $table = new ff_vote();
+//        $select = $table->select()->where("IdFile=?", $idFile)->where("IdUser=?", $idUser);
+//        return $table->fetchAll($select);
     }
 
     public function getCommentVotes($idComment)
@@ -73,13 +62,7 @@ class Model_Users
 
     }
 
-    public function getFilesComments($where)
-    {
-        $table = new ff_comment();
-        $select = $table->select()->from("ff_comment", "IdFile, count(*) c")->where($where)->group(array("IdFile"));
-        return $table->fetchAll($select);
 
-    }
 
     public function deleteVote($idFile, $idUser, $type)
     {
@@ -87,21 +70,6 @@ class Model_Users
         return $table->delete("IdFile=$idFile and IdUser=$idUser and VoteType=$type");
     }
 
-    public function deleteCommentVote($idComment, $idUser, $type)
-    {
-        $table = new ff_comment_vote();
-        return $table->delete("IdComment=$idComment and IdUser=$idUser and VoteType=$type");
-    }
-
-    public function saveCommentVote(array $data)
-    {
-        return $this->save(new ff_comment_vote(), $data);
-    }
-
-    public function saveComment(array $data)
-    {
-        return $this->save(new ff_comment(), $data);
-    }
 
     public function saveVote(array $data)
     {
