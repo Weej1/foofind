@@ -5,7 +5,9 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-
+         //validate domain foofind
+        $this->_helper->checkdomain->check();
+        
         require_once APPLICATION_PATH . '/models/Files.php';
 
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );

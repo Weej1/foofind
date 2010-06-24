@@ -4,16 +4,12 @@
     <ul>
  <?php
        foreach ($this->lastfiles as $file ):
-
-               
-          // var_dump($file);
-
+  
                     foreach ($file['fn'] as $key => $value)
                             { //   bazinga!
                             }
           
-
-                           var_dump( (string)$file['_id'] );
+                          //var_dump( (string)$file['_id'] );
                          $url = base64_encode(  pack("H*" ,$file['_id'] )  );
                          $url = str_replace('+', '!', $url);
                          $url = str_replace('/', '-', $url);                       

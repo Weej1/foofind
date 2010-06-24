@@ -402,9 +402,10 @@ if (!$ctype)
 }
 $ctype = strtolower($ctype);
 
-//add meta to file related (better seo)
-$this->headMeta()->appendName('description', 'download, '.$ctype.', '.$this->filename['Filename']);
-$this->headMeta()->appendName('keywords',  'download, '.$ctype.', '.$this->filename['Filename']);
+
+
+
+
 ?>
 <div id="container_search">
     <h1>
@@ -436,14 +437,14 @@ if (count ( $this->mensajes ) > 0) {
     <div class="wrap_download">
     <div class="file_download">
         <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->votes['pos']?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->votes['neg']?>)</span></a></div>
-        <h2><?=$this->filename['Filename'];?></h2>
+        <h2><?=$this->filename;?></h2>
         
         <div class="top_download">
         <div class="download_button">
             <img alt="" src="<?=STATIC_PATH;?>/images/icons/content_<?=$ctype ?>.gif" /><br />
             <a title="<?=$this->translate('Download')?>" class="superlarge magenta awesome" href="<?=$srcs[$srcLink]['link'].$srcs[$srcLink]['flink']?>"><?=$this->translate('Download').($this->file_size<1 ? '':' ('.$this->file_size.')');?></a>
          </div>
-        <div class="download_file_metadata"><?php showMetadata($this, $ctype, $this->filename['Filename'], $this->filename['Extension'], $md) ?></div>
+        <div class="download_file_metadata"><?php showMetadata($this, $ctype, $this->filename, $this->file['x'], $md) ?></div>
        </div>
 
        <?php if ($this->sources): ?>
@@ -601,7 +602,9 @@ if (count ( $this->mensajes ) > 0) {
         </script>
 
 <?php endif;?>
-    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
+    <?php
+    echo $this->comments;
+    //echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
     <div class="comment_form"><?=$this->createcomment?></div>
 
     </div>
