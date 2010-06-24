@@ -6,6 +6,9 @@ class IndexController extends Zend_Controller_Action
     public function init()
     {
 
+        //validate domain foofind
+        $this->_helper->checkdomain->check();
+
         require_once APPLICATION_PATH . '/models/Files.php';
 
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
@@ -41,17 +44,6 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-
-        //some people point his domains to our ips, so ... goto hell
-        $domain = $_SERVER['HTTP_HOST'];
-        $domain = explode(".", $domain);
-
-        if ($domain[0] != 'foofind'){
-            header('Location: http://example.com' ,301);
-            exit;
-        }
-
-
 
         $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"),
                                         array( 'locale' => $this->view->lang));

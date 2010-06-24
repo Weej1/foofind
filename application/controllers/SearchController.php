@@ -458,6 +458,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 class SearchController extends Zend_Controller_Action {
 
     public function init() {
+        //validate domain foofind
+        $this->_helper->checkdomain->check();
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
     }

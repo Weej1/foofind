@@ -1,12 +1,12 @@
 <?php
-
-
 class DownloadController extends Zend_Controller_Action
 {
 
     public function init()
     {
-        
+        //validate domain foofind
+        $this->_helper->checkdomain->check();
+
         require_once APPLICATION_PATH . '/models/ContentType.php';
         require_once APPLICATION_PATH . '/models/Files.php';
         require_once APPLICATION_PATH . '/models/Users.php';
