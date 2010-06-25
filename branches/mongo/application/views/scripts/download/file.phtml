@@ -402,10 +402,6 @@ if (!$ctype)
 }
 $ctype = strtolower($ctype);
 
-
-
-
-
 ?>
 <div id="container_search">
     <h1>
@@ -491,120 +487,12 @@ if (count ( $this->mensajes ) > 0) {
                 <img alt="<?=$this->translate('share on twitter');?>" src="<?=STATIC_PATH;?>/images/icons/ico_twitter.png" border = "0"/></a>
         </div>
 
-        <div class="comments">
-<? if (count($this->comments)>0 || $this->isAuth): ?>
-        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
-        <img src="<?=STATIC_PATH;?>/images/baloon.gif"/><h4><?=$this->translate('Your comments')?></h4>
-<? endif;?>
+      
 
-<? if ($this->comments): ?>
-
-       <?php
-            $this->comments_refs = array();
-            $this->count = count($this->comments);
-            $i = $this->count + 1 - ($this->paginator->getCurrentPageNumber()-1)*$this->paginator->getItemCountPerPage();
-            foreach ($this->paginator as $key => $val):
-                $i--; ?>
-        <div class="comment">
-           <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
-           <div class="file_comment_vote small <? switch($val['myvote']) {case 1: echo 'upactive'; break; case 2: echo 'downactive'; break;}?>" idcomment="<?=$val['IdComment']?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><span><?=0+$val['pos']?></span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><span><?=0-$val['neg']?></span></a></div>
-           <div id="c<?=$i?>"><?= $this->format_comment($val['text']); ?></div>
-           <div class="file_comment_nick"><a href="/<?=$this->lang ?>/profile/<?=$this->escape($val['username']) ?>"><?=$val['username'] ?></a> - <? echo $this->show_date_span($val['date']); if ($val['location']!=null) echo  " ". $this->translate("from") ." ". $val['location']; ?></div>
-        </div>
-
-        <?php endforeach; ?>
-        <script>
-            var tooltips = [];
-
-        <?php foreach ($this->comments_refs as $val):
-                    $comment = $this->comments[$this->count-$val];
-                    echo "tooltips[$val] = '<b>{$comment['username']}: </b>".$this->format_comment($comment['text'])."';";
-              endforeach;?>
-
-            $('.ttlink').tooltip({
-                track: true,
-                delay: 0,
-                showURL: false,
-                bodyHandler: function() { return tooltips[$(this).attr("tooltip")]; },
-                fade: 250
-            });
-
-<?php   if ($this->isAuth): ?>
-            $('.file_comment_vote a').click(function(event)
-            {
-                event.preventDefault();
-                $.ajax({dataType:"json",
-                    url: "/<?=$this->lang?>/vote/comment/"+$(this).parent().attr('idcomment')+"/"+$(this).attr('type'),
-                    context: $(this),
-                    success: function(data){
-                        parent = this.context.parent();
-                        if (this.context.attr('type')=='1') {
-                            parent.addClass("upactive");
-                            parent.removeClass("downactive");
-                        }
-                        else
-                        {
-                            parent.addClass("downactive");
-                            parent.removeClass("upactive");
-                        }
-
-
-                        votes = [0,0];
-                        for (vote in data) votes[data[vote].VoteType-1] = data[vote].c;
-
-                        counter = $(".vote_up span", parent).text(votes[0]);
-                        counter = $(".vote_down span", parent).text(-votes[1]);
-                    }
-                });
-            });
-
-            $('.file_download_vote a').click(function(event)
-            {
-                event.preventDefault();
-                $.ajax({dataType:"json", 
-                        url: "/<?=$this->lang?>/vote/file/<?=$this->file['IdFile']?>/"+$(this).attr('type')+"/idfilename/<?=$this->filename['IdFilename']?>",
-                        context: $(this),
-                        success: function(data){
-
-                            parent = this.context.parent();
-                            if (this.context.attr('type')=='1') {
-                                parent.addClass("upactive");
-                                parent.removeClass("downactive");
-                            }
-                            else
-                            {
-                                parent.addClass("downactive");
-                                parent.removeClass("upactive");
-                            }
-
-
-                            votes = [0,0];
-                            for (vote in data) votes[data[vote].VoteType-1] = data[vote].c;
-                            
-                            counter = $(".vote_up span", parent).text('('+votes[0]+')');
-                            counter = $(".vote_down span", parent).text('('+-votes[1]+')');
-                        }
-                });
-            });
-<? else: ?>
-            $(document).ready(function(){$.superbox();} );
-            $.superbox.settings = {
-                boxWidth: 400,
-                boxHeight: 320,
-                overlayOpacity: .4, // Background opaqueness
-                loadTxt: "<?=$this->translate("Loading...")?>",
-                closeTxt: "<?=$this->translate("Close")?>",
-                prevTxt: "<?=$this->translate("Previous")?>",
-                nextTxt: "<?=$this->translate("Next")?>"
-            };
-<?php endif;?>
-
-        </script>
-
-<?php endif;?>
+   
     <?php
-    echo $this->comments;
-    //echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
+   
+   // echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
     <div class="comment_form"><?=$this->createcomment?></div>
 
     </div>
