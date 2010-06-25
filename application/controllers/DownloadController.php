@@ -79,8 +79,10 @@ class DownloadController extends Zend_Controller_Action
        
         require_once APPLICATION_PATH . '/models/Files.php';
         $fmodel = new Model_Files();
-        $this->file = $fmodel->getFile( $uri );
 
+        $uri =  $this->_helper->fileutils->uri2hex($this->_helper->fileutils->url2uri($uri));
+
+        $this->file = $fmodel->getFile( $uri );
         
          // if the id file exists then go for the rest of data
         if (!$this->file){
@@ -94,7 +96,7 @@ class DownloadController extends Zend_Controller_Action
 
         $this->view->filename = $file['n'];
 
-         var_dump( $this->file );
+        // var_dump( $this->file );
         
 
         $this->view->file_size = $this->_formatSize($this->file['s']);
@@ -105,10 +107,7 @@ class DownloadController extends Zend_Controller_Action
         $this->view->headMeta()->appendName('description', 'download, '.$file['x'].', '.$file['n']);
         $this->view->headMeta()->appendName('keywords',  'download, '.$file['x'].', '.$file['n']);
 
-
-
-
-       
+      
 
         //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
@@ -193,10 +192,12 @@ class DownloadController extends Zend_Controller_Action
           $this->umodel = new Model_Users();
           $this->cmodel = new Model_Comments();
  
+         $this->createComment( (string)  $this->file['_id']);
+         $this->view->comments = $this->cmodel->getFileComments( $this->file['_id'], $this->view->lang );
 
-        $this->createComment( (string)  $this->file['_id']);
-        $this->view->comments = $this->cmodel->getFileComments( $this->file['_id'], $this->view->lang );
-
+//        var_dump($this->view->comments);
+//        die();
+        
         require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
         $helper = new Comments_View_Helper();
         $this->view->registerHelper($helper, 'format_comment');
@@ -279,6 +280,9 @@ class DownloadController extends Zend_Controller_Action
 
             $this->view->createcomment = $form;
             return $form;
+
+
+
         } else {
             $this->view->createcomment ="<a style='float:left' href='/{$this->view->lang}/auth/login' rel='superbox[ajax][/{$this->view->lang}/auth/login/source/comment.foo]'>".$this->view->translate('Add a comment')."</a>";
         }

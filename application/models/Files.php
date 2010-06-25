@@ -29,11 +29,7 @@ class Model_Files
     public function getFile($uri)
     {
         //TODO  check blocked = 1
-        //reverse id
-       $uri = str_replace('-', '/', $uri);
-       $uri = str_replace('!', '+', $uri);        
-       $uri = bin2hex( base64_decode($uri ) );
-         var_dump($uri);
+        
 
        $id = new MongoId($uri);
        $file = $this->collection->findOne( array("_id" =>$id) );

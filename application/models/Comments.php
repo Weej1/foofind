@@ -13,19 +13,20 @@ class Model_Comments
 
 
 
-    public function getFileComments($idUser, $idFile, $lang)
+    public function getFileComments($idFile, $lang)
     {
 
-//        $filter = array( 't' => array('$exists' => false) );
-//        $cursor =  $this->collection->find( $filter  )->sort(  array( "fs"  => -1) )->limit( (int)$limit) ;
-//
-//         foreach ($cursor as $file) {
-//                $files[] = $file;
-//               // var_dump($file['fs])
-//            }
+        $filter = array( "_id" => $idFile );    
+        $cursor =  $this->collection->find( $filter  ) ;
 
-         return $files;
+        //$cursor =  $this->collection->find( $filter  )->sort(  array( "fs"  => -1) )->limit( (int)$limit) ;
 
+         foreach ($cursor as $comment) {
+                $comments[] = $comment;
+                // var_dump($file['fs])
+            }
+
+         return $comments;
 
 
     }
@@ -77,8 +78,10 @@ class Model_Comments
         //        die();
 
         //overwrite collection (setted users by default on construct)
-        $this->collection = $db->comments;
+        
         $safe_insert = true;
+      
+        
         return $this->collection->insert($data, $safe_insert);
 
     }
