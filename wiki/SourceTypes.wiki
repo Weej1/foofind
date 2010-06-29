@@ -21,12 +21,12 @@
   * 3->book
   * 4->torrent
   * 5->image
-  * 6->aplication
+  * 6->application
   * 7->archive
   * 8->rom
   * 9->document
-  * 10->Spreadsheet
-  * 11->Presentation
+  * 10->spreadsheet
+  * 11->presentation
 
 = Clientes =
   * 1->P2P Java
