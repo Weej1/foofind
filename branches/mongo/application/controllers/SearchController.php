@@ -3,59 +3,13 @@ require_once APPLICATION_PATH . '/models/Files.php';
 
 define(MAX_RESULTS, 1000);
 
-function encodeFilename($filename)
-{
-    return str_replace(" ", "%20", $filename);
-}
-
-function formatSize($bytes)
-{
-    $size = $bytes / 1024;
-    if($size < 1024)
-    {
-        $size = number_format($size, 2);
-        $size .= '&nbsp;KB';
-    }
-    else
-    {
-        if ($size / 1024 < 1024)
-        {
-            $size = number_format($size / 1024, 2);
-            $size .= '&nbsp;MB';
-        }
-        else if ($size / 1024 / 1024 < 1024)
-        {
-            $size = number_format($size / 1024 / 1024, 2);
-            $size .= '&nbsp;GB';
-        }
-    }
-    return $size;
-}
-
-function show_matches($text, $query, $url, &$found = null)
-{
-    $res = $text;
-
-    preg_match_all('/"(?:\\\\.|[^\\\\"])+"|\S+/', $query, $words);
-    foreach ($words[0] as $w)
-    {
-        if ($w[0]=='"') $w = substr($w, 1, -1);
-        if ($url)
-            $w = urlencode($w);
-        else
-            $w = htmlentities($w, ENT_QUOTES, "UTF-8");
-
-        if ($w!='') $res = preg_replace("/\b(".preg_quote($w).")\b/iu", "<b>$1</b>", $res, -1,$found);
-    }
-    $found = $found>0;
-    return $res;
-}
-
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
-    public function __construct($table)
+    public function __construct($table, $fileutils)
     {
         $this->table      = $table;
-        
+        $this->fileutils  = $fileutils;
+
+        require_once ( APPLICATION_PATH . '/models/Files.php' );
         require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
         $sphinxConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
         $sphinxServer = $sphinxConf->sphinx->server;
@@ -65,11 +19,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
-        $this->cl->SetRankingMode( SPH_RANK_PROXIMITY );
-        $this->cl->SetFieldWeights(array('metadata' => 1, 'filename' => 10));
-        $this->cl->SetSelect("*, sum(@weight*isources*sources/fnCount) as fileWeight");
-        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "@weight DESC, fnWeight DESC, isources DESC" );
-        $this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
+        //$this->cl->SetRankingMode( SPH_RANK_FOOGENERIC );
+        //$this->cl->SetFieldWeights(array('metadata' => 1, 'filename' => 10));
+        //$this->cl->SetSelect("*, sum(@weight*isources*sources/fnCount) as fileWeight");
+        //$this->cl->SetSortMode( SPH_SORT_EXTENDED, "@weight DESC, fnWeight DESC, isources DESC" );
+        //$this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         $this->cl->SetMaxQueryTime(1000);
     }
     public function setFilters($conditions)
@@ -80,19 +34,14 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             $conditions = array( $conditions );
 
         $this->cl->ResetFilters();
-        $this->cl->SetFilter('blocked', array(0));
+        $this->cl->SetFilter('bl', array(0));
 
         $this->type = $conditions['type'];
-        $typeCrcs = null;
         if ($this->type)
         {
-            $temp = $content['types'][$this->type];
-            if ($temp) {
-                $typeCrcs = $temp['crcExt'];
-            }
+            $types = Model_Files::ct2ints($this->type);
+            if ($types) $this->cl->SetFilter('ct', $types);
         }
-
-        if ($typeCrcs) $this->cl->SetFilter('crcextension', $typeCrcs);
 
         $this->src = $conditions['src'];
         if ($this->src)
@@ -100,12 +49,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             $this->srcs = array();
             foreach (str_split("swftge") as $s)
             {
-                if (strstr($this->src, $s)) $this->srcs = array_merge($this->srcs, $content['sources'][$s]['types']);
+                if (strstr($this->src, $s)) $this->srcs = array_merge($this->srcs, Model_Files::src2ints($s));
             }
-            if ($this->src=='s') $this->cl->SetFilterRange('sources', 2, 2);
-            
-            if (count($this->srcs)>0)
-                $this->cl->SetFilter('types', $this->srcs);
+            if (count($this->srcs)>0) $this->cl->SetFilter('t', $this->srcs);
         }
 
         $this->size = $conditions['size'];
@@ -114,16 +60,16 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             switch ($this->size)
             {
                 case 1:
-                    $this->cl->SetFilterRange('size', 1, 1048576);
+                    $this->cl->SetFilterRange('s', 1, 1048576);
                     break;
                 case 2:
-                    $this->cl->SetFilterRange('size', 1, 10485760);
+                    $this->cl->SetFilterRange('s', 1, 10485760);
                     break;
                 case 3:
-                    $this->cl->SetFilterRange('size', 1, 104857600);
+                    $this->cl->SetFilterRange('s', 1, 104857600);
                     break;
                 case 4:
-                    $this->cl->SetFilterRange('size', 0, 104857600, true);
+                    $this->cl->SetFilterRange('s', 0, 104857600, true);
                     break;
             }
         }
@@ -131,21 +77,19 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->brate = $conditions['brate'];
         if ($this->brate)
         {
-            $brateCode = 2<<22;
-            $maxBrateCode = $brateCode|1000000;
             switch ($this->brate)
             {
                 case 1:
-                    $this->cl->SetFilterRange('metadatas', $brateCode|128, $maxBrateCode);
+                    $this->cl->SetFilterRange('mab', 0, 127, true);
                     break;
                 case 2:
-                    $this->cl->SetFilterRange('metadatas', $brateCode|192, $maxBrateCode);
+                    $this->cl->SetFilterRange('mab', 0, 191, true);
                     break;
                 case 3:
-                    $this->cl->SetFilterRange('metadatas', $brateCode|256, $maxBrateCode);
+                    $this->cl->SetFilterRange('mab', 0, 255, true);
                     break;
                 case 4:
-                    $this->cl->SetFilterRange('metadatas', $brateCode|320, $maxBrateCode);
+                    $this->cl->SetFilterRange('mab', 0, 319, true);
                     break;
             }
         }
@@ -153,35 +97,33 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->year = $conditions['year'];
         if ($this->year)
         {
-            $yearCode = 1<<22;
             switch ($this->year)
             {
                 case 1:
-                    $this->cl->SetFilterRange('metadatas', $yearCode|1900, $yearCode|1959);
+                    $this->cl->SetFilterRange('may', 0, 59);
                     break;
                 case 2:
-                    $this->cl->SetFilterRange('metadatas', $yearCode|1960, $yearCode|1969);
+                    $this->cl->SetFilterRange('may', 60, 69);
                     break;
                 case 3:
-                    $this->cl->SetFilterRange('metadatas', $yearCode|1970, $yearCode|1979);
+                    $this->cl->SetFilterRange('may', 70, 79);
                     break;
                 case 4:
-                    $this->cl->SetFilterRange('metadatas', $yearCode|1980, $yearCode|1989);
+                    $this->cl->SetFilterRange('may', 80, 89);
                     break;
                 case 5:
-                    $this->cl->SetFilterRange('metadatas', $yearCode|1990, $yearCode|1999);
+                    $this->cl->SetFilterRange('may', 90, 99);
                     break;
                 case 6:
-                    $this->cl->SetFilterRange('metadatas', $yearCode|2000, $yearCode|2010);
+                    $this->cl->SetFilterRange('may', 100, 109);
                     break;
                 case 7:
                     $nowy = (int)date('Y');
-                    $this->cl->SetFilterRange('metadatas', $yearCode|($nowy-1), $yearCode|$nowy);
+                    $this->cl->SetFilterRange('may', $nowy-1, $nowy);
                     break;
             }
         }
-
-         $this->query = preg_replace("/[\W_]-[\W_]/iu", " ", $conditions['q']);
+        $this->query = preg_replace("/[\W_]-[\W_]/iu", " ", $conditions['q']);
     }
 
     public function justCount()
@@ -203,250 +145,62 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
 
     public function getItems($offset, $itemCountPerPage)
     {
+
         global $content;
         $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS);
         $result = $this->cl->Query( $this->query, $this->table );
 
-        if ( $result === false  ) {
-               // echo "Query failed: " . $this->cl->GetLastError() . ".\n";
-        } else {
-                if ( $this->cl->GetLastWarning() ) {
-                  //echo "WARNING: " . $this->cl->GetLastWarning() . "";
+        $docs = array();
+        if ( $result !== false  ) {
+            
+            if ( $this->cl->GetLastWarning() ) {
+              //echo "WARNING: " . $this->cl->GetLastWarning() . "";
+            }
+
+            $this->tcount = $result["total_found"];
+            $this->time = $result["time"];
+            
+            if (!empty($result["matches"]) ) {
+                $ids = array();
+                foreach ( $result["matches"] as $doc => $docinfo )
+                {
+                    $uri = $this->fileutils->longs2uri($docinfo["attrs"]["uri1"], $docinfo["attrs"]["uri2"], $docinfo["attrs"]["uri3"]);
+                    $hexuri = $this->fileutils->uri2hex($uri);
+                    $docs[$hexuri] = array();
+                    $docs[$hexuri]["search"] = $docinfo['attrs'];
+                    $docs[$hexuri]["search"]["id"] = $doc;
+                    $ids []= new MongoId($hexuri);
                 }
-                $this->tcount = $result["total_found"];
-                $this->time_desc = "spx: ".$result["time"];
-                $total_time = $result["time"];
-                if ( ! empty($result["matches"]) ) {
-                        $ids = array();
-                        $idfns = array();
-                        foreach ( $result["matches"] as $doc => $docinfo )
-                        {
-                            $id = $docinfo["attrs"]["idfile"];
-                            $ids []= $id;
-                            $idfns []= $doc;
 
-                            $docs[$id]['weight'] = $docinfo["weight"];
-                            $docs[$id]['fileweight'] = $docinfo["attrs"]["fileweight"];
-                            $docs[$id]['attrs'] = $docinfo["attrs"];
-                            $docs[$id]['idfilename'] = $doc;
-                            $md[$id] = array();
+                $fmodel = new Model_Files();
+                $files = $fmodel->getFiles( $ids );
+                foreach ($files as $file) {
+                    $hexuri = $file['_id']->__toString();
+                    $obj = $docs[$hexuri];
+                    $obj['file'] = $file;
 
-                            if ($this->type==null)
-                            {
-                                try {
-                                    $docs[$id]['type'] = $content['assoc'][$docinfo["attrs"]["contenttype"]];
-                                } catch (Exception $ex) {
-                                    $docs[$id]['type'] = null;
-                                    $docs[$id]['type_prop'] = array();
-                                }
-                            } else {
-                                $docs[$id]['type'] = $this->type;
-                            }
-
-                            $where .= " OR (IdFilename=$doc AND IdFile=$id) ";
-                        }
-
-                        $ids = join($ids, ",");
-
-                        $start_time = microtime(true);
-                        $model = new Model_Files();
-                        foreach ($model->getFilenames(substr($where, 4)) as $row)
-                        {
-                            $id = $row['IdFile'];
-                            // try to guess type from extensionss
-                            if ($docs[$id]['type']==null)
-                            {
-                                try {$docs[$id]['type_prop'] []= $content['extAssoc'][$row['Extension']];}
-                                catch (Exception $ex) {};
-                            }
-
-                            $docs[$id]['rfilename'] = $row['Filename'];
-                            $docs[$id]['filename'] = show_matches(htmlentities($row['Filename'], ENT_QUOTES, "UTF-8"), $this->query, false, $found);
-                            $docs[$id]['in_filename'] = $found;
-                        }
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - fn:".number_format(microtime(true) - $start_time, 3);
-                        
-                        // get sources for files
-                        $start_time = microtime(true);
-                        $sourcepos = array();
-                        $sources = $model->getSources("IdFile in ($ids)");
-                        foreach ($sources as $row)
-                        {
-                            $id = $row['IdFile'];
-                            $t = $row['Type'];
-                            $separateSources = false;
-                            switch ($t)
-                            {
-                                case 1: //GNUTELLA
-                                    $tip = "Gnutella";
-                                    $source = "gnutella";
-                                    $mlinkadd = "&xt=urn:sha1:".$row['Uri'];
-                                    break;
-                                case 2: //ED2K
-                                    $tip = "ED2K";
-                                    $source = "ed2k";
-                                    $link = "ed2k://|file|".encodeFilename($docs[$id]['rfilename'])."|".$docs[$id]['attrs']['size']."|".$row['Uri']."|/";
-                                    //$mlinkadd = "&xt=urn:ed2k:".$row['Uri'];
-                                    break;
-                                case 3: // TORRENT
-                                    $tip = "Torrent";
-                                    $source = "torrent";
-                                    $separateSources = true;
-                                    $link = $row['Uri'];
-                                    break;
-                                case 5: //TIGER HASH
-                                    $tip = "Gnutella";
-                                    $source = "gnutella";
-                                    $mlinkadd = "&xt=urn:tiger:".$row['Uri'];
-                                    break;
-                                case 6: //MD5 HASH
-                                    $tip = "Gnutella";
-                                    $source = "gnutella";
-                                    $mlinkadd = "&xt=urn:md5:".$row['Uri'];
-                                    break;
-                                case 7: //BTH HASH
-                                    $tip = "Torrent MagnetLink";
-                                    $source = "tmagnet";
-				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
-                                    $link = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename'])."&xt=urn:btih:".$row['Uri'];
-                                    break;
-                                case 4: // JAMENDO
-                                case 8: // WEB
-                                case 10: // MU
-                                case 11: // RS
-                                    $tip = "Web";
-                                    $source = "web";
-                                    $link = $row['Uri'];
-                                    $separateSources = true;
-                                    break;
-                                case 9: // FTP
-                                    $tip = "FTP";
-                                    $source = "ftp";
-                                    $link = $row['Uri'];
-                                    $separateSources = true;
-                                    break;
-                                default:
-                                    continue;
-                                    break;
-                            }
-
-                            if ($source=="gnutella")
-                            {
-                                $rlink = $docs[$id]['sources']['gnutella']['rlink'];
-                                if ($rlink)
-                                    $mlink = $rlink.$mlinkadd;
-                                else {
-				    if (($size=$docs[$id]['attrs']['size'])>0) $size = "xl=".$docs[$id]['attrs']['size']."&"; else $size = "";
-                                    $mlink = "magnet:?{$size}dn=".encodeFilename($docs[$id]['rfilename']).$mlinkadd;
-				}
-                                $link = $mlink;
-                            }
-
-                            $docs[$id]['sources'][$source]['link'] = htmlentities($link, ENT_QUOTES, "UTF-8");
-                            $docs[$id]['sources'][$source]['rlink'] = $link;
-                            if ($separateSources)
-                            {
-                                $domain = substr(strstr($link, "//"), 2);
-                                $domain = substr($domain, 0, strpos($domain, '/'));
-                                $dotpos2 = false;
-                                $dotpos = strrpos($domain, '.', -1);
-                                if ($dotpos!==false) $dotpos2 = strrpos($domain, '.', -(strlen($domain)-$dotpos+1));
-                                if ($dotpos2!==false) $domain = substr($domain, $dotpos2+1);
-                                $docs[$id]['sources'][$source]['links'][$domain] = $link;
-                            }
-                            $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
-                            $docs[$id]['sources'][$source]['tip'] = $tip;
-                        }
-
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - src:".number_format(microtime(true) - $start_time, 3);
-                        // get metadata for files
-                        $start_time = microtime(true);
-                        
-                        // search for shown metadata
-                        $mdList = join($content['crcMD'], ",");
-                        // add bittorrent metadata
-                        $mdList .= ", 4009003051, 4119033687";
-                        
-                        foreach ($model->getMetadata("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
-                        {
-                            $id = $row['IdFile'];
-                            if (($row['KeyMD']=='torrent:trackers') || ($row['KeyMD']=='torrent:tracker'))
-                            {
-                                foreach (explode(' ', $row['ValueMD']) as $tr)
-                                {
-                                    $docs[$id]['sources']['tmagnet']['rlink'] .= '&tr='.urlencode($tr);
-                                    $docs[$id]['sources']['tmagnet']['link'] = htmlentities($docs[$id]['sources']['tmagnet']['rlink'], ENT_QUOTES, "UTF-8");
-                                    $docs[$id]['sources']['tmagnet']['has_trackers'] = true;
-                                }
-                            }
-                            else
-                                $md[$id][$row['KeyMD']]=show_matches(htmlentities($row['ValueMD'], ENT_QUOTES, "UTF-8"), $this->query, false);
-                           
-                        }
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time_desc .= " - md:".number_format(microtime(true) - $start_time, 3);
-
-                        $umodel = new Model_Users();
-                        foreach ($umodel->getFilesVotes("IdFile in ($ids)") as $row)
-                        {
-                            $id = $row['IdFile'];
-                            $docs[$id]['votes'][$row['VoteType']] = $row['c'];
-                        }
-
-                        foreach ($umodel->getFilesComments("IdFile in ($ids)") as $row)
-                        {
-                            $id = $row['IdFile'];
-                            $docs[$id]['comments'] = $row['c'];
-                        }
-
-                        // choose better type for each file and get description for file
-                        $start_time = microtime(true);
-                        foreach ($docs as $id => $doc)
-                        {
-
-                            //replace dot by underscore remove extension to filename in the url (google bot thinks its a image or a video, this is bad)
-                            //$docs[$id]['rfilename'] = str_replace('.', '_', $docs[$id]['rfilename']);
-                            $docs[$id]['rfilename'] = $docs[$id]['rfilename'].'.html';
-                            $docs[$id]['dlink'] = "$id/{$docs[$id]['rfilename']}"; //
-
-                            if (!$doc['filename'] || !$doc['sources']) {
-                                $this->cl->UpdateAttributes("idx_files idx_files_week", array("blocked"), array($docs[$id]['idfilename'] => array(3)));
-                                $this->tcount--;
-                                continue;
-                            }
-                            
-                            if ($doc['type']==null && count($doc['type_prop'])>0)
-                            {
-                                $docs[$id]['type'] = $doc['type_prop'][0];
-                            }
-
-                            if ($doc['attrs']['size']>0) $docs[$id]['size'] = formatSize($doc['attrs']['size']);
-                            $docs[$id]['isources'] = $doc['attrs']['isources'];
-                            $docs[$id]['md'] = $md[$id];
-                            
-                            // search for better link
-                            foreach (array('w'=>'web', 'f'=>'ftp', 't'=>'torrent', 't2'=>'tmagnet', 'g'=>'gnutella', 'e'=>'ed2k') as $srci=>$srcLink)
-                                    if (strstr($this->src, $srci[0]) && $docs[$id]['sources'][$srcLink])
-                                            if ($srcLink!='tmagnet' || $docs[$id]['sources']['tmagnet']['has_trackers'])
-                                                break;
-
-                            $docs[$id]['rlink'] = htmlentities($docs[$id]['sources'][$srcLink]['rlink'], ENT_QUOTES, "UTF-8");
-                            
-                            $docs[$id]['link'] = show_matches($docs[$id]['rlink'], $this->query, true);
-                            $docs[$id]['link_type'] = $srcLink;
-                        }
-                        
-                        unset ($doc);
-                        $total_time += (microtime(true) - $start_time);
-                        $this->time = $total_time;
-                        return $docs;
+                    $this->fileutils->chooseFilename($obj);
+                    $this->fileutils->buildSourceLinks($obj);
+                    $this->fileutils->chooseType($obj, $this->type);
+                    $docs[$hexuri] = $obj;
                 }
+
+                foreach ($docs as $hexuri => $doc)
+                {
+                    if (!isset($doc['file']) || $doc['file']['bl']!=0) {
+                        $this->cl->UpdateAttributes("idx_files", array("bl"), array($doc["search"]["id"] => array(3)));
+                        $this->tcount--;
+                        unset($docs[$hexuri]);
+                    }
+                }
+
+                // CONTENT TYPE FROM ct O extension!!
+                // MOSTRAR MD
+                // VOTOS Y COMENTARIOS
+                return $docs;
+            }
+            return $docs;
         }
-
-        $this->time = 0;
-       return array();
     }
 
     public function count()
@@ -538,6 +292,7 @@ class SearchController extends Zend_Controller_Action {
         $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
 
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
+        require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
 
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => $page);
 
@@ -547,6 +302,9 @@ class SearchController extends Zend_Controller_Action {
         $this->view->registerHelper($helper, 'qs');
         $this->view->src = $srcs;
         $this->view->qs = $conds;
+        
+        $helper = new FileUtils_View_Helper();
+        $helper->registerHelper($this->view);
 
         if ($page>MAX_RESULTS/10)
         {
@@ -580,9 +338,9 @@ class SearchController extends Zend_Controller_Action {
 
                 $key =  md5("$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
                 $existsCache = $oCache->test($key);
-                if  (! $existsCache  ) {
+                if  (true || ! $existsCache  ) {
 
-                        $SphinxPaginator = new Sphinx_Paginator('idx_files, idx_files_week');
+                        $SphinxPaginator = new Sphinx_Paginator('idx_files', $this->_helper->fileutils);
                         $SphinxPaginator->setFilters($conds);
                         $paginator = new Zend_Paginator($SphinxPaginator);
 
@@ -599,7 +357,6 @@ class SearchController extends Zend_Controller_Action {
                             $conds['type']=null;
                             $SphinxPaginator->setFilters($conds);
                             $paginator->noTypeCount = $SphinxPaginator->justCount();
-
                          }
 
                         $oCache->save( $paginator, $key );

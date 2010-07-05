@@ -80,9 +80,9 @@ class DownloadController extends Zend_Controller_Action
         require_once APPLICATION_PATH . '/models/Files.php';
         $fmodel = new Model_Files();
 
-        $uri =  $this->_helper->fileutils->uri2hex($this->_helper->fileutils->url2uri($uri));
+        $uri = $this->_helper->fileutils->uri2hex($this->_helper->fileutils->url2uri($uri));
 
-        $this->file = $fmodel->getFile( $uri );
+        $this->file = $fmodel->getFile($uri);
         
          // if the id file exists then go for the rest of data
         if (!$this->file){
@@ -95,9 +95,6 @@ class DownloadController extends Zend_Controller_Action
                                     }
 
         $this->view->filename = $file['n'];
-
-        // var_dump( $this->file );
-        
 
         $this->view->file_size = $this->_formatSize($this->file['s']);
         $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );

@@ -7,15 +7,24 @@ class Model_Users
     {
             $connection = new Mongo("mongo.users.foofind.com:27017");
              //$connection = new Mongo();
-            $db = $connection->foofind;
-            $this->collection = $db->users;       
+            $this->db = $connection->foofind;
     }
 
+    function users()
+    {
+        if (!$this->users) $this->users = $this->db->users;
+        return $this->users;
+    }
 
-
+    function userfile()
+    {
+        if (!$this->userfile) $this->userfile = $this->db->userfile;
+        return $this->userfile;
+    }
 
     public function getUserComments($username, $limit)
     {
+
 //        $table = new ff_comment();
 //        $select = $table->select()->from("ff_comment")
 //                ->where("IdUser=?", $idUser)
@@ -25,7 +34,7 @@ class Model_Users
 //        return $table->fetchAll($select);
 
 
-        }
+    }
 
     public function getUserVote($idUser, $idFile)
     {
@@ -62,15 +71,6 @@ class Model_Users
 
     }
 
-
-
-    public function deleteVote($idFile, $idUser, $type)
-    {
-        $table = new ff_vote();
-        return $table->delete("IdFile=$idFile and IdUser=$idUser and VoteType=$type");
-    }
-
-
     public function saveVote(array $data)
     {
         return $this->save(new ff_vote(), $data);
@@ -85,103 +85,50 @@ class Model_Users
 
 
         $safe_insert = true;
-        return $this->collection->insert($data, $safe_insert);
-
+        return $this->users()->insert($data, $safe_insert);
     }
-
-   
 
     public function updateUser( $username, array $data)
     {
-        $newdata = array('$set' => $data);
-        return $this->collection->update(array("username" => $username), $newdata);
+        return $this->users()->update(array("username" => $username), array('$set' => $data));
     }
-
 
     function deleteUser($username)
     {
         $filter = array('username' => $username);
-        $this->collection->remove($filter);
+        $this->users()->remove($filter);
     }
 
-    function deleteUserComments ($id)
+    public function checkUserLogin($email, $password)
     {
-        $table = new ff_comment();
-        $table->delete('IdUser =' . (int)$id);
-    }
-
-    function deleteUserCommentsVotes ($id)
-    {
-        $table = new ff_comment_vote();
-        $table->delete('IdUser =' . (int)$id);
-    }
-
-    function deleteUserVotes ($id)
-    {
-        $table = new ff_vote();
-        $table->delete('IdUser =' . (int)$id);
-    }
-
-
-
-     public function checkUserLogin( $email, $password )
-    {
-        return  $this->collection->findOne(  array('email' =>$email,'password' =>$password, 'active' => "1" ) );
-       
-    }
-
-
-
-    public function checkUserEmail($email)
-    {
-       $user = $this->collection->findOne( array('email' =>$email) );
-       return $user;
-
-    }
-
-    public function checkUsername($username)
-    {
-       $user = $this->collection->findOne( array('username' =>$username) );
-       return $user;
+        return $this->users()->findOne( array('email' =>$email,'password' =>$password, 'active' => "1" ) );
     }
 
     public function getUserToken($email)
     {
-       $user = $this->collection->findOne( array('email' =>$email), array('token') );
+       $user = $this->users()->findOne( array('email' =>$email), array('token') );
        return $user['token'];
     }
 
-    public function validateUserToken($token)
+    public function fetchUserByToken($token)
     {
-        return $this->collection->findOne( array('token' =>$token) );
-
+        return $this->users()->findOne( array('token' =>$token) );
     }
-
-    public function checkUserIsLocked($id)
-    {
-        $table = new ff_users();
-        return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
-    }
-
-    public function checkUserType($id)
-    {
-        $table = new ff_users();
-        return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
-    }
-
 
     public function fetchUser($id)
     {
-       return $this->collection->findOne( array('IdUser' =>$id) );
+       return $this->users()->findOne( array('IdUser' =>$id) );
     }
 
-     public function fetchUserByUsername($username)
+    public function fetchUserByUsername($username)
     {
-
-      return $this->collection->findOne( array('username' =>$username) );
-
+      return $this->users()->findOne( array('username' =>$username) );
     }
     
-
+    public function fetchUserByEmail($email)
+    {
+       $user = $this->users()->findOne( array('email' =>$email) );
+       return $user;
+    }
 }
 
