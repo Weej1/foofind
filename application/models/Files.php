@@ -54,45 +54,102 @@ class Model_Files
     }
 
     function  __construct()
-    {  
-       $connection = new Mongo("mongo.files.foofind.com:27017");
-       $db = $connection->foofind;
-       $this->collection = $db->foo;
+    {
+        $oBackend = new Zend_Cache_Backend_Memcached(
+                        array(
+                                'servers' => array( array(
+                                        'host' => '127.0.0.1',
+                                        'port' => '11211'
+                                ) ),
+                                'compression' => true
+                ) );
+
+        $oFrontend = new Zend_Cache_Core(
+                array(
+                        'caching' => true,
+                        'lifetime' => 3600,
+                        'cache_id_prefix' => 'foofy_search',
+                        'automatic_serialization' => true,
+
+                ) );
+
+        // build a caching object
+        $this->oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+
+        $connection = new Mongo("mongo.files.foofind.com:27017");
+        $this->db = $connection->foofind;
+    }
+
+    public function getServers()
+    {
+        $key = "servers";
+        $existsCache = $this->oCache->test($key);
+        if  ( $existsCache  ) {
+            $servers = $this->oCache->load($key);
+        } else {
+            $cursor = $this->db->server->find()->sort(array('lt'=>-1));
+            $servers = array();
+            foreach ($cursor as $server) {
+                $servers[$server['_id']] = $server;
+            }
+            $this->oCache->save( $servers, $key );
+        }
+        return $servers;
     }
 
     public function countFiles()
     {
-        $count = 0;
-        for ($port=10001; $port<10004; $port++)
-        {
-            $filter = array( 'fs' => array('$gt' => new MongoDate(strtotime("1999-01-01 00:00:00")) ));
-            $connection = new Mongo("mongo.files.foofind.com:$port");
-            $count += $connection->foofind->foo->count($filter );
-        }
-        return $count;
+        $count = $this->db->server->group(array(), array("c"=>0), "function(obj,prev) { prev.c += obj.c; }");
+        return $count["retval"][0]['c'];
     }
 
     public function getFiles($uris)
     {
-        $cursor = $this->collection->find( array("_id" => array('$in' => $uris ) ) );
-        foreach ($cursor as $file) {
-            $files []= $file;
+        $files = array();
+        
+        $cursor = $this->db->indir->find( array("_id" => array('$in' => $uris ) ) );
+        $querys = array();
+        foreach ($cursor as $ifile) {
+            $s = $ifile['s'];
+            if (!array_key_exists($s, $querys)) $querys[$s] = array();
+
+            if (array_key_exists('t', $ifile))
+                $querys[$s][]=new MongoId($ifile['t']);
+            else
+                $querys[$s][]=new MongoId($ifile['_id']);
+
+        }
+
+        $servers = $this->getServers();
+        foreach ($querys as $s=>$suris) {
+            $server = $servers[$s];
+            $conn = new Mongo("{$server['ip']}:{$server['p']}");
+            $cursor = $conn->foofind->foo->find(array("_id" => array('$in' => $suris ) ) );
+            foreach ($cursor as $file) {
+                $files[$file['_id']->__toString()] = $file;
+            }
         }
         return $files;
     }
 
     public function getFile($uri)
     {
-        //TODO  check blocked = 1
         $id = new MongoId($uri);
-        $file = $this->collection->findOne( array("_id" =>$id) );
-        return $file;
+        $ifile = $this->db->indir->findOne( array("_id" =>$id) );
+        $s = $ifile['s'];
+        $servers = $this->getServers();
+        $server = $servers[$s];
+        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        return $conn->foofind->foo->findOne(array("_id" =>$id ) );
     }
     
     public function getLastFilesIndexed( $limit )
     {
-        $cursor =  $this->collection->find(  )->sort( array( "fs"  => -1) )->limit( (int)$limit) ;
+        $servers = $this->getServers();
+        $server = current($servers);
 
+        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        $cursor = $conn->foofind->foo->find()->sort(array('$natural' => -1))->limit($limit);
         foreach ($cursor as $file) {
             $files []= $file;
         }
