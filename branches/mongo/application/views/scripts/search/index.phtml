@@ -92,7 +92,7 @@ if (count ( $this->mensajes ) > 0) {
         <span><? echo $this->format($val, false); ?></span>
         <span>
         <?php
-            if (isset($val['file']['s']) && $val['file']['s']>0) echo $this->formatSize($val["file"]["s"])." - ";
+            if (isset($val['file']['z']) && $val['file']['z']>0) echo $this->formatSize($val["file"]["z"])." - ";
 
             foreach ($val['view']['sources'] as $src => $info)
             {

@@ -60,16 +60,16 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
             switch ($this->size)
             {
                 case 1:
-                    $this->cl->SetFilterRange('s', 1, 1048576);
+                    $this->cl->SetFilterRange('z', 1, 1048576);
                     break;
                 case 2:
-                    $this->cl->SetFilterRange('s', 1, 10485760);
+                    $this->cl->SetFilterRange('z', 1, 10485760);
                     break;
                 case 3:
-                    $this->cl->SetFilterRange('s', 1, 104857600);
+                    $this->cl->SetFilterRange('z', 1, 104857600);
                     break;
                 case 4:
-                    $this->cl->SetFilterRange('s', 0, 104857600, true);
+                    $this->cl->SetFilterRange('z', 0, 104857600, true);
                     break;
             }
         }
@@ -197,10 +197,9 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 // CONTENT TYPE FROM ct O extension!!
                 // MOSTRAR MD
                 // VOTOS Y COMENTARIOS
-                return $docs;
             }
-            return $docs;
         }
+        return $docs;
     }
 
     public function count()
@@ -315,61 +314,59 @@ class SearchController extends Zend_Controller_Action {
 
 
         // memcached results !!!!
-                $oBackend = new Zend_Cache_Backend_Memcached(
-                        array(
-                                'servers' => array( array(
-                                        'host' => '127.0.0.1',
-                                        'port' => '11211'
-                                ) ),
-                                'compression' => true
+        $oBackend = new Zend_Cache_Backend_Memcached(
+                array(
+                        'servers' => array( array(
+                                'host' => '127.0.0.1',
+                                'port' => '11211'
+                        ) ),
+                        'compression' => true
+        ) );
+
+        $oFrontend = new Zend_Cache_Core(
+                array(
+                        'caching' => true,
+                        'lifetime' => 3600,
+                        'cache_id_prefix' => 'foofy_search',
+                        'automatic_serialization' => true,
+
                 ) );
 
-                $oFrontend = new Zend_Cache_Core(
-                        array(
-                                'caching' => true,
-                                'lifetime' => 3600,
-                                'cache_id_prefix' => 'foofy_search',
-                                'automatic_serialization' => true,
-                                
-                        ) );
+        // build a caching object
+        $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
-                // build a caching object
-                $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+        $key =  md5("$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
+        $existsCache = $oCache->test($key);
+        if  ( true || ! $existsCache  ) {
 
-                $key =  md5("$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
-                $existsCache = $oCache->test($key);
-                if  (true || ! $existsCache  ) {
+                $SphinxPaginator = new Sphinx_Paginator('idx_files', $this->_helper->fileutils);
+                $SphinxPaginator->setFilters($conds);
+                $paginator = new Zend_Paginator($SphinxPaginator);
 
-                        $SphinxPaginator = new Sphinx_Paginator('idx_files', $this->_helper->fileutils);
-                        $SphinxPaginator->setFilters($conds);
-                        $paginator = new Zend_Paginator($SphinxPaginator);
+                $paginator->setDefaultScrollingStyle('Elastic');
+                $paginator->setItemCountPerPage(10);
+                $paginator->setCurrentPageNumber($page);
+                $paginator->getCurrentItems();
 
-                        $paginator->setDefaultScrollingStyle('Elastic');
-                        $paginator->setItemCountPerPage(10);
-                        $paginator->setCurrentPageNumber($page);
-                        $paginator->getCurrentItems();
+                $paginator->tcount = $SphinxPaginator->tcount;
+                $paginator->time = $SphinxPaginator->time;
+                $paginator->time_desc = $SphinxPaginator->time_desc;
+                if ($conds['type']!=null && $SphinxPaginator->count()==0)
+                {
+                    $conds['type']=null;
+                    $SphinxPaginator->setFilters($conds);
+                    $paginator->noTypeCount = $SphinxPaginator->justCount();
+                 }
 
-                        $paginator->tcount = $SphinxPaginator->tcount;
-                        $paginator->time = $SphinxPaginator->time;
-                        $paginator->time_desc = $SphinxPaginator->time_desc;
-                        if ($conds['type']!=null && $SphinxPaginator->count()==0)
-                        {
-                            $conds['type']=null;
-                            $SphinxPaginator->setFilters($conds);
-                            $paginator->noTypeCount = $SphinxPaginator->justCount();
-                         }
+                $oCache->save( $paginator, $key );
+            } else {
+                //cache hit, load from memcache.
+                $paginator = $oCache->load( $key  );
 
-                        $oCache->save( $paginator, $key );
-                    } else {
-                        //cache hit, load from memcache. 
-                        $paginator = $oCache->load( $key  );
-                        
-                }
-                      
-                $this->view->info = array('total'=>$paginator->tcount, 'time_desc'=>$paginator->time_desc, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
-                $this->view->paginator = $paginator;
-         
-        
+        }
+
+        $this->view->info = array('total'=>$paginator->tcount, 'time_desc'=>$paginator->time_desc, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
+        $this->view->paginator = $paginator;
 
         $jquery = $this->view->jQuery();
         $jquery->enable(); // enable jQuery Core Library
