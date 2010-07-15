@@ -2,6 +2,24 @@
 
 class Model_Users extends Zend_Db_Table_Abstract
 {
+    public function getUsersForKarmaUpdate()
+    {
+        $table = new ff_users();
+        $subselect = $table->select()->from(array("u"=>"ff_users"), array("IdUser", "karma"))->setIntegrityCheck(false)
+                ->joinLeft(array("c"=>"ff_comment"), "u.IdUser=c.IdUser", array("unix_timestamp(min(c.date)) firstc", "unix_timestamp(max(c.date)) lastc"))
+                ->joinLeft(array("v"=>"ff_vote"), "u.IdUser=v.IdUser", array("unix_timestamp(min(v.date)) firstv", "unix_timestamp(max(v.date)) lastv"))
+                ->joinLeft(array("mcv"=>"ff_comment_vote"), "u.IdUser=mcv.IdUser", array("unix_timestamp(min(mcv.date)) firstcv", "unix_timestamp(max(mcv.date)) lastcv"))
+                ->joinLeft(array("cv"=>"ff_comment_vote"), "c.idcomment=cv.idcomment", array("iduser as fr", "avg(cv.karma*(case cv.votetype when 1 then 1 when 2 then -1 else 0 end) ) vs"))
+                ->group(array("u.IdUser","fr"))
+                ->having("coalesce(firstc, firstv, firstcv) is not null");
+        $db = $table->getAdapter();
+        $select = $db->select()
+                ->from(array("users" => new Zend_Db_Expr("($subselect)")), array("*", "svs" => "sum(vs)"))
+                ->group("IdUser");
+
+        return $db->fetchAll($select);
+    }
+
     public function getFileComments($idUser, $idFile, $lang)
     {
         $table = new ff_comment();
@@ -113,7 +131,7 @@ class Model_Users extends Zend_Db_Table_Abstract
     public function updateUser(array $data)
     {
         $table = new ff_users();
-        $where = $table->getAdapter ()->quoteInto ( 'IdUser = ?', $data ['IdUser'] );
+        $where = $table->getAdapter ()->quoteInto ( 'IdUser = ?', $data['IdUser'] );
         $table->update ( $data, $where );
     }
 

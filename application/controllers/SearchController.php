@@ -355,7 +355,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                                 if ($dotpos2!==false) $domain = substr($domain, $dotpos2+1);
                                 $docs[$id]['sources'][$source]['links'][$domain] = $link;
                             }
-                            $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
+                            if ($t!=5 && $t!=6) $docs[$id]['sources'][$source]['count'] += $row['MaxSources'];
                             $docs[$id]['sources'][$source]['tip'] = $tip;
                         }
 
@@ -372,7 +372,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         foreach ($model->getMetadata("CrcKey in ($mdList) AND IdFile in ($ids)") as $row)
                         {
                             $id = $row['IdFile'];
-                            if (($row['KeyMD']=='torrent:trackers') || ($row['KeyMD']=='torrent:tracker'))
+                            if ($docs[$id]['sources'] && (($row['KeyMD']=='torrent:trackers') || ($row['KeyMD']=='torrent:tracker')))
                             {
                                 foreach (explode(' ', $row['ValueMD']) as $tr)
                                 {
@@ -577,7 +577,7 @@ class SearchController extends Zend_Controller_Action {
                 // build a caching object
                 $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
-                $key =  md5("$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
+                $key =  md5("s$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
                 $existsCache = $oCache->test($key);
                 if  (! $existsCache  ) {
 

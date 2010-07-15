@@ -447,7 +447,7 @@ if (count ( $this->mensajes ) > 0) {
        </div>
 
        <?php if ($this->sources): ?>
-        <div class="dowload_file_sources">                
+        <div class="dowload_file_sources">   
                     <? foreach ($srcs as $key => $val):
                         $links = null;
                         if ($val['links']) {
@@ -471,9 +471,8 @@ if (count ( $this->mensajes ) > 0) {
                                 if (!$multiple && $val['count']>1) echo ' <span>'.$val['count'].' '.$this->translate('sources').'</span>';?>
                             </a></div>
                  <?php  endforeach; ?>
-                        </div>
-                   <?php  endforeach; ?>
-            
+        </div>
+           <?php endforeach; ?>
         </div>
        <?php endif; ?>
 
