@@ -1,7 +1,6 @@
 <?php
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-
     protected function _initMetadataCache()
     {
         $cache = Zend_Cache::factory('Core', 'File',
@@ -9,8 +8,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 array('cache_dir' => TMP_PATH));
         Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
     }
-
-
 
     protected function _initDoctype()
     {
@@ -77,8 +74,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Controller_Action_HelperBroker::addPath( APPLICATION_PATH .'/controllers/helpers');
 
         $front = Zend_Controller_Front::getInstance();
-        //$front->registerPlugin ( new Foofind_Controller_Plugin_Language() );
-
+        
         //init the routes
         $router = $front->getRouter ();
 
@@ -102,7 +98,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute ( 'vote', $routeVote );
         $router->addRoute ( 'profile/username', $routeProfile );
         $router->addRoute ( 'api', $routeApi );
-
+        
         //set all routes
         $front->setRouter ( $router );
 
@@ -111,4 +107,3 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 
 }
-
