@@ -122,7 +122,6 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     $linkWeight = 0.8;
                     $icon = "torrent";
                     $url = $src['url'];
-                    var_dump($url);
                     $tip = $source = $this->getDomain($url);
                     break;
                 case Model_Files::SOURCE_TIGER:
