@@ -116,6 +116,7 @@ class DownloadController extends Zend_Controller_Action
             if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
         }
 
+        $this->umodel = new Model_Users();
 
 //        //check filename cache
 //        $keyfilename =  md5( $id ).$this->lang.'fn';
@@ -185,12 +186,8 @@ class DownloadController extends Zend_Controller_Action
 //            }
 //        }
 
-
-          $this->umodel = new Model_Users();
-          $this->cmodel = new Model_Comments();
- 
          $this->createComment( (string)  $this->file['_id']);
-         $this->view->comments = $this->cmodel->getFileComments( $this->file['_id'], $this->view->lang );
+         $this->view->comments = $this->umodel->getFileComments( $this->file['_id'], $this->view->lang );
 
 //        var_dump($this->view->comments);
 //        die();

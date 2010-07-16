@@ -5,75 +5,38 @@ class Model_Users
 
     function  __construct()
     {
-            $connection = new Mongo("mongo.users.foofind.com:27017");
-             //$connection = new Mongo();
-            $this->db = $connection->foofind;
-    }
-
-    function users()
-    {
-        if (!$this->users) $this->users = $this->db->users;
-        return $this->users;
-    }
-
-    function userfile()
-    {
-        if (!$this->userfile) $this->userfile = $this->db->userfile;
-        return $this->userfile;
-    }
-
-    public function getUserComments($username, $limit)
-    {
-
-//        $table = new ff_comment();
-//        $select = $table->select()->from("ff_comment")
-//                ->where("IdUser=?", $idUser)
-//                ->order("date desc")
-//                ->limit( $limit );
-//
-//        return $table->fetchAll($select);
-
-
-    }
-
-    public function getUserVote($idUser, $idFile)
-    {
-//        $table = new ff_vote();
-//        $select = $table->select()->where("IdFile=?", $idFile)->where("IdUser=?", $idUser);
-//        return $table->fetchAll($select);
+        $connection = new Mongo("mongo.users.foofind.com:27017");
+        $this->db = $connection->foofind;
     }
 
     public function getCommentVotes($idComment)
     {
-        $table = new ff_comment_vote();
-        $select = $table->select()
-                ->from("ff_comment_vote", "VoteType, count(*) c, sum(karma) k")
-                ->where("IdComment=?", $idComment)
-                ->group(array("IdComment", "VoteType"));
-        return $table->fetchAll($select);
+        return $this->db->comment_vote->find(array('_id'=>new MongoRegex("/^$idComment/")));
     }
 
-    public function getVotes($idFile)
+    public function getFileComments($idFile, $lang)
     {
-        $table = new ff_vote();
-        $select = $table->select()
-                ->from("ff_vote", "VoteType, count(*) c, sum(karma) k")
-                ->where("IdFile=?", $idFile)
-                ->group(array("IdFile", "VoteType"));
-        return $table->fetchAll($select);
+        return $this->db->vote->find(array('f'=>$idFile));
     }
 
-    public function getFilesVotes($where)
+    public function getFileVotes($idFile)
     {
-        $table = new ff_vote();
-        $select = $table->select()->from("ff_vote", "IdFile, count(*) c, VoteType")->where($where)->group(array("IdFile", "VoteType"));
-        return $table->fetchAll($select);
-
+        return $this->db->vote->find(array('_id'=>new MongoRegex("/^$idFile/")));
     }
 
     public function saveVote(array $data)
     {
-        return $this->save(new ff_vote(), $data);
+        return $this->db->vote->save($data);
+    }
+
+    public function saveComment(array $data)
+    {
+        return $this->db->comment->save($data);
+    }
+
+    public function saveCommentVote(array $data)
+    {
+        return $this->db->comment_vote->save($data);
     }
 
     public function saveUser(array $data)
@@ -85,49 +48,49 @@ class Model_Users
 
 
         $safe_insert = true;
-        return $this->users()->insert($data, $safe_insert);
+        return $this->db->users->insert($data, $safe_insert);
     }
 
     public function updateUser( $username, array $data)
     {
-        return $this->users()->update(array("username" => $username), array('$set' => $data));
+        return $this->db->users->update(array("username" => $username), array('$set' => $data));
     }
 
     function deleteUser($username)
     {
         $filter = array('username' => $username);
-        $this->users()->remove($filter);
+        $this->db->users->remove($filter);
     }
 
     public function checkUserLogin($email, $password)
     {
-        return $this->users()->findOne( array('email' =>$email,'password' =>$password, 'active' => "1" ) );
+        return $this->db->users->findOne( array('email' =>$email,'password' =>$password, 'active' => "1" ) );
     }
 
     public function getUserToken($email)
     {
-       $user = $this->users()->findOne( array('email' =>$email), array('token') );
+       $user = $this->db->users->findOne( array('email' =>$email), array('token') );
        return $user['token'];
     }
 
     public function fetchUserByToken($token)
     {
-        return $this->users()->findOne( array('token' =>$token) );
+        return $this->db->users->findOne( array('token' =>$token) );
     }
 
     public function fetchUser($id)
     {
-       return $this->users()->findOne( array('IdUser' =>$id) );
+       return $this->db->users->findOne( array('IdUser' =>$id) );
     }
 
     public function fetchUserByUsername($username)
     {
-      return $this->users()->findOne( array('username' =>$username) );
+      return $this->db->users->findOne( array('username' =>$username) );
     }
     
     public function fetchUserByEmail($email)
     {
-       $user = $this->users()->findOne( array('email' =>$email) );
+       $user = $this->db->users->findOne( array('email' =>$email) );
        return $user;
     }
 }

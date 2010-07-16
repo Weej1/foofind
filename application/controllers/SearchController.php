@@ -19,12 +19,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
-        //$this->cl->SetRankingMode( SPH_RANK_FOOGENERIC );
+        $this->cl->SetRankingMode( SPH_RANK_FOOGENERIC );
         //$this->cl->SetFieldWeights(array('metadata' => 1, 'filename' => 10));
-        //$this->cl->SetSelect("*, sum(@weight*isources*sources/fnCount) as fileWeight");
-        //$this->cl->SetSortMode( SPH_SORT_EXTENDED, "@weight DESC, fnWeight DESC, isources DESC" );
+        $this->cl->SetSelect("*, @weight as sw, sum(@weight*w) as fw");
+        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         //$this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
-        $this->cl->SetMaxQueryTime(1000);
+        //$this->cl->SetMaxQueryTime(1000);
     }
     public function setFilters($conditions)
     {
@@ -335,9 +335,9 @@ class SearchController extends Zend_Controller_Action {
         // build a caching object
         $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
-        $key =  md5("$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
+        $key =  md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
         $existsCache = $oCache->test($key);
-        if  ( true || ! $existsCache  ) {
+        if  ( true || !$existsCache  ) {
 
                 $SphinxPaginator = new Sphinx_Paginator('idx_files', $this->_helper->fileutils);
                 $SphinxPaginator->setFilters($conds);
