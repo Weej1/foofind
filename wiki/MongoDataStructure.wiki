@@ -1,6 +1,7 @@
 #summary MongoDB data structure.
 #labels Phase-Design
 
+== Data ==
  * *foo*: _files_ {
   * *{{{_id}}}*: _main URI = SHA256 of type and URL of main source_ (ObjectId), 
   * *c*: _random_,
@@ -69,7 +70,7 @@
   * *k*: _user karma_,
   * *t*: _comment text_ }
 
- * *comm_vote*: _votes to comments_ {
+ * *comment_vote*: _votes to comments_ {
   * *{{{_id}}}*: _idComment-idUser_,
   * *u*: _idUser_,
   * *f*: _idFile_,
@@ -82,3 +83,16 @@
   * *k*: _user karma_,
   * *d*: _date_,
   * *l*: _language_ }
+
+== Indexes ==
+{{{
+db.users.ensureIndex({'email':1});
+db.users.ensureIndex({'token':1});
+db.users.ensureIndex({'username':1});
+
+db.comment.ensureIndex({'f':1, 'l':1, 'd':1});
+
+db.vote.ensureIndex({'u':1});
+
+db.comment_vote.ensureIndex({'u':1});
+}}}
