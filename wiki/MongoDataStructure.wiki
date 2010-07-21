@@ -12,20 +12,20 @@
   * *s*: _server where is located_, 
   * *tt*: _times touched_,
   * *md*: _metadata_ {
-   * _key_:_value_,
+   * _key_: _value_,
    * ...},
   * *fn*: _filenames_ {
    * _filename-crc_: { *n*: _filename_, *x*: _extension_},
    * ...},
   * *src*: _sources_ { 
    * _URI = SHA256 of type and URL_: {
-    * *t*:_type f source_, 
+    * *t*: _type of source_, 
     * *url*: _unique locator for file_,
     * *fn*: _filenames_ {
      * _filename-crc_:{ *l*:_last sources count_, *m*:_max sources count_}, 
      * ...},
-    * *l*:_last sources count_, 
-    * *m*:_max sources count_ }, 
+    * *l*: _last sources count_, 
+    * *m*: _max sources count_ }, 
    * ...},
   * *vs*: _votes_ {
    * _language_: {*va*: _vote average_, *vc*: _votes count_}, 
