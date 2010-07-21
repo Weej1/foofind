@@ -63,7 +63,7 @@
   * *type* }
 
  * *comment*: _files comments_ {
-  * *{{{_id}}}*: _idUser-timestamp_,
+  * *{{{_id}}}*: _idUser{{{_}}}timestamp_,
   * *f*: _idFile_ (index1),
   * *l*: _language_ (index1),
   * *d*: _date_ (index1),
@@ -71,14 +71,14 @@
   * *t*: _comment text_ }
 
  * *comment_vote*: _votes to comments_ {
-  * *{{{_id}}}*: _idComment-idUser_,
+  * *{{{_id}}}*: _idComment{{{_}}}idUser_,
   * *u*: _idUser_,
   * *f*: _idFile_,
   * *k*: _user karma_,
   * *d*: _date_ }
 
  * *vote*: _files votes_ {
-  * *{{{_id}}}*: _idFile-idUser_,
+  * *{{{_id}}}*: _idFile{{{_}}}idUser_,
   * *u*: _idUser_ (index1),
   * *k*: _user karma_,
   * *d*: _date_,
