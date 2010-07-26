@@ -31,7 +31,7 @@
   * *vs*: _votes_ {
    * _language_: {*va*: _vote average_, *vc*: _votes count_}, 
    * ...},
-  * *cm*: _comments_ {
+  * *cs*: _comments_ {
    * _language_: _count_,
    * ...} }
  
