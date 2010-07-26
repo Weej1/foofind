@@ -1,7 +1,9 @@
 <?php
 
 class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Helper_Abstract {
-    
+
+    static $langcodes = array('en'=>1, 'es'=>2);
+
     function init()
     {
         $this->lang = $this->getRequest()->getParam("language");
@@ -36,5 +38,10 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
         return $this->lang;
     }
     
+    function getcode($lang = null)
+    {
+        if (!isset($lang)) $lang = $this->lang;
+        return Zend_Controller_Action_Helper_Checklang::$langcodes[$lang];
+    }
 }
 

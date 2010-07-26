@@ -75,7 +75,7 @@ class AuthController extends Zend_Controller_Action
                     // success: store database row to auth's storage
                     // system. (Not the password though!)
                     unset ( $checkuser['password'] );
-                    unset ( $checkuser['_id']); // unset the _id mongo , the casting to object in zend auth is unable to convert to array value
+                    $checkuser['_id'] = $checkuser['_id']->__toString(); // unset the _id mongo , the casting to object in zend auth is unable to convert to array value
 
                     // do the authentication
                     $auth = Zend_Auth::getInstance ();

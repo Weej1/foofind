@@ -23,7 +23,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         //$this->cl->SetFieldWeights(array('metadata' => 1, 'filename' => 10));
         $this->cl->SetSelect("*, @weight as sw, sum(@weight*w) as fw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
-        //$this->cl->SetGroupBy( "idfile", SPH_GROUPBY_ATTR, "fileWeight DESC, isources DESC, fnCount DESC");
         //$this->cl->SetMaxQueryTime(1000);
     }
     public function setFilters($conditions)
@@ -179,7 +178,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                     $obj = $docs[$hexuri];
                     $obj['file'] = $file;
 
-                    $this->fileutils->chooseFilename($obj);
+                    $this->fileutils->chooseFilename($obj, $this->query);
                     $this->fileutils->buildSourceLinks($obj);
                     $this->fileutils->chooseType($obj, $this->type);
                     $docs[$hexuri] = $obj;
@@ -193,10 +192,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         unset($docs[$hexuri]);
                     }
                 }
-
-                // CONTENT TYPE FROM ct O extension!!
-                // MOSTRAR MD
-                // VOTOS Y COMENTARIOS
             }
         }
         return $docs;
@@ -219,7 +214,7 @@ class SearchController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        $this->view->lang =  $this->_helper->checklang->check();
+        $this->view->lang = $this->_helper->checklang->check();
         
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');
