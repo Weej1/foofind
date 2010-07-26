@@ -12,42 +12,42 @@ class VoteController extends Zend_Controller_Action
 
         $this->identity = $auth->getIdentity();
         $this->umodel = new Model_Users();
+        $this->fmodel = new Model_Files();
     }
 
     public function fileAction()
     {
         $request = $this->getRequest();
+        $url = $request->getParam('id');
+        $uri = $this->_helper->fileutils->url2uri($url);
+        $hexuri = $this->_helper->fileutils->uri2hex($uri);
 
       //if userType = 1 dont let vote
-       if ( $this->identity->userType == 1 ){
+       if ( $this->identity->type == 1 ){
            echo 'You are not allowed to do that. (user type 1)';
            return ;
        }
 
-        try {
-            $id = (int)$request->getParam('id');
-            $data = $this->getData($request);
-            $data['IdFile'] = $id;
-            $data['lang'] = $this->_helper->checklang->check();
-            if ($idfn = $request->getParam('idfilename')) $data['IdFilename'] = (int)$idfn;
+       // vote: files votes { _id: idFile_idUser, u: idUser (index1), k: user karma, d: date, l: language }
+       try {
+            $type = $request->getParam('type');
 
-            switch ((int)$data['VoteType'])
-            {
-                case 1:
-                    $this->umodel->deleteVote($id, $this->identity->IdUser, 2);
-                    break;
-                case 2:
-                    $this->umodel->deleteVote($id, $this->identity->IdUser, 1);
-                    break;
-            }
-
+            $data = array();
+            $data['_id'] = $hexuri."_".$this->identity->_id;
+            $data['u'] = $this->identity->_id;
+            $data['l'] = $this->_helper->checklang->check();
+            $data['d'] = new MongoDate(date());
+            $data['k'] = ($type==1?1:-1)*$this->identity->karma;
             $this->umodel->saveVote($data);
         } catch (Exception $e)
         {
         }
-        
-        $votes = $this->umodel->getVotes($id);
-        echo Zend_Json::encode($votes->toArray());
+
+        $votes = $this->umodel->getFileVotesSum($hexuri, $this->identity->_id);
+        unset($votes['user']);
+        $file = $this->fmodel->updateVotes($hexuri, $votes);
+
+        echo Zend_Json::encode($votes);
     }
 
     public function commentAction()
@@ -56,7 +56,7 @@ class VoteController extends Zend_Controller_Action
         $id = (int)$request->getParam('id');
 
        //if userType = 1 dont let vote
-       if ( ($this->identity->userType == 1 ) and ( APPLICATION_ENV == 'production') ){
+       if ( ($this->identity->type == 1 ) and ( APPLICATION_ENV == 'production') ){
            echo 'You are not allowed to do that. (user type 1)';
            return ;
        }

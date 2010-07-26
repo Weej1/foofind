@@ -4,7 +4,6 @@ require_once ( APPLICATION_PATH . '/models/Files.php' );
 
 class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Helper_Abstract {
 
-    
     function parse_uint($string) {
         $x = (float)$string;
         if ($x > (float)2147483647)
@@ -42,12 +41,12 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         return pack("H*" , $hexuri);
     }
 
-    function chooseFilename(&$obj)
+    function chooseFilename(&$obj, $text = null)
     {
         $srcs = $obj['file']['src'];
         $fns = $obj['file']['fn'];
-        
-        $maxCount = 0;
+        $hist= "";
+        $maxCount = 0; $hasText = false;
         foreach ($srcs as $hexuri => $src)
         {
             $srcfns = $src['fn'];
@@ -58,18 +57,24 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 else
                     $fns[$crc]['c'] = $srcfn['m'];
 
-                if ($fns[$crc]['c']>$maxCount)
+                $thisHasText = ($text!=null) && (stripos($fns[$crc]['n'], $text)!==false);
+                $better = $fns[$crc]['c']>$maxCount;
+
+                if (($thisHasText && !$hasText) || ($better && ($thisHasText===$hasText)))
                 {
+                    $hasText = $thisHasText;
                     $chosen = $crc;
                     $maxCount = $fns[$crc]['c'];
                 }
             }
+
         }
 
         $obj['view']['url'] = $this->uri2url($this->hex2uri($obj['file']['_id']->__toString()));
         if (isset($chosen)){
             $obj['view']['fn'] = $fns[$chosen]['n'];
             $obj['view']['efn'] = str_replace(" ", "%20", $fns[$chosen]['n']);
+            $obj['view']['fnx'] = $fns[$chosen]['x'];
         }
     }
 
@@ -216,9 +221,11 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 if (!isset($info['urls'])) unset($obj['view']['sources'][$src]);
             }
         }
+
+        
     }
 
-    function chooseType(&$obj, $type)
+    function chooseType(&$obj, $type=null)
     {
         if ($type==null) {
             try { $type = $obj["file"]["ct"]; } catch (Exception $ex) { }

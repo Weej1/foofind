@@ -9,29 +9,101 @@ class Model_Users
         $this->db = $connection->foofind;
     }
 
+    public function fillCommentsUsers(array &$comments)
+    {
+        $idusers = $users = array();
+        foreach ($comments as $comment) {
+            $idusers []= new MongoId(strstr($comment['_id'], "_", true));
+        }
+
+        $cursor = $this->db->users->find(array('_id'=>array('$in'=>$idusers)));
+        foreach ($cursor as $user) {
+            $users[$user['_id']->__toString()] = $user;
+        }
+
+        foreach ($comments as $key=>$comment) {
+            $comments[$key]['u'] = $users[strstr($comment['_id'], "_", true)];
+        }
+    }
+    public function getUserComments($idUser)
+    {
+        $comments = array();
+        $cursor = $this->db->comment->find(array('_id'=>new MongoRegex("/^$idUser/")));
+        foreach ($cursor as $comment) {
+            $comments []= $comment;
+        }
+        return $comments;
+    }
+
+    public function getFileComments($idFile, $lang)
+    {
+        $comments = array();
+        $cursor = $this->db->comment->find(array('f'=>new MongoId($idFile), 'l'=>$lang))->sort(array('d'=>1));
+        foreach ($cursor as $comment) {
+            $comments []= $comment;
+        }
+        return $comments;
+    }
+
+    public function getFileCommentsSum($idFile)
+    {
+        $langs = $this->db->comment->group( array("l"=>1),
+                                    array("c" => 0),
+                                    new MongoCode("function (obj, prev) { prev.c++; }"),
+                                    array('f'=>new MongoId($idFile)) );
+        
+        $res = array();
+        foreach ($langs['retval'] as $lang) {
+            $res[$lang['l']] = $lang['c'];
+        }
+        return $res;
+    }
+
+    public function getFileVotesSum($idFile, $idUser)
+    {
+        $map = new MongoCode("function() {
+                emit(this.l, {k:this.k, c:new Array((this.k>0)?1:0, (this.k<0)?1:0),
+                                        s:new Array((this.k>0)?this.k:0, (this.k<0)?this.k:0),
+                                        u:(this.u=='$idUser')?this.k:0 }); }");
+        $reduce = new MongoCode("function(lang, vals) { ".
+                                    "var c = new Array(0,0);".
+                                    "var s = new Array(0,0);".
+                                    "var u = 0;".
+                                    "for (var i in vals) {".
+                                        "c[0] += vals[i].c[0]; c[1] += vals[i].c[1];".
+                                        "s[0] += vals[i].s[0]; s[1] += vals[i].s[1];".
+                                        "u += vals[i].u;".
+                                    "}".
+                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI*2;".
+                                    "return {t:t, c:c, s:s, u:u}; }");
+
+        $votes = $this->db->command(array("mapreduce" => "vote", "map" => $map, "reduce" => $reduce,
+                             "query" => array('_id'=>new MongoRegex("/^$idFile/"))));
+        $langs = $this->db->selectCollection($votes['result'])->find();
+
+        $res = array();
+        $u = 0;
+        foreach ($langs as $lang=>$vals) {
+            $u += $vals['value']['u'];
+            unset($vals['value']['u']);
+            $res[$lang]=$vals['value'];
+        }
+        $res['user'] = $u;
+        return $res;
+    }
+
     public function getCommentVotes($idComment)
     {
         return $this->db->comment_vote->find(array('_id'=>new MongoRegex("/^$idComment/")));
     }
 
-    public function getFileComments($idFile, $lang)
-    {
-        return $this->db->vote->find(array('f'=>$idFile));
-    }
-
-    public function getFileVotes($idFile)
-    {
-        return $this->db->vote->find(array('_id'=>new MongoRegex("/^$idFile/")));
-    }
-
     public function saveVote(array $data)
     {
-        return $this->db->vote->save($data);
+        $this->db->vote->save($data);
     }
-
     public function saveComment(array $data)
     {
-        return $this->db->comment->save($data);
+        $this->db->comment->save($data);
     }
 
     public function saveCommentVote(array $data)
@@ -45,7 +117,6 @@ class Model_Users
         $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
         $data['password'] = hash('sha256', $data['password'], FALSE);
         $data['karma'] = 0.2;
-
 
         $safe_insert = true;
         return $this->db->users->insert($data, $safe_insert);

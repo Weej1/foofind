@@ -14,7 +14,6 @@ class UserController extends Zend_Controller_Action
 
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
-
     }
 
 
@@ -35,9 +34,6 @@ class UserController extends Zend_Controller_Action
         $this->view->headTitle()->append($this->view->translate('New user'));
         $request = $this->getRequest ();
         $form = $this->_getUserRegisterForm ();
-
-
-
 
         if ($this->getRequest ()->isPost ())
         {
@@ -65,9 +61,6 @@ class UserController extends Zend_Controller_Action
 
 
                 $model = $this->_getModel ();
-                //check user email and nick if exists
-                $checkemail = $model->checkUserEmail ( $formulario ['email'] );
-                $checkuser = $model->checkUsername ( $formulario ['username'] );
 
                 //not allow to use the email as username
                 if ( $formulario['email'] == $formulario['username'])
@@ -79,8 +72,8 @@ class UserController extends Zend_Controller_Action
                 }
 
                 //check user email and nick if exists
-                $checkemail = $model->checkUserEmail ( $formulario ['email'] );
-                $checkuser = $model->checkUsername ( $formulario ['username'] );
+                $checkemail = $model->fetchUserByEmail ( $formulario ['email'] );
+                $checkuser = $model->fetchUserByUsername ( $formulario ['username'] );
 
                 if ($checkemail !== NULL)
                 {
@@ -153,7 +146,7 @@ class UserController extends Zend_Controller_Action
                 if ($form->isValid($formData))
                 {
                     //chekusername if exists, dont let change it
-                    $checkuser = $model->checkUsername ( $form->getValue('username') );
+                    $checkuser = $model->fetchUserByUsername ( $form->getValue('username') );
 
                     if ( !is_null($checkuser) and ($checkuser['username'] != $auth->getIdentity()->username) )
                     {
@@ -176,7 +169,7 @@ class UserController extends Zend_Controller_Action
                     //now need to get the fresh user row to pass to auth
                     $freshuser = $model->fetchUserByUsername($data['username']);
                     unset ($freshuser['password']); //not accesible ever, but just in case...
-                    unset ($freshuser['_id']); //remove the mongo id object, we can not put into zend auth
+                    $freshuser['_id'] = $freshuser['_id']->__toString(); //remove the mongo id object, we can not put into zend auth
 
                     //update the auth data stored
                     $auth = Zend_Auth::getInstance ();
@@ -343,7 +336,7 @@ class UserController extends Zend_Controller_Action
                 $f = new Zend_Filter_StripTags ( );
                 $email = $f->filter ( $this->_request->getPost ( 'email' ) );
                 $model = $this->_getModel ();
-                $mailcheck = $model->checkUserEmail( $email );
+                $mailcheck = $model->fetchUserByEmail( $email );
 
                 if ($mailcheck == NULL)
                 {
@@ -414,8 +407,7 @@ class UserController extends Zend_Controller_Action
         {
             //lets check this token against ddbb
             $model = $this->_getModel ();
-            $validatetoken = $model->validateUserToken ( $token );
-
+            $validatetoken = $model->fetchUserByToken( $token );
 
             if ($validatetoken !== NULL)
             {
@@ -448,7 +440,6 @@ class UserController extends Zend_Controller_Action
             {
                 $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Sorry, this token does not exist or has been already used' )  );
                 $this->_redirect ( '/' );
-
             }
 
         } else

@@ -708,7 +708,7 @@ h2{
 
 }
 .download_file_metadata{
-    max-width: 430px;
+    width: 430px;
     display: inline-table;
     margin-left: 20px;
     vertical-align: middle;
@@ -716,6 +716,7 @@ h2{
 
 .download_file_torrent_files {
     margin-top: 10px;
+    width: 430px;
 }
 
 .download_file_torrent_files ul {
@@ -762,19 +763,16 @@ h2{
 .download_source a {
     color: #000;
     text-decoration: none;
-   
-    display: block;
-    width: 180px;
+    display: inline-block;
+    width: 175px;
     font-weight: bold;
-    line-height: 28px;
-    height: 36px;
-    padding-left: 34px;
-    padding-top: 4px;
+    vertical-align: middle;
+    margin-top:5px;
 }
 
 .download_source input{
     float: right;
-    width: 70%;
+    width: 65%;
     padding: 1px !important;
     border: 1px solid #A9D0F5 !important;
     color: #cd0069;
@@ -784,8 +782,7 @@ h2{
 }
 
 .download_source span {
-    display:block;
-    margin-top:-17px;
+    display: inline-block;
     font-weight: normal;
     font-size: 10px;
 }
@@ -977,8 +974,13 @@ ul#tabnav a:hover   {
 .awesome:hover{ background-color: #111; color: #fff; }
 .awesome:active{ top: 1px; }
 
+.download_file_metadata table tr :first-child {
+    width:25% !important;
+}
+
 .download_file_metadata table tr td {
     vertical-align: top;
+    width:75%;
 }
 
 /* Sizes ---------- */

@@ -141,7 +141,31 @@ class Model_Files
         $conn = new Mongo("{$server['ip']}:{$server['p']}");
         return $conn->foofind->foo->findOne(array("_id" =>$id ) );
     }
-    
+
+    public function updateVotes($uri, $votes)
+    {
+        $id = new MongoId($uri);
+        $ifile = $this->db->indir->findOne( array("_id" =>$id) );
+        $s = $ifile['s'];
+
+        $servers = $this->getServers();
+        $server = $servers[$s];
+        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
+    }
+
+    public function updateComments($uri, $comments)
+    {
+        $id = new MongoId($uri);
+        $ifile = $this->db->indir->findOne( array("_id" =>$id) );
+        $s = $ifile['s'];
+
+        $servers = $this->getServers();
+        $server = $servers[$s];
+        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'cs' => $comments ) ) );
+    }
+
     public function getLastFilesIndexed( $limit )
     {
         $servers = $this->getServers();
