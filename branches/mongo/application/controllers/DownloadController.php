@@ -127,7 +127,14 @@ class DownloadController extends Zend_Controller_Action
                 $this->view->myvote = "downactive";
         }
 
-
+        $obj['cvotes'] = $this->umodel->getUserFileVotes($hexuri, $this->identity->_id);
+        foreach ($obj['cvotes'] as $comment=>$vote)
+        {
+            if ($vote['k']>0)
+                $obj['comments'][$comment]['myvote'] = "upactive";
+            else if ($vote['k']<0)
+                $obj['comments'][$comment]['myvote'] = "downactive";
+        }
         $this->view->file = $obj;
 
 /*
