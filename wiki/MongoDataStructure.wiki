@@ -95,4 +95,5 @@ db.comment.ensureIndex({'f':1, 'l':1, 'd':1});
 db.vote.ensureIndex({'u':1});
 
 db.comment_vote.ensureIndex({'u':1});
+db.comment_vote.ensureIndex({'f':1});
 }}}
