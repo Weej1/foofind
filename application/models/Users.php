@@ -38,9 +38,9 @@ class Model_Users
     public function getFileComments($idFile, $lang)
     {
         $comments = array();
-        $cursor = $this->db->comment->find(array('f'=>new MongoId($idFile), 'l'=>$lang))->sort(array('d'=>1));
+        $cursor = $this->db->comment->find(array('f'=>new MongoId($idFile), 'l'=>$lang))->sort(array('d'=>-1));
         foreach ($cursor as $comment) {
-            $comments []= $comment;
+            $comments[$comment['_id']] =$comment;
         }
         return $comments;
     }
@@ -92,11 +92,47 @@ class Model_Users
         return $res;
     }
 
-    public function getCommentVotes($idComment)
+    public function getUserFileVotes($idFile, $idUser)
     {
-        return $this->db->comment_vote->find(array('_id'=>new MongoRegex("/^$idComment/")));
+        $cursor = $this->db->comment_vote->find(array('f'=>new MongoId($idFile), 'u'=>$idUser));
+        foreach ($cursor as $vote) {
+            $id = $vote['_id'];
+            $pos = strrpos($id, '_');
+            $votes[substr($id, 0, $pos)] = $vote;
+        }
+        return $votes;
     }
 
+    public function getCommentVotesSum($idComment, $idUser)
+    {
+        $map = new MongoCode("function() {
+                pos = this._id.lastIndexOf('_');
+                emit('1', {k:this.k, c:new Array((this.k>0)?1:0, (this.k<0)?1:0),
+                                        s:new Array((this.k>0)?this.k:0, (this.k<0)?this.k:0),
+                                        u:(this.u=='$idUser')?this.k:0 }); }");
+        $reduce = new MongoCode("function(lang, vals) { ".
+                                    "var c = new Array(0,0);".
+                                    "var s = new Array(0,0);".
+                                    "var u = 0;".
+                                    "for (var i in vals) {".
+                                        "c[0] += vals[i].c[0]; c[1] += vals[i].c[1];".
+                                        "s[0] += vals[i].s[0]; s[1] += vals[i].s[1];".
+                                        "u += vals[i].u;".
+                                    "}".
+                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI*2;".
+                                    "return {t:t, c:c, s:s, u:u}; }");
+
+        $votes = $this->db->command(array("mapreduce" => "comment_vote", "map" => $map, "reduce" => $reduce,
+                             "query" => array('_id'=>new MongoRegex("/^$idComment/"))));
+        $vals = $this->db->selectCollection($votes['result'])->findOne();
+        return $vals['value'];
+    }
+
+    public function getComment($id)
+    {
+        return $this->db->comment->findOne(array('_id'=>$id));
+    }
+    
     public function saveVote(array $data)
     {
         $this->db->vote->save($data);
@@ -108,7 +144,7 @@ class Model_Users
 
     public function saveCommentVote(array $data)
     {
-        return $this->db->comment_vote->save($data);
+        $this->db->comment_vote->save($data);
     }
 
     public function saveUser(array $data)
@@ -125,6 +161,11 @@ class Model_Users
     public function updateUser( $username, array $data)
     {
         return $this->db->users->update(array("username" => $username), array('$set' => $data));
+    }
+
+    public function updateCommentVotes($id, $votes)
+    {
+        $this->db->comment->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
     }
 
     function deleteUser($username)
