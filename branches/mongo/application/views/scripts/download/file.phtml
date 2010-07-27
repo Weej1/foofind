@@ -81,7 +81,7 @@ if (count ( $this->mensajes ) > 0) {
            <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
            <div class="file_comment_vote small <?=$val['myvote'] ?>" idcomment="<?=$val['_id']?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><span><?=0+$val['vs']['c'][0]?></span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><span><?=0-$val['vs']['c'][1]?></span></a></div>
            <div id="c<?=$i?>"><?= $this->format_comment($val['t']); ?></div>
-           <div class="file_comment_nick"><a href="/<?=$this->lang ?>/profile/<?=$this->escape($val['u']['username']) ?>"><?=$val['u']['username'] ?></a> - <? echo $this->show_date_span($val['d']->sec); if ($val['location']!=null) echo  " ". $this->translate("from") ." ". $val['location']; ?></div>
+           <div class="file_comment_nick"><a href="/<?=$this->lang ?>/profile/<?=$this->escape($val['u']['username']) ?>"><?=$val['u']['username'] ?></a> - <? echo $this->show_date_span($val['d']->sec); if ($val['u']['username']!=null) echo  " ". $this->translate("from") ." ". $val['u']['location']; ?></div>
         </div>
 
         <?php endforeach;?>
