@@ -29,7 +29,7 @@
     * *m*: _max sources count_ }, 
    * ...},
   * *vs*: _votes_ {
-   * _language_: {*t*: _vote average_, *c*: [_pos votes count_, _neg votes count_], *s*: [_pos votes sum_, _neg votes sum_]}, 
+   * _language_: {*t*: _vote average_, *c*: [ _pos votes count_, _neg votes count_ ], *s*: [ _pos votes sum_, _neg votes sum_ ]}, 
    * ...},
   * *cs*: _comments_ {
    * _language_: _count_,
