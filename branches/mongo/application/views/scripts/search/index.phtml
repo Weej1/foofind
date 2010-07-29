@@ -89,7 +89,7 @@ if (count ( $this->mensajes ) > 0) {
                     <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fw:<?=$val['search']['fw'] ?></span>
                 <?php  endif; ?>
             </h3>
-        <span><? echo $this->format($val, false); ?></span>
+        <? echo $this->format($val, false); ?>
         <span>
         <?php
             if (isset($val['file']['z']) && $val['file']['z']>0) echo $this->formatSize($val["file"]["z"])." - ";

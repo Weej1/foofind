@@ -211,6 +211,7 @@ class SearchController extends Zend_Controller_Action {
         
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
+        
     }
 
     public function indexAction() {
@@ -364,7 +365,6 @@ class SearchController extends Zend_Controller_Action {
         $this->view->paginator = $paginator;
 
         $jquery = $this->view->jQuery();
-        $jquery->enable(); // enable jQuery Core Library
 
         // get current jQuery handler based on noConflict settings
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();

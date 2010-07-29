@@ -74,7 +74,7 @@ class Model_Users
                                         "s[0] += vals[i].s[0]; s[1] += vals[i].s[1];".
                                         "u += vals[i].u;".
                                     "}".
-                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI*2;".
+                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI+0.5;".
                                     "return {t:t, c:c, s:s, u:u}; }");
 
         $votes = $this->db->command(array("mapreduce" => "vote", "map" => $map, "reduce" => $reduce,
@@ -119,7 +119,7 @@ class Model_Users
                                         "s[0] += vals[i].s[0]; s[1] += vals[i].s[1];".
                                         "u += vals[i].u;".
                                     "}".
-                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI*2;".
+                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI+0.5;".
                                     "return {t:t, c:c, s:s, u:u}; }");
 
         $votes = $this->db->command(array("mapreduce" => "comment_vote", "map" => $map, "reduce" => $reduce,

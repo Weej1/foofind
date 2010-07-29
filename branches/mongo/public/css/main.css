@@ -23,13 +23,9 @@ body {
     font-variant: normal;
 }
 
-img{
+img {
     border: 0;
     vertical-align: middle;
-}
-
-input#submit {
-    min-width: 80px;
 }
 
 .logo_home {
@@ -68,12 +64,11 @@ p {
     clear: left;
     display: block;
     padding: 15px;
-    padding-top: 35px;
+    padding-top: 13px;
     background-color: #fff;
     min-height: 300px;
 
 }
-
 
 #no_results a{
     color:#DF1279;
@@ -82,10 +77,8 @@ p {
 
 #container_search h1{
     position: relative;
-    top:-22px;
     left:5px;
     float: left;
-    /*height: 77px;*/
     width: 175px;
     z-index: 100; /*over the form*/
     background: transparent;
@@ -97,7 +90,7 @@ p {
     display: block;
     width: auto;
     padding-left: 180px; /*reserve the a logo space to fix it*/
-    top: 0px;
+    top: 25px;
 }
 
 #container_search input#q{
@@ -130,7 +123,7 @@ p {
     position: relative;
     float: left;
     left: 4px;
-    top: -48px;
+    top: -26px;
     display: block;
 }
 
@@ -288,10 +281,11 @@ html textarea {
 
 }
 
-html input[type="text"] ,input[type="password"] {
+html input[type="text"] , html input[type="password"] {
     font-size: 1.1em;
     border: 1px solid gray;
-    padding: 4px;
+    padding: 5px;
+
 }
 
 
@@ -302,19 +296,23 @@ form.searchbox dd{
 }
 
 
-form dt{
-    margin-bottom:  5px;
+form div, form dt {
+    margin-top:  10px;
 }
 
-form dd{
+form span.data{
     margin-bottom: 10px;
+}
+
+form span.data input[type="text"], form div.data input[type="password"] {
+    width: 200px;
 }
 
 input#q{
     width: 440px;
 }
 
-dd#src-element{   
+dd#src-element{
     margin-bottom: 10px;
     display: block;
     clear: both;
@@ -325,13 +323,12 @@ dd#src-element{
 dd#src-element label{
     padding: 10px;
     vertical-align: middle;
-
+    line-height:20px;
 }
 
 input[type="radio"], input[type="checkbox"] {
-    vertical-align: sub;
+    vertical-align: -2px;
     margin-right: 3px;
-    
 }
 
 input[type="radio"]:focus, input[type="checkbox"]:focus {
@@ -339,10 +336,8 @@ input[type="radio"]:focus, input[type="checkbox"]:focus {
     border: 0px!important;
     border: 0px!important;
     background-color: blue!important;
-color: green!important;
+    color: green!important;
 }
-
-
 
 dd img{
     margin-bottom: 10px;
@@ -380,7 +375,7 @@ hr {
     border:none;
     border-top:1px solid #cd0069;
     height:1px;
-    top: -10px;
+    top: 12px;
     clear: left;
 }
 
@@ -397,8 +392,7 @@ h3 {
 
 #header{
     z-index: 300;
-    position: relative;
-    float: right;
+    position: absolute;
     right: 30px;
     top: 10px;
 }
@@ -489,8 +483,7 @@ h3 {
 }
 
 #container_user{
-    margin-left: 50px;
-    padding-top:  20px;
+    padding: 20px;
     z-index: 300;
 }
 
@@ -615,10 +608,10 @@ h2{
 }
 
 .file_download{
-    display: inline-block;
-    width: 68%;
     vertical-align: top;
     margin-right: 60px;
+    width:68%;
+    float:left;
 }
 
 .file_download h2 {
@@ -701,16 +694,16 @@ h2{
 .download_button{
     position: relative;
     text-align: center;
-    display: inline-block;
+    display: block;
     top:-20px;
     vertical-align: middle;
-
+    float:left;
 
 }
 .download_file_metadata{
-    width: 430px;
+    width: 410px;
     display: inline-table;
-    margin-left: 20px;
+    padding-left: 40px;
     vertical-align: middle;
 }
 
@@ -796,8 +789,6 @@ a.source
 a.source span
 {
     display:inline-block;
-    /*vertical-align: top;
-    margin-left: -3px;*/
     font-size: 11px;
     color: #cd0069;
 }
@@ -897,7 +888,6 @@ ul#tabnav {
     clear: left;
     line-height: 22px;
     text-align: left; /* set to left, right or center */
-    margin: 1em 0 1em 0; /* set margins as desired */
     font-size: 13px;
     font-weight: bold;
     border-bottom: 1px solid #CD0069;
@@ -906,10 +896,11 @@ ul#tabnav {
     padding-bottom: 0px;
     padding-left: 40px;
     margin: 0;
+    padding-top: 25px;
 }
 
 ul#tabnav li {
-    display: inline-block;
+    display: inline;
     padding-left: 5px;
     padding-right: 5px;
     line-height: 22px!important;
@@ -955,10 +946,12 @@ ul#tabnav a:hover   {
 .awesome, .awesome:visited {
     background: transparent url(/images/alert-overlay.png) repeat-x;
     display: inline-block;
-    padding: 5px 10px 6px;
+    padding: 4px 10px 4px 10px;
+    margin-top:4px;
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
@@ -986,7 +979,7 @@ ul#tabnav a:hover   {
 /* Sizes ---------- */
 .small.awesome {font-size: 11px;}
 .medium.awesome {font-size: 13px;}
-.large.awesome {font-size: 14px;padding: 4px;}
+.large.awesome {font-size: 14px; padding: 4px 15px 4px 15px;}
 
 .superlarge.awesome{font-size: 16px;padding: 10px;}
 /* Colors ---------- */
@@ -1024,4 +1017,4 @@ ul#tabnav a:hover   {
 #superbox-innerbox{padding:10px;background:#fff; height: 340px!important;}
 #superbox.image{text-align:center;}
 #superbox .close,
-#superbox .nextprev{overflow:hidden;margin:10px;float:right; cursor: pointer;}
+#superbox .nextprev{overflow:hidden;top:10px;position:absolute; right:10px; cursor: pointer;}

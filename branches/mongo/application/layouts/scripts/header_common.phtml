@@ -3,12 +3,35 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <?=$this->headMeta();?>
-        <?= $this->headTitle()->setPrefix('foofind.com');?>
+        <?=$this->headTitle()->setPrefix('foofind.com');?>
         <?=$this->headLink()->appendStylesheet( STATIC_PATH . '/css/main.css');?>
         <link rel="shortcut icon" href="<?=STATIC_PATH;?>/images/favicon.ico" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?=$this->lang?>.xml" title="Foofind" />
         <?=$this->jQuery()->setLocalPath( STATIC_PATH  . '/js/jquery.min.js');?>
-        <?= $this->headScript(); ?>
+        <?=$this->headScript(); ?>
+        <?=$this->jQuery()->setLocalPath( STATIC_PATH  . '/js/msbr.js');?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                jQuery(function() {
+                    jQuery.support.borderRadius = false;
+                    jQuery.each(['BorderRadius','MozBorderRadius','WebkitBorderRadius','OBorderRadius','KhtmlBorderRadius'], function() {
+                            if(document.body.style[this] !== undefined) jQuery.support.borderRadius = true;
+                            return (!jQuery.support.borderRadius);
+                    });
+                });
+
+                if (!$.support.borderRadius) {
+                    $('.awesome').each(
+                        function(){
+                            $(this).css('top', '4px');
+                            $(this).css('background-image', 'none');
+                            msbr(this);
+                            $(this).css('background-image', 'url(/image/alert-overlay.png)');
+                        }
+                    );
+                }
+            });
+        </script>
         <script type="text/javascript">if (window != top) top.location.href = location.href;</script>
         <script type="text/javascript">
             var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_setDomainName', '.foofind.com']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
