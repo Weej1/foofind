@@ -7,7 +7,7 @@ class IndexController extends Zend_Controller_Action
     {
          //validate domain foofind
         $this->_helper->checkdomain->check();
-        
+
         require_once APPLICATION_PATH . '/models/Files.php';
 
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
@@ -87,21 +87,9 @@ class IndexController extends Zend_Controller_Action
 
     public function queryAction()
     {
-        $type =  $this->getRequest()->getParam('type') ;
         $this->_helper->layout->disableLayout();
-        switch ($type)
-        {
-            case 'count':
-                $table = new ff_file();
-                $query = "SELECT COUNT(IdFile) as res FROM ff_file";
-                break;
-            case 'ts':
-                $table = new ff_touched();
-                $query = "SELECT MAX(timestamp) as res FROM ff_touched";
-                break;
-        }
-        
-        if ($table) $this->view->value = $this->fetchQuery($table, $query);
+        $model = new Model_Files();
+        $this->view->value = $model->countFiles();
     }
 
 
@@ -117,10 +105,6 @@ class IndexController extends Zend_Controller_Action
         $limit = 100;
 
         $fmodel = new Model_Files();
-
-
-//        var_dump($fmodel->getLastFilesIndexed($limit));
-//        die();
 
         $paginator = Zend_Paginator::factory( $fmodel->getLastFilesIndexed( (int) $limit ));
         $paginator->setItemCountPerPage(25);

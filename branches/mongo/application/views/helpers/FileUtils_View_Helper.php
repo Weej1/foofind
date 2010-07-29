@@ -137,18 +137,10 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         if ($details && $obj['view']['fnx']=="torrent")
         {
             if ($files = $md["torrent:filepaths"]) {
-                $l=2;
-                while ($more = $md["torrent:filepaths$l"]) { $files .= " ".$more; $l++;}
-
                 $names = explode("//", $files);
 
                 $sizes = $md["torrent:filesizes"];
-                if ($sizes)
-                {
-                    $l=2;
-                    while ($more = $md["torrent:filesizes$l"]) { $sizes .= " ".$more; $l++;}
-                    $sizes = explode(" ", $sizes);
-                }
+                if ($sizes) $sizes = explode(" ", $sizes);
 
                 for ($i=0; $i<count($names); $i++)
                 {
