@@ -9,23 +9,22 @@
  * 
  * Date: 
  */
-
-function corners(select, bgimage) {
-    jQuery(function() {
-        jQuery.support.borderRadius = false;
-        jQuery.each(['BorderRadius','MozBorderRadius','WebkitBorderRadius','OBorderRadius','KhtmlBorderRadius'], function() {
-                if(document.body.style[this] !== undefined) jQuery.support.borderRadius = true;
-                return (!jQuery.support.borderRadius);
-        });
+jQuery(function() {
+    jQuery.support.borderRadius = false;
+    jQuery.each(['BorderRadius','MozBorderRadius','WebkitBorderRadius','OBorderRadius','KhtmlBorderRadius'], function() {
+            if(document.body.style[this] !== undefined) jQuery.support.borderRadius = true;
+            return (!jQuery.support.borderRadius);
     });
-
+});
+    
+function corners(select, bgimage) {
     if (!$.support.borderRadius) {
         $(select).each(
             function(){
                 $(this).css('top', '4px');
                 if (bgimage) $(this).css('background-image', 'none');
                 msbr(this);
-                if (bgimage)  $(this).css('background-image', 'url('+bgimage+')');
+                if (bgimage) $(this).css('background-image', 'url('+bgimage+')');
             }
         );
     }
