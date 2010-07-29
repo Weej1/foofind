@@ -76,7 +76,8 @@ class Model_Files
         // build a caching object
         $this->oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
-        $connection = new Mongo("mongo.files.foofind.com:27017");
+        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+        $connection = new Mongo($conf->mongo->server);
         $this->db = $connection->foofind;
     }
 

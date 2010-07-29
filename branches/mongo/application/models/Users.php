@@ -5,7 +5,8 @@ class Model_Users
 
     function  __construct()
     {
-        $connection = new Mongo("mongo.users.foofind.com:27017");
+        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+        $connection = new Mongo($conf->mongo->server);
         $this->db = $connection->foofind;
     }
 
