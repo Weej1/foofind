@@ -29,6 +29,7 @@ class DownloadController extends Zend_Controller_Action
 
     public function fileAction()
     {
+        
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
 
@@ -61,7 +62,7 @@ class DownloadController extends Zend_Controller_Action
         $this->view->registerHelper($helper, 'qs');
         $this->view->src = $srcs;
         $this->view->qs = $conds;
-    
+
 
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form
@@ -127,62 +128,17 @@ class DownloadController extends Zend_Controller_Action
                 $this->view->myvote = "downactive";
         }
 
-        $obj['cvotes'] = $this->umodel->getUserFileVotes($hexuri, $this->identity->_id);
-        foreach ($obj['cvotes'] as $comment=>$vote)
-        {
-            if ($vote['k']>0)
-                $obj['comments'][$comment]['myvote'] = "upactive";
-            else if ($vote['k']<0)
-                $obj['comments'][$comment]['myvote'] = "downactive";
+        if ($this->isAuth) {
+            $obj['cvotes'] = $this->umodel->getUserFileVotes($hexuri, $this->identity->_id);
+            foreach ($obj['cvotes'] as $comment=>$vote)
+            {
+                if ($vote['k']>0)
+                    $obj['comments'][$comment]['myvote'] = "upactive";
+                else if ($vote['k']<0)
+                    $obj['comments'][$comment]['myvote'] = "downactive";
+            }
         }
         $this->view->file = $obj;
-
-/*
-        //check if the url filename (last slash param) matches with the fetched from ddbb from  this file controller
-        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
-        $url = explode('/', $url);
-
-        $fn = NULL;
-        if ($url[4] ) {
-            $fn = $url[4];
-            if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
-        }
-
-
-//        //check filename cache
-//        $keyfilename =  md5( $id ).$this->lang.'fn';
-//                if  (! $existsCache  ) {
-//                      $this->view->filename = $fmodel->getFileFilename( $id, $fn);
-//                     $oCache->save( $this->view->filename, ''.$keyfilename );
-//                    } else {
-//                      //cache hit, load from memcache.
-//                      $this->view->filename = $oCache->load( $keyfilename  );
-//                }
-//
-//        $idfn = $this->view->filename['IdFilename'];
-//
-//         //check metadata cache
-//        $keymetadata =  md5( $id ).$this->lang.'metadata';
-//                if  (! $existsCache  ) {
-//                     $this->view->metadata = $fmodel->getMetadata( "IdFile = $id" );
-//                     $oCache->save( $this->view->metadata, ''.$keymetadata );
-//                    } else {
-//                      //cache hit, load from memcache.
-//                      $this->view->metadata = $oCache->load( $keymetadata );
-//                }
-//
-//
-//         //check sources cache
-//        $keysources =  md5( $id ).$this->lang.'sources';
-//                if  (! $existsCache  ) {
-//                     $this->view->sources = $fmodel->getSources( "IdFile = $id" );
-//                     $oCache->save( $this->view->sources, ''.$keysources );
-//                    } else {
-//                      //cache hit, load from memcache.
-//                      $this->view->sources = $oCache->load( $keysources );
-//                }
-//        
-       */
 
         require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
         $helper = new Comments_View_Helper();
@@ -192,8 +148,6 @@ class DownloadController extends Zend_Controller_Action
         $helper = new TimeSpan_View_Helper();
         $this->view->registerHelper($helper, 'show_date_span');
 
-        $jquery = $this->view->jQuery();
-        $jquery->enable(); // enable jQuery Core Library
 
         // get current jQuery handler based on noConflict settings
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();

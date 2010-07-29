@@ -27,7 +27,7 @@ if (count ( $this->mensajes ) > 0) {
 
     <div class="wrap_download">
     <div class="file_download">
-        <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->coalesce($this->file['votes'][$this->lang]['c'][0], 0)?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->coalesce($this->file['votes'][$this->lang]['c'][1],0)?>)</span></a></div>
+        <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->coalesce($this->file['votes'][$this->lang]['c'][0], 0)?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->coalesce(-$this->file['votes'][$this->lang]['c'][1],0)?>)</span></a></div>
         <h2><?=$this->file['view']['fn'];?></h2>
         
         <div class="top_download">
@@ -108,10 +108,10 @@ if (count ( $this->mensajes ) > 0) {
                 event.preventDefault();
                 $.ajax({dataType:"json",
                     url: "/<?=$this->lang?>/vote/comment/"+$(this).parent().attr('idcomment')+"/"+$(this).attr('type'),
-                    context: $(this),
+                    context: this,
                     success: function(data){
-                        parent = this.context.parent();
-                        if (this.context.attr('type')=='1') {
+                        var parent = $(this.context).parent();
+                        if (parent.attr('type')=='1') {
                             parent.addClass("upactive");
                             parent.removeClass("downactive");
                         }
@@ -132,11 +132,10 @@ if (count ( $this->mensajes ) > 0) {
                 event.preventDefault();
                 $.ajax({dataType:"json",
                         url: "/<?=$this->lang?>/vote/file/<?=$this->file['file']['url']?>/"+$(this).attr('type'),
-                        context: $(this),
+                        context: this,
                         success: function(data){
-
-                            parent = this.context.parent();
-                            if (this.context.attr('type')=='1') {
+                            var parent = $(this.context).parent();
+                            if (parent.attr('type')=='1') {
                                 parent.addClass("upactive");
                                 parent.removeClass("downactive");
                             }
