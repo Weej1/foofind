@@ -132,7 +132,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         }
 
         $element = $details?"table":"span";
-        if ($res!='') $res = "<$details>$res</$details>";
+        if ($res!='') $res = "<$element>$res</$element>";
 
         if ($details && $obj['view']['fnx']=="torrent")
         {

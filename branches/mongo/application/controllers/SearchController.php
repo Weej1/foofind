@@ -19,9 +19,26 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
-        $this->cl->SetRankingMode( SPH_RANK_FOOGENERIC );
-        //$this->cl->SetFieldWeights(array('metadata' => 1, 'filename' => 10));
-        $this->cl->SetSelect("*, @weight as sw, sum(@weight*w) as fw");
+        $this->cl->SetRankingMode( SPH_RANK_SPH04 );
+
+        // search field weights
+        $weights = array();
+
+        // filenames
+        for ($i = 1; $i < 21; $i++)
+            $weights["fn$i"] = (int)(100/$i);
+
+        // metadata
+        $weights['mta'] = 1; //30;   //artist
+        $weights['mtc'] = 1; //1;   //composer
+        $weights['mtf'] = 1; //1;   //folder
+        $weights['mti'] = 1; //10;   // archive folders and files
+        $weights['mtk'] = 1; //10;   // video keywords
+        $weights['mtl'] = 1; //10;   // album
+        $weights['mtt'] = 1; //10;   // title
+
+        $this->cl->SetFieldWeights($weights);
+        $this->cl->SetSelect("*, @weight as sw, sum(@weight/fc) as fw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         //$this->cl->SetMaxQueryTime(1000);
     }

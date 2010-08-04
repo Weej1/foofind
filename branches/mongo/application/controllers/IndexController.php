@@ -111,8 +111,7 @@ class IndexController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
 
-        $this->view->lastfiles = $paginator;       
-
+        $this->view->lastfiles = $paginator;
     }
 
 
