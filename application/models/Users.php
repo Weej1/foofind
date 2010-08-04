@@ -14,7 +14,9 @@ class Model_Users
     {
         $idusers = $users = array();
         foreach ($comments as $comment) {
-            $idusers []= new MongoId(strstr($comment['_id'], "_", true));
+            $idusers []= new MongoId(strstr($comment['_id'], "_"));
+
+           
         }
 
         $cursor = $this->db->users->find(array('_id'=>array('$in'=>$idusers)));
@@ -23,7 +25,7 @@ class Model_Users
         }
 
         foreach ($comments as $key=>$comment) {
-            $comments[$key]['u'] = $users[strstr($comment['_id'], "_", true)];
+            $comments[$key]['u'] = $users[strstr($comment['_id'], "_")];
         }
     }
     public function getUserComments($idUser)
