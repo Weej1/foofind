@@ -46,28 +46,41 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $srcs = $obj['file']['src'];
         $fns = $obj['file']['fn'];
         $hist= "";
-        $maxCount = 0; $hasText = false;
+        $maxCount = 0; $hasText = 0;
         foreach ($srcs as $hexuri => $src)
         {
             $srcfns = $src['fn'];
             foreach ($srcfns as $crc => $srcfn)
             {
+                $thisHasText = 0;
                 if (isset($fns[$crc]['c']))
                     $fns[$crc]['c'] += $srcfn['m'];
                 else
                     $fns[$crc]['c'] = $srcfn['m'];
 
-                $thisHasText = ($text!=null) && (stripos($fns[$crc]['n'], $text)!==false);
+                if ($text!=null) {
+                    if (stripos($fns[$crc]['n'], $text)!==false)
+                        $thisHasText = 2000;
+                    else {
+                        $matches = 0;
+                        $words = explode(" ", $text);
+                        foreach ($words as $word)
+                            $matches += preg_match("/(\b$word\b)/i", $fns[$crc]['n']);
+                        
+                        if ($matches>0) $thisHasText = 1000 + $matches;
+                    }
+                }
+                $obj['file']['fn'][$crc]['tht'] = $thisHasText;
+
                 $better = $fns[$crc]['c']>$maxCount;
 
-                if (($thisHasText && !$hasText) || ($better && ($thisHasText===$hasText)))
+                if (($thisHasText > $hasText) || ($better && ($thisHasText==$hasText)))
                 {
                     $hasText = $thisHasText;
                     $chosen = $crc;
                     $maxCount = $fns[$crc]['c'];
                 }
             }
-
         }
 
         $obj['view']['url'] = $this->uri2url($this->hex2uri($obj['file']['_id']->__toString()));
