@@ -25,22 +25,23 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $weights = array();
 
         // filenames
-        for ($i = 1; $i < 21; $i++)
-            $weights["fn$i"] = (int)(100/$i);
+        $weights["fn1"] = 10;
+        for ($i = 2; $i < 21; $i++)
+            $weights["fn$i"] = 1;
 
         // metadata
-        $weights['mta'] = 1; //30;   //artist
-        $weights['mtc'] = 1; //1;   //composer
-        $weights['mtf'] = 1; //1;   //folder
-        $weights['mti'] = 1; //10;   // archive folders and files
-        $weights['mtk'] = 1; //10;   // video keywords
-        $weights['mtl'] = 1; //10;   // album
-        $weights['mtt'] = 1; //10;   // title
+        /*$weights['mta'] = 10;   //artist
+        $weights['mtc'] = 1;   //composer
+        $weights['mtf'] = 10;   //folder
+        $weights['mti'] = 10;   // archive folders and files
+        $weights['mtk'] = 1;   // video keywords
+        $weights['mtl'] = 10;   // album
+        $weights['mtt'] = 10;   // title*/
 
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, @weight as sw, sum(@weight/fc) as fw");
+        $this->cl->SetSelect("*, @weight as sw, sum(w*ATAN(@weight/40000)) as fw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
-        //$this->cl->SetMaxQueryTime(1000);
+        $this->cl->SetMaxQueryTime(1000);
     }
     public function setFilters($conditions)
     {
