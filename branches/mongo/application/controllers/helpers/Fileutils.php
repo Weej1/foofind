@@ -115,6 +115,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $maxWeight = 0;
         foreach ($srcs as $hexuri => $src)
         {
+            $continue = false;
             $join = false;
             $type = (int)$src['t'];
             $linkWeight = 0;
@@ -179,11 +180,16 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_HTTP:
                 case Model_Files::SOURCE_MEGAUPLOAD:
                 case Model_Files::SOURCE_RAPIDSHARE:
-                case Model_Files::SOURCE_MEGAVIDEO:
+                case Model_Files::SOURCE_MEGAVIDEO:  
                     $linkWeight = 1;
                     $icon = "web";
                     $url = $src['url'];
                     $tip = $source = $this->getDomain($url);
+
+                    // Temporary solves megaupload-megavideo conflict
+                    if (($type==Model_Files::SOURCE_MEGAUPLOAD) && (stripos($url, "http://www.megavideo.com/") === 0))
+                        $continue = true;
+                    
                     break;
                 case Model_Files::SOURCE_FTP:
                     $linkWeight = 0.9;
@@ -192,9 +198,11 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     $tip = $source = $this->getDomain($url);
                     break;
                 default:
-                    continue;
+                    $continue = true;
                     break;
             }
+
+            if ($continue) continue;
 
             if ($join) $obj['view']['sources'][$source]['join'] = true;
             $obj['view']['sources'][$source]['tip'] = $tip;
