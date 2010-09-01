@@ -81,6 +81,17 @@ class Model_Files
         $this->db = $connection->foofind;
     }
 
+    public function getFileUrlFromID($id)
+    {
+        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+        $conn = new Mongo($conf->mongo->oldids);
+        $res = $conn->foofind->foo->findOne(array('i'=>(int)$id), array('_id'=>1));
+        if ($res == NULL)
+            return false;
+        else
+            return $res['_id'];
+    }
+
     public function getServers()
     {
         $key = "servers";

@@ -82,6 +82,22 @@ class DownloadController extends Zend_Controller_Action
         $this->fmodel = new Model_Files();
         $this->umodel = new Model_Users();
 
+        if (is_numeric($url) && $url<60000000)
+        {
+            if ($uri=$this->fmodel->getFileUrlFromID($url))
+            {
+                $uri = $this->_helper->fileutils->uri2url($this->_helper->fileutils->hex2uri($uri));
+                $count=1;
+                $newurl = str_replace("/$url/", "/$uri/", $_SERVER["REQUEST_URI"], $count);
+            } else {
+                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
+                $newurl = "/";
+            }
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: $newurl");
+            exit();
+        }
+
         $uri = $this->_helper->fileutils->url2uri($url);
         $hexuri = $this->_helper->fileutils->uri2hex($uri);
         
