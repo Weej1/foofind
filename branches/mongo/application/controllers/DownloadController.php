@@ -88,7 +88,7 @@ class DownloadController extends Zend_Controller_Action
             {
                 $uri = $this->_helper->fileutils->uri2url($this->_helper->fileutils->hex2uri($uri));
                 $count=1;
-                $newurl = str_replace("/$url/", "/$uri/", $_SERVER["REQUEST_URI"], $count);
+                $newurl = str_replace("/$url", "/$uri", $_SERVER["REQUEST_URI"], $count);
             } else {
                 $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
                 $newurl = "/";
