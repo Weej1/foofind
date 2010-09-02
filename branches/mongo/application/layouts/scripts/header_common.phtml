@@ -1,46 +1,43 @@
 <?=$this->doctype();?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <?=$this->headMeta();?>
-        <?=$this->headTitle()->setPrefix('foofind.com');?>
-        <?=$this->headLink()->appendStylesheet( STATIC_PATH . '/css/main.css');?>
-        <link rel="shortcut icon" href="<?=STATIC_PATH;?>/images/favicon.ico" />
-        <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?=$this->lang?>.xml" title="Foofind" />
-        <?=$this->jQuery()->setLocalPath( STATIC_PATH  . '/js/jquery.min.js');?>
-        <?=$this->headScript(); ?>
-        <?=$this->jQuery()->setLocalPath( STATIC_PATH  . '/js/msbr.js');?>
-        <script type="text/javascript">
-            $(window).load(function() { corners('.awesome','/image/alert-overlay.png'); });
-        </script>
-        <script type="text/javascript">if (window != top) top.location.href = location.href;</script>
-        <script type="text/javascript">
-            var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_setDomainName', '.foofind.com']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
-        </script>
-    </head>
-    <body OnLoad="document.getElementById('q').focus();">
-        <div id="header" >
-            <div id="header-navigation" >
-                <span class="user_login_box">
-                    <?php
-                    $auth = Zend_Auth::getInstance ();
-                    if (! $auth->hasIdentity ())
-                    {
-                        echo '<a href="/' .  $this->lang . '/user/register">' . $this->translate ( 'new user' ) . '</a> ' .
-                                $this->translate ( 'or' ) . ' ';
-                        echo '<a href="/'  . $this->lang . '/auth/login">' . $this->translate ( 'login' ) . '</a>';
-                    } else
-                    {
-                        $auth_username = $auth->getIdentity()->username;
-                        $auth_userid = $auth->getIdentity()->IdUser;
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?=$this->headMeta();?>
+    <?=$this->headTitle()->setPrefix('foofind.com');?>
+    <?=$this->headLink()->appendStylesheet( STATIC_PATH . '/css/main.css');?>
+    <link rel="shortcut icon" href="<?=STATIC_PATH;?>/images/favicon.ico" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?=$this->lang?>.xml" title="Foofind" />
+    <?=$this->jQuery()->setLocalPath( STATIC_PATH  . '/js/jquery.min.js');?>
+    <?=$this->headScript(); ?>
+    <script type="text/javascript">$(window).load(function() { corners('.awesome', '/image/alert-overlay.png'); });</script>
+    <script type="text/javascript">if (window != top) top.location.href = location.href;</script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_setDomainName', '.foofind.com']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
+    </script>
+</head>
+<body OnLoad="document.getElementById('q').focus();">
+    <div id="header" >
+        <div id="header-navigation" >
+            <span class="user_login_box">
+                <?php
+                $auth = Zend_Auth::getInstance ();
+                if (! $auth->hasIdentity ())
+                {
+                    echo '<a href="/' .  $this->lang . '/user/register">' . $this->translate ( 'new user' ) . '</a> ' .
+                            $this->translate ( 'or' ) . ' ';
+                    echo '<a href="/'  . $this->lang . '/auth/login">' . $this->translate ( 'login' ) . '</a>';
+                } else
+                {
+                    $auth_username = $auth->getIdentity()->username;
+                    $auth_userid = $auth->getIdentity()->IdUser;
 
-                        echo $this->translate ( 'hello,' ) . '<b>&nbsp;<a href="/' .
-                                $this->lang . '/profile/' . $this->escape ( $auth_username ) . '">' . $this->escape ( $auth_username ) . '</a></b> | ' . '<a href="/' . $this->lang . '/auth/logout">' .
-                                $this->translate ( 'logout' ) . '</a>';
-                    }?>
-             </span>&nbsp;&nbsp;
-                <span class="select_language_box">
-                    <?= ($this->lang == 'es')?"<a href='/en/index/setlang'>English</a>":"<a href= '/es/index/setlang'>Español</a>";?>
-                </span>
-            </div>
+                    echo $this->translate ( 'hello,' ) . '<b>&nbsp;<a href="/' .
+                            $this->lang . '/profile/' . $this->escape ( $auth_username ) . '">' . $this->escape ( $auth_username ) . '</a></b> | ' . '<a href="/' . $this->lang . '/auth/logout">' .
+                            $this->translate ( 'logout' ) . '</a>';
+                }?>
+         </span>&nbsp;&nbsp;
+            <span class="select_language_box">
+                <?= ($this->lang == 'es')?"<a href='/en/index/setlang'>English</a>":"<a href= '/es/index/setlang'>Español</a>";?>
+            </span>
         </div>
+    </div>

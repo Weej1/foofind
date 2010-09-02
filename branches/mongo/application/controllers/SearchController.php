@@ -383,9 +383,11 @@ class SearchController extends Zend_Controller_Action {
         $this->view->paginator = $paginator;
 
         $jquery = $this->view->jQuery();
+        $jquery->enable(); // enable jQuery Core Library
 
         // get current jQuery handler based on noConflict settings
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+        
         $onload = '("#show_options").click(function() '
                   . '{'
                   . '   active = $("#show_options").attr("active")=="1";'
@@ -406,9 +408,6 @@ class SearchController extends Zend_Controller_Action {
                   . '}';
         $jquery->addJavascript($function);
         $jquery->addOnload($jqHandler . $onload);
-
-       
-
     }
 
         /**
