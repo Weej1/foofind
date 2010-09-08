@@ -188,6 +188,7 @@ class Model_Files
         foreach ($cursor as $file) {
             $files []= $file;
         }
+        unset ($cursor);
         return $files;
     }
 }
