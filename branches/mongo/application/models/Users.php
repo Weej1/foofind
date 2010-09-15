@@ -179,7 +179,7 @@ class Model_Users
 
     public function checkUserLogin($email, $password)
     {
-        return $this->db->users->findOne( array('email' =>$email,'password' =>$password, 'active' => "1" ) );
+        return $this->db->users->findOne( array('email' =>$email,'password' =>$password, 'active' => 1 ) );
     }
 
     public function getUserToken($email)
