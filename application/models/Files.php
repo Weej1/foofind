@@ -118,11 +118,10 @@ class Model_Files
     public function getFiles($uris)
     {
         $files = array();
-        
         $cursor = $this->db->indir->find( array("_id" => array('$in' => $uris ) ) );
         $querys = array();
         foreach ($cursor as $ifile) {
-            $s = $ifile['s'];
+            $s = (int)$ifile['s'];
             if (!array_key_exists($s, $querys)) $querys[$s] = array();
 
             if (array_key_exists('t', $ifile))
