@@ -90,9 +90,7 @@ class PageController extends Zend_Controller_Action
                                 $user_info = $_SERVER ['REMOTE_ADDR'];
                                 $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];
 
-                                $mail = new Zend_Mail ('utf-8');
-
-                                
+                                $mail = new Zend_Mail ('utf-8');         
                                 $body = $user_info
                                 .'<br/><br/><br/>Name: '.$name.' '.$surname
                                 .'<br/><br/>Company: '.$company
@@ -109,10 +107,39 @@ class PageController extends Zend_Controller_Action
                                 try {
                                       $mail->send();
                                     } catch (Exception $e) {
-                                      echo "Failed to Send Email.";
+
+                                     echo  'Failed to Send Email.';
+                                      $this->_redirect ( '/' );
                                     }
 
 
+                                //now we send the autoreply  to the claimer
+                                $mailautoreply = new Zend_Mail('utf-8');
+
+                                $body2 =
+                                '<br/><br/>Esta es una respuesta automática a su solicitud de retirada de enlace.<br/><br/>
+Hemos recibido su solicitud y la procesaremos lo antes posible. No se requiere ninguna acción por su parte para completar el proceso.<br/><br/>
+
+Tenga en cuenta que sólo podemos retirar enlaces específicos, no palabras de búsqueda, y que no podemos evitar que terceros sitios sigan ofreciendo los enlaces retirados por nosotros. Si lo desea, puede comprobar la no disponibilidad de los enlaces que ha solicitado retirar visitando foofind.com dentro de unos días.
+<br/><br/>
+Atentamente,<br/>
+El equipo Foofind.
+';
+                                $mailautoreply->setBodyHtml ( $body2 );
+                                $mailautoreply->setFrom ( 'noreply@foofind.com' );
+                                $mailautoreply->addTo ( $email , $name.' '.$surname);
+                                $mailautoreply->setSubject ( 'foofind.com - about your complaint petition  , ' . $name.' '.$surname );
+
+                                try {
+                                      $mailautoreply->send();
+                                    } catch (Exception $e) {
+
+                                     echo  'Failed to Send Email.';
+                                      $this->_redirect ( '/' );
+                                    }
+
+
+                                //process finished
                                 $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Message sent successfully!' ) );
                                 $this->_redirect ( '/' );
 
