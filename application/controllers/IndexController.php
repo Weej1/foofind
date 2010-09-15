@@ -46,8 +46,9 @@ class IndexController extends Zend_Controller_Action
     {
 
         $model = new Model_Files();
-        $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $model->countFiles(), array( 'locale' => $this->view->lang));
-
+        $total = $model->countFiles();
+        if ($total<51760685) $total = 51760685;
+        $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $total, array( 'locale' => $this->view->lang));
 
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();

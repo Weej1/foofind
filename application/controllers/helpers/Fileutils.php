@@ -64,9 +64,11 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     else {
                         $matches = 0;
                         $words = explode(" ", $text);
-                        foreach ($words as $word)
+                        foreach ($words as $word) {
+                            $word = preg_quote($word, "/");
                             $matches += preg_match("/(\b$word\b)/i", $fns[$crc]['n']);
-                        
+                        }
+
                         if ($matches>0) $thisHasText = 1000 + $matches;
                     }
                 }
@@ -137,7 +139,6 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     $count = (int)$src['m'];
                     break;
                 case Model_Files::SOURCE_BITTORRENT:
-
                     $linkWeight = 0.8;
                     $icon = "torrent";
                     $url = $src['url'];
@@ -180,12 +181,16 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_HTTP:
                 case Model_Files::SOURCE_MEGAUPLOAD:
                 case Model_Files::SOURCE_RAPIDSHARE:
-                case Model_Files::SOURCE_MEGAVIDEO:  
+                case Model_Files::SOURCE_MEGAVIDEO:
+
                     $linkWeight = 1;
+
+                    // prefer megavideo for streaming searches
+                    if (($_COOKIE['src']=='s') && ($type==Model_Files::SOURCE_MEGAVIDEO)) $linkWeight *= 2;
+
                     $icon = "web";
                     $url = $src['url'];
                     $tip = $source = $this->getDomain($url);
-
                     // Temporary solves megaupload-megavideo conflict
                     if (($type==Model_Files::SOURCE_MEGAUPLOAD) && (stripos($url, "http://www.megavideo.com/") === 0))
                         $continue = true;
@@ -231,6 +236,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             }
         }
 
+        
         foreach ($obj['view']['sources'] as $src=>$info)
         {
             if ($info['join'])
