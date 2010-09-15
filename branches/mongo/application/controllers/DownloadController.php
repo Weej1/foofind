@@ -120,6 +120,7 @@ class DownloadController extends Zend_Controller_Action
             if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
         }
 
+
         $this->_helper->fileutils->chooseFilename($obj, $fn);
         $this->_helper->fileutils->buildSourceLinks($obj);
         $this->_helper->fileutils->chooseType($obj);
@@ -176,7 +177,6 @@ class DownloadController extends Zend_Controller_Action
 
         //this is paginator
         $this->view->paginator = $paginator;
-
     }
 
     public function createComment($hexuri) {

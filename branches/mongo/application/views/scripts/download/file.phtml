@@ -40,6 +40,8 @@ if (count ( $this->mensajes ) > 0) {
 
         <div class="dowload_file_sources">                
         <?
+
+        $max = 15;
         foreach ($this->file['view']['sources'] as $src => $info)
         {
             if (isset($info['count']))
@@ -49,9 +51,10 @@ if (count ( $this->mensajes ) > 0) {
 
             echo "<div class='download_source' >";
 
+            $maxSrc = 3;
             foreach ($info['urls'] as $url)
             {
-                $i+=1; if ($i>15) break;
+                $max-=1; $maxSrc-=1; if ($max<0 || $maxSrc<0) break;
                 echo '<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$url.'" />';
                 echo "<div><img src='".STATIC_PATH."/images/icons/{$info['icon']}_download.gif'/><a title='$url' href='".$this->formatURL($url)."'>".ucfirst ( $text )."</a></div>";
             }
