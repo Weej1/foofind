@@ -63,7 +63,6 @@ class AuthController extends Zend_Controller_Action
                 $email = $f->filter ( trim( $this->_request->getPost ( 'email' ) ) );
                 $password = $f->filter ( trim( $this->_request->getPost ( 'password' ) ) ); //trim whitespaces from copy&pasting the pass from email
                 $password = hash('sha256', $password, FALSE);
-
                 //DDBB validation
                 require_once APPLICATION_PATH . '/models/Users.php';
                 $model = new Model_Users();
