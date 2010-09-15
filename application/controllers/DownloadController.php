@@ -106,7 +106,7 @@ class DownloadController extends Zend_Controller_Action
         $obj['file']['uri'] = $uri;
 
          // if the id file exists then go for the rest of data
-        if (!$obj['file']){
+        if (!$obj['file'] || $obj['file']['bl']!=0){
             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
             $this->_redirect ( '/'.$this->view->lang );
         }
