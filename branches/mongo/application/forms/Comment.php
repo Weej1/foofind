@@ -15,6 +15,6 @@ class Form_Comment extends Zend_Form {
         
 
         // add the submit button
-        $this->addElement ( 'submit', 'submit', array ('label' => 'Post comment', 'class'=>'magenta awesome') );
+        $this->addElement ( 'submit', 'submit', array ('label' => 'Post comment', 'class'=>'magenta awesome', 'onclick' =>'this.disabled=true;') );
     }
 }
