@@ -24,7 +24,6 @@ if (count ( $this->mensajes ) > 0) {
 	echo '</div>';
 }
 ?>
-
     <div class="wrap_download">
     <div class="file_download">
         <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->coalesce($this->file['votes'][$this->lang]['c'][0], 0)?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->coalesce(-$this->file['votes'][$this->lang]['c'][1],0)?>)</span></a></div>
@@ -40,7 +39,6 @@ if (count ( $this->mensajes ) > 0) {
 
         <div class="dowload_file_sources">                
         <?
-
         $max = 15;
         foreach ($this->file['view']['sources'] as $src => $info)
         {
@@ -88,7 +86,6 @@ if (count ( $this->mensajes ) > 0) {
         </div>
 
         <?php endforeach;?>
-
         <script>
             var tooltips = [];
 

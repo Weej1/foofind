@@ -702,7 +702,7 @@ h2{
 }
 .download_file_metadata{
     width: 410px;
-    display: inline-table;
+    display: inline-block;
     padding-left: 40px;
     vertical-align: middle;
 }
