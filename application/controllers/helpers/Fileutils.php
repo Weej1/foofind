@@ -239,7 +239,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         
         foreach ($obj['view']['sources'] as $src=>$info)
         {
-            if ($info['join'])
+            if (array_key_exists('join', $info) && $info['join'])
             {
                 if (isset($obj['file']['s'])) $size = "&xl=".$obj['file']['s']; else $size="";
                 $url = "magnet:?dn=".$obj['view']['efn'].$size."&".implode("&", $info['parts']);

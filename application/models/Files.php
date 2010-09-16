@@ -183,7 +183,7 @@ class Model_Files
         $server = current($servers);
 
         $conn = new Mongo("{$server['ip']}:{$server['p']}");
-        $cursor = $conn->foofind->foo->find()->sort(array('$natural' => -1))->limit($limit);
+        $cursor = $conn->foofind->foo->find(array('bl'=>0))->sort(array('$natural' => -1))->limit($limit);
         foreach ($cursor as $file) {
             $files []= $file;
         }

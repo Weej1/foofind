@@ -12,7 +12,7 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
             $auth = Zend_Auth::getInstance();
             if ($auth->hasIdentity()) $this->lang = $auth->getIdentity()->lang;
         }
-        if ($this->lang == null)
+        if ($this->lang == null && array_key_exists('lang', $_COOKIE))
             $this->lang = $_COOKIE['lang'];
 
         $locale = new Zend_Locale ($this->lang);

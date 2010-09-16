@@ -1,7 +1,7 @@
 <?php
 require_once APPLICATION_PATH . '/models/Files.php';
 
-define(MAX_RESULTS, 1000);
+define("MAX_RESULTS", 1000);
 
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function __construct($table, $fileutils)
@@ -152,7 +152,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $result = $this->cl->Query( $this->query, $this->table );
 
         $this->time += (microtime(true) - $start_time);
-        $this->time_desc .= " - ".(microtime(true) - $start_time);
 
         if ( $result === false )
             return null;
@@ -349,7 +348,7 @@ class SearchController extends Zend_Controller_Action {
         // build a caching object
         $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
-        $key =  md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->lang;
+        $key =  md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->view->lang;
         $existsCache = $oCache->test($key);
         if  ( true || !$existsCache  ) {
 
@@ -364,12 +363,13 @@ class SearchController extends Zend_Controller_Action {
 
                 $paginator->tcount = $SphinxPaginator->tcount;
                 $paginator->time = $SphinxPaginator->time;
-                $paginator->time_desc = $SphinxPaginator->time_desc;
                 if ($conds['type']!=null && $SphinxPaginator->count()==0)
                 {
                     $conds['type']=null;
                     $SphinxPaginator->setFilters($conds);
                     $paginator->noTypeCount = $SphinxPaginator->justCount();
+                 } else {
+                    $paginator->noTypeCount = "";
                  }
 
                 $oCache->save( $paginator, $key );
@@ -379,7 +379,7 @@ class SearchController extends Zend_Controller_Action {
 
         }
 
-        $this->view->info = array('total'=>$paginator->tcount, 'time_desc'=>$paginator->time_desc, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
+        $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
         $this->view->paginator = $paginator;
 
         $jquery = $this->view->jQuery();

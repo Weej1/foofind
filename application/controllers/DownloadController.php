@@ -42,7 +42,7 @@ class DownloadController extends Zend_Controller_Action
 
             $f = new Zend_Filter();
             $f->addFilter(new Zend_Filter_StringTrim());
-            $f->addFilter(new Zend_Filter_StripTags($encoding));
+            $f->addFilter(new Zend_Filter_StripTags());
             $q = $f->filter (trim(stripcslashes(strip_tags($q))));
             $type = $f->filter ( $type );
             $src = $f->filter ( $src );

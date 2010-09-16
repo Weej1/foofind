@@ -420,7 +420,7 @@ class UserController extends Zend_Controller_Action
                 $this->session->username = false;
 
                 //update the active status to 1 of the user
-                $data ['active'] = '1';
+                $data ['active'] = 1;
                 $data ['username'] = $validatetoken ['username'];
                 //reset the token
                 $data['token'] = NULL;

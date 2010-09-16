@@ -14,8 +14,14 @@ class QueryString_View_Helper extends Zend_View_Helper_Abstract
         $res = '';
         foreach ($this->params as $key => $val)
         {
-            $pair = '&'.$key.'='.urlencode($val);
-            try {
+            if (array_key_exists($key, $add))
+                $pair = '&'.$key.'='.urlencode($add[$key]);
+            else if (array_key_exists($key, $delete))
+                $pair = '';
+            else
+                $pair = '&'.$key.'='.urlencode($val);
+
+            /*try {
                 $del = $delete[$key];
                 if ($del) $pair = '';
             } catch (Exception $ex) {}
@@ -23,7 +29,7 @@ class QueryString_View_Helper extends Zend_View_Helper_Abstract
             try {
                 $new = $add[$key];
                 if ($new) $pair = '&'.$key.'='.urlencode($new);
-            } catch (Exception $ex) {}
+            } catch (Exception $ex) {}*/
             $res .= $pair;
         }
         $res[0]='?';
