@@ -20,9 +20,8 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
             $locale->setLocale ('en');
         }
         $this->lang = $locale->getLanguage ();
-
         $options = array ('scan' => Zend_Translate::LOCALE_FILENAME );
-        $translate = new Zend_Translate ( 'csv', FOOFIND_PATH . '/application/lang/', 'auto', $options );
+        $translate = new Zend_Translate ( 'csv', FOOFIND_PATH . '/application/lang/', $this->lang, $options );
 
         if ($translate->isAvailable ( $this->lang )) {
             $translate->setLocale ( $locale );
