@@ -24,7 +24,7 @@ class IndexController extends Zend_Controller_Action
             $umodel = new Model_Users();
             $data = (array)$auth->getIdentity();
             $data['lang'] = $lang;
-            $umodel->updateUser($data);
+            $umodel->updateUser($data['username'], $data);
             $auth->getStorage()->write((object)$data);
         }
 
