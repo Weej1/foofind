@@ -9,11 +9,9 @@ class IndexController extends Zend_Controller_Action
         $this->_helper->checkdomain->check();
 
         require_once APPLICATION_PATH . '/models/Files.php';
-
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();
-
     }
 
     public function setlangAction()
@@ -53,7 +51,6 @@ class IndexController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
         
-
         $form->addElement('radio', 'src', array(
            
             'label'      => 'source:',
@@ -71,8 +68,6 @@ class IndexController extends Zend_Controller_Action
             'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge',
              
         ));
-
-
 
         $form->setAction( '/'. $this->view->lang.'/search/');
         $form->loadDefaultDecoratorsIsDisabled(false);
