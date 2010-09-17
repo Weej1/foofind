@@ -100,18 +100,8 @@ class DownloadController extends Zend_Controller_Action
 
         $uri = $this->_helper->fileutils->url2uri($url);
         $hexuri = $this->_helper->fileutils->uri2hex($uri);
-        
-        $obj['file'] = $this->fmodel->getFile($hexuri);
-        $obj['file']['url'] = $url;
-        $obj['file']['uri'] = $uri;
 
-         // if the id file exists then go for the rest of data
-        if (!$obj['file'] || $obj['file']['bl']!=0){
-            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
-            $this->_redirect ( '/'.$this->view->lang );
-        }
-
-         //check if the url filename (last slash param) matches with the fetched from ddbb from this file controller
+        //check if the url filename (last slash param) matches with the fetched from ddbb from this file controller
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
         $url = explode('/', $url);
         $fn = null;
@@ -120,11 +110,51 @@ class DownloadController extends Zend_Controller_Action
             if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
         }
 
+        // memcached results !!!!
+        $oBackend = new Zend_Cache_Backend_Memcached(
+                array(
+                        'servers' => array( array(
+                                'host' => '127.0.0.1',
+                                'port' => '11211'
+                        ) ),
+                        'compression' => true
+        ) );
+        $oFrontend = new Zend_Cache_Core(
+                array(
+                        'caching' => true,
+                        'lifetime' => 3600,
+                        'cache_id_prefix' => 'foofy_file',
+                        'automatic_serialization' => true,
 
-        $this->_helper->fileutils->chooseFilename($obj, $fn);
-        $this->_helper->fileutils->buildSourceLinks($obj);
-        $this->_helper->fileutils->chooseType($obj);
+                ) );
 
+        // build a caching object
+        $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+
+        $key = $hexuri.$this->view->lang.md5($fn);
+        $existsCache = $oCache->test($key);
+        if  ( $existsCache  ) {
+            //cache hit, load from memcache.
+            $obj = $oCache->load( $key  );
+        } else {
+
+            $obj['file'] = $this->fmodel->getFile($hexuri);
+            $obj['file']['url'] = $url;
+            $obj['file']['uri'] = $uri;
+
+             // if the id file exists then go for the rest of data
+            if (!$obj['file'] || $obj['file']['bl']!=0){
+                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
+                $this->_redirect ( '/'.$this->view->lang );
+            }
+
+
+            $this->_helper->fileutils->chooseFilename($obj, $fn);
+            $this->_helper->fileutils->buildSourceLinks($obj);
+            $this->_helper->fileutils->chooseType($obj);
+            $oCache->save( $obj, $key );
+        }
+        
         $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
         $this->view->headTitle()->append($obj['view']['fn']);
 

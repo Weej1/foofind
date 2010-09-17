@@ -2,6 +2,7 @@
 require_once APPLICATION_PATH . '/models/Files.php';
 
 define("MAX_RESULTS", 1000);
+define("MAX_HITS", 5000000);
 
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function __construct($table, $fileutils)
@@ -140,6 +141,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                     break;
             }
         }
+
         $this->query = preg_replace("/[\W_]-[\W_]/iu", " ", $conditions['q']);
     }
 
@@ -163,7 +165,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     {
 
         global $content;
-        $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS);
+        $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS, MAX_HITS);
         $result = $this->cl->Query( $this->query, $this->table );
 
         $docs = array();
@@ -350,33 +352,31 @@ class SearchController extends Zend_Controller_Action {
 
         $key =  md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->view->lang;
         $existsCache = $oCache->test($key);
-        if  ( true || !$existsCache  ) {
+        if  ( $existsCache  ) {
+            //cache hit, load from memcache.
+            $paginator = $oCache->load( $key  );
+        } else {
+            $SphinxPaginator = new Sphinx_Paginator('idx_files', $this->_helper->fileutils);
+            $SphinxPaginator->setFilters($conds);
+            $paginator = new Zend_Paginator($SphinxPaginator);
 
-                $SphinxPaginator = new Sphinx_Paginator('idx_files', $this->_helper->fileutils);
+            $paginator->setDefaultScrollingStyle('Elastic');
+            $paginator->setItemCountPerPage(10);
+            $paginator->setCurrentPageNumber($page);
+            $paginator->getCurrentItems();
+
+            $paginator->tcount = $SphinxPaginator->tcount;
+            $paginator->time = $SphinxPaginator->time;
+            if ($conds['type']!=null && $SphinxPaginator->count()==0)
+            {
+                $conds['type']=null;
                 $SphinxPaginator->setFilters($conds);
-                $paginator = new Zend_Paginator($SphinxPaginator);
+                $paginator->noTypeCount = $SphinxPaginator->justCount();
+             } else {
+                $paginator->noTypeCount = "";
+             }
 
-                $paginator->setDefaultScrollingStyle('Elastic');
-                $paginator->setItemCountPerPage(10);
-                $paginator->setCurrentPageNumber($page);
-                $paginator->getCurrentItems();
-
-                $paginator->tcount = $SphinxPaginator->tcount;
-                $paginator->time = $SphinxPaginator->time;
-                if ($conds['type']!=null && $SphinxPaginator->count()==0)
-                {
-                    $conds['type']=null;
-                    $SphinxPaginator->setFilters($conds);
-                    $paginator->noTypeCount = $SphinxPaginator->justCount();
-                 } else {
-                    $paginator->noTypeCount = "";
-                 }
-
-                $oCache->save( $paginator, $key );
-            } else {
-                //cache hit, load from memcache.
-                $paginator = $oCache->load( $key  );
-
+            $oCache->save( $paginator, $key );
         }
 
         $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
