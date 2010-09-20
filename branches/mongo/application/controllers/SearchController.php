@@ -2,7 +2,7 @@
 require_once APPLICATION_PATH . '/models/Files.php';
 
 define("MAX_RESULTS", 1000);
-define("MAX_HITS", 5000000);
+define("MAX_HITS", 2000000);
 
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function __construct($table, $fileutils)
