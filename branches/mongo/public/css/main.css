@@ -69,6 +69,10 @@ p {
     min-height: 300px;
 
 }
+#container_search h1 {
+    height:67px;
+    overflow:hidden;
+}
 
 #no_results a{
     color:#DF1279;
@@ -206,22 +210,34 @@ p {
     padding-right: 4px;
 }
 
-.file_excerpt span.comments{
-    background-image: url(/images/baloons.gif);
-    background-position: 0px -2px;
-    padding-left: 22px;
+.file_excerpt div.comments{
+    display: inline-block;
+    background-image: url(/images/foofind.png);
+    background-position: -164px -120px;
+    vertical-align: middle;
+    width: 19px;
+    height: 20px;
+    margin-left: 5px;
 }
 
-.file_excerpt span.votes_up{
-    background-image: url(/images/hand_ups.gif);
-    background-position: 0px -2px;
-    padding-left: 21px;
+.file_excerpt div.votes_up{
+    display: inline-block;
+    background-image: url(/images/foofind.png);
+    background-position: -120px -120px;
+    vertical-align: absmiddle;
+    width: 14px;
+    height: 20px;
+    margin-left: 5px;
 }
 
-.file_excerpt span.votes_down{
-    background-image: url(/images/hand_downs.gif);
-    background-position: 0px -4px;
-    padding-left: 21px;
+.file_excerpt div.votes_down{
+    display: inline-block;
+    background-image: url(/images/foofind.png);
+    background-position: -135px -120px;
+    vertical-align: absmiddle;
+    width: 14px;
+    height: 20px;
+    margin-left: 5px;
 }
 
 .file_excerpt a{
@@ -377,6 +393,7 @@ hr {
     height:1px;
     top: 12px;
     clear: left;
+    margin-bottom:12px;
 }
 
 
@@ -632,44 +649,49 @@ h2{
     font-size:0.9em;
 }
 
-.vote_up div {
-    background: url(/images/hand_upd.gif) center center;
-    width: 48px;
-    height: 48px;
-}
 
 .small .vote_up div {
-    background: url(/images/hand_upsl.gif) center center;
-    width: 24px;
-    height: 24px;
+    background: url(/images/foofind.png) -120px -140px;
+    width: 15px;
+    height: 20px;
 }
 
 .small .vote_down div {
-    background: url(/images/hand_downsl.gif) center center;
-    width: 24px;
-    height: 24px;
+    background: url(/images/foofind.png) -135px -140px;
+    width: 15px;
+    height: 20px;
 }
 
-.small.upactive .vote_up div, .small .vote_up:hover div {
-    background: url(/images/hand_ups.gif) center center !important;
-}
+.small.upactive .vote_up div, .small .vote_up:hover div{
+    background-position: -120px -120px !important;
 
+}
 .small.downactive .vote_down div, .small .vote_down:hover div {
-    background: url(/images/hand_downs.gif) center center !important;
+    background-position: -135px -120px !important;
+}
+
+.vote_up div {
+    background: url(/images/foofind.png) -90px -120px;
+    width: 30px;
+    height: 40px;
+    margin-left:10px;
+    margin-right:10px;
 }
 
 .vote_down div{
-    background: url(/images/hand_downd.gif) center center;
-    width: 48px;
-    height: 48px;
+    background: url(/images/foofind.png) -30px -120px;
+    width: 30px;
+    height: 40px;
+    margin-left:10px;
+    margin-right:10px;
 }
 
 .upactive .vote_up div, .vote_up:hover div {
-    background: url(/images/hand_up.gif) center center !important;
+    background: url(/images/foofind.png) -60px -120px !important;
 }
 
 .downactive .vote_down div, .vote_down:hover div {
-    background: url(/images/hand_down.gif) center center !important;
+    background: url(/images/foofind.png) -0px -120px !important;
 }
 
 .vote_up span {
@@ -791,6 +813,127 @@ a.source span
     display:inline-block;
     font-size: 11px;
     color: #cd0069;
+}
+
+div.icon {
+    background: url(/images/foofind.png);
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.icon24 {
+    width: 24px;
+    height: 24px;
+}
+
+.ed2k24 {
+    background-position: -3px -264px !important;
+}
+
+.ed2kd24 {
+    background-position: -3px -66px !important;
+}
+
+.webd24 {
+    background-position: -33px -66px !important;
+}
+
+.torrent24 {
+    background-position: -63px -264px !important;
+}
+
+.torrentd24 {
+    background-position: -63px -66px !important;
+}
+.tmagnetd24 {
+    background-position: -93px -66px !important;
+}
+.gnutella24 {
+    background-position: -33px -264px !important;
+}
+.gnutellad24 {
+    background-position: -123px -66px !important;
+}
+.ftpd24 {
+    background-position: -153px -66px !important;
+}
+
+div.icon30 {
+    width:30px;
+    height: 30px;
+}
+
+.ed2k30 {
+    background-position: -0px -90px !important;
+}
+.web30 {
+    background-position: -30px -90px !important;
+}
+.torrent30 {
+    background-position: -60px -90px !important;
+}
+.tmagnet30 {
+    background-position: -90px -90px !important;
+}
+.gnutella30 {
+    background-position: -120px -90px !important;
+}
+.ftp30 {
+    background-position: -150px -90px !important;
+}
+
+div.icon50 {
+    width:60px;
+    height:50px;
+    margin-bottom: 10px;
+    background-position: -60px -210px;
+}
+
+.archive50 {
+    background-position: -0px -160px !important;
+}
+.audio50 {
+    background-position: -60px -160px !important;
+}
+.document50 {
+    background-position: -120px -160px !important;
+}
+.image50 {
+    background-position: -0px -210px !important;
+}
+.file50 {
+    background-position: -60px -210px !important;
+}
+.video50 {
+    background-position: -120px -210px !important;
+}
+
+.icon.facebook {
+    width: 14px;
+    margin-right:2px;
+    height: 20px;
+    background-position: -150px -120px !important;
+}
+
+.icon.twitter {
+    width: 14px;
+    margin-right:2px;
+    height: 20px;
+    background-position: -150px -140px !important;
+}
+
+.icon.email {
+    width: 16px;
+    height: 20px;
+    background-position: -164px -140px !important;
+}
+
+.icon.balloon {
+    float:left;
+    width: 30px;
+    height: 30px;
+    background-position: -150px -260px !important;
 }
 
 .sharelinks{

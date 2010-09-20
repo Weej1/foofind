@@ -142,9 +142,9 @@ class Model_Files
         return $files;
     }
 
-    public function getFile($uri)
+    public function getFile($hexuri)
     {
-        $id = new MongoId($uri);
+        $id = new MongoId($hexuri);
         $ifile = $this->db->indir->findOne( array("_id" =>$id) );
         $s = $ifile['s'];
         $servers = $this->getServers();
@@ -153,9 +153,9 @@ class Model_Files
         return $conn->foofind->foo->findOne(array("_id" =>$id ) );
     }
 
-    public function updateVotes($uri, $votes)
+    public function updateVotes($hexuri, $votes)
     {
-        $id = new MongoId($uri);
+        $id = new MongoId($hexuri);
         $ifile = $this->db->indir->findOne( array("_id" =>$id) );
         $s = $ifile['s'];
 
@@ -165,9 +165,9 @@ class Model_Files
         $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
     }
 
-    public function updateComments($uri, $comments)
+    public function updateComments($hexuri, $comments)
     {
-        $id = new MongoId($uri);
+        $id = new MongoId($hexuri);
         $ifile = $this->db->indir->findOne( array("_id" =>$id) );
         $s = $ifile['s'];
 

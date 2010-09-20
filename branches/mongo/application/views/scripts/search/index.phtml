@@ -1,6 +1,6 @@
 <div id="container_search">
     <h1>
-        <a href="/" ><img border="0" src="<?=STATIC_PATH ;?>/images/foofind_search.gif" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
+        <a href="/" ><img width="180" height="290" src="<?=STATIC_PATH ?>/images/foofind.png" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
     </h1>
 
 <?=$this->form; ?>
@@ -83,10 +83,10 @@ if (count ( $this->mensajes ) > 0) {
                 <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches( $this->formatHTML( $val['view']['fn']), $this->qs['q'], false) ?></a>
                 <?php
                 if (array_key_exists('vs', $val['file'])){
-                    if ($val['file']['vs'][$this->lang]) echo "<span class='useract votes_up'>{$val['file']['vs'][$this->lang]['c'][0]}</span>";
-                    if ($val['file']['vs'][$this->lang]) echo "<span class='useract votes_down'>{$val['file']['vs'][$this->lang]['c'][1]}</span>";
+                    if ($val['file']['vs'][$this->lang]) echo "<div class='useract votes_up'></div>{$val['file']['vs'][$this->lang]['c'][0]}";
+                    if ($val['file']['vs'][$this->lang]) echo "<div class='useract votes_down'></div>{$val['file']['vs'][$this->lang]['c'][1]}";
                 }
-                if (array_key_exists('cs', $val['file']) && $val['file']['cs'][$this->lang]) echo "<span class='useract comments'>{$val['file']['cs'][$this->lang]}</span>";
+                if (array_key_exists('cs', $val['file']) && $val['file']['cs'][$this->lang]) echo "<div class='useract comments'></div>{$val['file']['cs'][$this->lang]}";
                 if (APPLICATION_ENV!='production'):?>
                     <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fw:<?=$val['search']['fw'] ?> fc:<?=$val['search']['fc']?></span>
                 <?php  endif; ?>
@@ -105,7 +105,7 @@ if (count ( $this->mensajes ) > 0) {
 
                 foreach ($info['urls'] as $url)
                 {
-                    echo "<a class='source' title='{$info['tip']}' href='".$this->formatURL($url)."'><img alt='{$info['tip']}' src='".STATIC_PATH."/images/icons/{$info['icon']}d.gif' style='vertical-align:middle'><span>$text</span></a>&nbsp;&nbsp;";
+                    echo "<a class='source' title='{$info['tip']}' href='".$this->formatURL($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a>&nbsp;&nbsp;";
                 }
             }
         ?>
