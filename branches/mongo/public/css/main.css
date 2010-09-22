@@ -765,7 +765,8 @@ h2{
     color: #cd0069;
     padding: 10px;
     top: 2px;
-
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .download_more_info h3{
@@ -774,12 +775,14 @@ h2{
     vertical-align: top;
 }
 
-
 .download_more_info p{
     font-size: 12px;
     padding: 8px;
 }
 
+.download_more_info li{
+    margin: 5px;
+}
 
 .download_source a {
     color: #000;

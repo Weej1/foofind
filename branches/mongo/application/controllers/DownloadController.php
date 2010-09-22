@@ -127,7 +127,7 @@ class DownloadController extends Zend_Controller_Action
 
         $key = $hexuri.$this->view->lang.md5($fn);
         $existsCache = $oCache->test($key);
-        if  ( $existsCache  ) {
+        if  ( false && $existsCache  ) {
             //cache hit, load from memcache.
             $obj = $oCache->load( $key  );
         } else {
@@ -145,6 +145,7 @@ class DownloadController extends Zend_Controller_Action
             $this->_helper->fileutils->chooseFilename($obj, $fn);
             $this->_helper->fileutils->buildSourceLinks($obj);
             $this->_helper->fileutils->chooseType($obj);
+            $this->_helper->fileutils->searchRelatedFiles($obj);
             $oCache->save( $obj, $key );
         }
         
@@ -185,6 +186,8 @@ class DownloadController extends Zend_Controller_Action
             }
         }
         $this->view->file = $obj;
+
+
 
         require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
         $helper = new Comments_View_Helper();

@@ -1,6 +1,7 @@
 <?php
 
 require_once ( APPLICATION_PATH . '/models/Files.php' );
+require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
 
 class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Helper_Abstract {
 
@@ -263,6 +264,68 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
 
         if ($type!=null) {
             $obj['view']['type'] = $type;
+        }
+    }
+
+    function searchRelatedFiles(&$obj)
+    {
+        $md = $obj['file']['md'];
+        if (array_key_exists("audio:artist", $md))
+        {
+            $query = "@mta {$md["audio:artist"]}";
+            $mode = SPH_MATCH_EXTENDED2;
+        } else {
+            $query = "{$obj['view']['fn']}";
+            $mode = SPH_MATCH_ANY;
+        }
+        
+        $sphinxConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+        $sphinxServer = $sphinxConf->sphinx->server;
+        $cl = new SphinxClient();
+        $cl->SetServer( $sphinxServer, 3312 );
+        $cl->SetMatchMode( $mode );
+        $cl->SetRankingMode( SPH_RANK_SPH04 );
+
+        // search field weights
+        $weights = array();
+
+        // filenames
+        $weights["fn1"] = 10;
+        for ($i = 2; $i < 21; $i++)
+            $weights["fn$i"] = 1;
+
+        $cl->SetFieldWeights($weights);
+        $cl->SetSelect("*, @weight as sw, @weight as fw");
+        $cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
+        $cl->SetMaxQueryTime(1000);
+        $cl->SetLimits( 0, 6, 6, 100000);
+        $result = $cl->Query($query, 'idx_files');
+
+        if ( $result !== false && !empty($result["matches"]) ) {
+            $ids = array();
+            foreach ( $result["matches"] as $doc => $docinfo )
+            {
+                $uri = $this->longs2uri($docinfo["attrs"]["uri1"], $docinfo["attrs"]["uri2"], $docinfo["attrs"]["uri3"]);
+                $hexuri = $this->uri2hex($uri);
+                
+                // ignore showing file
+                if ($hexuri == $obj['file']['_id']->__toString()) continue;
+                
+                $docs[$hexuri] = array();
+                $docs[$hexuri]["search"] = $docinfo['attrs'];
+                $docs[$hexuri]["search"]["id"] = $doc;
+                $ids []= new MongoId($hexuri);
+            }
+
+            $fmodel = new Model_Files();
+            $files = $fmodel->getFiles( $ids );
+            foreach ($files as $file) {
+                $hexuri = $file['_id']->__toString();
+                $rel = $docs[$hexuri];
+                $rel['file'] = $file;
+                $this->chooseFilename($rel, $query);
+                $obj['view']['related'] []= $rel;
+            }
         }
     }
 }
