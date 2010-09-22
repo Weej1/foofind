@@ -1,17 +1,17 @@
 <?php
-require_once APPLICATION_PATH . '/models/Files.php';
+require_once APPLICATION_PATH.'/models/Files.php';
+require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
+require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
+require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
 
 define("MAX_RESULTS", 1000);
 define("MAX_HITS", 2000000);
 
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
-    public function __construct($table, $fileutils)
+    public function __construct($table)
     {
         $this->table      = $table;
-        $this->fileutils  = $fileutils;
 
-        require_once ( APPLICATION_PATH . '/models/Files.php' );
-        require_once ( APPLICATION_PATH . '../../library/Sphinx/sphinxapi.php' );
         $sphinxConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
         $sphinxServer = $sphinxConf->sphinx->server;
 
@@ -44,6 +44,12 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         $this->cl->SetMaxQueryTime(1000);
     }
+
+    public function setFileUtils($fileutils)
+    {
+        $this->fileutils  = $fileutils;
+    }
+
     public function setFilters($conditions)
     {
         global $content;
@@ -305,8 +311,6 @@ class SearchController extends Zend_Controller_Action {
         $srcs['web'] = (strpos($src2, 'w')===false)?$src.'w':str_replace('w', '', $src2);
         $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
 
-        require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
-        require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
 
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => $page);
 
@@ -327,25 +331,14 @@ class SearchController extends Zend_Controller_Action {
             return;
         }
 
-
         // memcached results !!!!
         $oBackend = new Zend_Cache_Backend_Memcached(
-                array(
-                        'servers' => array( array(
-                                'host' => '127.0.0.1',
-                                'port' => '11211'
-                        ) ),
-                        'compression' => true
-        ) );
+                array('servers' => array( array('host' => '127.0.0.1','port' => '11211') ),
+                        'compression' => true ) );
 
         $oFrontend = new Zend_Cache_Core(
-                array(
-                        'caching' => true,
-                        'lifetime' => 3600,
-                        'cache_id_prefix' => 'foofy_search',
-                        'automatic_serialization' => true,
-
-                ) );
+                array('caching' => true, 'lifetime' => 3600, 'cache_id_prefix' => 'foofy_search',
+                        'automatic_serialization' => true ) );
 
         // build a caching object
         $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
@@ -355,11 +348,12 @@ class SearchController extends Zend_Controller_Action {
         if  ( $existsCache  ) {
             //cache hit, load from memcache.
             $paginator = $oCache->load( $key  );
+            $paginator->getAdapter()->setFileUtils($this->_helper->fileutils);
         } else {
-            $SphinxPaginator = new Sphinx_Paginator('idx_files', $this->_helper->fileutils);
+            $SphinxPaginator = new Sphinx_Paginator('idx_files');
+            $SphinxPaginator->setFileUtils($this->_helper->fileutils);
             $SphinxPaginator->setFilters($conds);
             $paginator = new Zend_Paginator($SphinxPaginator);
-
             $paginator->setDefaultScrollingStyle('Elastic');
             $paginator->setItemCountPerPage(10);
             $paginator->setCurrentPageNumber($page);
@@ -375,7 +369,8 @@ class SearchController extends Zend_Controller_Action {
              } else {
                 $paginator->noTypeCount = "";
              }
-
+            
+            $paginator->getAdapter()->setFileUtils(null);
             $oCache->save( $paginator, $key );
         }
 
