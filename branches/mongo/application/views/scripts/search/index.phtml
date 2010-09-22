@@ -1,8 +1,7 @@
 <div id="container_search">
     <h1>
-        <a href="/" ><img width="180" height="290" src="<?=STATIC_PATH ?>/images/foofind.png" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
+        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
     </h1>
-
 <?=$this->form; ?>
     <div class="contentype">
         <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" href="<?= ''.$this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>

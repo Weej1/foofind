@@ -1,6 +1,6 @@
 <div id="container_search">
     <h1>
-        <a href="/" ><img width="180" height="290" src="<?=STATIC_PATH ?>/images/foofind.png" alt="File search engine - foofind.com" title="File search engine - foofind.com" /></a>
+        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
     </h1>
     <?=$this->form; ?>
     <?if ($this->qs['q']):?>
@@ -96,6 +96,7 @@ if (count ( $this->mensajes ) > 0) {
                     echo "tooltips[$val] = '<b>{$comment['u']['username']}: </b>".$this->format_comment($comment['t'])."';";
               endforeach;?>
 
+<? if (count($this->comments)>0): ?>
             $('.ttlink').tooltip({
                 track: true,
                 delay: 0,
@@ -104,7 +105,8 @@ if (count ( $this->mensajes ) > 0) {
                 fade: 250
             });
 
-<?php   if ($this->isAuth): ?>
+<?endif;
+ if ($this->isAuth): ?>
             $('.file_comment_vote a').click(function(event)
             {
                 event.preventDefault();
