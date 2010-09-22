@@ -23,7 +23,6 @@ if (count ( $this->mensajes ) > 0) {
 	}
 	echo '</div>';
 }
-
 ?>
     <div class="wrap_download">
     <div class="file_download">
@@ -63,14 +62,11 @@ if (count ( $this->mensajes ) > 0) {
         </div>
 
         <div class="sharelinks"><?=$this->translate('Share this:');?>
-            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>">
-                <div alt="<?=$this->translate('share on facebook');?>" class="icon facebook"></div></a>
-                <a href="mailto:?subject=<?=$this->filename['Filename'];?>&body=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>">
-                <div alt="<?=$this->translate('send by email');?>" class="icon email"></div></a>
-                <a href="http://twitter.com/home?status=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>">
-                <div alt="<?=$this->translate('share on twitter');?>" class="icon twitter"></div></a>
+            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>"><div alt="<?=$this->translate('share on facebook');?>" class="icon facebook"></div></a>
+            <a href="mailto:?subject=<?=$this->file['view']['fn'];?>&body=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>"><div alt="<?=$this->translate('send by email');?>" class="icon email"></div></a>
+            <a href="http://twitter.com/home?status=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>"><div alt="<?=$this->translate('share on twitter');?>" class="icon twitter"></div></a>
         </div>
-        
+
         <div class="comments">
 <? if (count($this->comments)>0 || $this->isAuth): ?>
         <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
