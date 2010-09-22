@@ -811,6 +811,8 @@ a.source
 a.source span
 {
     display:inline-block;
+    display: inline !ie;
+    zoom:1;
     font-size: 11px;
     color: #cd0069;
 }
@@ -819,6 +821,8 @@ div.icon {
     background: url(/images/foofind.png);
     overflow: hidden;
     display: inline-block;
+    display: inline !ie;
+    zoom:1;
     vertical-align: middle;
 }
 
@@ -911,26 +915,27 @@ div.icon50 {
 
 .icon.facebook {
     width: 14px;
-    margin-right:2px;
+    margin-right:4px;
     height: 20px;
     background-position: -150px -120px !important;
 }
 
 .icon.twitter {
     width: 14px;
-    margin-right:2px;
+    margin-right:4px;
     height: 20px;
     background-position: -150px -140px !important;
 }
 
 .icon.email {
+    margin-right: 2px;
     width: 16px;
     height: 20px;
     background-position: -164px -140px !important;
 }
 
 .icon.balloon {
-    float:left;
+    float: left;
     width: 30px;
     height: 30px;
     background-position: -150px -260px !important;
