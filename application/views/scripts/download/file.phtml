@@ -183,5 +183,13 @@ if (count ( $this->mensajes ) > 0) {
         <p><div title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission" class="icon icon24 torrent24"></div> µTorrent, Transmission.</p>
     </div>
 
+        <? if (array_key_exists("related", $this->file['view'])): ?>
+    <ul class="download_more_info">
+        <h3><?=$this->translate('Related files'); ?></h3>
+            <? foreach ($this->file['view']['related'] as $rel):?>
+        <li><a href="<?="/{$this->lang}/download/{$rel['view']['url']}/".$this->formatURL($rel['view']['fn']) ?>.html"><?=$rel['view']['fn']?></a></li>
+            <? endforeach;?>
+    </ul>
+       <? endif; ?>
 </div>
 </div>

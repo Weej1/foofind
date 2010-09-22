@@ -40,7 +40,7 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $weights['mtt'] = 10;   // title*/
 
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, @weight as sw, sum(w*ATAN(@weight/40000)) as fw");
+        $this->cl->SetSelect("*, @weight as sw, w*ATAN(@weight/40000) as fw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         $this->cl->SetMaxQueryTime(1000);
     }
