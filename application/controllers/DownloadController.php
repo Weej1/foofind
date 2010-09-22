@@ -13,10 +13,8 @@ class DownloadController extends Zend_Controller_Action
         $this->view->lang =  $this->_helper->checklang->check();
         $this->view->langcode =  $this->_helper->checklang->getcode();
 
-        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.bgiframe.js');
-        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.dimensions.js');
-        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.tooltip.js');
-        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.superbox-min.js');
+        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.dimensions.min.js');
+        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.superbox.min.js');
         
         // get auth info
         $auth = Zend_Auth::getInstance ();
@@ -48,7 +46,6 @@ class DownloadController extends Zend_Controller_Action
             $src = $f->filter ( $src );
             $form->getElement('q')->setValue($q);
             $form->addElement("hidden", "type", array("value"=>$type));
-            //$form->addElement("hidden", "src", array("value"=>$src));
         }
 
         if(!$src) if ($_COOKIE['src']) $src = $_COOKIE['src'];
@@ -62,7 +59,6 @@ class DownloadController extends Zend_Controller_Action
         $this->view->registerHelper($helper, 'qs');
         $this->view->src = $srcs;
         $this->view->qs = $conds;
-
 
         // now check to see if the form submitted exists, and
         // if the values passed in are valid for this form
@@ -146,7 +142,6 @@ class DownloadController extends Zend_Controller_Action
                 $this->_redirect ( '/'.$this->view->lang );
             }
 
-
             $this->_helper->fileutils->chooseFilename($obj, $fn);
             $this->_helper->fileutils->buildSourceLinks($obj);
             $this->_helper->fileutils->chooseType($obj);
@@ -163,6 +158,12 @@ class DownloadController extends Zend_Controller_Action
         $this->createComment( $hexuri );
 
         $obj['comments'] = $this->umodel->getFileComments( $hexuri, $this->view->lang );
+
+        // load javascript for show comments references only if there are any comment
+        if (count($obj['comments'])>0) {
+            $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.tooltip.min.js');
+            $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.bgiframe.min.js');
+        }
         $this->umodel->fillCommentsUsers($obj['comments']);
 
         $obj['votes'] = $this->umodel->getFileVotesSum($hexuri, $this->identity->_id);
@@ -192,7 +193,6 @@ class DownloadController extends Zend_Controller_Action
         require_once APPLICATION_PATH.'/views/helpers/TimeSpan_View_Helper.php';
         $helper = new TimeSpan_View_Helper();
         $this->view->registerHelper($helper, 'show_date_span');
-
 
         // get current jQuery handler based on noConflict settings
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
