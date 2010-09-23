@@ -1,6 +1,7 @@
 <?php
 
-require_once ( APPLICATION_PATH . '/models/Files.php' );
+require_once APPLICATION_PATH . '/models/ContentType.php';
+require_once APPLICATION_PATH . '/models/Files.php';
 require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
 
 class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Helper_Abstract {
@@ -94,13 +95,14 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
 
             $ext = $fns[$chosen]['x'];
             $obj['view']['fnx'] = $ext;
-
+            
             // clean filename
             $end = strripos($filename, ".$ext");
             if ($end === false)
                 $nfilename = $filename;
             else
                 $nfilename = trim(substr($filename, 0, $end));
+
             if (!strchr($nfilename, " ")) $nfilename = str_replace(array("_", "."), " ", $nfilename);
             $obj['view']['nfn'] = $nfilename;
         }
@@ -148,7 +150,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     $linkWeight = 0.1;
                     $tip = "ED2K";
                     $icon = $source = "ed2k";
-                    $url = "ed2k://|file|".$obj['view']['efn']."|".$obj['file']['s']."|".$src['url']."|/";
+                    $url = "ed2k://|file|".$obj['view']['efn']."|".$obj['file']['z']."|".$src['url']."|/";
                     $count = (int)$src['m'];
                     break;
                 case Model_Files::SOURCE_BITTORRENT:
@@ -254,7 +256,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         {
             if (array_key_exists('join', $info) && $info['join'])
             {
-                if (isset($obj['file']['s'])) $size = "&xl=".$obj['file']['s']; else $size="";
+                if (isset($obj['file']['z'])) $size = "&xl=".$obj['file']['z']; else $size="";
                 $url = "magnet:?dn=".$obj['view']['efn'].$size."&".implode("&", $info['parts']);
                 $obj['view']['sources'][$src]['urls'] []= $url;
             } else {
@@ -267,11 +269,14 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
 
     function chooseType(&$obj, $type=null)
     {
+        global $content;
         if ($type==null) {
             try { $type = $obj["file"]["ct"]; } catch (Exception $ex) { }
             if ($type==null) try { $type = $obj["search"]["ct"]; } catch (Exception $ex) { }
-            
-            if ($type!=null) try { $type = Model_Files::ct2string($type); } catch (Exception $ex) { }
+            if ($type==null) 
+                try { $type = $content['extAssoc'][$obj['view']['fnx']]; } catch (Exception $ex) { }
+            else
+                try { $type = Model_Files::ct2string($type); } catch (Exception $ex) { }
         }
 
         if ($type!=null) {

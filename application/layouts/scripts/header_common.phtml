@@ -1,12 +1,13 @@
-<?= $this->doctype(); ?>
+<?
+$numCss=2;
+echo $this->doctype(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <?=$this->headMeta(); ?>
         <? $this->headTitle()->setPrefix('foofind.com');
         echo  $this->headTitle();?>
-        <? $numCss = 12;
-             $this->headLink()->appendStylesheet(STATIC_PATH . '/css/main.css?numCss=' . $numCss); ?>
+        <? $this->headLink()->appendStylesheet(STATIC_PATH . '/css/main.css?numCss=' . $numCss); ?>
         <link rel="shortcut icon" href="<?= STATIC_PATH; ?>/images/favicon.ico" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?= $this->lang ?>.xml" title="Foofind" />
         <?
