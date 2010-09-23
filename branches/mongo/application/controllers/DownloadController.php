@@ -126,7 +126,7 @@ class DownloadController extends Zend_Controller_Action
         $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
         $key = $hexuri.$this->view->lang.md5($fn);
-        $existsCache = $oCache->test($key);
+        $existsCache = false; //$oCache->test($key);
         if  ( $existsCache  ) {
             //cache hit, load from memcache.
             $obj = $oCache->load( $key  );
@@ -186,8 +186,6 @@ class DownloadController extends Zend_Controller_Action
             }
         }
         $this->view->file = $obj;
-
-
 
         require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
         $helper = new Comments_View_Helper();

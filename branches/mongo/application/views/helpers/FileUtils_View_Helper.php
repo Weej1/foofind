@@ -132,6 +132,10 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         }
 
         $element = $details?"table":"span";
+        if ($res=='' && $details && array_key_exists('nfn', $obj['view']))
+        {
+            $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']);
+        }
         if ($res!='') $res = "<$element>$res</$element>";
 
         if ($details && $obj['view']['fnx']=="torrent")
