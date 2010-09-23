@@ -128,10 +128,12 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
                $res = $this->formatVideo($obj, $md, $details, $start, $middle, $end);
                break;
             default:
-               return "";
+               $res = "";
+               break;
         }
 
         $element = $details?"table":"span";
+
         if ($res=='' && $details && array_key_exists('nfn', $obj['view']))
         {
             $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']);

@@ -126,7 +126,7 @@ class DownloadController extends Zend_Controller_Action
         $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
         $key = $hexuri.$this->view->lang.md5($fn);
-        $existsCache = false; //$oCache->test($key);
+        $existsCache = $oCache->test($key);
         if  ( $existsCache  ) {
             //cache hit, load from memcache.
             $obj = $oCache->load( $key  );
