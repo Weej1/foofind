@@ -54,7 +54,7 @@ if (count ( $this->mensajes ) > 0) {
             {
                 $max-=1; $maxSrc-=1; if ($max<0 || $maxSrc<0) break;
                 echo '<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$url.'" />';
-                echo "<div><div class='icon icon30 {$info['icon']}30'></div><a title='$url' href='".$this->formatURL($url)."'>".ucfirst ( $text )."</a></div>";
+                echo "<div><div class='icon icon30 {$info['icon']}30'></div>&nbsp;<a title='$url' href='".$this->formatURL($url)."'>".ucfirst ( $text )."</a></div>";
             }
             echo "</div>";
         }
@@ -67,7 +67,17 @@ if (count ( $this->mensajes ) > 0) {
             <a href="http://twitter.com/home?status=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>"><div alt="<?=$this->translate('share on twitter');?>" class="icon twitter"></div></a>
         </div>
 
-        <div class="comments">
+
+        <? if (array_key_exists("related", $this->file['view'])): ?>
+    <div class="download_section related">
+        <div class="icon link"></div><h4><?=$this->translate('Related files'); ?></h4>
+            <? foreach ($this->file['view']['related'] as $rel):?>
+        <p><a href="<?="/{$this->lang}/download/{$rel['view']['url']}/".$this->formatURL($rel['view']['fn']) ?>.html"><?=$rel['view']['fn']?></a><? if (isset($rel['file']['z']) && $rel['file']['z']>0) echo " - ".$this->formatSize($rel["file"]["z"])?></p>
+            <? endforeach;?>
+    </div>
+       <? endif; ?>
+
+        <div class="download_section comments">
 <? if (count($this->comments)>0 || $this->isAuth): ?>
         <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
         <div class="icon balloon"></div><h4><?=$this->translate('Your comments')?></h4>
@@ -183,13 +193,5 @@ if (count ( $this->mensajes ) > 0) {
         <p><div title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission" class="icon icon24 torrent24"></div> µTorrent, Transmission.</p>
     </div>
 
-        <? if (array_key_exists("related", $this->file['view'])): ?>
-    <ul class="download_more_info">
-        <h3><?=$this->translate('Related files'); ?></h3>
-            <? foreach ($this->file['view']['related'] as $rel):?>
-        <li><a href="<?="/{$this->lang}/download/{$rel['view']['url']}/".$this->formatURL($rel['view']['fn']) ?>.html"><?=$rel['view']['fn']?></a></li>
-            <? endforeach;?>
-    </ul>
-       <? endif; ?>
 </div>
 </div>

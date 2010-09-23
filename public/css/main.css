@@ -945,9 +945,17 @@ div.icon50 {
 
 .icon.balloon {
     float: left;
-    width: 30px;
+    width: 32px;
     height: 30px;
-    background-position: -150px -260px !important;
+    background-position: -148px -260px !important;
+}
+
+.icon.link {
+    float: left;
+    margin-left: 3px;
+    width: 26px;
+    height: 30px;
+    background-position: -120px -260px !important;
 }
 
 .sharelinks{
@@ -957,18 +965,20 @@ div.icon50 {
     margin-bottom: 20px;
 }
 
-.comments {
+.download_section {
+    margin-top: 15px;
     clear: both;
     margin-bottom: 5px;
 }
 
-.comments img {
-    margin-top:-4px;
-    float: left;
-}
-.comments h4{
-    margin-left:40px;
+.download_section h4{
+    margin-left:36px;
     border-bottom: 2px solid #cd0069;
+    margin-bottom: 14px;
+}
+
+.download_section.related a {
+    color: black;
 }
 
 .comment {

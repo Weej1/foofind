@@ -88,9 +88,21 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
 
         $obj['view']['url'] = $this->uri2url($this->hex2uri($obj['file']['_id']->__toString()));
         if (isset($chosen)){
-            $obj['view']['fn'] = $fns[$chosen]['n'];
-            $obj['view']['efn'] = str_replace(" ", "%20", $fns[$chosen]['n']);
-            $obj['view']['fnx'] = $fns[$chosen]['x'];
+            $filename = $fns[$chosen]['n'];
+            $obj['view']['fn'] = $filename;
+            $obj['view']['efn'] = str_replace(" ", "%20", $filename);
+
+            $ext = $fns[$chosen]['x'];
+            $obj['view']['fnx'] = $ext;
+
+            // clean filename
+            $end = strripos($filename, ".$ext");
+            if ($end === false)
+                $nfilename = $filename;
+            else
+                $nfilename = trim(substr($filename, 0, $end));
+            if (!strchr($nfilename, " ")) $nfilename = str_replace(array("_", "."), " ", $nfilename);
+            $obj['view']['nfn'] = $nfilename;
         }
     }
 
@@ -275,7 +287,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             $query = "@mta {$md["audio:artist"]}";
             $mode = SPH_MATCH_EXTENDED2;
         } else {
-            $query = "{$obj['view']['fn']}";
+            $query = "{$obj['view']['nfn']}";
             $mode = SPH_MATCH_ANY;
         }
         
@@ -284,7 +296,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $cl = new SphinxClient();
         $cl->SetServer( $sphinxServer, 3312 );
         $cl->SetMatchMode( $mode );
-        $cl->SetRankingMode( SPH_RANK_SPH04 );
+        $cl->SetRankingMode( SPH_RANK_MATCHANY );
 
         // search field weights
         $weights = array();
@@ -295,7 +307,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             $weights["fn$i"] = 1;
 
         $cl->SetFieldWeights($weights);
-        $cl->SetSelect("*, @weight as sw, @weight as fw");
+        $cl->SetSelect("*, @weight as sw,  w*@weight as fw");
         $cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         $cl->SetMaxQueryTime(1000);
         $cl->SetLimits( 0, 6, 6, 100000);
