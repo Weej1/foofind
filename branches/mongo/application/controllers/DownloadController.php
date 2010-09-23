@@ -164,15 +164,19 @@ class DownloadController extends Zend_Controller_Action
         if (count($obj['comments'])>0) {
             $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.tooltip.min.js');
             $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.bgiframe.min.js');
+            $this->umodel->fillCommentsUsers($obj['comments']);
         }
-        $this->umodel->fillCommentsUsers($obj['comments']);
-
-        $obj['votes'] = $this->umodel->getFileVotesSum($hexuri, $this->identity->_id);
-        if ($myvote = $obj['votes']['user']) {
-            if ($myvote>0)
-                $this->view->myvote = "upactive";
-            else if ($myvote<0)
-                $this->view->myvote = "downactive";
+        // only get votes if file has its
+        if (array_key_exists('vs', $obj['file'])) {
+            $obj['votes'] = $this->umodel->getFileVotesSum($hexuri, $this->identity->_id);
+            if ($myvote = $obj['votes']['user']) {
+                if ($myvote>0)
+                    $this->view->myvote = "upactive";
+                else if ($myvote<0)
+                    $this->view->myvote = "downactive";
+            }
+        } else {
+            $obj['votes'] = null;
         }
 
         if ($this->isAuth) {
