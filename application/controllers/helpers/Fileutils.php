@@ -273,7 +273,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         if ($type==null) {
             try { $type = $obj["file"]["ct"]; } catch (Exception $ex) { }
             if ($type==null) try { $type = $obj["search"]["ct"]; } catch (Exception $ex) { }
-            if ($type==null) 
+            if ($type==null)
                 try { $type = $content['extAssoc'][$obj['view']['fnx']]; } catch (Exception $ex) { }
             else
                 try { $type = Model_Files::ct2string($type); } catch (Exception $ex) { }
