@@ -120,14 +120,15 @@ class Model_Files
         $this->oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
         $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $connection = new Mongo($conf->mongo->server, array("persist"=>"main".rand(1, 20)));
+        $this->rid = rand(1, 20); // random ID for choosing connection
+        $connection = new Mongo($conf->mongo->server, array("persist"=>"main{$this->rid}"));
         $this->db = $connection->foofind;
     }
 
     public function getFileUrlFromID($id)
     {
         $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $conn = new Mongo($conf->mongo->oldids);
+        $conn = new Mongo($conf->mongo->oldids, array("persist"=>"main_o{$this->rid}"));
         $res = $conn->foofind->foo->findOne(array('i'=>(int)$id), array('_id'=>1));
         if ($res == NULL)
             return false;
@@ -176,7 +177,7 @@ class Model_Files
         $servers = $this->getServers();
         foreach ($querys as $s=>$suris) {
             $server = $servers[$s];
-            $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_".rand(1, 20)));
+            $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
             $cursor = $conn->foofind->foo->find(array("_id" => array('$in' => $suris ) ) );
             foreach ($cursor as $file) {
                 $files[$file['_id']->__toString()] = $file;
@@ -192,7 +193,7 @@ class Model_Files
         $s = $ifile['s'];
         $servers = $this->getServers();
         $server = $servers[$s];
-        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
         return $conn->foofind->foo->findOne(array("_id" =>$id ) );
     }
 
@@ -204,7 +205,7 @@ class Model_Files
 
         $servers = $this->getServers();
         $server = $servers[$s];
-        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
         $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
     }
 
@@ -216,7 +217,7 @@ class Model_Files
 
         $servers = $this->getServers();
         $server = $servers[$s];
-        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
         $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'cs' => $comments ) ) );
     }
 
@@ -225,7 +226,7 @@ class Model_Files
         $servers = $this->getServers();
         $server = current($servers);
 
-        $conn = new Mongo("{$server['ip']}:{$server['p']}");
+        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
         $cursor = $conn->foofind->foo->find(array('bl'=>0))->sort(array('$natural' => -1))->limit($limit);
         foreach ($cursor as $file) {
             $files []= $file;
