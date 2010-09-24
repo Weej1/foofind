@@ -332,6 +332,7 @@ form span.data input[type="text"], form div.data input[type="password"] {
 
 input#q{
     width: 440px;
+    height: 18px;
 }
 
 dd#src-element{
@@ -650,6 +651,8 @@ h2{
 
 .file_download_vote a, .file_comment_vote a {
     display:inline-block;
+    display: inline !ie;
+    zoom:1;
     text-decoration: none;
     color:black;
     font-size:0.9em;
@@ -814,6 +817,8 @@ h2{
 a.source 
 {
     display:inline-block;
+    display: inline !ie;
+    zoom:1;
     text-decoration: none;
 }
 
@@ -1059,7 +1064,6 @@ ul#tabnav {
     font-weight: bold;
     border-bottom: 1px solid #CD0069;
     list-style-type: none;
-
     padding-bottom: 0px;
     padding-left: 40px;
     margin: 0;
@@ -1111,10 +1115,12 @@ ul#tabnav a:hover   {
 /*start button stuff*/
 
 .awesome, .awesome:visited {
+    font-family:Arial,Verdana,Helvetica,sans-serif;
     background: transparent url(/images/alert-overlay.png) repeat-x;
     display: inline-block;
+    display: inline !ie;
+    zoom:1;
     padding: 4px 10px 4px 10px;
-    margin-top:4px;
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -1146,7 +1152,11 @@ ul#tabnav a:hover   {
 /* Sizes ---------- */
 .small.awesome {font-size: 11px;}
 .medium.awesome {font-size: 13px;}
-.large.awesome {font-size: 14px; padding: 4px 15px 4px 15px;}
+.large.awesome {
+    font-size: 14px;
+    padding: 6px 18px 5px 18px;
+    line-height: 19px;
+}
 
 .superlarge.awesome{font-size: 16px;padding: 10px;}
 /* Colors ---------- */
