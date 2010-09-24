@@ -1,6 +1,5 @@
 <?php
 
-require_once APPLICATION_PATH . '/models/ContentType.php';
 require_once APPLICATION_PATH . '/models/Files.php';
 require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
 
@@ -269,14 +268,11 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
 
     function chooseType(&$obj, $type=null)
     {
-        global $content;
         if ($type==null) {
             try { $type = $obj["file"]["ct"]; } catch (Exception $ex) { }
             if ($type==null) try { $type = $obj["search"]["ct"]; } catch (Exception $ex) { }
-            if ($type==null)
-                try { $type = $content['extAssoc'][$obj['view']['fnx']]; } catch (Exception $ex) { }
-            else
-                try { $type = Model_Files::ct2string($type); } catch (Exception $ex) { }
+            if ($type==null) try { $type = Model_Files::ext2ct($obj['view']['fnx']); } catch (Exception $ex) { }
+            if ($type!=null) try { $type = Model_Files::ct2string($type); } catch (Exception $ex) { }
         }
 
         if ($type!=null) {

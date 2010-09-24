@@ -105,28 +105,32 @@ class DownloadController extends Zend_Controller_Action
         }
 
         // memcached results !!!!
-        $oBackend = new Zend_Cache_Backend_Memcached(
-                array(
-                        'servers' => array( array(
-                                'host' => '127.0.0.1',
-                                'port' => '11211'
-                        ) ),
-                        'compression' => true
-        ) );
-        $oFrontend = new Zend_Cache_Core(
-                array(
-                        'caching' => true,
-                        'lifetime' => 3600,
-                        'cache_id_prefix' => 'foofy_file',
-                        'automatic_serialization' => true,
+        if (APPLICATION_ENV=='production') {
+            $oBackend = new Zend_Cache_Backend_Memcached(
+                    array(
+                            'servers' => array( array(
+                                    'host' => '127.0.0.1',
+                                    'port' => '11211'
+                            ) ),
+                            'compression' => true
+            ) );
+            $oFrontend = new Zend_Cache_Core(
+                    array(
+                            'caching' => true,
+                            'lifetime' => 3600,
+                            'cache_id_prefix' => 'foofy_file',
+                            'automatic_serialization' => true,
 
-                ) );
+                    ) );
 
-        // build a caching object
-        $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+            // build a caching object
+            $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+            $key = $hexuri.$this->view->lang.md5($fn);
+            $existsCache = $oCache->test($key);
+        } else {
+            $existsCache = false;
+        }
 
-        $key = $hexuri.$this->view->lang.md5($fn);
-        $existsCache = $oCache->test($key);
         if  ( $existsCache  ) {
             //cache hit, load from memcache.
             $obj = $oCache->load( $key  );
@@ -146,7 +150,8 @@ class DownloadController extends Zend_Controller_Action
             $this->_helper->fileutils->buildSourceLinks($obj);
             $this->_helper->fileutils->chooseType($obj);
             $this->_helper->fileutils->searchRelatedFiles($obj);
-            $oCache->save( $obj, $key );
+
+            if (APPLICATION_ENV=='production') $oCache->save( $obj, $key );
         }
         
         $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );

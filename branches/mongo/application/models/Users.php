@@ -6,7 +6,7 @@ class Model_Users
     function  __construct()
     {
         $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $connection = new Mongo($conf->mongo->server);
+        $connection = new Mongo($conf->mongo->server, array("persist"=>"main".rand(1, 20)));
         $this->db = $connection->foofind;
     }
 

@@ -3,8 +3,6 @@
  * This is the search form.
  */
 
-require_once ( APPLICATION_PATH . '/models/ContentType.php' );
-
 
 class Form_Search extends Zend_Form
 {
