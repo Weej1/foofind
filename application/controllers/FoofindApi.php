@@ -1,7 +1,6 @@
 <?php
 
 require_once APPLICATION_PATH.'/controllers/SearchController.php';
-require_once APPLICATION_PATH.'/models/ContentType.php';
 
 
 class FoofindApi
