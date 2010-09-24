@@ -1,0 +1,16 @@
+.large.awesome {
+    padding: 4px 7px 2px 7px  !important;
+    line-height: 19px !important;
+}
+
+.fixTop {
+    top:3px !important;
+}
+
+.magenta.awesome {
+    background-color: #DF1279;
+}
+
+#container_home .home_form {
+    margin-top:25px !important;
+}
