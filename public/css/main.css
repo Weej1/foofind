@@ -593,7 +593,6 @@ h2{
 }
 
 #prev {
-
     display: inline-block;
     margin-right: 0;  
 }
@@ -651,8 +650,6 @@ h2{
 
 .file_download_vote a, .file_comment_vote a {
     display:inline-block;
-    display: inline !ie;
-    zoom:1;
     text-decoration: none;
     color:black;
     font-size:0.9em;
@@ -817,16 +814,12 @@ h2{
 a.source 
 {
     display:inline-block;
-    display: inline !ie;
-    zoom:1;
     text-decoration: none;
 }
 
 a.source span
 {
     display:inline-block;
-    display: inline !ie;
-    zoom:1;
     font-size: 11px;
     color: #cd0069;
 }
@@ -835,8 +828,6 @@ div.icon {
     background: url(/images/foofind.png);
     overflow: hidden;
     display: inline-block;
-    display: inline !ie;
-    zoom:1;
     vertical-align: middle;
 }
 
@@ -1118,8 +1109,6 @@ ul#tabnav a:hover   {
     font-family:Arial,Verdana,Helvetica,sans-serif;
     background: transparent url(/images/alert-overlay.png) repeat-x;
     display: inline-block;
-    display: inline !ie;
-    zoom:1;
     padding: 4px 10px 4px 10px;
     color: #fff;
     text-decoration: none;
