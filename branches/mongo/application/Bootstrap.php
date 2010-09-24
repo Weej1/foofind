@@ -22,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         ZendX_JQuery::enableView($view);
         $view->jQuery()->enable();
-        $view->jQuery()->addJavascriptFile("/js/jquery.msbr.min.js");
+        if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE) $view->jQuery()->addJavascriptFile("/js/jquery.msbr.min.js");
     }
 
     protected function _initAutoload()
