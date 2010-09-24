@@ -1,3 +1,12 @@
+.file_excerpt span.useract, .file_excerpt div.comments, .file_excerpt div.votes_up,
+.file_excerpt div.votes_down, #advsearch, #prev, #norm, .pagination #current, #next,
+.file_download_vote a, .file_comment_vote a, .download_file_metadata, .download_more_info,
+.download_source a, .download_source input, .download_source span, a.source, a.source span,
+div.icon, .awesome, .awesome:visited {
+    display: inline !important;
+    zoom: 1;
+}
+
 .large.awesome {
     padding: 4px 7px 2px 7px  !important;
     line-height: 19px !important;
@@ -13,4 +22,8 @@
 
 #container_home .home_form {
     margin-top:25px !important;
+}
+
+.comment_form #submit-element input {
+    width: 150px !important;
 }
