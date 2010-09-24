@@ -107,7 +107,8 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
             $end = ". ";
         }
 
-        switch ($obj['view']['type'])
+        $type = $obj['view']['type'];
+        switch ($type)
         {
             case "Audio":
                $res = $this->formatAudio($obj, $md, $details, $start, $middle, $end);
@@ -134,9 +135,11 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
 
         $element = $details?"table":"span";
 
-        if ($res=='' && $details && array_key_exists('nfn', $obj['view']))
+        if ($res=='' && $details)
         {
-            $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']);
+            if (array_key_exists('nfn', $obj['view'])) $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']);
+            $desc = strtolower($type).":description";
+            if (array_key_exists($desc, $md)) $res .= $start.$this->view->translate("Description").$middle.$this->searchable($details, $md[$desc]);
         }
         if ($res!='') $res = "<$element>$res</$element>";
 
