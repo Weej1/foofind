@@ -176,7 +176,7 @@ class Model_Files
         $servers = $this->getServers();
         foreach ($querys as $s=>$suris) {
             $server = $servers[$s];
-            $conn = new Mongo("{$server['ip']}:{$server['p']}");
+            $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_".rand(1, 20)));
             $cursor = $conn->foofind->foo->find(array("_id" => array('$in' => $suris ) ) );
             foreach ($cursor as $file) {
                 $files[$file['_id']->__toString()] = $file;
