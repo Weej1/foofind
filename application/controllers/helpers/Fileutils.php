@@ -283,9 +283,17 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
     function searchRelatedFiles(&$obj)
     {
         $md = $obj['file']['md'];
-        if (array_key_exists("audio:artist", $md))
+
+        $artist = array_key_exists("audio:artist", $md);
+        $album = array_key_exists("audio:album", $md);
+        $title = array_key_exists("audio:title", $md);
+        if ($artist || $album || $title)
         {
-            $query = "@mta {$md["audio:artist"]}";
+            $query = "";
+            if ($artist) $query .= "|\"{$md["audio:artist"]}\"";
+            if ($album) $query .= "|\"{$md["audio:album"]}\"";
+            if ($title) $query .= "|\"{$md["audio:title"]}\"";
+            $query = substr($query, 1);
             $mode = SPH_MATCH_EXTENDED2;
         } else {
             $query = "{$obj['view']['nfn']}";
