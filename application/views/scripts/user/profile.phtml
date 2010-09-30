@@ -21,7 +21,7 @@ if (count ( $this->mensajes ) > 0) {
     <div class="user_profile">
         <h3><?=$this->translate('User name:').' '.$this->user['username'];?></h3>
         <h3><?=$this->translate('Location:').' '.$this->escape( $this->user['location'] );?></h3>
-        <h3><?=$this->translate('Member since:').' '.$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($this->user['created'])));?></h3>
+        <h3><?=$this->translate('Member since:').' '.$this->escape(date('j-m-Y, g:i:s', $this->user['created']->sec));?></h3>
     </div>
     <br />
     

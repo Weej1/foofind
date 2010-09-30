@@ -8,8 +8,7 @@
     </div>
     <?php endif;?>
     <fieldset>
-        <p><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;
-            <a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</p>
+        <p><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;<a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</p>
         <form action="<?=$this->escape ( $this->form->getAction () )?>" method="<?=$this->escape ( $this->form->getMethod () )?>">
             <p><?=$this->translate ( 'Please, fill this form to be a Foofind registered member:' );?></p>
             <?

@@ -358,7 +358,7 @@ class UserController extends Zend_Controller_Action
                     $hostname = 'http://' . $this->getRequest ()->getHttpHost ();
 
                     $mail = new Zend_Mail ( );
-                    $mail->setBodyHtml ( $this->view->translate ( 'Somebody , probably you, wants to restore your foofind access. Click on this url to restore your foofind account:' ).'<br />'
+                    $mail->setBodyHtml ( $this->view->translate ( 'Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:' ).'<br />'
                             . $hostname .'/'. $this->view->lang.'/user/validate/t/'  .  $data['token'] .
                             '<br /><br />'.
                             $this->view->translate('Otherwise, ignore this message.').

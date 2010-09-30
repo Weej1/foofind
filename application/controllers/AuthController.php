@@ -80,7 +80,7 @@ class AuthController extends Zend_Controller_Action
                     $auth = Zend_Auth::getInstance ();
                     $auth->getStorage ()->write ( (object)$checkuser );
 
-                    $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in, ' ) . $auth->getIdentity()->username );
+                    $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in,' ) .' '. $auth->getIdentity()->username );
 
                     //check if user wants to be remembered by 7 days
                     $seconds  = 60 * 60 * 24 * 7;
