@@ -2,13 +2,10 @@
 #search
 "NoTypeCount";"No results were found for your search in <i>%s</i>, but there are about %d results for your search in <a href='%s'>other categories</a>."
 "DownloadExplanation";"To download the linked file, you could need an external software. Here are some compatible applications:"
-"since";"%1$d %2$s ago"
-
-#about
-"About";"About"
+"since";"%d %s ago"
 
 #privacy
-"this is the privacy text";"In accordance with Organic Law 15/1999, of December 13th, on the Protection of Personal Data, M Punto 2 Punto Technologies, S.A. (hereinafter THE COMPANY) hereby informs of the existence of an automated data file that it has created and for which it is responsible.
+"safe_privacytext";"In accordance with Organic Law 15/1999, of December 13th, on the Protection of Personal Data, M Punto 2 Punto Technologies, S.A. (hereinafter THE COMPANY) hereby informs of the existence of an automated data file that it has created and for which it is responsible.
 <br /><br />
 This file is used for dealing with questions and comments, as well as claims made by users wishing to report the existence of results and links that direct to content that is illegal or that has been disseminated without the mandatory authorisation. THE COMPANY may send e-mails to the account provided by the user in order to inform them that the claim they have made is being processed.
 <br /><br />
@@ -34,7 +31,7 @@ Use of this website implies the user’s acceptance of its privacy policy.
 "
 
 #tos
-"this is the tos text";"
+"safe_tostext";"
 <b>1.- Purpose and acceptance of terms of use</b><br />
 This agreement regulates access to and use of the foofind.com website that M Punto 2 Punto Technologies, S.A. (hereinafter THE COMPANY) provides users interested in the service.
 Use of the services provided on this website implies the user's acceptance of these terms of use.
@@ -65,7 +62,7 @@ Use of the service after changes have been made to the terms of use implies that
 "
 
 #legal
-"this is the legal text";"
+"safe_legaltext";"
 M Punto 2 Punto Technologies, S.A.<br />
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.<br />
 <img src='/images/legal.png' /><br />
@@ -96,3 +93,5 @@ Foofind is a creation by Pablo Soto, P2P technology designer, developed in Madri
 "this is the footer text";"<a href='/en/page/about'>Foofind</a> website under Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en'>BY-NC-SA</a> license.
  <a href='http://code.google.com/p/foofind/'>Source code</a> under <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a> license."
 
+#translate
+"translate text";"Foofind.com is currently available in a few languages, but you can help us to translate it to your own language. Just choose it from the following list and filling the fields with the translated texts. You don't need to fill all the fields to submit the form, any help will be very appreciated.<br/><br/>If your language is not in the list, please contact us for adding it.<br/><br/>"

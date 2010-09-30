@@ -135,11 +135,11 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
 
         $element = $details?"table":"span";
 
-        if ($res=='' && $details)
+        if ($res=='')
         {
-            if (array_key_exists('nfn', $obj['view'])) $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']);
+            if (array_key_exists('nfn', $obj['view'])) $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']).$end;
             $desc = strtolower($type).":description";
-            if (array_key_exists($desc, $md)) $res .= $start.$this->view->translate("Description").$middle.$this->searchable($details, $md[$desc]);
+            if (array_key_exists($desc, $md)) $res .= $start.$this->view->translate("Description").$middle.$this->searchable($details, $md[$desc]).$end;
         }
         if ($res!='') $res = "<$element>$res</$element>";
 

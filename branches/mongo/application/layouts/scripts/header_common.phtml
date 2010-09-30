@@ -40,7 +40,7 @@ echo $this->doctype(); ?>
     <body OnLoad="document.getElementById('q').focus();">
         <div id="header" >
             <div id="header-navigation" >
-                <span class="user_login_box">
+                <div class="user_login_box">
                     <?php
                     $auth = Zend_Auth::getInstance ();
                     if (!$auth->hasIdentity()) {
@@ -53,9 +53,11 @@ echo $this->doctype(); ?>
                         $this->lang . '/profile/' . $this->escape($auth_username) . '">' . $this->escape($auth_username) . '</a></b> | ' . '<a href="/' . $this->lang . '/auth/logout">' .
                         $this->translate('logout') . '</a>';
                     } ?>
-                </span>&nbsp;&nbsp;
-                <span class="select_language_box">
-<?= ($this->lang == 'es') ? "<a href='/en/index/setlang'>English</a>" : "<a href= '/es/index/setlang'>Español</a>"; ?>
-                </span>
+                </div>&nbsp;&nbsp;
+                <div id="select_language_box">
+                    <a class="lang<?=($this->lang=='en')?" active":""?>" href='/en/index/setlang'><div class="flag en"></div><span>English</span></a>
+                    <a class="lang<?=($this->lang=='es')?" active":""?>" href='/es/index/setlang'><div class="flag es"></div><span>Español</span></a>
+                    <a class="" href='/<?=$this->lang?>/page/translate'>Other...</a>
+                </div>
             </div>
         </div>

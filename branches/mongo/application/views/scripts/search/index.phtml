@@ -16,7 +16,7 @@
 <?php if ($this->info['total']>0): ?>
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
         <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
-            <?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?></div>
+            <?php foreach (explode(' ', $this->info['q']) as $word) { echo "<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>&nbsp;"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?></div>
         <style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
 <?php endif;?>
 

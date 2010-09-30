@@ -35,8 +35,6 @@ class Form_UserRegister extends Zend_Form {
                      'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
 
-
-
                 $this->addElement('checkbox', 'agree', array(
                     'decorators' => $decorator,
                     'required' => true,
