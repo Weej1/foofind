@@ -11,8 +11,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
     }
 
-
-
     protected function _initDoctype()
     {
         $this->bootstrap('view');
@@ -109,7 +107,4 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         return $front;
     }
-
-
 }
-

@@ -6,7 +6,7 @@ class Model_Users
     function  __construct()
     {
         $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $connection = new Mongo($conf->mongo->server, array("persist"=>"main".rand(1, 20)));
+        $connection = new Mongo($conf->mongo->server, array("persist"=>"main".rand(1, 2)));
         $this->db = $connection->foofind;
     }
 
@@ -51,7 +51,7 @@ class Model_Users
     {
         $langs = $this->db->comment->group( array("l"=>1),
                                     array("c" => 0),
-                                    new MongoCode("function (obj, prev) { prev.c++; }"),
+                                    new MongoCode("function (o, p) { p.c++; }"),
                                     array('f'=>new MongoId($idFile)) );
         
         $res = array();

@@ -1065,6 +1065,7 @@ div.icon50 {
 }
 
 #select_language_box {
+    background: url(/images/flags.png) no-repeat 0px -22px;
     position:absolute;
     top:0px;
     right:0px;
@@ -1099,6 +1100,7 @@ div.icon50 {
     height:11px;
     width:16px;
     margin-right: 5px;
+    margin-bottom: 2px;
     vertical-align: middle;
 }
 
@@ -1130,6 +1132,21 @@ div.icon50 {
     color:white !important;
 }
 
+.shake {
+    float:left !important;
+    font-size: 22px;
+    padding: 10px !important;
+    margin: 5px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none !important;
+    color: white !important;
+}
+
+.shake_file {
+    display: block;
+    padding-left: 68px;
+}
 /* begin css tabs */
 
 ul#tabnav {
