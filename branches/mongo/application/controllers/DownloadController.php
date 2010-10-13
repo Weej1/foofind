@@ -1,15 +1,17 @@
 <?php
-require_once APPLICATION_PATH . '/models/Files.php';
-require_once APPLICATION_PATH . '/models/Users.php';
-require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
 
 class DownloadController extends Zend_Controller_Action
 {
 
     public function init()
     {
+        require_once APPLICATION_PATH . '/models/Files.php';
+        require_once APPLICATION_PATH . '/models/Users.php';
+        require_once APPLICATION_PATH . '/views/helpers/FileUtils_View_Helper.php';
+
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
+
         $this->view->lang =  $this->_helper->checklang->check();
         $this->view->langcode =  $this->_helper->checklang->getcode();
 
@@ -83,13 +85,13 @@ class DownloadController extends Zend_Controller_Action
                 $uri = $this->_helper->fileutils->uri2url($this->_helper->fileutils->hex2uri($uri));
                 $count=1;
                 $newurl = str_replace("/$url", "/$uri", $_SERVER["REQUEST_URI"], $count);
+                header("HTTP/1.1 301 Moved Permanently");
+                header("Location: $newurl");
+                exit();
             } else {
-                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
-                $newurl = "/";
+                $this->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
+                $this->_redirect ( '/'.$this->view->lang );
             }
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: $newurl");
-            exit();
         }
 
         $uri = $this->_helper->fileutils->url2uri($url);
@@ -120,8 +122,9 @@ class DownloadController extends Zend_Controller_Action
                             'lifetime' => 3600,
                             'cache_id_prefix' => 'foofy_file',
                             'automatic_serialization' => true,
-
                     ) );
+
+            
 
             // build a caching object
             $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
@@ -137,14 +140,15 @@ class DownloadController extends Zend_Controller_Action
         } else {
 
             $obj['file'] = $this->fmodel->getFile($hexuri);
-            $obj['file']['url'] = $url;
-            $obj['file']['uri'] = $uri;
 
              // if the id file exists then go for the rest of data
-            if (!$obj['file'] || $obj['file']['bl']!=0){
-                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
+            if ($obj['file']==null || $obj['file']['bl']!=0){
+                $this->_flashMessenger->addMessage ( $this->view->translate ( 'This link does not exist or may have been deleted!' ) );
                 $this->_redirect ( '/'.$this->view->lang );
             }
+
+            $obj['file']['url'] = $url;
+            $obj['file']['uri'] = $uri;
 
             $this->_helper->fileutils->chooseFilename($obj, $fn);
             $this->_helper->fileutils->buildSourceLinks($obj);
@@ -153,7 +157,8 @@ class DownloadController extends Zend_Controller_Action
 
             if (APPLICATION_ENV=='production') $oCache->save( $obj, $key );
         }
-        
+
+
         $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
         $this->view->headTitle()->append($obj['view']['fn']);
 
@@ -215,6 +220,13 @@ class DownloadController extends Zend_Controller_Action
 
         //this is paginator
         $this->view->paginator = $paginator;
+
+        //save non-bot accesses for shake
+        if (strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "bot")===false)
+        {
+            $ip = $_SERVER["SERVER_ADDR"];
+            $this->fmodel->shakeFile($hexuri, $ip);
+        }
     }
 
     public function createComment($hexuri) {
@@ -244,7 +256,7 @@ class DownloadController extends Zend_Controller_Action
 
         $this->fmodel->updateComments($hexuri, $this->umodel->getFileCommentsSum( $hexuri ) );
 
-        $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Comment published succesfully!' ) );
+        $this->_flashMessenger->addMessage ( $this->view->translate ( 'Comment published succesfully!' ) );
         $this->_redirect($_SERVER['REQUEST_URI']);
     }
 
@@ -273,8 +285,6 @@ class DownloadController extends Zend_Controller_Action
 
             $this->view->createcomment = $form;
             return $form;
-
-
 
         } else {
             $this->view->createcomment ="<a style='float:left' href='/{$this->view->lang}/auth/login' rel='superbox[ajax][/{$this->view->lang}/auth/login/source/comment.foo]'>".$this->view->translate('Add a comment')."</a>";

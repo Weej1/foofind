@@ -5,11 +5,11 @@ class UrlCalcController extends Zend_Controller_Action {
     public function init() {
          //validate domain foofind
         $this->_helper->checkdomain->check();
+        $this->view->lang = $this->_helper->checklang->check();
         
     }
 
     public function indexAction() {
-        $this->view->lang = $this->_helper->checklang->check();
 
         $auth = Zend_Auth::getInstance();
         if (!$auth->hasIdentity()) $this->_redirect("/");

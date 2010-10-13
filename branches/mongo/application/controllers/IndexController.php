@@ -1,14 +1,13 @@
 <?php
 
+
 class IndexController extends Zend_Controller_Action
 {
-
     public function init()
     {
-         //validate domain foofind
-        $this->_helper->checkdomain->check();
-
         require_once APPLICATION_PATH . '/models/Files.php';
+        
+        // validate domain foofind
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();
@@ -42,7 +41,6 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-
         $model = new Model_Files();
         $total = $model->countFiles();
         if ($total<51760685) $total = 51760685;

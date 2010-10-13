@@ -208,7 +208,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                     $this->fileutils->chooseType($obj, $this->type);
                     $docs[$hexuri] = $obj;
                 }
-
                 foreach ($docs as $hexuri => $doc)
                 {
                     if (!isset($doc['file']) || $doc['file']['bl']!=0) {
@@ -217,8 +216,10 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         unset($docs[$hexuri]);
                     }
                 }
+
             }
         }
+
         return $docs;
     }
 

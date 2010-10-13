@@ -111,7 +111,7 @@ class Model_Files
                 array(
                         'caching' => true,
                         'lifetime' => 3600,
-                        'cache_id_prefix' => 'foofy_search',
+                        'cache_id_prefix' => 'foofy_db',
                         'automatic_serialization' => true,
 
                 ) );
@@ -120,7 +120,7 @@ class Model_Files
         $this->oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
         $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $this->rid = rand(1, 20); // random ID for choosing connection
+        $this->rid = rand(1, 2); // random ID for choosing connection
         $connection = new Mongo($conf->mongo->server, array("persist"=>"main{$this->rid}"));
         $this->db = $connection->foofind;
     }
@@ -155,7 +155,7 @@ class Model_Files
 
     public function countFiles()
     {
-        $count = $this->db->server->group(array(), array("c"=>0), "function(obj,prev) { prev.c += obj.c; }");
+        $count = $this->db->server->group(array(), array("c"=>0), "function(o,p) { p.c += o.c; }");
         return $count["retval"][0]['c'];
     }
 
@@ -190,7 +190,9 @@ class Model_Files
     {
         $id = new MongoId($hexuri);
         $ifile = $this->db->indir->findOne( array("_id" =>$id) );
-        $s = $ifile['s'];
+        if ($ifile==null) return null;
+        if (array_key_exists('t', $ifile)) $id = $ifile['t'];
+        $s = $ifile['s'];        
         $servers = $this->getServers();
         $server = $servers[$s];
         $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
@@ -233,5 +235,28 @@ class Model_Files
         }
         unset ($cursor);
         return $files;
+    }
+
+    public function shakeFile($hexuri, $ip)
+    {
+        $shakekey = md5($hexuri.$ip);
+        if (!$this->oCache->test($shakekey))
+        {
+            $this->db->shake->save(array("_id"=>$shakekey, 'f'=>new MongoId($hexuri)));
+            $this->oCache->save($shakekey);
+        }
+    }
+
+    public function getShakenFiles()
+    {
+        if ($this->oCache->test("shakes"))
+        {
+            $data = $this->oCache->load("shakes");
+        } else {
+            $reduce = new MongoCode("function(o,p) { p.c += 1; }");
+            $data = $this->db->shake->group(array("f" => 1), array("c" => 0), $reduce);
+            $this->oCache->save("shakes", $data);
+        }
+        return $data;
     }
 }
