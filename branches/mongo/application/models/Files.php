@@ -123,6 +123,7 @@ class Model_Files
         $this->rid = rand(1, 2); // random ID for choosing connection
         $connection = new Mongo($conf->mongo->server, array("persist"=>"main{$this->rid}"));
         $this->db = $connection->foofind;
+        $this->ldb = $connection->lfoofind;
     }
 
     public function getFileUrlFromID($id)
@@ -242,7 +243,7 @@ class Model_Files
         $shakekey = md5($hexuri.$ip);
         if (!$this->oCache->test($shakekey))
         {
-            $this->db->shake->save(array("_id"=>$shakekey, 'f'=>new MongoId($hexuri)));
+            $this->ldb->shake->insert(array("_id"=>new MongoId($hexuri)));
             $this->oCache->save($shakekey);
         }
     }
@@ -254,7 +255,7 @@ class Model_Files
             $data = $this->oCache->load("shakes");
         } else {
             $reduce = new MongoCode("function(o,p) { p.c += 1; }");
-            $data = $this->db->shake->group(array("f" => 1), array("c" => 0), $reduce);
+            $data = $this->ldb->shake->group(array("_id" => 1), array("c" => 0), $reduce);
             $this->oCache->save("shakes", $data);
         }
         return $data;
