@@ -162,8 +162,7 @@ class PageController extends Zend_Controller_Action
                             return;
                         }
 
-                        $mail = new Zend_Mail ( );
-
+                        $mail = new Zend_Mail ('utf-8');
                         $mail->setBodyHtml ($body);
 
                         $mail->addTo('leo@mp2p.net');
