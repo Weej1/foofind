@@ -165,6 +165,13 @@ class PageController extends Zend_Controller_Action
                         $mail = new Zend_Mail ('utf-8');
                         $mail->setBodyHtml ($body);
 
+
+                        $auth = Zend_Auth::getInstance ();
+                        if ($auth->hasIdentity ())
+                        {
+                            $mail->setFrom($auth->getIdentity()->email, $auth->getIdentity()->username);
+                        }
+
                         $mail->addTo('leo@mp2p.net');
                         $mail->setSubject ("source-$newlang.csv");
                         $mail->send ();
