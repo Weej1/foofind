@@ -250,14 +250,17 @@ class Model_Files
 
     public function getShakenFiles()
     {
-        if ($this->oCache->test("shakes"))
-        {
-            $data = $this->oCache->load("shakes");
-        } else {
-            $reduce = new MongoCode("function(o,p) { p.c += 1; }");
-            $data = $this->ldb->shake->group(array("_id" => 1), array("c" => 0), $reduce);
-            $this->oCache->save("shakes", $data);
-        }
+        $reduce = new MongoCode("function(o,p) { p.c += 1; }");
+        $data = $this->ldb->shake->group(array("_id" => 1), array("c" => 0), $reduce);
+        $this->oCache->save("shakes", $data);
+        return $data;
+    }
+
+    public function getVotedFiles()
+    {
+        //$m = new MongoDate(time() - (30 * 24 * 60 * 60));
+        $data = $this->db->votes->find(array("d" => array('$gt'=>$m)), array("_id" => 1, "k"=>1))->sort(array("d"=>-1));
+        $this->oCache->save("voted", $data);
         return $data;
     }
 }
