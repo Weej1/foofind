@@ -171,6 +171,7 @@
 
 #contact
 "Contact form";"Formulario de contacto"
+"Note: If you are claiming for a link removal, you must use <a href='complaint'>report link</a> form. Complaints done trough this form will be ignored.";"Importante: Si desea reclamar la supresión de un enlace, debe utilizar exclusivamente el <a href='complaint'>formulario de reclamación</a>. La reclamaciones realizadas a través de este formulario serán ignoradas."
 "Your email:";"Tu email:"
 "Your message:";"Tu mensaje:"
 "Please, insert the 5 characters shown:";"Por favor, introduce los 5 caracteres que se muestran:"
@@ -283,7 +284,7 @@ LA EMPRESA no se responsabiliza de la fiabilidad o seguridad de los archivos que
 <b>6.- Notificación de enlaces a archivos ilícitos o difundidos sin autorización.</b><br />
 El USUARIO podrá reportar a LA EMPRESA la existencia de todos aquellos archivos enlazados desde Foofind y de cuya ilicitud tenga conocimiento o fundadas sospechas.
 EL USUARIO que ponga en conocimiento de LA EMPRESA la existencia de páginas o archivos presumiblemente ilícitos o
-difundidos sin la correspondiente autorización utilizará exclusivamente el <a href='/es/page/complaint'>formulario de contacto ofrecido al efecto</a> por LA EMPRESA y facilitará fielmente los datos requeridos en el mismo. Para ello, el usuario debe previamente leer y aceptar la política de privacidad de LA EMPRESA.
+difundidos sin la correspondiente autorización utilizará exclusivamente el <a href='/es/page/complaint'>formulario de reclamación ofrecido al efecto</a> por LA EMPRESA y facilitará fielmente los datos requeridos en el mismo. Para ello, el usuario debe previamente leer y aceptar la política de privacidad de LA EMPRESA.
 <br /><br />
 A fin de facilitar la tarea de revisión para reportar aquellos enlaces que pudieran dirigir a contenido presuntamente ilícito o difundido sin autorización, Foofind muestra de forma transparente los archivos que están siendo indexados por el buscador en tiempo real y ordenándolos cronológicamente en un listado de acceso público y gratuito. 
 <br /><br />
@@ -327,7 +328,7 @@ Tomo 19.853, Folio 160, Hoja M-349777.
 C.I.F. A-83940825
 <br /><br />
 Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Foofind no aloja y, en consecuencia, no reproduce ni comunica públicamente los archivos enlazados que aparecen como resultados de las búsquedas. Foofind no asume ninguna obligación de control, vigilancia e inspección de las obras que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.<br /><br />
- Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, puede solicitarnos su retirada desde el siguiente <a href='/es/page/complaint'>formulario de reclamación.</a><br /><br />
+ Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, le rogamos nos solicite su retirada exclusivamente desde el siguiente <a href='/es/page/complaint'>formulario de reclamación.</a><br /><br />
               Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde foofind.com."
 
 #error

@@ -56,6 +56,12 @@ p {
     padding: 0 6px 1em;
 }
 
+.warning {
+    background: url(/images/icon_alert.gif) no-repeat 0px top;
+    padding-left: 24px;
+    margin-left:172px;
+}
+
 #container_home {
     position: relative;
     clear: both;
