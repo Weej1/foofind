@@ -1,6 +1,7 @@
 <?=$this->headTitle()->append($this->translate('Contact form'));?>
    <div id="container_page">
     <h2><?=$this->translate('Contact form')?></h2>
+    <p class="warning"><?=$this->translate("Note: If you are claiming for a link removal, you must use <a href='complaint'>report link</a> form. Complaints done trough this form will be ignored.")?></p>
 <form action="<?=$this->escape ( $this->form->getAction () )?>" method="<?=$this->escape ( $this->form->getMethod () )?>">
     <?php
     if (isset ( $this->error )) :
