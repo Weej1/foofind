@@ -120,7 +120,7 @@ class Model_Files
         $this->oCache = Zend_Cache::factory( $oFrontend, $oBackend );
 
         $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $this->rid = rand(1, 2); // random ID for choosing connection
+        $this->rid = rand(1, $conf->mongo->max_conn); // random ID for choosing connection
         $connection = new Mongo($conf->mongo->server, array("persist"=>"main{$this->rid}"));
         $this->db = $connection->foofind;
         $this->ldb = $connection->lfoofind;

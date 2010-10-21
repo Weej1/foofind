@@ -2,11 +2,10 @@
 
 class Model_Users 
 {
-
     function  __construct()
     {
         $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $connection = new Mongo($conf->mongo->server, array("persist"=>"main".rand(1, 2)));
+        $connection = new Mongo($conf->mongo->server, array("persist"=>"main".rand(1, $conf->mongo->max_conn)));
         $this->db = $connection->foofind;
     }
 
