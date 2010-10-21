@@ -10,7 +10,7 @@ define("MAX_HITS", 2000000);
 class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     public function __construct($table)
     {
-        $this->table      = $table;
+        $this->table = $table;
 
         $sphinxConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
         $sphinxServer = $sphinxConf->sphinx->server;
@@ -311,7 +311,6 @@ class SearchController extends Zend_Controller_Action {
         $srcs['torrent'] = (strpos($src2, 't')===false)?$src.'t':str_replace('t', '', $src2);
         $srcs['web'] = (strpos($src2, 'w')===false)?$src.'w':str_replace('w', '', $src2);
         $srcs['ftp'] = (strpos($src2, 'f')===false)?$src.'f':str_replace('f', '', $src2);
-
 
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => $page);
 

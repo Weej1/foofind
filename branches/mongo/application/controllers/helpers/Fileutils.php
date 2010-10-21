@@ -127,6 +127,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
     {
         if (!isset($obj['view']['fn'])) $this->chooseFilename($obj);
 
+        $obj['view']['action'] = 'Download';
         $srcs = $obj['file']['src'];
         $maxWeight = 0;
         foreach ($srcs as $hexuri => $src)
@@ -200,8 +201,11 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     $linkWeight = 1;
 
                     // prefer megavideo for streaming searches
-                    if (($_COOKIE['src']=='s') && ($type==Model_Files::SOURCE_MEGAVIDEO)) $linkWeight *= 2;
-
+                    if (($_COOKIE['src']=='s') && ($type==Model_Files::SOURCE_MEGAVIDEO)) {
+                        $obj['view']['action'] = 'Watch';
+                        $linkWeight *= 2;
+                    }
+                    
                     $icon = "web";
                     $url = $src['url'];
                     $tip = $source = $this->getDomain($url);
