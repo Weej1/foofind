@@ -170,10 +170,13 @@ class PageController extends Zend_Controller_Action
                         if ($auth->hasIdentity ())
                         {
                             $mail->setFrom($auth->getIdentity()->email, $auth->getIdentity()->username);
+                        } else {
+                            $mail->setFrom("noreply@foofind.com");
                         }
 
-                        $mail->addTo('leo@mp2p.net');
-                        $mail->setSubject ("source-$newlang.csv");
+                        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
+                        $mail->addTo($conf->translation->email);
+                        $mail->setSubject ("Translation: source-$newlang.csv");
                         $mail->send ();
                         $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your translation has been sent. Thanks for your help!' ) );
                         $this->_redirect ( '/' );
