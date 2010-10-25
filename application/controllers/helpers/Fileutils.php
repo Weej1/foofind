@@ -323,7 +323,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $cl->SetSelect("*, @weight as sw,  w*@weight as fw");
         $cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         $cl->SetMaxQueryTime(1000);
-        $cl->SetLimits( 0, 6, 6, 100000);
+        $cl->SetLimits( 0, 6, 6, 10000);
         $result = $cl->Query($query, 'idx_files');
 
         if ( $result !== false && !empty($result["matches"]) ) {

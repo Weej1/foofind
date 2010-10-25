@@ -195,7 +195,6 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                     $docs[$hexuri]["search"]["id"] = $doc;
                     $ids []= new MongoId($hexuri);
                 }
-
                 $fmodel = new Model_Files();
                 $files = $fmodel->getFiles( $ids );
                 foreach ($files as $file) {
@@ -211,12 +210,11 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                 foreach ($docs as $hexuri => $doc)
                 {
                     if (!isset($doc['file']) || $doc['file']['bl']!=0) {
-                        $this->cl->UpdateAttributes("idx_files", array("bl"), array($doc["search"]["id"] => array(3)));
+                        if (isset($doc["search"]) && isset($doc['file']) && $doc['file']['bl']!=0) $this->cl->UpdateAttributes("idx_files", array("bl"), array($doc["search"]["id"] => array(3)));
                         $this->tcount--;
                         unset($docs[$hexuri]);
                     }
                 }
-
             }
         }
 
