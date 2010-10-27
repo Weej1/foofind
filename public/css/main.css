@@ -62,6 +62,17 @@ p {
     margin-left:172px;
 }
 
+.social_widgets{
+    padding-top: 10px;
+    display: inline-block;
+    width: auto;
+    
+}
+
+iframe{
+    display: inline-block;
+}
+
 #container_home {
     position: relative;
     clear: both;
