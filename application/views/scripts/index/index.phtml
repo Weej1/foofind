@@ -1,30 +1,22 @@
-<center>
-    <div  id="container_home">
-        <div title="foofind" class="logo_home"><p><?= $this->totalFilesIndexed . ' ' . $this->translate('files indexed'); ?></p></div>
-        <?
-        if (count($this->mensajes) > 0) {
-            echo '<div class="success">';
-            foreach ($this->mensajes as $msg) {
-                echo $msg . '<br>';
-            }
-            echo '</div>';
+<div id="container_home">
+    <div title="foofind" class="logo_home"><p><?= $this->totalFilesIndexed . ' ' . $this->translate('files indexed'); ?></p></div>
+    <?
+    if (count($this->mensajes) > 0) {
+        echo '<div class="success">';
+        foreach ($this->mensajes as $msg) {
+            echo $msg . '<br>';
         }
-        ?>
-        <div class="home_form">
-            <?= $this->form; ?>
-        </div>
-        <div id="footer_home">
-            <div id="footer-navigation" >
-                <a class="navtype" href="/<?= $this->lang ?>/page/legal/"><?= $this->translate('Legal'); ?></a>
-                <a class="navtype" href="/<?= $this->lang ?>/page/tos"><?= $this->translate('Terms'); ?></a>
-                <a class="navtype" href="/<?= $this->lang ?>/page/privacy"><?= $this->translate('Privacy'); ?></a>
-            </div>
-        </div>
+        echo '</div>';
+    }
+    ?>
+    <div class="home_form">
+        <?= $this->form; ?>
     </div>
-    <div class="social_widgets">
-        <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffoofind.com&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no"
-                frameborder="0" style="border:none; overflow:hidden; width:380px; height:50px;" allowTransparency="true"></iframe>
-        <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://foofind.com" data-text="Foofind" data-count="horizontal" data-via="foofind">Tweet</a>
-        <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    </div>
-</center>
+</div>
+
+<div class="social_widgets">
+    <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffoofind.com&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no"
+            frameborder="0" style="border:none; overflow:hidden; width:380px; padding-right: 20px; height:50px;" allowTransparency="true"></iframe>
+    <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://foofind.com" data-text="Foofind" data-count="horizontal" data-via="foofind">Tweet</a>
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>

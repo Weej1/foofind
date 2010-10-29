@@ -2,8 +2,15 @@
 <div class="content">
 <?=$this->layout()->content ?>
     <div id="footer_main" >
-                <p><?=$this->translate('this is the footer text');  ?></p>
-                <p><a href="/<?=$this->lang;?>/index/lastfiles" ><?=$this->translate('Last indexed files.'); ?></a></p>
+
+        <p><?=$this->translate('this is the footer text');  ?></p>
+            <div id="footer-navigation" >
+                <a class="navtype" href="/<?= $this->lang ?>/page/legal/"><?= $this->translate('Legal'); ?></a>
+                <a class="navtype" href="/<?= $this->lang ?>/page/tos"><?= $this->translate('Terms'); ?></a>
+                <a class="navtype" href="/<?= $this->lang ?>/page/privacy"><?= $this->translate('Privacy'); ?></a>
+                <a class="navtype" href="/<?= $this->lang ?>/index/lastfiles" ><?=$this->translate('Last indexed files'); ?></a>
+            </div><br>
+        
    </div>
 </div>
 </body>
