@@ -33,6 +33,7 @@ img {
     height: 130px;
     width: 280px;
     background: transparent url(/images/foofind.gif) no-repeat scroll 0 0;
+    display: inline-block;
 }
 
 .logo_home p{
@@ -63,15 +64,12 @@ p {
 }
 
 .social_widgets{
-    top:10px;
-    position:absolute;
-    padding-top: 2px;
+    padding-bottom: 60px;
     display: inline-block;
-    width: 100%;
     text-align: center;
 }
 
-iframe{
+iframe {
     vertical-align: top;
     display: inline-block;
 }
@@ -80,12 +78,11 @@ iframe{
     position: relative;
     clear: both;
     display: block;
-    padding-top: 120px;
+    padding-top: 80px;
     padding-left: 30px;
     padding-right: 30px;
-    padding-bottom: 30px;
+    padding-bottom:50px;
     background-color: #fff;
-    min-height: 300px;
 }
 
 #container_search {
@@ -287,8 +284,6 @@ iframe{
     color: black;
 }
 
-
-
 #footer_home{
     clear: both;
     margin-top:  40px;
@@ -296,14 +291,10 @@ iframe{
     text-align: center;
 }
 
-#footer_main{
+#footer_main {
     font-size: 12px;
-    padding-top: 4%;
-    padding-bottom:  2%;
-    text-align: center;
-    position:relative;
     z-index: 100;
-    clear: both;
+    text-align: center;
 }
 
 html form {
@@ -328,9 +319,6 @@ html  fieldset{
     border-width: 0px;
 }
 
-.home_form{
-    margin-top:  30px;
-}
 
 html textarea {
     font-weight: bold;

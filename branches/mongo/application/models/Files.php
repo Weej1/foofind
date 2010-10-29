@@ -173,8 +173,8 @@ class Model_Files
                 $querys[$s][]=new MongoId($ifile['t']);
             else
                 $querys[$s][]=new MongoId($ifile['_id']);
-
         }
+
         $servers = $this->getServers();
         foreach ($querys as $s=>$suris) {
             $server = $servers[$s];
