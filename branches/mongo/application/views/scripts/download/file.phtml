@@ -3,6 +3,7 @@
         <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
     </h1>
     <?=$this->form; ?>
+    <script>document.getElementById('q').focus();</script>
     <?if ($this->qs['q']):?>
     <div class="contentype">
         <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= ''.$this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>

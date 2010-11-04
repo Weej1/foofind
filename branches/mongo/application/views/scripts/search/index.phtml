@@ -3,6 +3,7 @@
         <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
     </h1>
 <?=$this->form; ?>
+    <script>document.getElementById('q').focus();</script>
     <div class="contentype">
         <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" href="<?= ''.$this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>
         <a class="<?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Audio'), array('page'=>1)) ?>" ><?=$this->translate('Audio');?></a>
