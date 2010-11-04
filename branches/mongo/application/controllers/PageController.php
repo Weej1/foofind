@@ -174,8 +174,8 @@ class PageController extends Zend_Controller_Action
                             $mail->setFrom("noreply@foofind.com");
                         }
 
-                        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-                        $mail->addTo($conf->translation->email);
+                        $config = Zend_Registry::get('config');
+                        $mail->addTo($config->translation->email);
                         $mail->setSubject ("Translation: source-$newlang.csv");
                         $mail->send ();
                         $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Your translation has been sent. Thanks for your help!' ) );

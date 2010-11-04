@@ -1,5 +1,5 @@
 <?php
-class Model_Files 
+class Model_Files
 {
     const SOURCE_GNUTELLA = 1;
     const SOURCE_ED2K = 2;
@@ -96,74 +96,73 @@ class Model_Files
         return $src2i[$src];
     }
 
-    function  __construct()
+    private function prepareConnections($main = true, $oldids = false, $datas = false)
     {
-        $oBackend = new Zend_Cache_Backend_Memcached(
-                        array(
-                                'servers' => array( array(
-                                        'host' => '127.0.0.1',
-                                        'port' => '11211'
-                                ) ),
-                                'compression' => true
-                ) );
+        if (($main || $datas) && !isset($this->db_main))
+        {
+            $db = Zend_Registry::get("db_main");
+            if (!$db->connected) $db->connect();
+            $this->db_main = $db->foofind;
+        }
 
-        $oFrontend = new Zend_Cache_Core(
-                array(
-                        'caching' => true,
-                        'lifetime' => 3600,
-                        'cache_id_prefix' => 'foofy_db',
-                        'automatic_serialization' => true,
+        if ($oldids && !isset($this->db_oldids))
+        {
+            $db = Zend_Registry::get("db_oldids");
+            if (!$db->connected) $db->connect();
+            $this->db_oldids = $db->foofind;
+        }
 
-                ) );
+        if ($datas && !isset($this->db_data))
+        {
+            $this->db_data = array();
 
-        // build a caching object
-        $this->oCache = Zend_Cache::factory( $oFrontend, $oBackend );
-
-        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $this->rid = rand(1, $conf->mongo->max_conn); // random ID for choosing connection
-        $connection = new Mongo($conf->mongo->server, array("persist"=>"main{$this->rid}"));
-        $this->db = $connection->foofind;
-        $this->ldb = $connection->lfoofind;
+            $cache = Zend_Registry::get("cache");
+            $key = "svs";
+            $existsCache = $cache->test($key);
+            if  ( $existsCache  ) {
+                $this->servers = $cache->load($key);
+            } else {
+                $cursor = $this->db_main->server->find()->sort(array('lt'=>-1));
+                $this->servers = array();
+                foreach ($cursor as $server) {
+                    if (!isset($this->servers[0])) $this->servers[0] = $server['_id']; // current server
+                    $this->servers[$server['_id']] = $server;
+                }
+                unset ($cursor);
+                $cache->save( $this->servers, $key );
+            }
+            foreach ($this->servers as $s=>$data)
+            {
+                $this->db_data[$s] = new Mongo("{$data['ip']}:{$data['p']}", array("connect"=>false));
+            }
+        }
     }
 
     public function getFileUrlFromID($id)
     {
-        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $conn = new Mongo($conf->mongo->oldids, array("persist"=>"main_o{$this->rid}"));
-        $res = $conn->foofind->foo->findOne(array('i'=>(int)$id), array('_id'=>1));
-        if ($res == NULL)
-            return false;
-        else
-            return $res['_id'];
-    }
+        $this->prepareConnections(false, true);
+        $res = $this->db_oldids->foofind->foo->findOne(array('i'=>(int)$id), array('_id'=>1));
 
-    public function getServers()
-    {
-        $key = "servers";
-        $existsCache = $this->oCache->test($key);
-        if  ( $existsCache  ) {
-            $servers = $this->oCache->load($key);
-        } else {
-            $cursor = $this->db->server->find()->sort(array('lt'=>-1));
-            $servers = array();
-            foreach ($cursor as $server) {
-                $servers[$server['_id']] = $server;
-            }
-            $this->oCache->save( $servers, $key );
-        }
-        return $servers;
+        if ($res == NULL)
+            $ret = NULL;
+        else
+            $ret = $res['_id'];
+        return $ret;
     }
 
     public function countFiles()
     {
-        $count = $this->db->server->group(array(), array("c"=>0), "function(o,p) { p.c += o.c; }");
+        $this->prepareConnections();
+        $count = $this->db_main->server->group(array(), array("c"=>0), new MongoCode("function(o,p) { p.c += o.c; }"));
         return $count["retval"][0]['c'];
     }
 
     public function getFiles($uris)
     {
+        $this->prepareConnections(true, false, true);
+
         $files = array();
-        $cursor = $this->db->indir->find( array("_id" => array('$in' => $uris ) ) );
+        $cursor = $this->db_main->indir->find( array("_id" => array('$in' => $uris ) ) );
         $querys = array();
         foreach ($cursor as $ifile) {
             $s = (int)$ifile['s'];
@@ -174,62 +173,70 @@ class Model_Files
             else
                 $querys[$s][]=new MongoId($ifile['_id']);
         }
+        unset ($cursor);
 
-        $servers = $this->getServers();
         foreach ($querys as $s=>$suris) {
-            $server = $servers[$s];
-            $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
+            $conn = $this->db_data[$s];
+            $conn->connect();
             $cursor = $conn->foofind->foo->find(array("_id" => array('$in' => $suris ) ) );
             foreach ($cursor as $file) {
                 $files[$file['_id']->__toString()] = $file;
             }
+            unset ($cursor);
         }
         return $files;
     }
 
     public function getFile($hexuri)
     {
+        $this->prepareConnections(true, false, true);
+
         $id = new MongoId($hexuri);
-        $ifile = $this->db->indir->findOne( array("_id" =>$id) );
+        $ifile = $this->db_main->indir->findOne( array("_id" =>$id) );
         if ($ifile==null) return null;
         if (array_key_exists('t', $ifile)) $id = $ifile['t'];
-        $s = $ifile['s'];        
-        $servers = $this->getServers();
-        $server = $servers[$s];
-        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
+        $s = $ifile['s'];
+        $conn = $this->db_data[$s];
+        $conn->connect();
+        
         return $conn->foofind->foo->findOne(array("_id" =>$id ) );
     }
 
     public function updateVotes($hexuri, $votes)
     {
+        $this->prepareConnections(true, false, true);
+
         $id = new MongoId($hexuri);
-        $ifile = $this->db->indir->findOne( array("_id" =>$id) );
+        $ifile = $this->db_main->indir->findOne( array("_id" =>$id) );
         $s = $ifile['s'];
 
-        $servers = $this->getServers();
-        $server = $servers[$s];
-        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
+        $conn = $this->db_data[$s];
+        $conn->connect();
+        
         $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
     }
 
     public function updateComments($hexuri, $comments)
     {
+        $this->prepareConnections(true, false, true);
+
         $id = new MongoId($hexuri);
-        $ifile = $this->db->indir->findOne( array("_id" =>$id) );
+        $ifile = $this->db_main->indir->findOne( array("_id" =>$id) );
         $s = $ifile['s'];
 
-        $servers = $this->getServers();
-        $server = $servers[$s];
-        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
+        $conn = $this->db_data[$s];
+        $conn->connect();
+        
         $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'cs' => $comments ) ) );
     }
 
     public function getLastFilesIndexed( $limit )
     {
-        $servers = $this->getServers();
-        $server = current($servers);
+        $this->prepareConnections(true, false, true);
 
-        $conn = new Mongo("{$server['ip']}:{$server['p']}", array("persist"=>"main_s{$s}_{$this->rid}"));
+        $conn = $this->db_data[$this->servers[0]];
+        $conn->connect();
+
         $cursor = $conn->foofind->foo->find(array('bl'=>0))->sort(array('$natural' => -1))->limit($limit);
         foreach ($cursor as $file) {
             $files []= $file;
@@ -238,7 +245,7 @@ class Model_Files
         return $files;
     }
 
-    public function shakeFile($hexuri, $ip)
+    /*public function shakeFile($hexuri, $ip)
     {
         $shakekey = md5($hexuri.$ip);
         if (!$this->oCache->test($shakekey))
@@ -262,5 +269,5 @@ class Model_Files
         $data = $this->db->votes->find(array("d" => array('$gt'=>$m)), array("_id" => 1, "k"=>1))->sort(array("d"=>-1));
         $this->oCache->save("voted", $data);
         return $data;
-    }
+    }*/
 }

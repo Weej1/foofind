@@ -2,13 +2,28 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-
-    protected function _initMetadataCache()
+    protected function _initRegistry()
     {
-        $cache = Zend_Cache::factory('Core', 'File',
-                array('automatic_serialization' => true),
-                array('cache_dir' => TMP_PATH));
-        Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+        $config = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production' );
+
+        // build a caching object
+        $backend = new Zend_Cache_Backend_Memcached(
+                        array('servers' => array( array('host' => '127.0.0.1', 'port' => '11211') ),
+                                'compression' => true) );
+        $frontend = new Zend_Cache_Core(array('caching' => true, 'lifetime' => 3600,
+                        'cache_id_prefix' => 'foofind', 'automatic_serialization' => true) );
+        $cache = Zend_Cache::factory( $frontend, $backend );
+
+        // databases connections
+        $main = new Mongo($config->mongo->server, array("connect"=>false));
+        $oldids = new Mongo($config->mongo->oldids, array("connect"=>false));
+
+        //registry set
+        Zend_Registry::set('db_main', $main);
+        Zend_Registry::set('db_oldids', $oldids);
+
+        Zend_Registry::set('cache', $cache);
+        Zend_Registry::set('config', $config);
     }
 
     protected function _initDoctype()
@@ -20,7 +35,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         ZendX_JQuery::enableView($view);
         $view->jQuery()->enable();
-        if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE) $view->jQuery()->addJavascriptFile("/js/jquery.msbr.min.js");
+        if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE)
+            $view->jQuery()->addJavascriptFile("/js/jquery.msbr.min.js");
     }
 
     protected function _initAutoload()

@@ -12,8 +12,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
     {
         $this->table = $table;
 
-        $sphinxConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $sphinxServer = $sphinxConf->sphinx->server;
+        $config = Zend_Registry::get('config');
+        $sphinxServer = $config->sphinx->server;
 
         $this->tcount = 0;
 
@@ -329,19 +329,10 @@ class SearchController extends Zend_Controller_Action {
             return;
         }
 
-        // memcached results !!!!
-        $oBackend = new Zend_Cache_Backend_Memcached(
-                array('servers' => array( array('host' => '127.0.0.1','port' => '11211') ),
-                        'compression' => true ) );
-
-        $oFrontend = new Zend_Cache_Core(
-                array('caching' => true, 'lifetime' => 3600, 'cache_id_prefix' => 'foofy_search',
-                        'automatic_serialization' => true ) );
-
         // build a caching object
-        $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+        $oCache = Zend_Registry::get('cache');
 
-        $key =  md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page").$this->view->lang;
+        $key = "srh_".$this->view->lang."_".md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page");
         $existsCache = $oCache->test($key);
         if  ( $existsCache  ) {
             //cache hit, load from memcache.
