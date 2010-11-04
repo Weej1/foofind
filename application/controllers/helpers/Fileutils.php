@@ -304,8 +304,8 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             $mode = SPH_MATCH_ANY;
         }
         
-        $sphinxConf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $sphinxServer = $sphinxConf->sphinx->server;
+        $config = Zend_Registry::get('config');
+        $sphinxServer = $config->sphinx->server;
         $cl = new SphinxClient();
         $cl->SetServer( $sphinxServer, 3312 );
         $cl->SetMatchMode( $mode );

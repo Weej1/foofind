@@ -2,15 +2,20 @@
 
 class Model_Users 
 {
-    function  __construct()
+    private function prepareConnection()
     {
-        $conf = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production'  );
-        $connection = new Mongo($conf->mongo->server, array("persist"=>"main".rand(1, $conf->mongo->max_conn)));
-        $this->db = $connection->foofind;
+        if (!isset($this->db))
+        {
+            $db = Zend_Registry::get("db_main");
+            if (!$db->connected) $db->connect();
+            $this->db = $db->foofind;
+        }
     }
 
     public function fillCommentsUsers(array &$comments)
     {
+        $this->prepareConnection();
+        
         $idusers = $users = array();
         foreach ($comments as $comment) {
             $idusers []= new MongoId(substr($comment['_id'], 0, strpos($comment['_id'], "_")));
@@ -20,6 +25,7 @@ class Model_Users
         foreach ($cursor as $user) {
             $users[$user['_id']->__toString()] = $user;
         }
+        unset ($cursor);
 
         foreach ($comments as $key=>$comment) {
             $comments[$key]['u'] = $users[substr($comment['_id'], 0, strpos($comment['_id'], "_"))];
@@ -28,26 +34,32 @@ class Model_Users
     
     public function getUserComments($idUser)
     {
+        $this->prepareConnection();
         $comments = array();
         $cursor = $this->db->comment->find(array('_id'=>new MongoRegex("/^$idUser/")));
         foreach ($cursor as $comment) {
             $comments []= $comment;
         }
+        unset ($cursor);
         return $comments;
     }
 
     public function getFileComments($idFile, $lang)
     {
+        $this->prepareConnection();
         $comments = array();
         $cursor = $this->db->comment->find(array('f'=>new MongoId($idFile), 'l'=>$lang))->sort(array('d'=>-1));
         foreach ($cursor as $comment) {
             $comments[$comment['_id']] =$comment;
         }
+        unset ($cursor);
         return $comments;
     }
 
     public function getFileCommentsSum($idFile)
     {
+        $this->prepareConnection();
+
         $langs = $this->db->comment->group( array("l"=>1),
                                     array("c" => 0),
                                     new MongoCode("function (o, p) { p.c++; }"),
@@ -62,6 +74,8 @@ class Model_Users
 
     public function getFileVotesSum($idFile, $idUser)
     {
+        $this->prepareConnection();
+
         $map = new MongoCode("function() {
                 emit(this.l, {k:this.k, c:new Array((this.k>0)?1:0, (this.k<0)?1:0),
                                         s:new Array((this.k>0)?this.k:0, (this.k<0)?this.k:0),
@@ -95,17 +109,20 @@ class Model_Users
 
     public function getUserFileVotes($idFile, $idUser)
     {
+        $this->prepareConnection();
         $cursor = $this->db->comment_vote->find(array('f'=>new MongoId($idFile), 'u'=>$idUser));
         foreach ($cursor as $vote) {
             $id = $vote['_id'];
             $pos = strrpos($id, '_');
             $votes[substr($id, 0, $pos)] = $vote;
         }
+        unset ($cursor);
         return $votes;
     }
 
     public function getCommentVotesSum($idComment, $idUser)
     {
+        $this->prepareConnection();
         $map = new MongoCode("function() {
                 pos = this._id.lastIndexOf('_');
                 emit('1', {k:this.k, c:new Array((this.k>0)?1:0, (this.k<0)?1:0),
@@ -131,25 +148,31 @@ class Model_Users
 
     public function getComment($id)
     {
+        $this->prepareConnection();
         return $this->db->comment->findOne(array('_id'=>$id));
     }
     
     public function saveVote(array $data)
     {
+        $this->prepareConnection();
         $this->db->vote->save($data);
     }
+
     public function saveComment(array $data)
     {
+        $this->prepareConnection();
         $this->db->comment->save($data);
     }
 
     public function saveCommentVote(array $data)
     {
+        $this->prepareConnection();
         $this->db->comment_vote->save($data);
     }
 
     public function saveUser(array $data)
     {
+        $this->prepareConnection();
         $data ['created'] = new MongoDate();
         $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
         $data['password'] = hash('sha256', $data['password'], FALSE);
@@ -161,50 +184,59 @@ class Model_Users
 
     public function updateUser( $username, array $data)
     {
+        $this->prepareConnection();
         return $this->db->users->update(array("username" => $username), array('$set' => $data));
     }
 
     public function updateCommentVotes($id, $votes)
     {
+        $this->prepareConnection();
         $this->db->comment->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
     }
 
     function deleteUser($username)
     {
+        $this->prepareConnection();
         $filter = array('username' => $username);
         $this->db->users->remove($filter);
     }
 
     public function checkUserLogin($email, $password)
     {
+        $this->prepareConnection();
         return $this->db->users->findOne( array('email' =>$email,'password' =>$password, 'active' => 1 ) );
     }
 
     public function getUserToken($email)
     {
+        $this->prepareConnection();
        $user = $this->db->users->findOne( array('email' =>$email), array('token') );
        return $user['token'];
     }
 
     public function fetchUserByToken($token)
     {
+        $this->prepareConnection();
         return $this->db->users->findOne( array('token' =>$token) );
     }
 
     public function fetchUser($id)
     {
+        $this->prepareConnection();
        return $this->db->users->findOne( array('IdUser' =>$id) );
     }
 
     public function fetchUserByUsername($username)
     {
-      return $this->db->users->findOne( array('username' =>$username) );
+        $this->prepareConnection();
+        return $this->db->users->findOne( array('username' =>$username) );
     }
     
     public function fetchUserByEmail($email)
     {
-       $user = $this->db->users->findOne( array('email' =>$email) );
-       return $user;
+        $this->prepareConnection();
+        $user = $this->db->users->findOne( array('email' =>$email) );
+        return $user;
     }
 }
 

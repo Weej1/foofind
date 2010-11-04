@@ -292,6 +292,8 @@ iframe {
 }
 
 #footer_main {
+    padding-top: 40px;
+    clear: both;
     font-size: 12px;
     z-index: 100;
     text-align: center;

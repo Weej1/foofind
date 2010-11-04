@@ -108,27 +108,9 @@ class DownloadController extends Zend_Controller_Action
 
         // memcached results !!!!
         if (APPLICATION_ENV=='production') {
-            $oBackend = new Zend_Cache_Backend_Memcached(
-                    array(
-                            'servers' => array( array(
-                                    'host' => '127.0.0.1',
-                                    'port' => '11211'
-                            ) ),
-                            'compression' => true
-            ) );
-            $oFrontend = new Zend_Cache_Core(
-                    array(
-                            'caching' => true,
-                            'lifetime' => 3600,
-                            'cache_id_prefix' => 'foofy_file',
-                            'automatic_serialization' => true,
-                    ) );
-
-            
-
             // build a caching object
-            $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
-            $key = $hexuri.$this->view->lang.md5($fn);
+            $oCache = Zend_Registry::get('cache');
+            $key = "dwd_".$this->view->lang."_".$hexuri."_".md5($fn);
             $existsCache = $oCache->test($key);
         } else {
             $existsCache = false;
@@ -222,11 +204,11 @@ class DownloadController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
 
         //save non-bot accesses for shake
-        if (strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "bot")===false)
+        /*if (strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "bot")===false)
         {
             $ip = $_SERVER["SERVER_ADDR"];
             $this->fmodel->shakeFile($hexuri, $ip);
-        }
+        }*/
     }
 
     public function createComment($hexuri) {

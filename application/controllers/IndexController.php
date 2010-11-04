@@ -25,6 +25,7 @@ class IndexController extends Zend_Controller_Action
             $data['lang'] = $lang;
             $umodel->updateUser($data['username'], $data);
             $auth->getStorage()->write((object)$data);
+            unset($umodel);
         }
 
         setcookie ( "lang", $lang, null, '/' );
@@ -41,11 +42,8 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-
-
         $model = new Model_Files();
         $total = $model->countFiles();
-        if ($total<51760685) $total = 51760685;
         $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $total, array( 'locale' => $this->view->lang));
 
         $request = $this->getRequest ();
@@ -78,7 +76,7 @@ class IndexController extends Zend_Controller_Action
         }
         // assign the form to the view
         $this->view->form = $form;
-        
+        unset($model);
     }
 
     public function queryAction()
@@ -86,6 +84,7 @@ class IndexController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $model = new Model_Files();
         $this->view->value = $model->countFiles();
+        unset($model);
     }
 
 
@@ -108,6 +107,8 @@ class IndexController extends Zend_Controller_Action
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
 
         $this->view->lastfiles = $paginator;
+
+        unset($fmodel);
     }
 
 
@@ -124,15 +125,9 @@ class IndexController extends Zend_Controller_Action
         $fmodel = new Model_Files();
         $this->view->lastfiles = $fmodel->getLastFilesIndexed( (int) $limit );
 
-
+        unset($fmodel);
     }
 
-
-    function fetchQuery($table, $query)
-    {
-         $row = $table->getAdapter()->query($query)->fetchAll();
-         return $row[0]['res'];
-    }
     /**
      *
      * @return Form_Search
