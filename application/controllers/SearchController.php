@@ -342,6 +342,7 @@ class SearchController extends Zend_Controller_Action {
             $SphinxPaginator = new Sphinx_Paginator('idx_files');
             $SphinxPaginator->setFileUtils($this->_helper->fileutils);
             $SphinxPaginator->setFilters($conds);
+
             $paginator = new Zend_Paginator($SphinxPaginator);
             $paginator->setDefaultScrollingStyle('Elastic');
             $paginator->setItemCountPerPage(10);
