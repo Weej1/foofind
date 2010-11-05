@@ -97,6 +97,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         $res = "";
 
         $md = $obj['file']['md'];
+        
         if ($details) {
             $start = "<tr><td>";
             $middle = ":</td><td>";
