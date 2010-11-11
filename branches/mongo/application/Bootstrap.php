@@ -53,6 +53,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         if (APPLICATION_ENV!='production')
         {
+
             $autoloader = Zend_Loader_Autoloader::getInstance();
             $autoloader->registerNamespace('ZFDebug');
 
@@ -62,7 +63,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                             'Memory',
                             'Time',
                             'Registry',
-                            'Exception')
+                            'Exception',
+                            'Xhprof')
             );
             
             if ($this->hasPluginResource('db'))

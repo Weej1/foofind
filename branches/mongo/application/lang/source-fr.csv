@@ -1,34 +1,39 @@
-
+#main layout
 "About";"À propos de"
+"Contact";"Contacter"
+"Legal";"Légal"
+"Terms";"Termes"
+"Privacy";"Privé"
 
-"Legal";"légal"
-
-"Privacy";"privé"
-
-"Source code";"code source"
+"Source code";"Code source"
 "files indexed";"fichiers indexés"
-"Last indexed files";"derniers fichiers indexés"
-"Search";"rechercher"
-"All";"tout"
-"Direct downloads";"téléchargement direct"
-"Audio";"audio"
-"Video";"vidéo"
-"Image";"Image"
-"Document";"documents"
-"Software";"programmes"
+"Last indexed files";"Derniers fichiers indexés"
 
-"No results for:";"pas de résultat pour :"
+#search
+"Search";"Rechercher"
+"All";"Tout"
+"Direct downloads";"Téléchargement direct"
+"Audio";"Audio"
+"Video";"Vidéo"
+"Image";"Image"
+"Document";"Documents"
+"Software";"Programmes"
+"Archive";"Archives"
+
+"No results for:";"Pas de résultat pour :"
 
 "Previous";"Précédent"
-"Next";"suivant"
-"sources";"sources"
+"Next";"Suivant"
+"sources";"Sources"
 
-"results for";"résultats pour"
-
-
+"results for";"Résultats pour"
 
 
-"All sizes";"toutes tailles"
+"How to download?";"Comment telecharger"
+
+
+#advanced search
+"All sizes";"Toutes tailles"
 "advanced search";"recherche avancée"
 
 
@@ -36,35 +41,37 @@
 
 
 
-"Before";"avant"
+"Before";"Avant"
 "Last year";"l'année dernière"
-"Artist";"artiste"
-"Title";"titre"
-"Author";"auteur"
-"Format";"format"
 
-"Album";"album"
-
-
-
-"Seconds";"secondes"
-"Minutes";"minutes"
-"Sources";"sources"
-"Source";"source"
-"Height";"poid"
+#metadata
+"Artist";"Artiste"
+"Title";"Titre"
+"Author";"Auteur"
+"Format";"Format"
+"Pages";"Pages"
+"Album";"Album"
 
 
-"Quality";"qualité"
-"Num. of pages";"nbr. de pages"
+"Genre";"Genres"
+"Seconds";"Secondes"
+"Minutes";"Minutes"
+"Sources";"Sources"
+"Source";"Source"
+"Height";"Poid"
 
-"Size";"taille"
+"Track";"Piste"
+"Quality";"Qualité"
+"Num. of pages";"Nbr. de pages"
+"Include results from:";"Inclure resultat de"
+"Size";"Taille"
 
-"Colors";"couleurs"
-"Version";"version"
-"Name";"nom"
-"Description";"description"
-"Files";"fichiers"
-
+"Colors";"Couleurs"
+"Version";"Version"
+"Name";"Nom"
+"Description";"Description"
+"Files";"Fichiers"
+"Soundtype";"Genre de son"
 "year";"année"
 "years";"années"
 "month";"mois"
@@ -77,37 +84,41 @@
 "minutes";"minutes"
 "second";"seconde"
 "seconds";"secondes"
-"Loading...";"chargement..."
-"Close";"fermé"
+
+#download
+"Loading...";"Chargement..."
+"Close";"Cermé"
 
 
 
 "send by email";"envoyer par couriel"
-"Download";"téléchargement"
-"Your comments";"vos commentaires"
+"Download";"Téléchargement"
+"Watch";"Voir"
+"Your comments";"Vos commentaires"
 
 
-"Add a comment";"ajouter un commentaire"
+"Add a comment";"Ajouter un commentaire"
 "from";"de"
 "I like it!";"j'aime ça!"
 
 
 
-"Choose your password:";"choississez votre mot de passe"
-"Insert your password (yep, again):";"enrez votre mot de passe"
 
+#user profile
+"Choose your password:";"Choississez votre mot de passe"
+"Insert your password (yep, again):";"Enrez votre mot de passe"
 
 
 
-"hello,";"bonjour"
 
+"hello,";"Bonjour"
 
 
 
-"New user";"nouvel utilisateur"
 
-"Register";"enregistrement"
+"New user";"Nouvel utilisateur"
 
+"Register";"Enregistrement"
 
 
 
@@ -122,7 +133,10 @@
 
 
 
+"Password:";"Code"
 
+"Yes";"Oui"
+"Your account has been deleted.";"Votre accompte a ete suprime"
 
 
 
@@ -141,9 +155,12 @@
 
 
 
+"Forgot your password?";"Mot de passe oublie"
 
+"Welcome";"Bienvenue"
 
 
+", confirm your email";", confirmez votre adresse e-mail"
 
 
 
@@ -151,6 +168,7 @@
 
 
 
+"This link does not exist or may have been deleted!";"Ce lien n existe pas ou a etait efface"
 
 
 
@@ -164,6 +182,11 @@
 
 
 
+"Message sent successfully!";"Message envoyé avec succés"
+"Your name:";"Votre nom"
+"Your surname:";"Votre prénom"
+"Your company:";"Votre société"
+"Your phone number:";"Votre numéro de téléphone"
 
 
 
@@ -171,25 +194,13 @@
 
 
 
-"Message sent successfully!";"message envoyé avec succés"
-"Your name:";"votre nom"
-"Your surname:";"votre prénom"
-"Your company:";"votre société"
-"Your phone number:";"votre numéro de téléphone"
 
+"Last indexed files.";"Derniers fichiers indexés"
 
+"Foofind.com is under maintenance. Please, come back later.";"Le site Foofind.com est en maintenance. reconnectez vous plus tard SVP!"
 
+"Translate";"Traduire"
+"Help us to translate Foofind.com to your language";"Aidez nous à traduire foofind dans votre langue"
 
-
-
-
-
-"Last indexed files.";"derniers fichiers indexés"
-
-"Foofind.com is under maintenance. Please, come back later.";"le site Foofind est en maintenance. reconnectez vous plus tard SVP!"
-
-"Translate";"traduire"
-"Help us to translate Foofind.com to your language";"aidez nous à traduire foofind dans votre langue"
-
-"Choose language";"choisissez votre langue"
+"Choose language";"Choisissez votre langue"
 "Your translation has been sent. Thanks for your help!";"Votre traduction a été envoyé. Merci de votre aide!"

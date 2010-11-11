@@ -89,5 +89,4 @@ class FoofindApi
 
         return array_values($paginatorArray2);
     }
-
 }
