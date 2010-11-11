@@ -330,10 +330,15 @@ class SearchController extends Zend_Controller_Action {
         }
 
         // build a caching object
-        $oCache = Zend_Registry::get('cache');
+        if ($this->config->cache->searches) {
+            // build a caching object
+            $oCache = Zend_Registry::get('cache');
+            $key = "srh_".$this->view->lang."_".md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page");
+            $existsCache = $oCache->test($key);
+        } else {
+            $existsCache = false;
+        }
 
-        $key = "srh_".$this->view->lang."_".md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page");
-        $existsCache = $oCache->test($key);
         if  ( $existsCache  ) {
             //cache hit, load from memcache.
             $paginator = $oCache->load( $key  );
@@ -361,7 +366,8 @@ class SearchController extends Zend_Controller_Action {
              }
             
             $paginator->getAdapter()->setFileUtils(null);
-            $oCache->save( $paginator, $key );
+
+            if ($this->config->cache->searches) $oCache->save( $paginator, $key );
         }
 
         $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
