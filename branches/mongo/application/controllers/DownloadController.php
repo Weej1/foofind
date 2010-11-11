@@ -25,6 +25,8 @@ class DownloadController extends Zend_Controller_Action
 
         $helper = new FileUtils_View_Helper();
         $helper->registerHelper($this->view);
+
+        $this->config = Zend_Registry::get('config');
     }
 
     public function fileAction()
@@ -107,7 +109,7 @@ class DownloadController extends Zend_Controller_Action
         }
 
         // memcached results !!!!
-        if (APPLICATION_ENV=='production') {
+        if ($this->config->cache->files) {
             // build a caching object
             $oCache = Zend_Registry::get('cache');
             $key = "dwd_".$this->view->lang."_".$hexuri."_".md5($fn);
@@ -137,7 +139,7 @@ class DownloadController extends Zend_Controller_Action
             $this->_helper->fileutils->chooseType($obj);
             $this->_helper->fileutils->searchRelatedFiles($obj);
 
-            if (APPLICATION_ENV=='production') $oCache->save( $obj, $key );
+            if ($this->config->cache->files) $oCache->save( $obj, $key );
         }
 
 
@@ -152,12 +154,21 @@ class DownloadController extends Zend_Controller_Action
 
         $obj['comments'] = $this->umodel->getFileComments( $hexuri, $this->view->lang );
 
-        // load javascript for show comments references only if there are any comment
+        // load javascript and helpers for show comments references only if there are any comment
         if (count($obj['comments'])>0) {
             $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.tooltip.min.js');
             $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.bgiframe.min.js');
             $this->umodel->fillCommentsUsers($obj['comments']);
+
+            require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
+            $helper = new Comments_View_Helper();
+            $this->view->registerHelper($helper, 'format_comment');
+
+            require_once APPLICATION_PATH.'/views/helpers/TimeSpan_View_Helper.php';
+            $helper = new TimeSpan_View_Helper();
+            $this->view->registerHelper($helper, 'show_date_span');
         }
+        
         // only get votes if file has its
         if (array_key_exists('vs', $obj['file'])) {
             $obj['votes'] = $this->umodel->getFileVotesSum($hexuri, $this->identity->_id);
@@ -182,14 +193,6 @@ class DownloadController extends Zend_Controller_Action
             }
         }
         $this->view->file = $obj;
-
-        require_once APPLICATION_PATH.'/views/helpers/Comments_View_Helper.php';
-        $helper = new Comments_View_Helper();
-        $this->view->registerHelper($helper, 'format_comment');
-
-        require_once APPLICATION_PATH.'/views/helpers/TimeSpan_View_Helper.php';
-        $helper = new TimeSpan_View_Helper();
-        $this->view->registerHelper($helper, 'show_date_span');
 
         // get current jQuery handler based on noConflict settings
         $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
