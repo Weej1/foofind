@@ -27,20 +27,20 @@
 "sources";"Sources"
 
 "results for";"Résultats pour"
-
-
+"NoTypeCount";"Aucun résultat n'a été trouvé pour votre recherche de ..., mais il y a environ ... résultats pour votre recherche dans des autres catégories."
+"Foofind does not allow browse results after page 1000.";"Foofind ne permet pas d'afficher les résultats supérieurs à 1000 pages."
 "How to download?";"Comment telecharger"
-
+"DownloadExplanation";"Vous pourriez avoir besoin de télécharger un logiciel externe. Voici quelques applications compatibles:"
 
 #advanced search
 "All sizes";"Toutes tailles"
 "advanced search";"recherche avancée"
-
-
-
-
-
-
+"hide advanced search";"Masquer la recherche avancée"
+"Smaller than";"Plus petit que"
+"Larger than";"Plus grand que"
+"All qualities";"Toutes les qualités"
+"or better";"ou mieux"
+"All years";"Toutes les années"
 "Before";"Avant"
 "Last year";"l'année dernière"
 
@@ -51,21 +51,21 @@
 "Format";"Format"
 "Pages";"Pages"
 "Album";"Album"
-
-
-"Genre";"Genres"
+"Length";"Longueur"
+"Bitrate";"Bitrate"
+"Genre";"Genre"
 "Seconds";"Secondes"
 "Minutes";"Minutes"
 "Sources";"Sources"
 "Source";"Source"
-"Height";"Poid"
-
+"Height";"Hauteur"
+"Width";"Largeur"
 "Track";"Piste"
 "Quality";"Qualité"
 "Num. of pages";"Nbr. de pages"
 "Include results from:";"Inclure resultat de"
 "Size";"Taille"
-
+"Unpacked size";"Taille décompressée"
 "Colors";"Couleurs"
 "Version";"Version"
 "Name";"Nom"
@@ -88,40 +88,40 @@
 #download
 "Loading...";"Chargement..."
 "Close";"Cermé"
-
-
-
+"Share this:";"Partager ceci:"
+"share on facebook";"Partager sur facebook"
+"share on twitter";"Partager sur twitter"
 "send by email";"envoyer par couriel"
-"Download";"Téléchargement"
+"Download";"Télécharger"
 "Watch";"Voir"
 "Your comments";"Vos commentaires"
-
-
+"since";"... ... en arrière"
+"Post comment";"Poster un commentaire"
 "Add a comment";"Ajouter un commentaire"
 "from";"de"
 "I like it!";"j'aime ça!"
 
 
-
+"Related files";"Fichiers relatifs:"
 
 #user profile
 "Choose your password:";"Choississez votre mot de passe"
-"Insert your password (yep, again):";"Enrez votre mot de passe"
-
-
-
-
+"Insert your password (yep, again):";"Enrez votre mot de passe (ouaip, enore une fois):"
+"Please, fill this form to be a Foofind registered member:";"SVP, remplissez ce formulaire pour devenir membre enregistré de Foofind:"
+"Nickname:";"Pseudo:"
+"Edit your profile";"Editer votre profile"
+"Your profile was edited succesfully!";"Votre profil a été modifié avec succès!"
 "hello,";"Bonjour"
-
-
-
+"logout";"se déconnecter"
+"login";"se connecter"
+"Login";"Connexion"
 
 "New user";"Nouvel utilisateur"
-
-"Register";"Enregistrement"
-
-
-
+"or";"ou"
+"Register";"S'enregistrer"
+"(If you are a new user, please";"(si vous êtes un nouvel utilisateur, s'il vous plaît"
+"register here";"enregistrez-vous ici"
+"Choose a nickname:";"Choisissez un pseudo"
 
 
 
@@ -135,18 +135,9 @@
 
 "Password:";"Code"
 
+
 "Yes";"Oui"
 "Your account has been deleted.";"Votre accompte a ete suprime"
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -168,7 +159,22 @@
 
 
 
-"This link does not exist or may have been deleted!";"Ce lien n existe pas ou a etait efface"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -183,6 +189,8 @@
 
 
 "Message sent successfully!";"Message envoyé avec succés"
+
+#complaint
 "Your name:";"Votre nom"
 "Your surname:";"Votre prénom"
 "Your company:";"Votre société"
@@ -195,12 +203,143 @@
 
 
 
+
+
+#footer
 "Last indexed files.";"Derniers fichiers indexés"
 
-"Foofind.com is under maintenance. Please, come back later.";"Le site Foofind.com est en maintenance. reconnectez vous plus tard SVP!"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#tos
+"Terms of use";"Conditions d'utilisation"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#error
+"Foofind.com is under maintenance. Please, come back later.";"Le site Foofind.com est en maintenance. reconnectez vous plus tard SVP!"
+"This link does not exist or may have been deleted!";"Ce lien n existe pas ou a été efface"
+
+#translate
 "Translate";"Traduire"
-"Help us to translate Foofind.com to your language";"Aidez nous à traduire foofind dans votre langue"
+"Help us to translate Foofind.com to your language";"Aidez-nous à traduire foofind dans votre langue"
 
 "Choose language";"Choisissez votre langue"
-"Your translation has been sent. Thanks for your help!";"Votre traduction a été envoyé. Merci de votre aide!"
+"Your translation has been sent. Thanks for your help!";"Votre traduction a été envoyée. Merci de votre aide!"
+"Please, translate at least one text.";"S'il vous plaît, traduisez au moins un texte."

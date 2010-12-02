@@ -31,15 +31,11 @@
 "Foofind does not allow browse results after page 1000.";"Foofind non permette di scorrere i risultati dopo la pagina 1000"
 "How to download?";"Come scaricare?"
 "DownloadExplanation";"Per scaricare il file linkato, potresti aver bisogno di un software esterno. Qui ci sono alcune applicazioni compatibili:"
+
+#advanced search
 "All sizes";"Tutte le dimensioni"
 "advanced search";"ricerca avanzata"
 "hide advanced search";"nascondi ricerca avanzata"
-
-"Smaller than";"più piccolo di"
-
-
-
-
 "Smaller than";"Minore di"
 "Larger than";"Maggiore di"
 "All qualities";"Qualsiasi qualità"
@@ -47,11 +43,13 @@
 "All years";"Qualsiasi anno"
 "Before";"Prima"
 "Last year";"Ultimo anno"
+
+#metadata
 "Artist";"Artista"
 "Title";"Titolo"
 "Author";"Autore"
 "Format";"Formato"
-
+"Pages";"Pagine"
 "Album";"Album"
 "Length";"Lunghezza"
 "Bitrate";"Bitrate"
@@ -73,7 +71,7 @@
 "Name";"Nome"
 "Description";"Descrizione"
 "Files";"Files"
-
+"Soundtype";"Tipo di audio"
 "year";"anno"
 "years";"anni"
 "month";"mese"
@@ -103,9 +101,25 @@
 "Booo!";"Bhooo!"
 "Comment published succesfully!";"Il commento è stato pubblicato correttamente!"
 "Related files";"Files collegati"
+
+#user profile
 "Choose your password:";"Scegli la tua password:"
 "Insert your password (yep, again):";"Inserisci la tua password (ancora una volta):"
 
+
+"Edit your profile";"edita il tuo profilo"
+"Your profile was edited succesfully!";"Il tuo profilo è stato aggiornato con successo!"
+"hello,";"ciao"
+
+
+
+"new user";"nuovo utente"
+"New user";"nuovo utente"
+"or";"o"
+"Register";"Registrati"
+
+"register here";"registrati qui"
+"Choose a nickname:";"Scegli uno pseudonimo"
 
 "Last indexed files.";"Ultimi file indicizzati."
 "Terms of use";"Termini di utilizzo"
@@ -117,3 +131,74 @@
 "Choose language";"Scegli lingua"
 "Your translation has been sent. Thanks for your help!";"La tua traduzione è stata inviata. Grazie per il tuo aiuto!"
 "Please, translate at least one text.";"Per favore, traduci almeno un campo."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#complaint
+"Your name:";"Il tuo nome"
+"Your surname:";"Il tuo cognome"
+
+
+
+
+
+
+
+
+
+
+
