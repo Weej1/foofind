@@ -36,3 +36,4 @@
   * 5->P2P ED2K
   * 6->crawler mu
   * 7->crawler rs
+  * 8->crawler 4s
