@@ -355,6 +355,66 @@ El equipo Foofind.
 
        }
 
+        public function jobsAction(){
+
+            $view = $this->initView();
+            if ($this->view->lang!="es") $this->_redirect ( '/es/page/jobs' );
+            
+            $request = $this->getRequest ();
+            $form = $this->_getJobsForm();
+
+
+            // check to see if this action has been POST'ed to
+            if ($this->getRequest ()->isPost ()) {
+                $values = $form->getValues();
+                // now check to see if the form submitted exists, and
+                // if the values passed in are valid for this form
+                if ($form->isValid ( $request->getPost () )) {
+                    //check agree tos and privacy
+                    $checkagree = ($this->_request->getPost ( 'agree' ) == '1');
+                    if ( $checkagree == FALSE  )
+                    {
+                        $view->error .= $this->view->translate('Please, accept the terms of use and privacy policy');
+                    } else if ($form->cv->isUploaded() && !$form->cv->receive()) {
+                        $view->error .= $this->view->translate('An error ocurred uploading file');
+                    } else {
+                        // collect the data from the user
+                        $f = new Zend_Filter_StripTags ( );
+                        $email = $f->filter ( $this->_request->getPost ( 'email' ) );
+                        $offer = $f->filter ( $this->_request->getPost ( 'offer' ) );
+                        $message = $f->filter ( $this->_request->getPost ( 'message' ) );
+
+                        $user_info .= $_SERVER ['REMOTE_ADDR'];
+                        $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];
+
+                        $mail = new Zend_Mail ('utf-8');
+                        $body = $user_info.'<br/>Oferta:'.$offer.'<br/>'.$message;
+                        $mail->setBodyHtml ( $body );
+                        $mail->setFrom ( $email );
+                        $mail->addTo ( 'leo@mp2p.net', 'hola foofind' );
+
+                        if ($form->cv->isUploaded()){
+                            $filename = $form->cv->getFileName();
+                            $attachment = $mail->createAttachment(file_get_contents($filename));
+                            $attachment->filename = basename($filename);
+                        }
+
+                        $mail->setSubject ( 'foofind.com - job offer reply from ' . $email );
+                        try {
+                              $mail->send();
+
+                            $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Message sent successfully!' ) );
+                            $this->_redirect ( '/' );
+                        } catch (Exception $e) {
+                            $view->error .= $this->view->translate('Failed to Send Email.');
+                        }
+                    }
+                }
+            }
+
+            // assign the form to the view
+            $this->view->form = $form;
+       }
 
 
         /**
@@ -368,7 +428,16 @@ El equipo Foofind.
                 return $form;
         }
 
+        /**
+         *
+         * @return Form_Jobs
+         */
+        protected function _getJobsForm() {
+                require_once APPLICATION_PATH . '/forms/Jobs.php';
+                $form = new Form_Jobs( );
 
+                return $form;
+        }
 
 
        
