@@ -391,7 +391,7 @@ El equipo Foofind.
                         $body = $user_info.'<br/>Oferta:'.$offer.'<br/>'.$message;
                         $mail->setBodyHtml ( $body );
                         $mail->setFrom ( $email );
-                        $mail->addTo ( 'leo@mp2p.net', 'hola foofind' );
+                        $mail->addTo ( 'hola@foofind.com', 'hola foofind' );
 
                         if ($form->cv->isUploaded()){
                             $filename = $form->cv->getFileName();
