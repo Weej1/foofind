@@ -13,6 +13,7 @@ class Model_Files
     const SOURCE_MEGAUPLOAD = 10;
     const SOURCE_RAPIDSHARE = 11;
     const SOURCE_MEGAVIDEO = 12;
+    const SOURCE_4SHARED = 13;
 
     const CONTENT_AUDIO = 1;
     const CONTENT_VIDEO = 2;
@@ -88,7 +89,7 @@ class Model_Files
 
     static function src2ints($src) {
         $src2i = array('s' => array(12),
-                        'w' => array(4,8,10,11),
+                        'w' => array(4,8,10,11,13),
                         'f' => array(9),
                         't' => array(3,107),
                         'g' => array(1,5,6),
