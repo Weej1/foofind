@@ -1,5 +1,6 @@
 <? include_once("header_common_nosearch.phtml");?>
-<div id="container_search">
+<div class="content">
+    <div id="container_page">
     <h1>
         <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
     </h1>
@@ -21,10 +22,10 @@
         </ul>
     </div>
     <?php echo $this->layout('page')->content ?>
+    </div>
+<div id="footer" >
+    <span id="footer_text"><?=$this->translate('this is the footer text');  ?></span>
 </div>
-<div id="footer_main" >
-    <p><?=$this->translate('this is the footer text');  ?></p>
-    <p><a href="/<?=$this->lang;?>/index/lastfiles" ><?=$this->translate('Last indexed files.'); ?></a></p>
 </div>
 </body>
 </html>

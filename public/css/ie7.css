@@ -1,3 +1,11 @@
+
+#container_search, #container_home, #container_page, #container_user {
+    padding: 0px !important;
+    margin: 0px !important;
+    margin-bottom: 50px !important;
+}
+
+
 .file_excerpt span.useract, .file_excerpt div.comments, .file_excerpt div.votes_up,
 .file_excerpt div.votes_down, #advsearch, #prev, #norm, .pagination #current, #next,
 .file_download_vote a, .file_comment_vote a, .download_file_metadata, .download_more_info,
@@ -17,10 +25,6 @@ div.icon, .awesome, .awesome:visited, #select_language_box, #select_language_box
     line-height: 19px !important;
 }
 
-.fixTop {
-    top:3px !important;
-}
-
 .magenta.awesome {
     background-color: #DF1279;
 }
@@ -29,6 +33,26 @@ div.icon, .awesome, .awesome:visited, #select_language_box, #select_language_box
     margin-top:25px !important;
 }
 
+.contentype {
+    left: -10px !important;
+}
+
 .comment_form #submit-element input {
     width: 150px !important;
+}
+
+#container_home input[type="submit"] {
+    top: -13px;
+}
+
+#container_home .fixTop {
+    top: -11px !important;
+}
+
+#container_search .fixTop {
+    top: 3px !important;
+}
+
+#container_search form.searchbox {
+    padding: 0px !important;
 }

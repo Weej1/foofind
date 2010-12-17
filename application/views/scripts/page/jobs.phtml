@@ -1,22 +1,21 @@
 <?=$this->headTitle()->append($this->translate('Ofertas de empleo'));?>
-   <div id="container_page">
-    <h2>Ofertas de empleo</h2>
-    <div class="page_text">
-        <div class="joboffer">
-        <h3>Administrador de sistemas operativos Linux/UNIX</h3>
-        <p>Buscamos una persona para desempeñar funciones de administrador de sistemas.</p>
-        <ul><lh>Se valorará especialmente conocimientos y experiencia en administración de:</lh>
-        <li>FreeBSD</li><li>CentOS</li><li>Ubuntu</li><li>Apache</li><li>MongoDB</li></ul>
-        <ul><lh>También se valorará:</lh>
-        <li>Conocimientos de hardware.</li>
-        <li>Conocimientos de programación con lenguajes de scripting, principalmente perl, php, bash (shell en general) y python.</li>
-        <li>Inglés.</li>
-        </ul>
-        <p>Lugar de trabajo: Madrid<br/>
-        Jornada: Completa</p>
-        </div>
+<h2>Ofertas de empleo</h2>
+<div class="page_text">
+    <div class="joboffer">
+    <h3>Administrador de sistemas operativos Linux/UNIX</h3>
+    <p>Buscamos una persona para desempeñar funciones de administrador de sistemas.</p>
+    <ul><lh>Se valorará especialmente conocimientos y experiencia en administración de:</lh>
+    <li>FreeBSD</li><li>CentOS</li><li>Ubuntu</li><li>Apache</li><li>MongoDB</li></ul>
+    <ul><lh>También se valorará:</lh>
+    <li>Conocimientos de hardware.</li>
+    <li>Conocimientos de programación con lenguajes de scripting, principalmente perl, php, bash (shell en general) y python.</li>
+    <li>Inglés.</li>
+    </ul>
+    <p>Lugar de trabajo: Madrid<br/>
+    Jornada: Completa</p>
     </div>
-    <h2>Envíanos tus datos</h2>
+</div>
+<h2>Envíanos tus datos</h2>
 <form enctype="multipart/form-data" action="<?=$this->escape ( $this->form->getAction () )?>" method="<?=$this->escape ( $this->form->getMethod () )?>">
     <?php
     if (isset ( $this->error )) :
@@ -37,4 +36,3 @@
             </span>
             <? echo $this->form->submit; ?>
 </form>
-</div>

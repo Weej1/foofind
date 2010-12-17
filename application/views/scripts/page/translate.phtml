@@ -1,12 +1,10 @@
 <?=$this->headTitle()->append($this->translate('Translate'));?>
-<div id="container_page">
-    <h2><?=$this->translate('Help us to translate Foofind.com to your language')?></h2>
-    <div class="page_text translate">
-        <?=$this->translate('translate text');?>
+<h2><?=$this->translate('Help us to translate Foofind.com to your language')?></h2>
+<div class="page_text translate">
+    <?=$this->translate('translate text');?>
 <?php if (isset ( $this->error )) :?>
 <div class="error"><?=$this->escape ( $this->error );?></div>
 <?php endif;?>
-        <br/><?=$this->langsform?>
+    <br/><?=$this->langsform?>
 <? if ($this->newlang!=null) echo '<div>'.$this->textsform.'</div>'; ?>
-    </div>
 </div>

@@ -6,7 +6,7 @@ class Model_Users
     {
         if (!isset($this->db))
         {
-            $db = Zend_Registry::get("db_main");
+            $db = Zend_Registry::get("db_users");
             if (!$db->connected) $db->connect();
             $this->db = $db->foofind;
         }

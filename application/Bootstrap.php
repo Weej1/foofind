@@ -13,17 +13,38 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontend = new Zend_Cache_Core(array('caching' => true, 'lifetime' => 3600,
                         'cache_id_prefix' => 'foofind', 'automatic_serialization' => true) );
         $cache = Zend_Cache::factory( $frontend, $backend );
+        
+        //$this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $total, array( 'locale' => $this->view->lang));
+
 
         // databases connections
         $main = new Mongo($config->mongo->server, array("connect"=>false));
+        $users = new Mongo($config->mongo->users, array("connect"=>false));
         $oldids = new Mongo($config->mongo->oldids, array("connect"=>false));
 
         //registry set
         Zend_Registry::set('db_main', $main);
+        Zend_Registry::set('db_users', $users);
         Zend_Registry::set('db_oldids', $oldids);
 
         Zend_Registry::set('cache', $cache);
         Zend_Registry::set('config', $config);
+
+
+        $key = "files_count";
+        $existsCache = $cache->test($key);
+        if  ( $existsCache  ) {
+            //cache hit, load from memcache.
+            $total = $cache->load( $key  );
+        } else {
+            require_once APPLICATION_PATH . '/models/Files.php';
+            $model = new Model_Files();
+            $total = $model->countFiles();
+            unset($model);
+            $cache->save( $total, $key, array(), 60 );
+        }
+
+        Zend_Registry::set('files_count', $total);
     }
 
     protected function _initDoctype()
@@ -37,6 +58,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->jQuery()->enable();
         if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE)
             $view->jQuery()->addJavascriptFile("/js/jquery.msbr.min.js");
+
+        date_default_timezone_set('Europe/Madrid');
     }
 
     protected function _initAutoload()

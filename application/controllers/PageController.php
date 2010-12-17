@@ -363,9 +363,10 @@ El equipo Foofind.
             $request = $this->getRequest ();
             $form = $this->_getJobsForm();
 
-
             // check to see if this action has been POST'ed to
             if ($this->getRequest ()->isPost ()) {
+
+
                 $values = $form->getValues();
                 // now check to see if the form submitted exists, and
                 // if the values passed in are valid for this form
