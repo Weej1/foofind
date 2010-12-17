@@ -5,7 +5,6 @@ class IndexController extends Zend_Controller_Action
 {
     public function init()
     {
-        require_once APPLICATION_PATH . '/models/Files.php';
         
         // validate domain foofind
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
@@ -42,9 +41,15 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $model = new Model_Files();
-        $total = $model->countFiles();
-        $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $total, array( 'locale' => $this->view->lang));
+
+        $f = new Zend_Filter();
+        //$f->addFilter(new Zend_Filter_HtmlEntities($encoding));
+        $f->addFilter(new Zend_Filter_StringTrim());
+        $f->addFilter(new Zend_Filter_StripTags($encoding));
+
+        $type = $this->_getParam('type');
+        $type = $f->filter ( $type );
+        $this->view->qs = array('type'=>$type);
 
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
@@ -66,17 +71,33 @@ class IndexController extends Zend_Controller_Action
             'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge',
              
         ));
-
+        $form->addElement('hidden', 'type', array('value'=>$type));
         $form->setAction( '/'. $this->view->lang.'/search/');
         $form->loadDefaultDecoratorsIsDisabled(false);
         foreach($form->getElements() as $element) {
             $element->removeDecorator('DtDdWrapper');
             $element->removeDecorator('Label');
-
         }
+
+        $jquery = $this->view->jQuery();
+        $jquery->enable(); // enable jQuery Core Library
+
+        // get current jQuery handler based on noConflict settings
+        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+        
+        $onload = '(".tabs a").click(function(event) '
+                  . '{'
+                  . '   event.preventDefault();'
+                  . '   $(".tabs a").removeClass("actual");'
+                  . '   $(this).addClass("actual");'
+                  . '   var v=$(this).attr("t");'
+                  . '   $("#type").val(v);'
+                  . '});';
+
+        $jquery->addOnload($jqHandler . $onload);
+
         // assign the form to the view
         $this->view->form = $form;
-        unset($model);
     }
 
     public function queryAction()

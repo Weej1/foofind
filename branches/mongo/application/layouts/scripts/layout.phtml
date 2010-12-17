@@ -1,17 +1,15 @@
 <? include_once("header_common.phtml");?>
 <div class="content">
-<?=$this->layout()->content ?>
-    <div id="footer_main" >
-
-        <p><?=$this->translate('this is the footer text');  ?></p>
-            <div id="footer-navigation" >
-                <a class="navtype" href="/<?= $this->lang ?>/page/legal/"><?= $this->translate('Legal'); ?></a>
-                <a class="navtype" href="/<?= $this->lang ?>/page/tos"><?= $this->translate('Terms'); ?></a>
-                <a class="navtype" href="/<?= $this->lang ?>/page/privacy"><?= $this->translate('Privacy'); ?></a>
-                <a class="navtype" href="/<?= $this->lang ?>/index/lastfiles" ><?=$this->translate('Last indexed files'); ?></a>
-            </div><br>
-        
-   </div>
+    <?=$this->layout()->content ?>
+    <div id="footer" >
+        <span id="footer_links">
+            <a class="navtype" href="/<?= $this->lang ?>/page/legal/"><?= $this->translate('Legal'); ?></a>
+            <a class="navtype" href="/<?= $this->lang ?>/page/tos"><?= $this->translate('Terms'); ?></a>
+            <a class="navtype" href="/<?= $this->lang ?>/page/privacy"><?= $this->translate('Privacy'); ?></a>
+            <a class="navtype" href="/<?= $this->lang ?>/index/lastfiles" ><?= Zend_Locale_Format::toNumber(  Zend_Registry::get("files_count"), array( 'locale' => $this->lang))?> <?=$this->translate('indexed files'); ?></a>
+        </span>
+        <span id="footer_text"><?=$this->translate('this is the footer text');  ?></span>
+    </div>
 </div>
 </body>
 </html>
