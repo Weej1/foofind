@@ -173,6 +173,8 @@
 
 
 
+"Your email:";"La tua e-mail"
+"Your message:";"Il tuo messaggio"
 
 
 
@@ -186,19 +188,13 @@
 
 
 
-
-
-
+"Message sent successfully!";"Messaggio spedito con successo"
 
 #complaint
 "Your name:";"Il tuo nome"
 "Your surname:";"Il tuo cognome"
-
-
-
-
-
-
+"Your company:";"La tua compagnia"
+"Your phone number:";"Il tuo numero di telefono"
 
 
 

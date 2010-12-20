@@ -30,7 +30,7 @@ class Form_Jobs extends Zend_Form {
                 )));
 
                 $this->addElement ( 'captcha', 'captcha', array ('label' => 'Please, insert the 5 characters shown:', 'required' => true,
-                    'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 300,
+                    'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 1500,
                      'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
 
