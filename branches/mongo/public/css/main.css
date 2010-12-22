@@ -4,6 +4,7 @@
 }
 
 html, body {
+    min-height: 500px;
     min-width: 1024px;
     margin:0;
     padding:0;
@@ -75,7 +76,7 @@ dd#src-element label{
 }
 
 .content {
-    min-height:100%;
+    min-height: 100%;
     position:relative;
 }
 
@@ -91,6 +92,11 @@ input#q {
 
 #container_home {
     text-align: center;
+    position:absolute;
+    bottom:0px;
+    top:0px;
+    left:0px;
+    right:0px;
 }
 
 #container_search, #container_home, #container_page, #container_user {
@@ -112,12 +118,10 @@ input#q {
 
 
 #container_home .logo {
-    margin-top: 90px;
-    margin-bottom: 10px;
+    margin-top:-27px;
     display: inline-block;
     height: 102px;
-    width: 286px;
-    background: transparent url(/images/logo.gif) no-repeat scroll 0 0;
+    background: transparent url(/images/logo.gif) no-repeat scroll center 0;
 }
 
 #container_home .logo p{
@@ -142,19 +146,16 @@ input#q {
 #container_home .social_widgets {
     display: inline-block;
     text-align: center;
-    min-height:60px;
-    margin: 20px;
 }
 
 #container_home .social_widgets iframe {
-
     vertical-align: top;
     display: inline-block;
 }
 
 #container_home .search
 {
-    margin: 40px;
+    margin-top:-90px;
     display: block;
 }
 
@@ -226,6 +227,17 @@ input#q {
     margin:10px;
 }
 
+#valign_home {
+    height: 33%;
+    position: relative;
+}
+
+#valign_home > div {
+    position:absolute;
+    top:50%;
+    left:0px;
+    right:0px;
+}
 .logo_site div {
     width: 170px;
     height: 67px;
