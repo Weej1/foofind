@@ -33,7 +33,7 @@ if (count ( $this->mensajes ) > 0) {
         <div class="top_download">
         <div class="download_button">
             <div class="icon icon50 <?=strtolower($this->file['view']['type']) ?>50"></div><br />
-            <a title="<?=$this->translate($this->file['view']['action'])?>" class="superlarge magenta awesome" href="<?=$this->formatURL($this->file['view']['sources'][$this->file['view']['source']]['urls'][0])?>"><?=$this->translate($this->file['view']['action']).((isset($this->file['file']['z']) && $this->file['file']['z']>0)?" (".$this->formatSize($this->file["file"]["z"]).')':'');?></a>
+            <a target="_blank" title="<?=$this->translate($this->file['view']['action'])?>" class="superlarge magenta awesome" href="<?=$this->formatURL($this->file['view']['sources'][$this->file['view']['source']]['urls'][0])?>"><?=$this->translate($this->file['view']['action']).((isset($this->file['file']['z']) && $this->file['file']['z']>0)?" (".$this->formatSize($this->file["file"]["z"]).')':'');?></a>
          </div>
         <div class="download_file_metadata"><? echo $this->format($this->file, true); ?></div>
        </div>
