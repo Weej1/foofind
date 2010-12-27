@@ -7,7 +7,7 @@ class TimeSpan_View_Helper extends Zend_View_Helper_Abstract
     {
         $this->dateParts = array("y"=>"year", "M"=>"month", "d"=>"day", "h"=>"hour", "m"=>"minute", "s"=>"second");
         $this->now = Zend_Date::now()->toValue();
-        if ($worldBeginning==null) $worldBeginning = new Zend_Date(0);
+        if ($this->worldBeginning==null) $this->worldBeginning = new Zend_Date(0);
     }
 
     function show_date_span($date)
