@@ -4,10 +4,11 @@
 "Legal";"Légal"
 "Terms";"Termes"
 "Privacy";"Privé"
-
+"Report link";"Lien reporté"
 "Source code";"Code source"
 "files indexed";"fichiers indexés"
 "Last indexed files";"Derniers fichiers indexés"
+
 
 #search
 "Search";"Rechercher"
@@ -21,7 +22,7 @@
 "Archive";"Archives"
 
 "No results for:";"Pas de résultat pour :"
-
+"Hey! Write something";"Hé! Ecrit quelque chose"
 "Previous";"Précédent"
 "Next";"Suivant"
 "sources";"Sources"
@@ -115,7 +116,7 @@
 "logout";"se déconnecter"
 "login";"se connecter"
 "Login";"Connexion"
-
+"new user";"nouvel utilisateur"
 "New user";"Nouvel utilisateur"
 "or";"ou"
 "Register";"S'enregistrer"
@@ -125,21 +126,21 @@
 
 
 
+"Your location:";"Votre lieu de résidence"
+
+"Save profile";"Sauvegarder votre profil"
 
 
 
 
-
-
-
-
-"Password:";"Code"
+"your password?";"votre mot de passe ?"
+"Password:";"Mot de passe:"
 
 
 "Yes";"Oui"
 "Your account has been deleted.";"Votre accompte a ete suprime"
 
-
+"profile";"profil"
 
 
 
