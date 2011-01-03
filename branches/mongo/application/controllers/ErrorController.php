@@ -5,7 +5,8 @@ class ErrorController extends Zend_Controller_Action
 
     public function init(){
         $this->_helper->layout()->setLayout('error');
-        $this->view->lang =  $this->_helper->checklang->check();
+        $this->view->lang = $this->_helper->checklang->check();
+        $this->view->langtest =  $this->_helper->checklang->isTest();
     }
 
     public function errorAction()

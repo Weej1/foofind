@@ -15,6 +15,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $cache = Zend_Cache::factory( $frontend, $backend );
         
         //$this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $total, array( 'locale' => $this->view->lang));
+        Zend_Registry::set('languages', array('en'=>'English', 'es'=>'Español', 'fr'=>'Français', 'it'=>'Italiano' ));
 
 
         // databases connections
@@ -74,7 +75,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initZFDebug()
     {
 
-        if (APPLICATION_ENV!='production')
+        if (APPLICATION_ENV=='development')
         {
 
             $autoloader = Zend_Loader_Autoloader::getInstance();

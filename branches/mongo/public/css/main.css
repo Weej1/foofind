@@ -75,6 +75,21 @@ dd#src-element label{
     color: #0003CC !important;
 }
 
+#beta_translation
+{
+    position:absolute;
+    z-index:20;
+    background: #FFFF99;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.content.beta_translation #container_search,.content.beta_translation #container_home,
+.content.beta_translation #container_page,.content.beta_translation #container_user
+{
+    padding-top:30px !important;
+}
+
 .content {
     min-height: 100%;
     position:relative;
@@ -336,7 +351,7 @@ input#q {
 #container_search form.searchbox{
     position: relative;
     display: block;
-    width: 468px;
+    width: 500px;
     padding-left: 185px; /*reserve the a logo space to fix it*/
     top: 25px;
 }
@@ -1225,11 +1240,10 @@ div.icon50 {
 }
 
 #select_language_box {
-    background: url(/images/flags.png) no-repeat 0px -22px;
     position:absolute;
     top:0px;
     right:0px;
-    border: 1px solid white;
+    border: 1px solid transparent;
     height: 20px;
     display: inline-block;
     overflow: hidden;
