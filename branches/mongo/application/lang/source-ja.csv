@@ -7,7 +7,8 @@
 "Report link";"リンクレポート"
 "Source code";"ソースコード"
 "files indexed";"インデックスファイル"
-
+"Last indexed files";"最後に、ファイルは索引をつけました。"
+"I. Want. That. File.";"私は欲しいです。 それ。 ファイルします。"
 
 #search
 "Search";"検索"
@@ -27,10 +28,10 @@
 "sources";"ソース"
 
 
-
-
-
-
+"NoTypeCount";"結果は全く…でのあなたの検索に関して見つけられませんでした。, しかし、…結果があなたの検索のために周囲に他のカテゴリにあります。"
+"Foofind does not allow browse results after page 1000.";"Foofindは1000年ページ以降、ブラウズの結果を許容しません。"
+"How to download?";"ダウンロードする方法?"
+"DownloadExplanation";"繋がっているファイルをダウンロードするために、あなたは外部のソフトウェアを必要としたかもしれません。 ここに、いくつかのコンパチブル利用があります:"
 
 #advanced search
 

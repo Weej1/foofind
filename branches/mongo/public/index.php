@@ -26,9 +26,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 //define the static assets path
-if ( APPLICATION_ENV == 'development' ){
-    defined('STATIC_PATH') ||  define('STATIC_PATH',  '');
-} else {
+if ( APPLICATION_ENV == 'production' ){
     defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foof.in');
     defined('WEB_PATH') || define('WEB_PATH', 'http://foofind.com');
 
@@ -38,6 +36,8 @@ if ( APPLICATION_ENV == 'development' ){
         header("Location: ".WEB_PATH.$_SERVER["REQUEST_URI"]);
         exit();
     }
+} else {
+    defined('STATIC_PATH') ||  define('STATIC_PATH',  '');
 }
 
 require_once 'Zend/Application.php';
