@@ -1287,9 +1287,14 @@ div.icon50 {
 .flag.en{
     background-position: -96px -11px;
 }
-
 .flag.es{
     background-position: 0px 0px;
+}
+.flag.fr{
+    background-position: -80px 0px;
+}
+.flag.it{
+    background-position: -80px -11px;
 }
 
 .shake {
