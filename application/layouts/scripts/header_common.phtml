@@ -21,12 +21,14 @@ echo $this->doctype(); ?>
         <link rel="shortcut icon" href="<?= STATIC_PATH; ?>/images/favicon.ico" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?= $this->lang ?>.xml" title="Foofind" />
         <?
-        //set hreflang for best multilanguage indexing by crawlers
-        if ($this->lang == 'es') {
-            $this->headLink(array('rel' => 'alternate', 'hreflang' => 'en', 'href' => str_replace('/es/', '/en/', $_SERVER['SCRIPT_URI'])), 'APPEND');
-        }
-        if ($this->lang == 'en') {
-            $this->headLink(array('rel' => 'alternate', 'hreflang' => 'es', 'href' => str_replace('/en/', '/es/', $_SERVER['SCRIPT_URI'])), 'APPEND');
+        foreach (Zend_Registry::get("languages") as $lang=>$name) {
+            if ($this->lang == $lang) continue;
+            $href = $_SERVER['SCRIPT_URI'];
+            if (strstr($href, "/{$this->lang}/"))
+                $href = str_replace("/{$this->lang}/", "/$lang/", $href);
+            else
+                $href .= "$lang/";
+            $this->headLink(array('rel' => 'alternate', 'hreflang' => $lang, 'href' => $href), 'APPEND');
         }
         ?>
         <? echo $this->headLink(); ?>
@@ -37,7 +39,10 @@ echo $this->doctype(); ?>
         <script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_setDomainName', '.foofind.com']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
     </head>
     <body>
+        <?if ($this->langtest):?><div id="beta_translation"><?=$this->translate("BetaTranslation", "/{$this->lang}/page/translate?lang={$this->lang}")?></div><?endif;?>
+
         <div id="header" >
+        
             <div id="header-navigation" >
                 <div class="user_login_box">
                     <?php
@@ -54,11 +59,11 @@ echo $this->doctype(); ?>
                     } ?>
                 </div>&nbsp;&nbsp;
                 <div id="select_language_box">
-                    <a class="lang<?=($this->lang=='en')?" active":""?>" href='/en/index/setlang'><div class="flag en"></div><span>English</span></a>
-                    <a class="lang<?=($this->lang=='es')?" active":""?>" href='/es/index/setlang'><div class="flag es"></div><span>Español</span></a>
-                    <a class="lang<?=($this->lang=='fr')?" active":""?>" href='/fr/index/setlang'><div class="flag fr"></div><span>Français</span></a>
-                    <a class="lang<?=($this->lang=='it')?" active":""?>" href='/it/index/setlang'><div class="flag it"></div><span>Italiano</span></a>
-                    <a class="" href='/<?=$this->lang?>/page/translate'>Other...</a>
+                    <?php
+                    foreach (Zend_Registry::get("languages") as $lang=>$name): ?>
+                    <a class="lang<?=($this->lang==$lang)?" active":""?>" href='/<?=$lang?>/index/setlang'><div class="flag <?=$lang?>"></div><span><?=$name?></span></a>
+                    <?php endforeach;?>
+                    <a href='/<?=$this->lang?>/page/translate'>Other...</a>
                 </div>
             </div>
         </div>

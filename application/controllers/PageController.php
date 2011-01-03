@@ -18,6 +18,7 @@ class PageController extends Zend_Controller_Action
             $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
             $this->view->mensajes = $this->_flashMessenger->getMessages ();
             $this->view->lang =  $this->_helper->checklang->check();
+            $this->view->langtest =  $this->_helper->checklang->isTest();
 
         }
 
@@ -49,91 +50,90 @@ class PageController extends Zend_Controller_Action
             $newlangs = array('de'=>'Deutsch', 'fr'=>'Français',  'it'=>'Italiano', 'ja'=>html_entity_decode('&#26085;&#26412;&#35486;', ENT_COMPAT, 'UTF-8'), 'pt'=>'Português', 'tr'=>'Türkçe', 'zh'=>html_entity_decode('&#31616;&#20307;&#20013;&#25991;', ENT_COMPAT, 'UTF-8') );
             
             $lform = new Zend_Form();
-            $lform->setMethod ( 'post' );
+            $lform->setMethod ( 'get' );
+            $lform->addElement ( 'select', 'lang', array ('multiOptions' => $newlangs));
+            $elem_newlang = $lform->getElement('lang');
+            $elem_newlang->removeDecorator('label')->removeDecorator('HtmlTag')->setAttrib('onchange','this.form.submit()');
 
-            $lform->addElement ( 'select', 'safe_newlang', array ('multiOptions' => $newlangs));
-            $elem_newlang = $lform->getElement('safe_newlang');
-            $elem_newlang->removeDecorator('label')->removeDecorator('HtmlTag');
-
-            // add the submit button
-            $lform->addElement ( 'submit', 'changelang', array ('label'=>'Choose language', 'class'=>'magenta awesome') );
-
-            $lform->getElement('changelang')->removeDecorator('DtDdWrapper');
-            
             $lform->populate($request->getParams());
             $newlang = $elem_newlang->getValue();
-            
+
+
             $this->view->langsform = $lform;
 
-            if ($request->isPost()) {
-                if ($newlang!=null){
-                    if (array_key_exists($newlang, $newlangs))
-                        $this->view->newlangtext = $newlangs[$newlang];
-                    else
-                        $newlang==null;
-                }
-                if ($newlang!=null){
-                    $options = array ('scan' => Zend_Translate::LOCALE_FILENAME );
-                    $translate = new Zend_Translate ( 'csv', FOOFIND_PATH . '/application/lang/', 'en', $options );
-                    $adapter = $translate->getAdapter();
-                    $es = $adapter->getMessages('es');
+            if ($newlang!=null){
+                if (array_key_exists($newlang, $newlangs))
+                    $this->view->newlangtext = $newlangs[$newlang];
+                else
+                    $newlang==null;
+            }
+            if ($newlang==null) {
+                $elem_newlang->clearMultiOptions();
+                $elem_newlang->addMultiOption("", "-- ".$this->view->translate("Choose language")." --");
+                 $elem_newlang->addMultiOptions($newlangs);
+            } else {
+                $options = array ('scan' => Zend_Translate::LOCALE_FILENAME );
+                $translate = new Zend_Translate ( 'csv', FOOFIND_PATH . '/application/lang/', 'en', $options );
+                $adapter = $translate->getAdapter();
+                $es = $adapter->getMessages('es');
+
+                if (strcmp($this->view->lang,$newlang)!=0)
                     $en = $adapter->getMessages($this->view->lang);
-                    $lang = $adapter->getMessages($newlang);
+                else
+                    $en = $adapter->getMessages('en');
 
-                    $tform = new Zend_Form();
-                    $tform->setMethod ( 'post' );
-                    $tform->setAttrib('class', 'texts');
+                $lang = $adapter->getMessages($newlang);
 
+                $tform = new Zend_Form();
+                $tform->setMethod ( 'post' );
+                $tform->setAttrib('class', 'texts');
+                $tform->setTranslator($adapter);
+                $tform->addElement ( 'captcha', 'safe_captcha', array (
+                    'label' => 'Please, insert the 5 characters shown:', 'required' => true,
+                    'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 300,
+                     'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
+                     'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
 
-                    $tform->addElement ( 'captcha', 'safe_captcha', array (
-                        'label' => 'Please, insert the 5 characters shown:', 'required' => true,
-                        'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 300,
-                         'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
-                         'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
+                $index = 0;
+                foreach ($es as $key => $text)
+                {
+                    if (strpos($key, "safe_")===0) continue;
 
-                    $index = 0;
-                    foreach ($es as $key => $text)
-                    {
-                        if (strpos($key, "safe_")===0) continue;
+                    if (array_key_exists($key, $en))
+                       $text = $en[$key];
+                    else
+                       $text = $key;
 
-                        if (array_key_exists($key, $en))
-                           $text = $en[$key];
-                        else
-                           $text = $key;
+                    $text = preg_replace("/(\<[^\>]*>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $text);
+                    $text = preg_replace("/(\<[^\>]*\>)/", "", $text);
+                    $text = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $text);
 
-                        $text = preg_replace("/(\<[^\>]*>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $text);
-                        $text = preg_replace("/(\<[^\>]*\>)/", "", $text);
-                        $text = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $text);
-                        if (array_key_exists($key, $lang))
-                           $val = $lang[$key];
-                        else
-                           $val = '';
+                    if (array_key_exists($key, $lang))
+                       $val = $lang[$key];
+                    else
+                       $val = '';
 
-                        $maxlen = strlen($text)*2;
-                        if ($maxlen<20) $maxlen=20;
-                        if ($maxlen<100) $type = "text"; else {
-                            $type = "textarea";
-                            $rows = $maxlen/50;
-                        }
-                        $tform->addElement ( $type, "text$index", array (
-                            'validators' => array (array ('StringLength', false, array (1, $maxlen ) ) ), 'required' => false,
-                            'label' => $text, 'value' => $val, 'cols'=>40, rows=>$rows) );
-                        $input = $tform->getElement("text$index");
-                        $valid = $input->getValidator("StringLength")->setEncoding('UTF-8');
-                        $index++;
+                    $maxlen = strlen($text)*2;
+                    if ($maxlen<20) $maxlen=20;
+                    if ($maxlen<100) $type = "text"; else {
+                        $type = "textarea";
+                        $rows = $maxlen/50;
                     }
 
-                    $tform->addElement('hidden', 'safe_newlang', array("value"=>$newlang));
-
-
-                    $tform->getElement('safe_newlang')->removeDecorator('label')->removeDecorator('HtmlTag');
-                    // add the submit button
-                    $tform->addElement ( 'submit', 'submit_texts', array ('label' => 'Send texts', 'class'=>'magenta awesome') );
-                    $this->view->textsform = $tform;
-
+                    $tform->addElement ( $type, "text$index", array (
+                        'validators' => array (array ('StringLength', false, array (1, $maxlen ) ) ), 'required' => false,
+                        'label' => $text, 'value' => $val, 'cols'=>40, rows=>$rows) );
+                    $input = $tform->getElement("text$index");
+                    $valid = $input->getValidator("StringLength")->setEncoding('UTF-8');
+                    $index++;
                 }
+                // add the submit button
+                $tform->addElement ( 'submit', 'submit_texts', array ('label' => 'Send texts', 'class'=>'magenta awesome') );
+                $this->view->textsform = $tform;
+
                 $this->view->newlang = $newlang;
                 $tform->populate($request->getParams());
+
                 if ($tform->getElement("submit_texts")->getValue()!=null)
                 {
                     $data = $tform->getValues();
@@ -143,7 +143,7 @@ class PageController extends Zend_Controller_Action
                         $index = 0;
                         foreach ($es as $key => $text)
                         {
-                            if (strpos($key, "safe_")===0) continue;
+                            if (strpos($key, "safe_")===0 || strpos($key, "lang")===0) continue;
 
                             $mod = false;
                             $val = $data["text$index"];

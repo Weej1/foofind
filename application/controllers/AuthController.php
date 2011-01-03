@@ -4,7 +4,8 @@ class AuthController extends Zend_Controller_Action
     public function init()
     {
         $this->referer = $_SERVER['HTTP_REFERER'];
-        $this->view->lang =  $this->_helper->checklang->check();
+        $this->view->lang = $this->_helper->checklang->check();
+        $this->view->langtest =  $this->_helper->checklang->isTest();
 
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();

@@ -235,11 +235,12 @@ class SearchController extends Zend_Controller_Action {
         
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
+        $this->view->lang = $this->_helper->checklang->check();
+        $this->view->langtest =  $this->_helper->checklang->isTest();
         
     }
 
     public function indexAction() {
-        $this->view->lang = $this->_helper->checklang->check();
         
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');

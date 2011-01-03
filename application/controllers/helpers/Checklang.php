@@ -2,7 +2,7 @@
 
 class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Helper_Abstract {
 
-    static $langcodes = array('en'=>1, 'es'=>2);
+    static $langcodes = array('en'=>1, 'es'=>2, 'fr'=>3, 'it'=>4);
 
     function init()
     {
@@ -36,8 +36,12 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
         }
     }
 
-    function check(){;
+    function check(){
         return $this->lang;
+    }
+
+    function isTest(){
+        return $this->langtest;
     }
     
     function getcode($lang = null)

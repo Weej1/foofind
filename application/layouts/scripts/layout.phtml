@@ -1,5 +1,5 @@
 <? include_once("header_common.phtml");?>
-<div class="content">
+<div class="content<?php if ($this->langtest) { echo " beta_translation";}?>">
     <?=$this->layout()->content ?>
     <div id="footer" >
         <span id="footer_links">

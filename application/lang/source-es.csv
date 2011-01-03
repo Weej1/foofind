@@ -343,3 +343,5 @@ Foofind ofrece un servicio de búsqueda de archivos que genera resultados de for
 "Choose language";"Elegir idioma"
 "Your translation has been sent. Thanks for your help!";"Tu traducción ha sido enviada. ¡Gracias por la ayuda!"
 "Please, translate at least one text.";"Por favor, traduce al menos una frase antes de enviar."
+"BetaTranslation";"Esta traduccion está en fase de pruebas. Si encuentras algún fallo o texto sin traducir, por favor infórmanos <a href='%s'>aquí</a>."
+"Other";"Otro"

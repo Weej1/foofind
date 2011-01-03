@@ -12,7 +12,8 @@ class DownloadController extends Zend_Controller_Action
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
 
-        $this->view->lang =  $this->_helper->checklang->check();
+        $this->view->lang = $this->_helper->checklang->check();
+        $this->view->langtest =  $this->_helper->checklang->isTest();
         $this->view->langcode =  $this->_helper->checklang->getcode();
 
         $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.dimensions.min.js');
