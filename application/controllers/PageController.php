@@ -77,10 +77,8 @@ class PageController extends Zend_Controller_Action
                 $adapter = $translate->getAdapter();
                 $es = $adapter->getMessages('es');
 
-                if (strcmp($this->view->lang,$newlang)!=0)
-                    $en = $adapter->getMessages($this->view->lang);
-                else
-                    $en = $adapter->getMessages('en');
+                if (strcmp($this->view->lang,$newlang)!=0) $userlang = $adapter->getMessages($this->view->lang);
+                $en = $adapter->getMessages('en');
 
                 $lang = $adapter->getMessages($newlang);
 
@@ -99,25 +97,35 @@ class PageController extends Zend_Controller_Action
                 {
                     if (strpos($key, "safe_")===0) continue;
 
-                    if (array_key_exists($key, $en))
+                    if ($userlang && array_key_exists($key, $userlang))
+                       $text = $userlang[$key];
+                    elseif (array_key_exists($key, $en))
                        $text = $en[$key];
                     else
                        $text = $key;
-
-                    $text = preg_replace("/(\<[^\>]*>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $text);
-                    $text = preg_replace("/(\<[^\>]*\>)/", "", $text);
+                    
+                    $maxlen = strlen($text)*2;
+                    $text = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $text);
+                    $text = preg_replace("/(\<[^\>]*\>)/", " ", $text);
                     $text = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $text);
-
-                    if (array_key_exists($key, $lang))
-                       $val = $lang[$key];
-                    else
+                    
+                    if (array_key_exists($key, $lang)) {
+                        $val = $lang[$key];
+                        $maxlen = strlen($val)*2;
+                       
+                        $val = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $val);
+                        $val = preg_replace("/(\<[^\>]*\>)/", " ", $val);
+                        $val = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $val);
+                    } else
                        $val = '';
 
-                    $maxlen = strlen($text)*2;
                     if ($maxlen<20) $maxlen=20;
-                    if ($maxlen<100) $type = "text"; else {
+                    if ($maxlen<100) {
+                        $type = "text";
+                        $rows = 1;
+                    } else {
                         $type = "textarea";
-                        $rows = $maxlen/50;
+                        $rows = round($maxlen/50);
                     }
 
                     $tform->addElement ( $type, "text$index", array (
