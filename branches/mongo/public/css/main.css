@@ -85,7 +85,8 @@ dd#src-element label{
 }
 
 .content.beta_translation #container_search,.content.beta_translation #container_home,
-.content.beta_translation #container_page,.content.beta_translation #container_user
+.content.beta_translation #container_page,.content.beta_translation #container_user,
+.content.beta_translation #container_error
 {
     padding-top:30px !important;
 }

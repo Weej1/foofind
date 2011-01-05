@@ -1,5 +1,5 @@
 #main layout
-"About";"Hakkımızda" ***
+"About";"Hakkımızda"
 "Contact";"İletişim"
 "Legal";"Hukuki"
 "Terms";"Koşullar"
@@ -9,6 +9,8 @@
 "files indexed";"endekslenmiş dosya"
 "Last indexed files";"Son eklenen dosyalar"
 "I. Want. That. File.";"Bu. Dosayı. İstiyorum."
+
+#search
 "Search";"Ara"
 "All";"Tümü"
 "Direct downloads";"Doğrudan indirim"
@@ -19,6 +21,7 @@
 "Software";"Yazılım"
 "Archive";"Arşiv"
 "No results for:";"Sonuç bulunamadı:"
+
 "Hey! Write something";"Hey! Bir şeyler yazın"
 "Previous";"Önceki"
 "Next";"Sonraki"
@@ -29,6 +32,8 @@
 "Foofind does not allow browse results after page 1000.";"Foofind 1000. sayfadan sonra sonuç göstermez, üzgünüz."
 "How to download?";"Nasıl indirebilirim?"
 "DownloadExplanation";"Bağlantısı bulunan dosyayı indirmek için harici bir yazılıma ihtiyacınız olabilir. İşte birkaç uyumlu uygulamalar:"
+
+#advanced search
 "All sizes";"Tüm boyutlar"
 "advanced search";"Gelişmiş Arama"
 "hide advanced search";"Gelişmiş aramayı sakla"
@@ -39,6 +44,8 @@
 "All years";"Tüm yıllar"
 "Before";"Bu tarihten önce:"
 "Last year";"Geçen sene"
+
+#metadata
 "Artist";"Sanatçı"
 "Title";"Başlık"
 "Author";"Yaratıcı"
@@ -78,6 +85,8 @@
 "minutes";"dakika"
 "second";"saniye"
 "seconds";"saniye"
+
+#download
 "Loading...";"Yükleniyor"
 "Close";"Kapat"
 "Share this:";"Paylaş"
@@ -95,6 +104,8 @@
 "Booo!";"Öfki ne öf!"
 "Comment published succesfully!";"Yorum başarıyla yayımlandı"
 "Related files";"Benzer dosyalar"
+
+#user profile
 "Choose your password:";"Şifrenizi seçiniz"
 "Insert your password (yep, again):";"Şifrenizi giriniz (evet, yeniden):"
 "Please, fill this form to be a Foofind registered member:";"Foofind'a kayıt olmak için lütfen bu formu doldurunuz:"
@@ -124,7 +135,7 @@
 "Forgot";"Unuttunuz mu"
 "your password?";"şifrenizi?"
 "Password:";"Şifre:"
-"'%password%' is less than 5 characters long";"... 5 karakterden kısa olmalıdır"
+"'%password%' is less than 5 characters long";"'%password%' 5 karakterden kısa olmalıdır"
 "Are you sure you want to delete your foofind account?";"Hesabınızı silmek istediğinizden emin misiniz ?"
 "Yes";"Evet"
 "Your account has been deleted.";"Hesabınız silinmiştir."
@@ -153,11 +164,14 @@
 
 
 
+
 "Send";"Gönder"
 
 "This email is not in our database. Please, try again.";"Bu e-mail veritabanımızda bulunmamaktadır. Yeniden deneyiniz."
 "Please, login to vote";"Oy vermek için giriş yapınız."
 "Please, login to comment";"Yorumlamak için giriş yapınız."
+
+#contact
 "Contact form";"İletişim formu"
 
 "Your email:";"E-mail adresiniz:"
@@ -175,6 +189,8 @@
 
 
 "Message sent successfully!";"Mesaj başarıyla gönderilmiştir!"
+
+#complaint
 "Your name:";"İsminiz:"
 "Your surname:";"Soyadınız:"
 "Your company:";"Firmanız:"
@@ -183,14 +199,144 @@
 "Please, insert the url where this content appears:";"Lütfen bu içeriğin bulunduğu URL'i giriniz:"
 "Reason of your complaint:";"Şikayetinizin nedeni:"
 
-"literal_check_agree";"Kullanım şartları ile gizlilik kurallarını okudum ve kabul ediyorum."
+"literal_check_agree";"<a href='/tr/page/tos'>Kullanım şartları</a> ile <a href='/tr/page/privacy'>gizlilik kurallarını</a> okudum ve kabul ediyorum."
 "Please, accept the terms of use and privacy policy";"Lütfen kullanım şartlarını ve gizlilik kurallarını kabul ediniz"
 
-"this is the footer text";"Foofind web sitesi Creative Commons BY-NC-SA lisansı altındadır. Kaynak kodu GPLv3 lisansı altındadır."
+#about
+
+
+#footer
+"this is the footer text";"<a href='/tr/page/about'>Foofind</a> web sitesi Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.tr'>BY-NC-SA</a> lisansı altındadır. <a href='http://code.google.com/p/foofind/'>Kaynak kodu</a> <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a> lisansı altındadır."
 "Last indexed files.";"Son endekslenen dosyalar."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#tos
 "Terms of use";"Kullanım şartları"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#error
 "Foofind.com is under maintenance. Please, come back later.";"Foofind.com bakımdadır. Daha sonra tekrar ziyaret ediniz."
 "This link does not exist or may have been deleted!";"Bu bağlantı yoktur ya da silinmiş olabilir!"
+
+#translate
 "Translate";"Tercüme"
 "Help us to translate Foofind.com to your language";"Foofind.com'u dilinize çevirmemize yardım edin"
 
