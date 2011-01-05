@@ -28,7 +28,7 @@
 "sources";"Sources"
 "of about";"sur environ"
 "results for";"Résultats pour"
-"NoTypeCount";"Aucun résultat n'a été trouvé pour votre recherche de <i>%s</i>, mais il y a environ %d résultats pour votre recherche dans des autres catégories."
+"NoTypeCount";"Aucun résultat n'a été trouvé pour votre recherche de <i>%s</i>, mais il y a environ %d résultats pour votre recherche dans des <a href='%s'>autres catégories</a>."
 "Foofind does not allow browse results after page 1000.";"Foofind ne permet pas d'afficher les résultats après 1000 pages."
 "How to download?";"Comment télécharger"
 "DownloadExplanation";"Vous pourriez avoir besoin de télécharger un logiciel externe. Voici quelques applications compatibles :"
@@ -96,7 +96,7 @@
 "Download";"Télécharger"
 "Watch";"Visionner"
 "Your comments";"Vos commentaires"
-"since";" %d %s en arrière"
+"since";"%d %s en arrière"
 "Post comment";"Poster un commentaire"
 "Add a comment";"Ajouter un commentaire"
 "from";"de"
@@ -173,7 +173,7 @@
 
 #contact
 "Contact form";"Formulaire de contact"
-"Note: If you are claiming for a link removal, you must use <a href='complaint'>report link form</a>. Complaints done trough this form will be ignored.";"Note : si vous réclamez la suppression d'un lien, vous devez utiliser le <a href='complaint'>formulaire pour signaler un lien</a>. Les plaintes envoyés depuis ce formulaire seront ignorés."
+"Note: If you are claiming for a link removal, you must use <a href='/fr/page/complaint'>report link form</a>. Complaints done trough this form will be ignored.";"Note : si vous réclamez la suppression d'un lien, vous devez utiliser le <a href='complaint'>formulaire pour signaler un lien</a>. Les plaintes envoyés depuis ce formulaire seront ignorés."
 "Your email:";"Votre e-mail :"
 "Your message:";"Votre message :"
 "Please, insert the 5 characters shown:";"Veuillez entrer les 5 caractères affichés :"

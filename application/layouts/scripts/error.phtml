@@ -8,7 +8,7 @@
         <? include_once("header_common_nosearch.phtml");?></head>
     <body>
         <div id="header" ></div>
-        <div class="content">
+        <div class="content<?php if ($this->langtest) { echo " beta_translation";}?>">
             <div id="container_error">
                 <h1>
                     <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
