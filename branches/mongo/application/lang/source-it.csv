@@ -8,6 +8,7 @@
 "Source code";"Codice Sorgente"
 "files indexed";"File Indicizzati"
 "Last indexed files";"Ultimi File Indicizzati"
+"I. Want. That. File.";"Io. Voglio. Quel. File."
 
 #search
 "Search";"Cerca"
@@ -84,6 +85,8 @@
 "minutes";"minuti"
 "second";"secondo"
 "seconds";"secondi"
+
+#download
 "Loading...";"Caricamento..."
 "Close";"Chiudi"
 "Share this:";"Condividi questo:"
@@ -105,9 +108,7 @@
 #user profile
 "Choose your password:";"Scegli la tua password:"
 "Insert your password (yep, again):";"Inserisci la tua password (ancora una volta):"
-
-
-
+"Please, fill this form to be a Foofind registered member:";"Per favore, riempi il modulo per essere un membro registrato di Foofind:"
 "Nickname:";"Nickname:"
 "Edit your profile";"edita il tuo profilo"
 "Your profile was edited succesfully!";"Il tuo profilo è stato aggiornato con successo!"
@@ -122,60 +123,59 @@
 "(If you are a new user, please";"(Se sei un nuovo utente,"
 "register here";"registrati qui"
 "Choose a nickname:";"Scegli uno pseudonimo"
-
-
+"Please, fill this form to be a Foofind registered member.";"Per favore, riempi il modulo per essere un membro registrato di Foofind."
+"User login";"Login"
 "Remember me";"Ricordati di me"
-
-
+"Your location:";"Luogo:"
+"Change your password here: (otherwise leave it blank)";"Cambia qui la tua password:(altrimenti lascia in bianco)"
 "Save profile";"Salva profilo"
-
+"You are not allowed to view this page";"Non sei autorizzato a vedere questa pagina"
 "This username is taken. Please choose another one.";"Questa username è già occupata. Per favore sceglierne una diversa."
 "This email is taken. Please use another one.";"Questa username è già occupata. Per favore sceglierne una diversa."
+"Forgot";"Dimenticata"
+"your password?";"la tua password?"
+"Password:";"Password:"
+"'%password%' is less than 5 characters long";"'%password%' è meno di 5 caratteri"
+"Are you sure you want to delete your foofind account?";"Sei sicuro di voler cancellare il tuo account di Foofind?"
+"Yes";"Sì"
+"Your account has been deleted.";"Il tuo account è stato cancellato"
+"Nice to hear that";"E' bello sentire che"
+"profile";"profilo"
+"edit profile";"cambia profilo"
+"User name:";"Nome user:"
+"Member since:";"Membro da:"
+"Last 5 comments:";"Ultimi 5 commenti:"
+"Location:";"Luogo:"
+"Delete your foofind.com account";"Cancella il tuo account di foofind.com"
+"Forgot your password?";"Dimenticata la tua password?"
+"Wrong email or password, please try again";"Email o password errata, per favore prova di nuovo"
+"Welcome";"Benvenuto"
+"Please, click on this url to finish your register process:";"Per favore, clicca su questo url per completare la tua registrazione:"
+"Sorry, this token does not exist or has been already used";"Spiacenti, questo gettone non esiste o è già stato usato"
+", confirm your email";", conferma la tua email"
+", restore your foofind access";", ripristina il tuo accesso foofind"
+"Please, enter your email address. An email to recover your access will be sent to you.";"Per favore, immetti il tuo indirizzo mail. Una email verrà inviata per ripristinare il tuo accesso"
+"Check your inbox email to restore your foofind.com access";"Controlla la tua mail per ripristinare l'accesso"
+"Check your inbox email to finish the register process";"Controlla la tua mail per completare la registrazione"
+"Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Qualcuno, probabilmente tu, vuole ripristinare il tuo accesso foofind. Clicca su questo url per ripristinare il tuo account:"
+"Otherwise, ignore this message.";"Altrimenti, ignora questo messaggio."
+"The foofind team.";"Il team foofind"
+"This user does not exist";"Questo user non esiste"
 
+"You are now logged in,";"Sei loggato,"
+"(If you already are a registered user, please";"(Se sei già registrato, per favore"
+"login here";"loggati qui"
+"Send";"Manda"
+"The email address must be the same you used to register.";"L'indirizzo mail deve essere lo stesso usato per registrarti."
+"This email is not in our database. Please, try again.";"Questa mail non è nel nostro database. Per favore, prova ancora."
+"Please, login to vote";"Per favore, loggati per votare"
+"Please, login to comment";"Per favore, loggati per commentare"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#contact
+"Contact form";"Modulo per contatti"
+"Note: If you are claiming for a link removal, you must use report link form. Complaints done trough this form will be ignored.";"Nota: se il motivo del tuo reclamo è la rimozione di un link, devi usare il modulo per la segnalazione di link. I reclami fatti attraverso questo modulo saranno ignorati."
 "Your email:";"La tua e-mail"
 "Your message:";"Il tuo messaggio"
-
 
 
 
@@ -195,18 +195,18 @@
 "Your surname:";"Il tuo cognome"
 "Your company:";"La tua compagnia"
 "Your phone number:";"Il tuo numero di telefono"
+"Please, insert the link to be reviewed:";"Per favore, inserisci il link perchè possa essere esaminato:"
 
+"Reason of your complaint:";"Motivo della tua lamentela:"
 
-
-
-
-
+"literal_check_agree";"Ho letto e accetto i termini d'uso e la privacy policy"
+"Please, accept the terms of use and privacy policy";"Per favore, accetta il termini d'uso e la privacy policy"
 
 
 
 
 #footer
-
+"this is the footer text";"Il sito Foofind è sotto licenza Creative Commons BY-NC-SA. Codice sorgente sotto licenza GPLv3."
 "Last indexed files.";"Ultimi file indicizzati."
 
 

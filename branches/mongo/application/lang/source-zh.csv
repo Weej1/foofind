@@ -3,11 +3,12 @@
 "Contact";"连接"
 "Legal";"法律"
 "Terms";"时代"
-
+"Privacy";"隐私"
 "Report link";"报告"
 
-
+"files indexed";"文件目录"
 "Last indexed files";"最后索引的文件"
+
 
 #search
 "Search";"查找"
@@ -18,14 +19,14 @@
 "Image";"想象"
 "Document";"文档"
 "Software";"软件"
+"Archive";"达到"
 
-
+"No results for:";"没有结果"
 
 
 
 "Next";"下一个"
-
-
+"results for";"结果"
 
 
 
@@ -55,10 +56,10 @@
 
 
 
+"Minutes";"分"
+"Sources";"资源"
 
-
-
-
+"Height";"高度"
 
 
 

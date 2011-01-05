@@ -17,7 +17,7 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
 
         $locale = new Zend_Locale ($this->lang);
 
-        $this->langtest = in_array($locale->getLanguage(), array('fr','it'));
+        $this->langtest = in_array($locale->getLanguage(), array('fr','it','tr'));
 
         if (!$this->langtest && !in_array($locale->getLanguage(), array('en', 'es'))) {
             $locale->setLocale ('en');

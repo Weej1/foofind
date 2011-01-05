@@ -1310,6 +1310,9 @@ div.icon50 {
 .flag.it{
     background-position: -80px -11px;
 }
+.flag.tr{
+    background-position: -128px 0px;
+}
 
 .shake {
     float:left !important;
