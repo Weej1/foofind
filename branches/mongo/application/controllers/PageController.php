@@ -70,7 +70,7 @@ class PageController extends Zend_Controller_Action
             if ($newlang==null) {
                 $elem_newlang->clearMultiOptions();
                 $elem_newlang->addMultiOption("", "-- ".$this->view->translate("Choose language")." --");
-                 $elem_newlang->addMultiOptions($newlangs);
+                $elem_newlang->addMultiOptions($newlangs);
             } else {
                 $options = array ('scan' => Zend_Translate::LOCALE_FILENAME );
                 $translate = new Zend_Translate ( 'csv', FOOFIND_PATH . '/application/lang/', 'en', $options );
@@ -116,9 +116,10 @@ class PageController extends Zend_Controller_Action
                         $val = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $val);
                         $val = preg_replace("/(\<[^\>]*\>)/", " ", $val);
                         $val = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $val);
-                    } else
+                    } else {
                        $val = '';
-
+                       
+                    }
                     if ($maxlen<20) $maxlen=20;
                     if ($maxlen<100) {
                         $type = "text";
@@ -130,8 +131,9 @@ class PageController extends Zend_Controller_Action
 
                     $tform->addElement ( $type, "text$index", array (
                         'validators' => array (array ('StringLength', false, array (1, $maxlen ) ) ), 'required' => false,
-                        'label' => $text, 'value' => $val, 'cols'=>40, rows=>$rows) );
+                        'label' => $text, 'value' => $val, 'cols'=>40, 'rows'=>$rows) );
                     $input = $tform->getElement("text$index");
+                    if ($val=='') $input->getDecorator('Label')->setOption('class','empty');
                     $valid = $input->getValidator("StringLength")->setEncoding('UTF-8');
                     $index++;
                 }
