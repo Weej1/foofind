@@ -2,7 +2,6 @@
     padding: 0px;
     margin: 0px; 
 }
-
 html, body {
     min-height: 500px;
     min-width: 1024px;
@@ -386,6 +385,14 @@ input#q {
 .translate form input[type=text], .translate form textarea, .translate form select {
     width:40%;
     margin-bottom: 10px;
+}
+
+#searchempty {
+    font-size:24px;
+    z-index:10;
+    right:30px;
+    position:fixed;
+    text-decoration: none;
 }
 
 .contentype{
