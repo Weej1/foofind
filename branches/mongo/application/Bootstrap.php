@@ -15,8 +15,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $cache = Zend_Cache::factory( $frontend, $backend );
         
         //$this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $total, array( 'locale' => $this->view->lang));
-        Zend_Registry::set('languages', array('en'=>'English', 'es'=>'Español', 'fr'=>'Français', 'it'=>'Italiano', 'tr'=>'Türkçe' ));
-
 
         // databases connections
         $main = new Mongo($config->mongo->server, array("connect"=>false));
@@ -57,6 +55,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         ZendX_JQuery::enableView($view);
         $view->jQuery()->enable();
+        
+
         if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE)
             $view->jQuery()->addJavascriptFile("/js/jquery.msbr.min.js");
 

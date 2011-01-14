@@ -10,7 +10,6 @@ class IndexController extends Zend_Controller_Action
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();
-        $this->view->langtest =  $this->_helper->checklang->isTest();
     }
 
     public function setlangAction()
@@ -42,11 +41,10 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-
         $f = new Zend_Filter();
         //$f->addFilter(new Zend_Filter_HtmlEntities($encoding));
         $f->addFilter(new Zend_Filter_StringTrim());
-        $f->addFilter(new Zend_Filter_StripTags($encoding));
+        $f->addFilter(new Zend_Filter_StripTags());
 
         $type = $this->_getParam('type');
         $type = $f->filter ( $type );
@@ -69,8 +67,7 @@ class IndexController extends Zend_Controller_Action
                             'e' => 'Ed2k'
                             ),
             'separator'     => '',
-            'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge',
-             
+            'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge'             
         ));
         $form->addElement('hidden', 'type', array('value'=>$type));
         $form->setAction( '/'. $this->view->lang.'/search/');

@@ -2,10 +2,14 @@
 
 class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Helper_Abstract {
 
-    static $langcodes = array('en'=>1, 'es'=>2, 'fr'=>3, 'it'=>4);
+    static $langcodes = array('en'=>1, 'es'=>2, 'fr'=>3, 'it'=>4, 'tr'=>5);
 
     function init()
     {
+        Zend_Registry::set('languages', array('en'=>'English', 'es'=>'Español', 'fr'=>'Français', 'it'=>'Italiano', 'tr'=>'Türkçe' ));
+        $testlangs = array('fr'=>1, 'it'=>1, 'tr'=>1);
+        Zend_Registry::set('testlangs', $testlangs);
+
         $this->lang = $this->getRequest()->getParam("language");
         if ($this->lang == null)
         {
@@ -17,7 +21,7 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
 
         $locale = new Zend_Locale ($this->lang);
 
-        $this->langtest = in_array($locale->getLanguage(), array('fr','it','tr'));
+        $this->langtest = $testlangs[$locale->getLanguage()]==1;
 
         if (!$this->langtest && !in_array($locale->getLanguage(), array('en', 'es'))) {
             $locale->setLocale ('en');
@@ -34,14 +38,17 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
             header('Location: /en');
             exit;
         }
+
+        if ($this->langtest && (!isset($_COOKIE['langtest']) || $_COOKIE['langtest']!="0")) {
+            $controller = $this->getActionController();
+            if (!$controller->view->advices) $controller->view->advices = array();
+            $controller->view->advices["langtest"] = $controller->view->translate("BetaTranslation", "/{$this->lang}/page/translate?lang={$this->lang}");
+            $controller->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.advice.js');
+        }
     }
 
     function check(){
         return $this->lang;
-    }
-
-    function isTest(){
-        return $this->langtest;
     }
     
     function getcode($lang = null)

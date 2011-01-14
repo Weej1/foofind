@@ -38,8 +38,11 @@ echo $this->doctype(); ?>
         <script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_setDomainName', '.foofind.com']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
     </head>
     <body>
-        <?if ($this->langtest):?><div id="beta_translation"><?=$this->translate("BetaTranslation", "/{$this->lang}/page/translate?lang={$this->lang}")?></div><?endif;?>
-
+        <?if ($this->advices):
+            foreach ($this->advices as $name=>$advice):?>
+            <div id="advice_<?=$name?>" class="advice"><?=$advice?> <a class="close_advice" href="#">&times;</a></div>
+        <?  endforeach;
+        endif;?>
         <div id="header" >
         
             <div id="header-navigation" >
@@ -59,8 +62,11 @@ echo $this->doctype(); ?>
                 </div>&nbsp;&nbsp;
                 <div id="select_language_box">
                     <?php
-                    foreach (Zend_Registry::get("languages") as $lang=>$name): ?>
-                    <a class="lang<?=($this->lang==$lang)?" active":""?>" href='/<?=$lang?>/index/setlang'><div class="flag <?=$lang?>"></div><span><?=$name?></span></a>
+                    $langs = Zend_Registry::get("languages");
+                    $testlangs = Zend_Registry::get("testlangs");
+                    foreach ($langs as $lang=>$name):
+                        if ($testlangs[$lang]==1) $beta = "<div class='beta_lang'></div>"; else $beta = "";?>
+                    <a class="lang<?=($this->lang==$lang)?" active":""?>" href='/<?=$lang?>/index/setlang'><div class="flag <?=$lang?>"></div><span><?=$name?></span><?=$beta?></a>
                     <?php endforeach;?>
                     <a href='/<?=$this->lang?>/page/translate'>Other...</a>
                 </div>

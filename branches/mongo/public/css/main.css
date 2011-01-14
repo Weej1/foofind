@@ -40,7 +40,6 @@ html input[type="text"] , html input[type="password"] {
     font-size: 1.1em;
     border: 1px solid gray;
     padding: 5px;
-
 }
 
 a {
@@ -74,7 +73,7 @@ dd#src-element label{
     color: #0003CC !important;
 }
 
-#beta_translation
+.advice
 {
     position:absolute;
     z-index:20;
@@ -83,9 +82,38 @@ dd#src-element label{
     padding: 5px;
 }
 
-.content.beta_translation #container_search,.content.beta_translation #container_home,
-.content.beta_translation #container_page,.content.beta_translation #container_user,
-.content.beta_translation #container_error
+.close_advice {
+    display: inline-block;
+    text-align: center;
+    width: 15px;
+    height: 14px;
+    line-height: 10px;
+    padding: 3px 0px 0px 1px;
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+    font-size:18px;
+    font-family: Times New Roman, Times;
+}
+
+.close_advice:hover {
+    background: gray;
+    color: white;
+}
+
+.beta_lang {
+    display:inline-block;
+    width: 19px;
+    height: 6px;
+    margin-left: 2px;
+    margin-bottom: 4px;
+    background-image: url(/images/foofind.png);
+    background-position: -161px 0px;
+}
+
+.content.advices #container_search,.content.advices #container_home,
+.content.advices #container_page,.content.advices #container_user,
+.content.advices #container_error
 {
     padding-top:30px !important;
 }
@@ -131,7 +159,6 @@ input#q {
     padding-bottom: 10px;
 }
 
-
 #container_home .logo {
     margin-top:-27px;
     display: inline-block;
@@ -154,7 +181,7 @@ input#q {
     margin: 10px;
     margin-top: 25px;
     height: 24px;
-    width: 520px;
+    width: 450px;
     font-size: 20px;
 }
 
@@ -184,7 +211,8 @@ input#q {
     border-bottom: none;
     background: #EA1F85;
     display:inline-block;
-    width:80px;
+    padding-left:15px;
+    padding-right:15px;
     height:16px;
     vertical-align: bottom;
     margin-bottom: 2px;
@@ -213,6 +241,7 @@ input#q {
     margin-bottom: 0px;
     color:#dd157a;
     height:21px;
+    text-shadow:none;
 }
 
 #container_home .tabs a.actual:focus {
@@ -228,12 +257,12 @@ input#q {
 }
 
 #container_home .form .zend_form {
-    padding:15px;
+    padding:10px;
     margin-top:0px !important;
     background-color:#FBEFFB;
     border: #EA1F85 2px solid;
     display:inline-block;
-    width: 700px;
+    width: 630px;
     text-align: center;
 }
 
@@ -254,71 +283,7 @@ input#q {
     right:0px;
 }
 .logo_site div {
-    width: 170px;
-    height: 67px;
-    background-image: url(/images/foofind.png);
-}
-
-.logo_site span {
-    display:none;
-}
-
-.warning {
-    background: url(/images/icon_alert.gif) no-repeat 0px top;
-    padding-left: 24px;
-    margin-left:172px;
-}
-
-#container_home .tabs {
-    margin-top: 20px;
-    position: relative;
-    z-index: 2;
-}
-#container_home .tabs a {
-    border: #EA1F85 2px solid;
-    border-bottom: none;
-    background: #EA1F85;
-    display:inline-block;
-    width:89px;
-    height:16px;
-    vertical-align: bottom;
-    margin-bottom: 2px;
-    margin-left: 3px;
-    margin-right: 3px;
-    padding-top:4px;
-    text-align:center;
-    color:white;
-    text-decoration: none;
-    font-weight: bold;
-    -webkit-border-top-right-radius: 5px;
-    -webkit-border-top-left-radius: 5px;
-    -moz-border-radius-topright: 5px;
-    -moz-border-radius-topleft: 5px;
-    border-radius-top-left: 5px;
-    border-radius-top-right: 5px;
-    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
-}
-
-#container_home .tabs a:hover {
-    height:20px;
-    background: #EA1F85;
-    margin-bottom: 0px;
-}
-#container_home .tabs a.actual {
-    background-color: #FBEFFB;
-    margin-bottom: 0px;
-    color:#dd157a;
-    height:21px;
-}
-
-#container_home .tabs a.actual:focus {
-    -moz-outline-style: none;
-    outline:none;
-}
-
-
-.logo_site div {
-    width: 170px;
+    width: 161px;
     height: 67px;
     background-image: url(/images/foofind.png);
 }
@@ -1256,7 +1221,7 @@ div.icon50 {
     display: inline-block;
     overflow: hidden;
     vertical-align: top;
-    width: 90px;
+    width: 92px;
     padding-top: 24px;
 }
 #select_language_box:hover {
