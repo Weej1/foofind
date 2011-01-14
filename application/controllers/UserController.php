@@ -8,7 +8,6 @@ class UserController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('with_search_form');
         $this->view->headTitle()->append(' - ');
         $this->view->lang = $this->_helper->checklang->check();
-        $this->view->langtest =  $this->_helper->checklang->isTest();
 
         $aNamespace = new Zend_Session_Namespace('Foofind');
         $this->location = $aNamespace->location;

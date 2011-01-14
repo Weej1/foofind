@@ -56,10 +56,13 @@ echo $this->doctype(); ?>
                     } ?></span>&nbsp;&nbsp;
                 <div id="select_language_box">
                     <?php
-                    foreach (Zend_Registry::get("languages") as $lang=>$name): ?>
-                    <a class="lang<?=($this->lang==$lang)?" active":""?>" href='/<?=$lang?>/index/setlang'><div class="flag <?=$lang?>"></div><span><?=$name?></span></a>
+                    $langs = Zend_Registry::get("languages");
+                    $testlangs = Zend_Registry::get("testlangs");
+                    foreach ($langs as $lang=>$name):
+                        if ($testlangs[$lang]==1) $beta = "<div class='beta_lang'></div>"; else $beta = "";?>
+                    <a class="lang<?=($this->lang==$lang)?" active":""?>" href='/<?=$lang?>/index/setlang'><div class="flag <?=$lang?>"></div><span><?=$name?></span><?=$beta?></a>
                     <?php endforeach;?>
-                    <a href='/<?=$this->lang?>/page/translate'><?=$this->translate("Other")?>...</a>
+                    <a href='/<?=$this->lang?>/page/translate'>Other...</a>
                 </div>
             </div>
         </div>
