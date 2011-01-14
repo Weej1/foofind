@@ -62,7 +62,7 @@ echo $this->doctype(); ?>
                         $langlink = "/$lang/index/setlang";
                         if ($testlangs[$lang]==1) {
                             $beta = "<div class='beta_lang'></div>"; 
-                            if ($this->lang==$lang) $langlink = "/$lang/page/translate";
+                            if ($this->lang==$lang) $langlink = "/$lang/page/translate?lang=$lang";
                         } else
                             $beta = "";
                         ?>
