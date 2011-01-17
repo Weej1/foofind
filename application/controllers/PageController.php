@@ -103,14 +103,14 @@ class PageController extends Zend_Controller_Action
                     else
                        $text = $key;
                     
-                    $maxlen = strlen($text)*2;
+                    $maxlen = strlen($text)*3;
                     $text = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $text);
                     $text = preg_replace("/(\<[^\>]*\>)/", " ", $text);
                     $text = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $text);
                     
                     if (array_key_exists($key, $lang)) {
                         $val = $lang[$key];
-                        $maxlen = strlen($val)*2;
+                        $maxlen = strlen($val)*3;
                        
                         $val = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $val);
                         $val = preg_replace("/(\<[^\>]*\>)/", " ", $val);

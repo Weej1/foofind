@@ -271,17 +271,18 @@ input#q {
     margin:10px;
 }
 
-#valign_home {
+.valign_home {
     height: 33%;
     position: relative;
 }
 
-#valign_home > div {
+.valign_home > div {
     position:absolute;
     top:50%;
     left:0px;
     right:0px;
 }
+
 .logo_site div {
     width: 161px;
     height: 67px;
@@ -583,12 +584,9 @@ dd#message-element{
 
 .search_info{
     display: block;
-    right: 0px;
-    position: absolute;
     text-align: right;
-    top:80px;
-    margin-bottom:  -20px;
     margin-right: 10px;
+    margin-bottom: -35px;
 }
 
 
@@ -683,10 +681,8 @@ h2{
     background: #FBEFFB;
     color: #cd0069;
     padding: .8em;
-    margin-bottom: 1em;
-    margin-top: 1em;
+    margin: 1em 3em 1em 3em;
     border: 1px solid #cd0069;
-    width: 84%;
 }
 
 

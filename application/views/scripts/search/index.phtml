@@ -1,4 +1,5 @@
 <div id="container_search">
+    <div style="height:70px">
     <h1>
         <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
     </h1>
@@ -13,23 +14,8 @@
         <a class="<?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Software'), array('page'=>1)) ?>" ><?=$this->translate('Software');?></a>
         <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
     </div>
+    </div>
 
-<?php if ($this->info['total']>0): ?>
-    <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
-        <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
-            <?php foreach (explode(' ', $this->info['q']) as $word) { echo "<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>&nbsp;"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?></div>
-        <style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
-<?php endif;?>
-
-    <ul id="tabnav">
-        <li><a class="<?=(preg_match("/^wftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
-        <li><a class="<?=(preg_match("/^wf$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wf'), array('page'=>1)) ?>" ><?=$this->translate('Direct downloads');?></a></li>
-        <li><a class="<?=(preg_match("/^t$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'t'), array('page'=>1))?>"><?=$this->translate('Torrents');?></a></li>
-        <li><a class="<?=(preg_match("/^s$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'s'), array('page'=>1)) ?>" ><?=$this->translate('Streaming');?></a></li>
-        <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'g'), array('page'=>1)) ?>" ><?=$this->translate('Gnutella');?></a></li>
-        <li><a class="<?=(preg_match("/^e$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'e'), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
-    </ul>
-   
         <?
 if (count ( $this->mensajes ) > 0) {
 	echo '<div class="success">';
@@ -39,6 +25,23 @@ if (count ( $this->mensajes ) > 0) {
 	echo '</div>';
 }
 ?>
+    
+<?php if ($this->info['total']>0): ?>
+    <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
+        <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
+            <?php foreach (explode(' ', $this->info['q']) as $word) { echo "<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>&nbsp;"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?></div>
+        <style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
+<?php endif;?>
+    <ul id="tabnav">
+        <li><a class="<?=(preg_match("/^wftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
+        <li><a class="<?=(preg_match("/^wf$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wf'), array('page'=>1)) ?>" ><?=$this->translate('Direct downloads');?></a></li>
+        <li><a class="<?=(preg_match("/^t$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'t'), array('page'=>1))?>"><?=$this->translate('Torrents');?></a></li>
+        <li><a class="<?=(preg_match("/^s$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'s'), array('page'=>1)) ?>" ><?=$this->translate('Streaming');?></a></li>
+        <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'g'), array('page'=>1)) ?>" ><?=$this->translate('Gnutella');?></a></li>
+        <li><a class="<?=(preg_match("/^e$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'e'), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
+    </ul>
+    
+   
 
     <div id="socontainer"><a id="show_options" href="#" active="<?=$this->qs['opt']?>"><?$this->translate("advanced seach")?></a></div>
     <div id="advsearch">
