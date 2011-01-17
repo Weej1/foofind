@@ -23,14 +23,10 @@
         winHeight = $(window).height();
         empties = controls.filter("[value='']");
         var c;
-        for (index in empties) {
-            try {
-                c = $(empties[index]);
-                offset=c.offset().top;
-            }
-            catch(err){
-                continue;
-            }
+        for (index = 0; index < empties.length; index++) {
+            c = $(empties[index]);
+            offset=c.offset().top;
+            
             if (offset>docScroll)
             {
                 if (offset > winHeight/2) offset -= winHeight/2;
