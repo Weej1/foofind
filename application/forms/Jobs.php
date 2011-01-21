@@ -20,7 +20,7 @@ class Form_Jobs extends Zend_Form {
                 );
 
                 $this->setAttrib('enctype', 'multipart/form-data');
-                mkdir("/tmp/attach", 0700);
+                if (!is_dir("/tmp/attach")) mkdir("/tmp/attach", 0700);
                 $this->addElement('file', 'cv', array('label'=>'Curriculum Vitae (opcional, extensiones permitidas: pdf, doc, odt, html, htm, txt, rtf o zip):',
                     'destination' => "/tmp/attach",
                     'validators' => array(

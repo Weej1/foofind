@@ -1,4 +1,4 @@
-<?$numCss=11;
+<?$numCss=12;
 if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE 7")!==FALSE)
     $ie = 7;
 else if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE 8")!==FALSE)
@@ -68,7 +68,7 @@ echo $this->doctype(); ?>
                         ?>
                         <a class="lang<?=($this->lang==$lang)?" active":""?>" href='<?=$langlink?>'><div class="flag <?=$lang?>"></div><span><?=$name?></span><?=$beta?></a>
                     <?php endforeach;?>
-                    <a href='/<?=$this->lang?>/page/translate'>Other...</a>
+                    <a href='/<?=$this->lang?>/page/translate'><?=$this->translate('Other');?>...</a>
                 </div>
             </div>
         </div>
