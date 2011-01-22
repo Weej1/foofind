@@ -1,0 +1,34 @@
+<? include_once("header_common.phtml");?>
+<div class="content<?php if ($this->advices) { echo " advices";}?>">
+<div id="container_search">
+    <h1>
+        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+    </h1>
+    <?
+    require_once APPLICATION_PATH . '/forms/Search.php';
+    $form = new Form_Search( );
+
+    $form->setAction( '/'. $this->lang.'/search/');
+    $form->loadDefaultDecoratorsIsDisabled(false);
+    foreach($form->getElements() as $element)
+    {
+        $element->removeDecorator('DtDdWrapper');
+        $element->removeDecorator('Label');
+    }
+echo $form; ?>
+    <hr />
+    <script>document.getElementById('q').focus();</script>
+    <?php echo $this->layout('with_search_form')->content ?>
+    <div id="footer" >
+        <span id="footer_links">
+            <a class="navtype" href="/<?= $this->lang ?>/page/legal/"><?= $this->translate('Legal'); ?></a>
+            <a class="navtype" href="/<?= $this->lang ?>/page/tos"><?= $this->translate('Terms'); ?></a>
+            <a class="navtype" href="/<?= $this->lang ?>/page/privacy"><?= $this->translate('Privacy'); ?></a>
+            <a class="navtype" href="/<?= $this->lang ?>/index/lastfiles" ><?= Zend_Locale_Format::toNumber(  Zend_Registry::get("files_count"), array( 'locale' => $this->lang))?> <?=$this->translate('indexed files'); ?></a>
+        </span>
+        <span id="footer_text"><?=$this->translate('this is the footer text');  ?></span>
+    </div>
+</div>
+</div>
+</body>
+</html>

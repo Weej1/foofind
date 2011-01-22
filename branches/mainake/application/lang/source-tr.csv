@@ -1,0 +1,347 @@
+#main layout
+"About";"Hakkımızda"
+"Contact";"İletişim"
+"Legal";"Hukuki"
+"Terms";"Koşullar"
+"Privacy";"Gizlilik"
+"Report link";"Bağlantıyı rapor et"
+"Source code";"Kaynak kod"
+"files indexed";"endekslenmiş dosya"
+"Last indexed files";"Son eklenen dosyalar"
+"I. Want. That. File.";"Bu. Dosayı. İstiyorum."
+
+#search
+"Search";"Ara"
+"All";"Tümü"
+"Direct downloads";"Doğrudan indirim"
+"Audio";"Ses"
+"Video";"Video"
+"Image";"Görüntü"
+"Document";"Doküman"
+"Software";"Yazılım"
+"Archive";"Arşiv"
+"No results for:";"Sonuç bulunamadı:"
+
+"Hey! Write something";"Hey! Bir şeyler yazın"
+"Previous";"Önceki"
+"Next";"Sonraki"
+"sources";"kaynak"
+"of about";"toplam"
+"results for";"sonuç için, arama:"
+"NoTypeCount";"Aramanız için ...'da hiçbir sonuç bulunamadı, ama diğer kategorilerde ... kadar sonuç bulunmaktadır."
+"Foofind does not allow browse results after page 1000.";"Foofind 1000. sayfadan sonra sonuç göstermez, üzgünüz."
+"How to download?";"Nasıl indirebilirim?"
+"DownloadExplanation";"Bağlantısı bulunan dosyayı indirmek için harici bir yazılıma ihtiyacınız olabilir. İşte birkaç uyumlu uygulamalar:"
+
+#advanced search
+"All sizes";"Tüm boyutlar"
+"advanced search";"Gelişmiş Arama"
+"hide advanced search";"Gelişmiş aramayı sakla"
+"Smaller than";"Bu değerden küçük"
+"Larger than";"Bu değerden büyük"
+"All qualities";"Tüm kaliteler"
+"or better";"ya da iyisi"
+"All years";"Tüm yıllar"
+"Before";"Bu tarihten önce:"
+"Last year";"Geçen sene"
+
+#metadata
+"Artist";"Sanatçı"
+"Title";"Başlık"
+"Author";"Yaratıcı"
+"Format";"Format"
+"Pages";"Sayfa"
+"Album";"Albüm"
+"Length";"Uzunluk"
+"Bitrate";"Bitrate"
+"Genre";"Tarz"
+"Seconds";"Saniye"
+"Minutes";"Dakika"
+"Sources";"Kaynak"
+"Source";"Kaynak"
+"Height";"Yükseklik"
+"Width";"Genişlik"
+"Track";"Parça"
+"Quality";"Kalite"
+"Num. of pages";"Sayfa sayısı"
+"Include results from:";"Bu ağdan sonuçları ekle:"
+"Size";"Boyut"
+"Unpacked size";"Sıkıştırılmamış boyut"
+"Colors";"Renkler"
+"Version";"Sürüm"
+"Name";"İsim"
+"Description";"Açıklama"
+"Files";"Dosyalar"
+"Soundtype";"Ses tipi"
+"year";"Sene"
+"years";"Seneleri"
+"month";"ay"
+"months";"ayl"
+"day";"gün"
+"days";"gün"
+"hour";"saat"
+"hours";"saat"
+"minute";"dakika"
+"minutes";"dakika"
+"second";"saniye"
+"seconds";"saniye"
+
+#download
+"Loading...";"Yükleniyor"
+"Close";"Kapat"
+"Share this:";"Paylaş"
+"share on facebook";"facebook ile paylaş"
+"share on twitter";"twitter ile paylaş"
+"send by email";"e-mail ile yolla"
+"Download";"İndir"
+"Watch";"İzle"
+"Your comments";"Yorumlarınız"
+"since";"%d %s önce"
+"Post comment";"Yorum yazın"
+"Add a comment";"Yorum ekleyin"
+"from";"'den"
+"I like it!";"Beğendim bunu!"
+"Booo!";"Öf ki ne öf!"
+"Comment published succesfully!";"Yorum başarıyla yayımlandı"
+"Related files";"Benzer dosyalar"
+
+#user profile
+"Choose your password:";"Şifrenizi seçiniz"
+"Insert your password (yep, again):";"Şifrenizi giriniz (evet, yeniden):"
+"Please, fill this form to be a Foofind registered member:";"Foofind'a kayıt olmak için lütfen bu formu doldurunuz:"
+"Nickname:";"Rumuz:"
+"Edit your profile";"Profilinizi düzenleyin"
+"Your profile was edited succesfully!";"Profiliniz başarıyla düzenlendi!"
+"hello,";"merhaba,"
+"logout";"çıkış"
+"login";"oturum aç"
+"Login";"Oturum aç"
+"new user";"yeni kullanıcı"
+"New user";"Yeni kullanıcı"
+"or";"ya da"
+"Register";"Kayıt ol"
+"(If you are a new user, please";"(yeni kullanıcıysanız, lütfen"
+"register here";"burada kayıt olunuz"
+"Choose a nickname:";"Bir rumuz seçiniz:"
+"Please, fill this form to be a Foofind registered member.";"Foofind'a kayıt olmak için lütfen bu formu doldurunuz."
+"User login";"Kullanıcı girişi"
+"Remember me";"Beni hatırla"
+"Your location:";"Konumunuz:"
+"Change your password here: (otherwise leave it blank)";"Şifrenizi burada değiştiriniz: (istemiyorsanız bu alanı boş bırakınız)"
+"Save profile";"Profili kaydet"
+"You are not allowed to view this page";"Bu sayfayı görüntüleme izniniz yok"
+"This username is taken. Please choose another one.";"Bu kullanıcı adı halihazırda kullanılmaktadır. Başka bir tane seçiniz."
+"This email is taken. Please use another one.";"Bu email alınmıştır. Başka bir email seçiniz."
+"Forgot";"Unuttunuz mu"
+"your password?";"şifrenizi?"
+"Password:";"Şifre:"
+"'%password%' is less than 5 characters long";"'%password%' 5 karakterden kısa olmalıdır"
+"Are you sure you want to delete your foofind account?";"Hesabınızı silmek istediğinizden emin misiniz ?"
+"Yes";"Evet"
+"Your account has been deleted.";"Hesabınız silinmiştir."
+"Nice to hear that";"Bunu duyduğumuza memnunuz"
+"profile";"profil"
+"edit profile";"profili düzenle"
+"User name:";"Kullanıcı adı:"
+"Member since:";"Bu tarihten beri üye:"
+"Last 5 comments:";"Son 5 yorumu:"
+"Location:";"Konumu:"
+"Delete your foofind.com account";"Foofind hesabını sil"
+"Forgot your password?";"Şifrenizi mi unuttunuz?"
+"Wrong email or password, please try again";"Hatalı e-mail ya da şifre, tekrar deneyiniz"
+"Welcome";"Hoşgeldiniz"
+"Please, click on this url to finish your register process:";"Kayıt işlemlerini tamamlamak için bu bağlantıyı tıklayınız:"
+"Sorry, this token does not exist or has been already used";"Üzgünüz, bu jeton yoktur ya da zaten kullanılmıştır. "
+", confirm your email";", e-mail adresinizi teyit ediniz"
+", restore your foofind access";", foofind hesabınızı tekrar etkinleştiriniz"
+"Please, enter your email address. An email to recover your access will be sent to you.";"E-mail adresinizi giriniz. Hesabınıza erişimi yeniden kazanmanız için bir e-mail size gönderilecektir."
+"Check your inbox email to restore your foofind.com access";"Hesabınıza erişimi yeniden kazanmak için e-mail adresinize gelen mesajları kontrol ediniz."
+"Check your inbox email to finish the register process";"Kayıt işlemlerini tamamlamak için e-mail adresinize gelen mesajları kontrol ediniz."
+"Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Birisi, muhtemelen siz, foofind oturumunuzu tekrar etkinleştirmek istiyor. Bu bağlantıyı tıklayarak foofind hesabınızı tekrar etkinleştirebilirsiniz:"
+"Otherwise, ignore this message.";"Yoksa bu mesajı gözmezden geliniz."
+"The foofind team.";"Foofind ekibi."
+"This user does not exist";"Bu isimde bir kullanıcı yoktur"
+
+"You are now logged in,";"Oturum açılmıştır,"
+"(If you already are a registered user, please";"(Hesabınız varsa, lütfen"
+"login here";"buradan giriş yapın"
+"Send";"Gönder"
+"The email address must be the same you used to register.";"Bu e-mail kayıtta kullanılan e-mail'in aynısı olmalıdır."
+"This email is not in our database. Please, try again.";"Bu e-mail veritabanımızda bulunmamaktadır. Yeniden deneyiniz."
+"Please, login to vote";"Oy vermek için giriş yapınız."
+"Please, login to comment";"Yorumlamak için giriş yapınız."
+
+#contact
+"Contact form";"İletişim formu"
+"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>. Complaints done trough this form will be ignored.";"Not: Bir balantının kaldırılmasını istiyorsanız, <a href='/tr/page/complaint'>şikayet formunu</a> kullanmanız gerekir. Bu formdan yapılan şikayetler dikkate alınmayacaktır."
+"Your email:";"E-mail adresiniz:"
+"Your message:";"Mesajınız:"
+"Please, insert the 5 characters shown:";"Lütfen gösterilen 5 karakteri giriniz:"
+"Value is required and can't be empty";"Bu alan gereklidir ve boş bırakılamaz."
+"Captcha value is wrong";"Captcha karakterleri yanlış."
+"'%value%' is less than 20 characters long";"'%value%' 20 karakterden az"
+"'%value%' is less than 9 characters long";"'%value%' 9 karakterden az"
+"'%value%' is less than 5 characters long";"'%value%' 5 karakterden az"
+"'%value%' is less than %min% characters long";"'%value%' %min% karakterden az"
+"'%value%' is no valid email address in the basic format local-part@hostname";"'%value%' yerel-kısım@host-ismi formatında geçerli bir e-mail adresi değildir"
+"'%hostname%' is no valid hostname for email address '%value%'";"'%hostname%' '%value%' e-mail adresi için geçerli bir host ismi değildir"
+"'%value%' appears to be a local network name but local network names are not allowed";"'%value%' yerel ağ ismi gibi görünmektedir ve yerel ağ isimleri kabul edilemez."
+"'%value%' does not match the expected structure for a DNS hostname";"'%value%' beklenilen DNS host ismi şekline denk gelmiyor"
+"'%value%' appears to be a DNS hostname but cannot match TLD against known list";"'%value%' bir DNS host ismi gibi görünmektedir ama TLD bilinen TLD'ler listesinde bulunamamıştır."
+"Message sent successfully!";"Mesaj başarıyla gönderilmiştir!"
+
+#complaint
+"Your name:";"İsminiz:"
+"Your surname:";"Soyadınız:"
+"Your company:";"Firmanız:"
+"Your phone number:";"Telefon numaranız:"
+"Please, insert the link to be reviewed:";"Lütfen incelenecek bağlantıyı giriniz:"
+"Please, insert the url where this content appears:";"Lütfen bu içeriğin bulunduğu URL'i giriniz:"
+"Reason of your complaint:";"Şikayetinizin nedeni:"
+"'%value%' contains characters which are non alphabetic and no digits";"'%value%' ne alfabetik ne sayısal olan karakterler içermektedir."
+"literal_check_agree";"<a href='/tr/page/tos'>Kullanım şartları</a> ile <a href='/tr/page/privacy'>gizlilik kurallarını</a> okudum ve kabul ediyorum."
+"Please, accept the terms of use and privacy policy";"Lütfen kullanım şartlarını ve gizlilik kurallarını kabul ediniz"
+
+#about
+"this is the about text";"Foofind evrensel bir arama motorudur. Foofind'da tüm ağları tarayan ve her dosyayı endeksleyen yazılımlar üzerinde çalışmaktayız. Bu şekilde mümkün olan en geniş bağlantı kolleksiyonunu sunmayı amaçlıyoruz.<br /><br />Foofind P2P teknoloji tasarımcısı Pablo Soto'nun eseri olup, Madrid, İspanya'da MP2P Technologies tarafından geliştirilmektedir."
+
+#footer
+"this is the footer text";"<a href='/tr/page/about'>Foofind</a> web sitesi Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.tr'>BY-NC-SA</a> lisansı altındadır. <a href='http://code.google.com/p/foofind/'>Kaynak kodu</a> <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a> lisansı altındadır."
+"Last indexed files.";"Son endekslenen dosyalar."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#tos
+"Terms of use";"Kullanım şartları"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#error
+"Foofind.com is under maintenance. Please, come back later.";"Foofind.com bakımdadır. Daha sonra tekrar ziyaret ediniz."
+"This link does not exist or may have been deleted!";"Bu bağlantı yoktur ya da silinmiş olabilir!"
+
+#translate
+"Translate";"Tercüme"
+"Help us to translate Foofind.com to your language";"Foofind.com'u dilinize çevirmemize yardım edin"
+"translate text";"Foofind şu anda birkaç dilde hizmet sunmaktadır, ama çeviri için bize yardımda bulunabilirsiniz. Aşağıdaki listeden dilinizi seçip gereken alanları tercümeniz ile doldurmanız yeterli olacaktır. Bütün alanları doldurmanıza gerek yoktur, tüm yardımlar makbule geçecektir.<br/><br/>Eğer diliniz listede mevcut değilse, eklememiz için bizimle iletişime geçmenizi rica ederiz."
+"Choose language";"Dil seçimi"
+"Your translation has been sent. Thanks for your help!";"Tercümeniz gönderilmiştir. Yardımınız için teşekkür ederiz!"
+"Please, translate at least one text.";"Lütfen en az bir metin tercüme ediniz."
+"BetaTranslation";"Bu dilin tercümesi test aşamasındadır. Yanlış ya da eksik bir çeviri bulursanız, lütfen <a href='%s'>bunu rapor ediniz</a>."
+"Other";"Diğer"

@@ -1,0 +1,49 @@
+<div id="container_user">
+    <h2><?=$this->translate('Last indexed files') .' - '. date('j-m-Y, g:i:s') . ', Madrid (GMT+01:00)' ?></h2>
+<div id="results">
+    <ul>
+ <?php
+       foreach ($this->lastfiles as $file ):
+  
+                    foreach ($file['fn'] as $key => $value)
+                            { //   bazinga!
+                            }
+          
+                          //var_dump( (string)$file['_id'] );
+                         $url = base64_encode(  pack("H*" ,$file['_id'] )  );
+                         $url = str_replace('+', '!', $url);
+                         $url = str_replace('/', '-', $url);                       
+
+           ?>
+        <li class="file_excerpt">
+            <h3><a href="/<?=$this->lang?>/download/<?=$url ?>/<?=$value['n'].'.html'; ?>"><?=$value['n'] ?></a></h3>
+        </li>
+        <?php          
+            endforeach; ?>
+    </ul>
+    </div>
+<?=$this->paginationControl($this->lastfiles,'Sliding','paginator_md.phtml'); ?>
+<br />
+
+    <div class="alfa">
+        <?
+        $LETRAS = range( 'a', 'z' );
+        foreach( $LETRAS as $LETRA ) {
+             $letras = range( 'a', 'z' );
+             foreach( $letras as $letra ) {
+                echo '<a href="/'.$this->lang.'/search/?q='.$LETRA.$letra.'*">'.$LETRA.$letra.'</a>&nbsp;<wbr>';
+             }
+        }
+      
+        $NUMEROS = range( '0', '9' );
+        foreach( $NUMEROS as $NUMERO ) {
+             $numeros = range( '0', '9' );   
+                  foreach( $numeros as $numero ) {
+                        if ( $NUMERO.$numero != '00'){
+                            echo '<a href="/'.$this->lang.'/search/?q='.$NUMERO.$numero.'*">'.$NUMERO.$numero.'</a>&nbsp;<wbr>';
+                         }
+             }      
+        }
+        ?>
+    </div>
+</div>

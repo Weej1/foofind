@@ -1,0 +1,22 @@
+
+#container_home input[type="submit"] {
+    top: -13px;
+}
+
+.large.awesome {
+    padding: 7px 20px 3px 20px  !important;
+    line-height: 19px !important;
+    vertical-align: bottom;
+}
+
+.fixTop {
+    top:8px !important;
+}
+
+.magenta.awesome {
+    background-color: #DF1279;
+}
+
+#container_home .home_form {
+    margin-top:18px !important;
+}

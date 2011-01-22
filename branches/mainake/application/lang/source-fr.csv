@@ -1,0 +1,347 @@
+#main layout
+"About";"À propos de"
+"Contact";"Contact"
+"Legal";"Légal"
+"Terms";"Termes"
+"Privacy";"Vie privée"
+"Report link";"Signaler le lien"
+"Source code";"Code source"
+"files indexed";"fichiers indexés"
+"Last indexed files";"Derniers fichiers indexés"
+"I. Want. That. File.";"Je. Veux. Ce. Fichier."
+
+#search
+"Search";"Rechercher"
+"All";"Tout"
+"Direct downloads";"Téléchargement direct"
+"Audio";"Audio"
+"Video";"Vidéo"
+"Image";"Image"
+"Document";"Documents"
+"Software";"Programmes"
+"Archive";"Archives"
+
+"No results for:";"Pas de résultat pour :"
+"Hey! Write something";"Hé ! Écrivez quelque chose"
+"Previous";"Précédent"
+"Next";"Suivant"
+"sources";"Sources"
+"of about";"sur environ"
+"results for";"résultats pour"
+"NoTypeCount";"Aucun résultat n'a été trouvé pour votre recherche de <i>%s</i>, mais il y a environ %d résultats pour votre recherche dans des <a href='%s'>autres catégories</a>."
+"Foofind does not allow browse results after page 1000.";"Foofind ne permet pas d'afficher les résultats après 1000 pages."
+"How to download?";"Comment télécharger ?"
+"DownloadExplanation";"Vous pourriez avoir besoin de télécharger un logiciel externe. Voici quelques applications compatibles :"
+
+#advanced search
+"All sizes";"Toutes tailles"
+"advanced search";"recherche avancée"
+"hide advanced search";"masquer la recherche avancée"
+"Smaller than";"Plus petit que"
+"Larger than";"Plus grand que"
+"All qualities";"Toutes les qualités"
+"or better";"ou mieux"
+"All years";"Toutes les années"
+"Before";"Avant"
+"Last year";"L'année dernière"
+
+#metadata
+"Artist";"Artiste"
+"Title";"Titre"
+"Author";"Auteur"
+"Format";"Format"
+"Pages";"Pages"
+"Album";"Album"
+"Length";"Longueur"
+"Bitrate";"Débit binaire"
+"Genre";"Genre"
+"Seconds";"Secondes"
+"Minutes";"Minutes"
+"Sources";"Sources"
+"Source";"Source"
+"Height";"Hauteur"
+"Width";"Largeur"
+"Track";"Piste"
+"Quality";"Qualité"
+"Num. of pages";"Nbr. de pages"
+"Include results from:";"Inclure des résultats depuis :"
+"Size";"Taille"
+"Unpacked size";"Taille décompressée"
+"Colors";"Couleurs"
+"Version";"Version"
+"Name";"Nom"
+"Description";"Description"
+"Files";"Fichiers"
+"Soundtype";"Type de son"
+"year";"année"
+"years";"années"
+"month";"mois"
+"months";"mois"
+"day";"jour"
+"days";"jours"
+"hour";"heure"
+"hours";"heures"
+"minute";"minute"
+"minutes";"minutes"
+"second";"seconde"
+"seconds";"secondes"
+
+#download
+"Loading...";"Chargement..."
+"Close";"Fermer"
+"Share this:";"Partager ceci :"
+"share on facebook";"Partager sur facebook"
+"share on twitter";"Partager sur twitter"
+"send by email";"envoyer par e-mail"
+"Download";"Télécharger"
+"Watch";"Visionner"
+"Your comments";"Vos commentaires"
+"since";"%d %s en arrière"
+"Post comment";"Poster un commentaire"
+"Add a comment";"Ajouter un commentaire"
+"from";"de"
+"I like it!";"J'aime ça !"
+"Booo!";"Bouh !"
+"Comment published succesfully!";"Commentaire publié avec succès !"
+"Related files";"Fichiers relatifs :"
+
+#user profile
+"Choose your password:";"Choisissez votre mot de passe"
+"Insert your password (yep, again):";"Entrez votre mot de passe (ouaip, encore une fois) :"
+"Please, fill this form to be a Foofind registered member:";"SVP, remplissez ce formulaire pour devenir membre enregistré de Foofind :"
+"Nickname:";"Pseudo :"
+"Edit your profile";"Éditer votre profile"
+"Your profile was edited succesfully!";"Votre profil a été modifié avec succès !"
+"hello,";"Bonjour"
+"logout";"se déconnecter"
+"login";"se connecter"
+"Login";"Connexion"
+"new user";"nouvel utilisateur"
+"New user";"Nouvel utilisateur"
+"or";"ou"
+"Register";"S'enregistrer"
+"(If you are a new user, please";"(si vous êtes un nouvel utilisateur, s'il vous plaît"
+"register here";"enregistrez-vous ici"
+"Choose a nickname:";"Choisissez un pseudo :"
+"Please, fill this form to be a Foofind registered member.";"Veuillez remplir ce formulaire pour devenir un membre enregistré de Foofind"
+"User login";"Ouverture de session"
+"Remember me";"Se souvenir de moi"
+"Your location:";"Votre lieu de résidence :"
+"Change your password here: (otherwise leave it blank)";"Changez votre mot de passe ici : (sinon laissez ce champ vide)"
+"Save profile";"Sauvegarder votre profil"
+"You are not allowed to view this page";"Vous n'êtes pas autorisés à voir cette page"
+"This username is taken. Please choose another one.";"Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre."
+"This email is taken. Please use another one.";"Cet e-mail est déjà pris. Veuillez en choisir un autre."
+"Forgot";"Oublié"
+"your password?";"votre mot de passe ?"
+"Password:";"Mot de passe :"
+"'%password%' is less than 5 characters long";"'%password%' fait moins de 5 caractères"
+"Are you sure you want to delete your foofind account?";"Êtes-vous sûr de vouloir effacer votre compte foofind ?"
+"Yes";"Oui"
+"Your account has been deleted.";"Votre compte a été supprimé"
+"Nice to hear that";"C'est bon d'entendre cela !"
+"profile";"profil"
+"edit profile";"éditer le profil"
+"User name:";"Nom d'utilisateur :"
+"Member since:";"Membre depuis :"
+"Last 5 comments:";"5 derniers commentaires :"
+"Location:";"Localisation :"
+"Delete your foofind.com account";"Effacer votre compte foofind.com"
+"Forgot your password?";"Mot de passe oublié ?"
+"Wrong email or password, please try again";"Mauvais e-mail ou mot de passe, veuillez ressaisir"
+"Welcome";"Bienvenue"
+"Please, click on this url to finish your register process:";"Veuillez cliquer sur ce lien pour terminer la procédure d'enregistrement :"
+"Sorry, this token does not exist or has been already used";"Désolé, ce jeton n'existe pas ou a été déjà utilisé"
+", confirm your email";", confirmez votre adresse e-mail"
+", restore your foofind access";", restaurez votre accès foofind"
+"Please, enter your email address. An email to recover your access will be sent to you.";"Veuillez entrer votre adresse e-mail. Un message pour restaurer votre accès vous sera envoyé."
+"Check your inbox email to restore your foofind.com access";"Vérifiez votre la boîte de réception de votre e-mail pour restaurer votre accès foofind.com"
+"Check your inbox email to finish the register process";"Vérifiez la boîte de réception de votre e-mail pour terminer la procédure d'enregistrement"
+"Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Quelqu'un, probablement vous-même, veut restaurer votre accès foofind. Cliquez sur ce lien pour restaurer votre compte :"
+"Otherwise, ignore this message.";"Sinon, ignorez ce message."
+"The foofind team.";"L'équipe foofind"
+"This user does not exist";"Cet utilisateur n'existe pas"
+
+"You are now logged in,";"Vous êtes désormais connecté,"
+"(If you already are a registered user, please";"(si vous êtes déjà un utilisateur enregistré, veuillez"
+"login here";"Connectez-vous ici"
+"Send";"Envoyer"
+"The email address must be the same you used to register.";"L'adresse e-mail doit être identique à celle utilisée lors de votre enregistrement"
+"This email is not in our database. Please, try again.";"Cette adresse e-mail ne figure pas dans notre base de données. Veuillez essayer à nouveau."
+"Please, login to vote";"Veuillez vous connecter pour voter"
+"Please, login to comment";"Veuillez vous connecter pour commenter"
+
+#contact
+"Contact form";"Formulaire de contact"
+"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>. Complaints done trough this form will be ignored.";"Note : si vous réclamez la suppression d'un lien, vous devez utiliser le <a href='/fr/page/complaint'>formulaire pour signaler un lien</a>. Les plaintes envoyés depuis ce formulaire seront ignorés."
+"Your email:";"Votre e-mail :"
+"Your message:";"Votre message :"
+"Please, insert the 5 characters shown:";"Veuillez entrer les 5 caractères affichés :"
+"Value is required and can't be empty";"Ce champ est requis et ne peut être laissé vide"
+"Captcha value is wrong";"La valeur du captcha est erronée"
+"'%value%' is less than 20 characters long";"'%value%' est inférieur à 20 caractères"
+"'%value%' is less than 9 characters long";"'%value%' est inférieur à 9 caractères"
+"'%value%' is less than 5 characters long";"'%value%' est inférieur à 5 caractères"
+"'%value%' is less than %min% characters long";"'%value%' est inférieur à %min% caractères"
+"'%value%' is no valid email address in the basic format local-part@hostname";"'%value%' n'est pas une adresse e-mail valide au format partie-locale@nomdhote"
+"'%hostname%' is no valid hostname for email address '%value%'";"'%hostname%' n'est pas un nom d'hôte valide pour une adresse e-mail '%value%'"
+"'%value%' appears to be a local network name but local network names are not allowed";"'%value%' semble être un nom de réseau local, or les noms de réseaux locaux ne sont pas autorisés"
+"'%value%' does not match the expected structure for a DNS hostname";"'%value%' ne correspond pas à la structure attendue d'un nom d'hôte DNS"
+"'%value%' appears to be a DNS hostname but cannot match TLD against known list";"'%value%' semble être un nom d'hôte DNS mais il n'y a aucune correspondance dans la liste des TLD connus."
+"Message sent successfully!";"Message envoyé avec succès !"
+
+#complaint
+"Your name:";"Votre nom"
+"Your surname:";"Votre prénom"
+"Your company:";"Votre société"
+"Your phone number:";"Votre numéro de téléphone"
+"Please, insert the link to be reviewed:";"Veuillez entrer le lien qui doit être examiné :"
+"Please, insert the url where this content appears:";"Veuillez entrer l'URL où ce contenu apparaît :"
+"Reason of your complaint:";"La raison de votre plainte :"
+"'%value%' contains characters which are non alphabetic and no digits";"'%value%' contient des caractères qui ne sont pas des lettres de l'alphabet ni des chiffres"
+"literal_check_agree";"J'ai lu et j'accepte les <a href='/fr/page/tos'>conditions d'utilisation</a> et la <a href='/fr/page/privacy'>politique sur la vie privée</a>."
+"Please, accept the terms of use and privacy policy";"Veuillez accepter les conditions d'utilisation et la politique relative à la vie privée"
+
+#about
+"this is the about text";"Foofind est un moteur de recherche universel. Chez Foofind nous créons des logiciels qui examinent tous les réseaux et indexent tous les fichiers. Ainsi, nous avons l'intention d'offrir la plus grande collection de liens disponible.<br /><br />Foofind est l’œuvre de Pablo Soto, concepteur de technologies P2P, développé à Madrid, en Espagne, par MP2P Technologies."
+
+#footer
+"this is the footer text";"Le site web de <a href='/fr/page/about'>Foofind</a> est sous licence Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr'>BY-NC-SA</a>. Le <a href='http://code.google.com/p/foofind/'>code source</a> est sous licence <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
+"Last indexed files.";"Derniers fichiers indexés"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#tos
+"Terms of use";"Conditions d'utilisation"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#error
+"Foofind.com is under maintenance. Please, come back later.";"Le site Foofind.com est en maintenance. Reconnectez vous plus tard SVP !"
+"This link does not exist or may have been deleted!";"Ce lien n existe pas ou a été efface"
+
+#translate
+"Translate";"Traduire"
+"Help us to translate Foofind.com to your language";"Aidez-nous à traduire foofind dans votre langue"
+"translate text";"Foofind.com est actuellement disponible dans quelques langues, mais vous pouvez nous aider à le traduire dans votre propre langue. Choisissez la simplement dans la liste suivante et complétez les champs vides avec votre traduction. Vous n'avez pas besoin de remplir tous les champs, toute aide sera très appréciée. Si votre langue ne figure pas sur la liste, contactez-nous pour que nous l'ajoutions."
+"Choose language";"Choisissez votre langue"
+"Your translation has been sent. Thanks for your help!";"Votre traduction a été envoyée. Merci de votre aide !"
+"Please, translate at least one text.";"S'il vous plaît, traduisez au moins un texte."
+"BetaTranslation";"La traduction de cette langue est encore en test. Si vous trouvez des traductions erronées ou manquantes, veuillez les signaler <a href='%s'>ici</a>."
+"Other";"Autre"

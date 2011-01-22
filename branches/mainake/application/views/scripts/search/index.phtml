@@ -1,0 +1,129 @@
+<div id="container_search">
+    <div style="height:70px">
+    <h1>
+        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+    </h1>
+<?=$this->form; ?>
+    <script>document.getElementById('q').focus();</script>
+    <div class="contentype">
+        <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" href="<?= ''.$this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>
+        <a class="<?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Audio'), array('page'=>1)) ?>" ><?=$this->translate('Audio');?></a>
+        <a class="<?=(preg_match("/^Video$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Video'), array('page'=>1)) ?>" ><?=$this->translate('Video');?></a>
+        <a class="<?=(preg_match("/^Image$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Image'), array('page'=>1)) ?>" ><?=$this->translate('Image');?></a>
+        <a class="<?=(preg_match("/^Document$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Document'), array('page'=>1)) ?>" ><?=$this->translate('Document');?></a>
+        <a class="<?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Software'), array('page'=>1)) ?>" ><?=$this->translate('Software');?></a>
+        <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
+    </div>
+    </div>
+
+        <?
+if (count ( $this->mensajes ) > 0) {
+	echo '<div class="success">';
+	foreach ( $this->mensajes as $msg ) {
+		echo $msg . '<br />';
+	}
+	echo '</div>';
+}
+?>
+    
+<?php if ($this->info['total']>0): ?>
+    <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
+        <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
+            <?php foreach (explode(' ', $this->info['q']) as $word) { echo "<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>&nbsp;"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?></div>
+        <style>    .debuginfo {   font-size: 9px;    /* display:none !important; */   }    </style><?php endif; ?></div>
+<?php endif;?>
+    <ul id="tabnav">
+        <li><a class="<?=(preg_match("/^wftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
+        <li><a class="<?=(preg_match("/^wf$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wf'), array('page'=>1)) ?>" ><?=$this->translate('Direct downloads');?></a></li>
+        <li><a class="<?=(preg_match("/^t$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'t'), array('page'=>1))?>"><?=$this->translate('Torrents');?></a></li>
+        <li><a class="<?=(preg_match("/^s$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'s'), array('page'=>1)) ?>" ><?=$this->translate('Streaming');?></a></li>
+        <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'g'), array('page'=>1)) ?>" ><?=$this->translate('Gnutella');?></a></li>
+        <li><a class="<?=(preg_match("/^e$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'e'), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
+    </ul>
+    
+   
+
+    <div id="socontainer"><a id="show_options" href="#" active="<?=$this->qs['opt']?>"><?$this->translate("advanced seach")?></a></div>
+    <div id="advsearch">
+    <div id="common">
+        <ul class="size">
+            <li><a <?=(preg_match("/^$/", $this->qs['size']))?"class='actual'":"href='".$this->qs(array(), array('size'=>1, 'page'=>1))."'"?>><?=$this->translate('All sizes')?></a></li>
+            <li><a <?=(preg_match("/^1$/", $this->qs['size']))?"class='actual'":"href='".$this->qs(array('size'=>'1', 'opt'=>1), array('page'=>1))."'"?>><?=$this->translate('Smaller than');?> 1MB</a></li>
+            <li><a <?=(preg_match("/^2$/", $this->qs['size']))?"class='actual'":"href='".$this->qs(array('size'=>'2', 'opt'=>1), array('page'=>1))."'"?>><?=$this->translate('Smaller than');?> 10MB</a></li>
+            <li><a <?=(preg_match("/^3$/", $this->qs['size']))?"class='actual'":"href='".$this->qs(array('size'=>'3', 'opt'=>1), array('page'=>1))."'"?>><?=$this->translate('Smaller than');?> 100MB</a></li>
+            <li><a <?=(preg_match("/^4$/", $this->qs['size']))?"class='actual'":"href='".$this->qs(array('size'=>'4', 'opt'=>1), array('page'=>1))."'"?>><?=$this->translate('Larger than');?> 100MB</a></li>
+        </ul>
+    </div>
+        <?php if (preg_match("/^Audio$/", $this->qs['type'])): ?>
+        <ul class="quality">
+            <li><a <?=(preg_match("/^$/", $this->qs['brate']))?"class='actual'":"href='".$this->qs(array(), array('brate'=>1, 'page'=>1))."'"?>><?=$this->translate('All qualities');?></a></li>
+            <li><a <?=(preg_match("/^1$/", $this->qs['brate']))?"class='actual'":"href='".$this->qs(array('brate'=>'1', 'opt'=>1), array('page'=>1))."'"?>>128 kbps <?=$this->translate('or better');?></a></li>
+            <li><a <?=(preg_match("/^2$/", $this->qs['brate']))?"class='actual'":"href='".$this->qs(array('brate'=>'2', 'opt'=>1), array('page'=>1))."'"?>>192 kbps <?=$this->translate('or better');?></a></li>
+            <li><a <?=(preg_match("/^3$/", $this->qs['brate']))?"class='actual'":"href='".$this->qs(array('brate'=>'3', 'opt'=>1), array('page'=>1))."'"?>>256 kbps <?=$this->translate('or better');?></a></li>
+            <li><a <?=(preg_match("/^4$/", $this->qs['brate']))?"class='actual'":"href='".$this->qs(array('brate'=>'4', 'opt'=>1), array('page'=>1))."'"?>>320 kbps <?=$this->translate('or better');?></a></li>
+        </ul>
+        <?php endif; ?>
+        <?php if (preg_match("/^Audio|Video$/", $this->qs['type'])): ?>
+        <ul class="year">
+            <li><a <?=(preg_match("/^$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array(), array('year'=>1, 'page'=>1))."'"?>><?=$this->translate('All years');?></a></li>
+            <li><a <?=(preg_match("/^1$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array('year'=>'1', 'opt'=>1), array('page'=>1))."'"?>><?=$this->translate('Before');?> 1960</a></li>
+            <li><a <?=(preg_match("/^2$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array('year'=>'2', 'opt'=>1), array('page'=>1))."'"?>>60's</a></li>
+            <li><a <?=(preg_match("/^3$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array('year'=>'3', 'opt'=>1), array('page'=>1))."'"?>>70's</a></li>
+            <li><a <?=(preg_match("/^4$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array('year'=>'4', 'opt'=>1), array('page'=>1))."'"?>>80's</a></li>
+            <li><a <?=(preg_match("/^5$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array('year'=>'5', 'opt'=>1), array('page'=>1))."'"?>>90's</a></li>
+            <li><a <?=(preg_match("/^6$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array('year'=>'6', 'opt'=>1), array('page'=>1))."'"?>>00's</a></li>
+            <li><a <?=(preg_match("/^7$/", $this->qs['year']))?"class='actual'":"href='".$this->qs(array('year'=>'7', 'opt'=>1), array('page'=>1))."'"?>><?=$this->translate('Last year');?></a></li>
+        </ul>
+        <?php endif; ?>
+    </div>
+    
+<?php if ($this->info['total']>0): ?>
+    <div id="results">
+    <ul>
+       <?php foreach ($this->paginator as $val): ?>
+        <li class="file_excerpt">
+            <h3>
+                <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches( $this->formatHTML( $val['view']['fn']), $this->qs['q'], false) ?></a>
+                <?php
+                if (array_key_exists('vs', $val['file'])){
+                    if ($val['file']['vs'][$this->lang]) echo "<div class='useract votes_up'></div>{$val['file']['vs'][$this->lang]['c'][0]}";
+                    if ($val['file']['vs'][$this->lang]) echo "<div class='useract votes_down'></div>{$val['file']['vs'][$this->lang]['c'][1]}";
+                }
+                if (array_key_exists('cs', $val['file']) && $val['file']['cs'][$this->lang]) echo "<div class='useract comments'></div>{$val['file']['cs'][$this->lang]}";
+                if (APPLICATION_ENV!='production'):?>
+                    <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fw:<?=$val['search']['fw'] ?> fc:<?=$val['search']['fc']?></span>
+                <?php  endif; ?>
+            </h3>
+        <? echo $this->format($val, false); ?>
+        <span>
+        <?php
+            if (isset($val['file']['z']) && $val['file']['z']>0) echo $this->formatSize($val["file"]["z"])." - ";
+
+            foreach ($val['view']['sources'] as $src => $info)
+            {
+                if (isset($info['count']))
+                    $text = "{$info['tip']}&nbsp;({$info['count']}&nbsp;".$this->translate('Sources').")";
+                else
+                    $text = "{$info['tip']}";
+
+                foreach ($info['urls'] as $url)
+                {
+                    echo "<a class='source' title='{$info['tip']}' href='".$this->formatURL($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a>&nbsp;&nbsp;";
+                }
+            }
+        ?>
+        </span>
+        </li>
+        <?php endforeach ?>
+    </ul>
+    </div>
+    <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
+<?php else: ?>
+    <h2><?=$this->translate('No results for:').' ';?><?php foreach (explode(' ', $this->info['q']) as $word) { echo "&nbsp;<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>"; }?>
+    </h2>
+    
+    <?php if ($this->info["notypecount"]): ?>
+        <p id="no_results"><?=sprintf($this->translate("NoTypeCount"), $this->qs['type'], $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
+    <?php endif;?>
+<?php endif;?>
+</div>

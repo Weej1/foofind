@@ -1,0 +1,26 @@
+<div id="container_user">
+    <h2><?=$this->translate('New user')?></h2>
+    <?php
+    if (isset ( $this->error )) :
+        ?>
+    <div class="error">
+            <?=$this->error ;?>
+    </div>
+    <?php endif;?>
+    <fieldset>
+        <p><?=$this->translate ( '(If you already are a registered user, please' );?>&nbsp;<a href="/<?=$this->lang?>/auth/login" title="user login"><?=$this->translate ( 'login here' );?></a>)</p>
+        <form action="<?=$this->escape ( $this->form->getAction () )?>" method="<?=$this->escape ( $this->form->getMethod () )?>">
+            <p><?=$this->translate ( 'Please, fill this form to be a Foofind registered member:' );?></p>
+            <?
+            echo $this->form->email;
+            echo $this->form->username;
+            echo $this->form->password1;
+            echo $this->form->password2;
+            echo $this->form->captcha; ?>
+            <span id="agree">
+            <?=$this->form->agree.$this->translate('literal_check_agree');?>
+            </span>
+            <? echo $this->form->submit; ?>
+        </form>
+    </fieldset>
+</div>

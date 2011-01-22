@@ -1,0 +1,197 @@
+<div id="container_search">
+    <h1>
+        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+    </h1>
+    <?=$this->form; ?>
+    <script>document.getElementById('q').focus();</script>
+    <?if ($this->qs['q']):?>
+    <div class="contentype">
+        <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= ''.$this->qs(array(), array('type'=>1, 'page'=>1)) ?>" ><?=$this->translate('All');?></a>
+        <a class="<?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= $this->qs(array('type'=>'Audio'), array('page'=>1)) ?>" ><?=$this->translate('Audio');?></a>
+        <a class="<?=(preg_match("/^Video$/", $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= $this->qs(array('type'=>'Video'), array('page'=>1)) ?>" ><?=$this->translate('Video');?></a>
+        <a class="<?=(preg_match("/^Image$/", $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= $this->qs(array('type'=>'Image'), array('page'=>1)) ?>" ><?=$this->translate('Image');?></a>
+        <a class="<?=(preg_match("/^Document$/", $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= $this->qs(array('type'=>'Document'), array('page'=>1)) ?>" ><?=$this->translate('Document');?></a>
+        <a class="<?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= $this->qs(array('type'=>'Software'), array('page'=>1)) ?>" ><?=$this->translate('Software');?></a>
+        <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="/<?=$this->lang?>/search/<?= $this->qs(array('type'=>'Archive'), array('page'=>1)) ?>" ><?=$this->translate('Archive');?></a>
+    </div>
+    <?endif?>
+    <hr />
+<?
+if (count ( $this->mensajes ) > 0) {
+	echo '<div class="success">';
+	foreach ( $this->mensajes as $msg ) {
+		echo $msg . '<br>';
+	}
+	echo '</div>';
+}
+?>
+    <div class="wrap_download">
+    <div class="file_download">
+        <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->coalesce($this->file['votes'][$this->lang]['c'][0], 0)?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->coalesce(-$this->file['votes'][$this->lang]['c'][1],0)?>)</span></a></div>
+        <h2><?=$this->file['view']['fn'];?></h2>
+        
+        <div class="top_download">
+        <div class="download_button">
+            <div class="icon icon50 <?=strtolower($this->file['view']['type']) ?>50"></div><br />
+            <a target="_blank" title="<?=$this->translate($this->file['view']['action'])?>" class="superlarge magenta awesome" href="<?=$this->formatURL($this->file['view']['sources'][$this->file['view']['source']]['urls'][0])?>"><?=$this->translate($this->file['view']['action']).((isset($this->file['file']['z']) && $this->file['file']['z']>0)?" (".$this->formatSize($this->file["file"]["z"]).')':'');?></a>
+         </div>
+        <div class="download_file_metadata"><? echo $this->format($this->file, true); ?></div>
+       </div>
+
+        <div class="dowload_file_sources">                
+        <?
+        $max = 15;
+        foreach ($this->file['view']['sources'] as $src => $info)
+        {
+            if (isset($info['count']))
+                $text = "{$info['tip']} <br/><span>({$info['count']}&nbsp;".$this->translate('Sources').")</span>";
+            else
+                $text = "{$info['tip']}";
+
+            echo "<div class='download_source' >";
+
+            $maxSrc = 3;
+            foreach ($info['urls'] as $url)
+            {
+                $max-=1; $maxSrc-=1; if ($max<0 || $maxSrc<0) break;
+                echo '<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$url.'" />';
+                echo "<div><div class='icon icon30 {$info['icon']}30'></div>&nbsp;<a title='$url' href='".$this->formatURL($url)."'>".ucfirst ( $text )."</a></div>";
+            }
+            echo "</div>";
+        }
+        ?>
+        </div>
+
+        <div class="sharelinks"><?=$this->translate('Share this:');?>
+            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>"><div alt="<?=$this->translate('share on facebook');?>" class="icon facebook"></div></a>
+            <a href="mailto:?subject=<?=$this->file['view']['fn'];?>&body=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>"><div alt="<?=$this->translate('send by email');?>" class="icon email"></div></a>
+            <a href="http://twitter.com/home?status=http://foof.in/<?=$this->langcode;?>/<?=$this->file['file']['url'];?>"><div alt="<?=$this->translate('share on twitter');?>" class="icon twitter"></div></a>
+        </div>
+
+
+        <? if (array_key_exists("related", $this->file['view'])): ?>
+    <div class="download_section related">
+        <div class="icon link"></div><h4><?=$this->translate('Related files'); ?></h4>
+            <? foreach ($this->file['view']['related'] as $rel):?>
+        <p><a href="<?="/{$this->lang}/download/{$rel['view']['url']}/".$this->formatURL($rel['view']['fn']) ?>.html"><?=$rel['view']['fn']?></a><? if (isset($rel['file']['z']) && $rel['file']['z']>0) echo " - ".$this->formatSize($rel["file"]["z"])?></p>
+            <? endforeach;?>
+    </div>
+       <? endif; ?>
+
+        <div class="download_section comments">
+<? if (count($this->comments)>0 || $this->isAuth): ?>
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
+        <div class="icon balloon"></div><h4><?=$this->translate('Your comments')?></h4>
+<? endif;?>
+
+       <?php
+            $this->comments_refs = array();
+            $this->count = count($this->file['comments']);
+            $i = $this->count + 1 - ($this->paginator->getCurrentPageNumber()-1)*$this->paginator->getItemCountPerPage();
+            foreach ($this->paginator as $key => $val):
+                $i--; ?>
+        <div class="comment">
+           <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
+           <div class="file_comment_vote small <?=$val['myvote'] ?>" idcomment="<?=$val['_id']?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><span><?=0+$val['vs']['c'][0]?></span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><span><?=0-$val['vs']['c'][1]?></span></a></div>
+           <div id="c<?=$i?>"><?= $this->format_comment($val['t']); ?></div>
+           <div class="file_comment_nick"><a href="/<?=$this->lang ?>/profile/<?=$this->escape($val['u']['username']) ?>"><?=$val['u']['username'] ?></a> - <? echo $this->show_date_span($val['d']->sec); if ($val['u']['username']!=null) echo  " ". $this->translate("from") ." ". $val['u']['location']; ?></div>
+        </div>
+
+        <?php endforeach;?>
+        <script>
+            var tooltips = [];
+
+        <?php
+            foreach ($this->comments_refs as $val):
+                    $comment = $this->comments[$this->count-$val];
+                    echo "tooltips[$val] = '<b>{$comment['u']['username']}: </b>".$this->format_comment($comment['t'])."';";
+              endforeach;?>
+
+<? if (count($this->comments)>0): ?>
+            $('.ttlink').tooltip({
+                track: true,
+                delay: 0,
+                showURL: false,
+                bodyHandler: function() { return tooltips[$(this).attr("tooltip")]; },
+                fade: 250
+            });
+
+<?endif;
+ if ($this->isAuth): ?>
+            $('.file_comment_vote a').click(function(event)
+            {
+                event.preventDefault();
+                $.ajax({dataType:"json",
+                    url: "/<?=$this->lang?>/vote/comment/"+$(this).parent().attr('idcomment')+"/"+$(this).attr('type'),
+                    context: this,
+                    success: function(data){
+                        var parent = $(this.context).parent();
+                        if (parent.attr('type')=='1') {
+                            parent.addClass("upactive");
+                            parent.removeClass("downactive");
+                        }
+                        else
+                        {
+                            parent.addClass("downactive");
+                            parent.removeClass("upactive");
+                        }
+
+                        counter = $(".vote_up span", parent).text(data['c'][0]);
+                        counter = $(".vote_down span", parent).text(-data['c'][1]);
+                    }
+                });
+            });
+
+            $('.file_download_vote a').click(function(event)
+            {
+                event.preventDefault();
+                $.ajax({dataType:"json",
+                        url: "/<?=$this->lang?>/vote/file/<?=$this->file['file']['url']?>/"+$(this).attr('type'),
+                        context: this,
+                        success: function(data){
+                            var parent = $(this.context).parent();
+                            if (parent.attr('type')=='1') {
+                                parent.addClass("upactive");
+                                parent.removeClass("downactive");
+                            }
+                            else
+                            {
+                                parent.addClass("downactive");
+                                parent.removeClass("upactive");
+                            }
+
+                            counter = $(".vote_up span", parent).text('('+data['<?=$this->lang?>']['c'][0]+')');
+                            counter = $(".vote_down span", parent).text('('+ (-data['<?=$this->lang?>']['c'][1])+')');
+                        }
+                });
+            });
+<? else: ?>
+            $(document).ready(function(){$.superbox();} );
+            $.superbox.settings = {
+                boxWidth: 400,
+                boxHeight: 320,
+                overlayOpacity: .4, // Background opaqueness
+                loadTxt: "<?=$this->translate("Loading...")?>",
+                closeTxt: "<?=$this->translate("Close")?>",
+                prevTxt: "<?=$this->translate("Previous")?>",
+                nextTxt: "<?=$this->translate("Next")?>"
+            };
+<?php endif;?>
+
+        </script>
+
+    <?php echo $this->paginationControl($this->paginator, 'Sliding', 'paginator_md.phtml'); ?>
+    <div class="comment_form"><?=$this->createcomment?></div>
+
+    </div>
+    </div>
+
+    <div class="download_more_info">
+        <h3><?=$this->translate('How to download?'); ?></h3>
+        <p><?=$this->translate('DownloadExplanation'); ?></p>
+        <p><div title="eDonkey, eMule, MLDonkey, aMule" alt="eDonkey, eMule, MLDonkey, aMule" class="icon icon24 ed2k24"></div> eMule, MLDonkey, aMule.</p>
+        <p><div title="Gnutella, Frostwire,Limewire, Shareaza, Phex" alt="Gnutella, Frostwire, Limewire, Shareaza, Phex" class="icon icon24 gnutella24"></div> Limewire, Shareaza, Phex.</p>
+        <p><div title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission" class="icon icon24 torrent24"></div> µTorrent, Transmission.</p>
+    </div>
+</div>
+</div>
