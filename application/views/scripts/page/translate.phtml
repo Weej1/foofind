@@ -1,0 +1,45 @@
+<?=$this->headTitle()->append($this->translate('Translate'));?>
+<h2><?=$this->translate('Help us to translate Foofind.com to your language')?></h2>
+<div class="page_text translate">
+    <?=$this->translate('translate text');?>
+<?php if (isset ( $this->error )) :?>
+<div class="error"><?=$this->escape ( $this->error );?></div>
+<?php endif;?>
+    <?php if (isset ( $this->newlang )) :?><a href="#" id="searchempty">%</a><?php endif;?>
+    <br/><?=$this->langsform?>
+<? if ($this->newlang!=null) echo '<div>'.$this->textsform.'</div>'; ?>
+</div>
+<?php if (isset ( $this->newlang )) :?>
+<script>
+    var controls = $('textarea,input[type=text]').not('[name^="safe_"]');
+    var empties = controls.filter("[value='']");
+    $("#searchempty").text(100-100*empties.size()/controls.size()+'%');
+    $("#searchempty").click(function(event){
+        event.preventDefault();
+        var offset, docScroll, docHeight;
+        docScroll = $("html").scrollTop();
+        if (isNaN(docScroll)) docScroll=0;
+        $("html").scrollTop(docScroll);
+        winHeight = $(window).height();
+        empties = controls.filter("[value='']");
+        var c;
+        for (index = 0; index < empties.length; index++) {
+            c = $(empties[index]);
+            offset=c.offset().top;
+            
+            if (offset>docScroll)
+            {
+                if (offset > winHeight/2) offset -= winHeight/2;
+                $("html, body").animate({scrollTop:offset}, 400, function() { c.focus(); });
+                break;
+            }
+        }
+        $(this).text(100-100*empties.size()/controls.size()+'%');
+    });
+
+    $("textarea,input[type=text]").change(function(){
+        empties = controls.filter("[value='']");
+        $("#searchempty").text(100-100*empties.size()/controls.size()+'%');
+    });
+</script>
+<?php endif;?>

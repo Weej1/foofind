@@ -1,21 +1,29 @@
 <div id="container_user">
-    <h2><?=$this->translate('Last indexed files') .' '. date( $this->translate('l dS \o\f F Y H:i:s') ) . ' (GMT+01:00) , Madrid' ?></h2>
+    <h2><?=$this->translate('Last indexed files') .' - '. date('j-m-Y, g:i:s') . ', Madrid (GMT+01:00)' ?></h2>
 <div id="results">
     <ul>
-       <?php foreach ($this->lastfiles as $key => $val):
-            if ($val['Filename']):?>
+ <?php
+       foreach ($this->lastfiles as $file ):
+  
+                    foreach ($file['fn'] as $key => $value)
+                            { //   bazinga!
+                            }
+          
+                          //var_dump( (string)$file['_id'] );
+                         $url = base64_encode(  pack("H*" ,$file['_id'] )  );
+                         $url = str_replace('+', '!', $url);
+                         $url = str_replace('/', '-', $url);                       
+
+           ?>
         <li class="file_excerpt">
-            <h3><a href="/<?=$this->lang?>/download/<?=$val['IdFile'] ?>/<?=$val['Filename'].'.html' ?>"><?=$val['Filename'] ?></a></h3>
+            <h3><a href="/<?=$this->lang?>/download/<?=$url ?>/<?=$value['n'].'.html'; ?>"><?=$value['n'] ?></a></h3>
         </li>
-        <?php
-              endif;
+        <?php          
             endforeach; ?>
     </ul>
     </div>
 <?=$this->paginationControl($this->lastfiles,'Sliding','paginator_md.phtml'); ?>
-
 <br />
-
 
     <div class="alfa">
         <?
@@ -26,9 +34,7 @@
                 echo '<a href="/'.$this->lang.'/search/?q='.$LETRA.$letra.'*">'.$LETRA.$letra.'</a>&nbsp;<wbr>';
              }
         }
-        ?>
-
-        <?
+      
         $NUMEROS = range( '0', '9' );
         foreach( $NUMEROS as $NUMERO ) {
              $numeros = range( '0', '9' );   
@@ -39,10 +45,5 @@
              }      
         }
         ?>
-
-
     </div>
-
-
-
 </div>

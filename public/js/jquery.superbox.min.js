@@ -37,7 +37,7 @@ $innerbox.empty()}function v(A){d();l.fadeOut(300,function(){s.show()});m=false}
 }}function k(){t.show();$innerbox.empty();q.css({position:"absolute",top:"-99999px"})
 }function u(){p.hide();i(document).unbind("keydown").bind("keydown",function(A){if(A.keyCode==27){v()
 }if(A.keyCode==39&&o.is(":visible")){o.click()}if(A.keyCode==37&&j.is(":visible")){j.click()
-}});q.css({position:"static",top:0,opacity:0});if(i.browser.msie&&i.browser.version<8){q.css({position:"relative",top:"-50%"});
+}});q.css({position:"relative",top:0,opacity:0});if(i.browser.msie&&i.browser.version<8){q.css({position:"relative",top:"-50%"});
 if(i.browser.msie&&i.browser.version<7){t.css({position:"absolute",top:"50%"})}}if(i(window).height()<t.height()){t.css({position:"absolute",top:(t.offset().top+10)+"px"})
 }q.fadeTo(300,1)}function n(){if(!i.superbox.elementsReady){l=i('<div id="superbox-overlay"></div>').appendTo("body").hide();
 t=i('<div id="superbox-wrapper"></div>').appendTo("body").hide();r=i('<div id="superbox-container"></div>').appendTo(t);

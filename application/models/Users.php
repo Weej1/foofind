@@ -1,245 +1,242 @@
 <?php
 
-class Model_Users extends Zend_Db_Table_Abstract
+class Model_Users 
 {
-    public function getUsersForKarmaUpdate()
+    private function prepareConnection()
     {
-        $table = new ff_users();
-        $subselect = $table->select()->from(array("u"=>"ff_users"), array("IdUser", "karma"))->setIntegrityCheck(false)
-                ->joinLeft(array("c"=>"ff_comment"), "u.IdUser=c.IdUser", array("unix_timestamp(min(c.date)) firstc", "unix_timestamp(max(c.date)) lastc"))
-                ->joinLeft(array("v"=>"ff_vote"), "u.IdUser=v.IdUser", array("unix_timestamp(min(v.date)) firstv", "unix_timestamp(max(v.date)) lastv"))
-                ->joinLeft(array("mcv"=>"ff_comment_vote"), "u.IdUser=mcv.IdUser", array("unix_timestamp(min(mcv.date)) firstcv", "unix_timestamp(max(mcv.date)) lastcv"))
-                ->joinLeft(array("cv"=>"ff_comment_vote"), "c.idcomment=cv.idcomment", array("iduser as fr", "avg(cv.karma*(case cv.votetype when 1 then 1 when 2 then -1 else 0 end) ) vs"))
-                ->group(array("u.IdUser","fr"))
-                ->having("coalesce(firstc, firstv, firstcv) is not null");
-        $db = $table->getAdapter();
-        $select = $db->select()
-                ->from(array("users" => new Zend_Db_Expr("($subselect)")), array("*", "svs" => "sum(vs)"))
-                ->group("IdUser");
-
-        return $db->fetchAll($select);
+        if (!isset($this->db))
+        {
+            $db = Zend_Registry::get("db_users");
+            if (!$db->connected) $db->connect();
+            $this->db = $db->foofind;
+        }
     }
 
-    public function getFileComments($idUser, $idFile, $lang)
+    public function fillCommentsUsers(array &$comments)
     {
-        $table = new ff_comment();
-        $select = $table->select()->from("ff_comment")->setIntegrityCheck(false)
-                ->joinLeft("ff_comment_vote", "ff_comment.idcomment=ff_comment_vote.idcomment", array("sum(voteType=1) pos", "sum(voteType=2) neg", "max(if(ff_comment.iduser=$idUser,votetype,0)) myvote"))
-                ->join("ff_users", "ff_users.IdUser=ff_comment.IdUser", array("username", "location"))
-                ->where("IdFile=?",$idFile)->where("ff_comment.lang=?", $lang)->order("date desc")
-                ->group("IdComment");
-        return $table->fetchAll($select);
+        $this->prepareConnection();
+        
+        $idusers = $users = array();
+        foreach ($comments as $comment) {
+            $idusers []= new MongoId(substr($comment['_id'], 0, strpos($comment['_id'], "_")));
+        }
+
+        $cursor = $this->db->users->find(array('_id'=>array('$in'=>$idusers)));
+        foreach ($cursor as $user) {
+            $users[$user['_id']->__toString()] = $user;
+        }
+        unset ($cursor);
+
+        foreach ($comments as $key=>$comment) {
+            $comments[$key]['u'] = $users[substr($comment['_id'], 0, strpos($comment['_id'], "_"))];
+        }
+    }
+    
+    public function getUserComments($idUser)
+    {
+        $this->prepareConnection();
+        $comments = array();
+        $cursor = $this->db->comment->find(array('_id'=>new MongoRegex("/^$idUser/")));
+        foreach ($cursor as $comment) {
+            $comments []= $comment;
+        }
+        unset ($cursor);
+        return $comments;
     }
 
-
-    public function getUserComments($idUser, $limit)
+    public function getFileComments($idFile, $lang)
     {
-        $table = new ff_comment();
-        $select = $table->select()->from("ff_comment")
-                ->where("IdUser=?", $idUser)
-                ->order("date desc")
-                ->limit( $limit );
-                
-        return $table->fetchAll($select);
+        $this->prepareConnection();
+        $comments = array();
+        $cursor = $this->db->comment->find(array('f'=>new MongoId($idFile), 'l'=>$lang))->sort(array('d'=>-1));
+        foreach ($cursor as $comment) {
+            $comments[$comment['_id']] =$comment;
+        }
+        unset ($cursor);
+        return $comments;
     }
 
-    public function getUserVote($idUser, $idFile)
+    public function getFileCommentsSum($idFile)
     {
-        $table = new ff_vote();
-        $select = $table->select()->where("IdFile=?", $idFile)->where("IdUser=?", $idUser);
-        return $table->fetchAll($select);
+        $this->prepareConnection();
+
+        $langs = $this->db->comment->group( array("l"=>1),
+                                    array("c" => 0),
+                                    new MongoCode("function (o, p) { p.c++; }"),
+                                    array('f'=>new MongoId($idFile)) );
+        
+        $res = array();
+        foreach ($langs['retval'] as $lang) {
+            $res[$lang['l']] = $lang['c'];
+        }
+        return $res;
     }
 
-    public function getCommentVotes($idComment)
+    public function getFileVotesSum($idFile, $idUser)
     {
-        $table = new ff_comment_vote();
-        $select = $table->select()
-                ->from("ff_comment_vote", "VoteType, count(*) c, sum(karma) k")
-                ->where("IdComment=?", $idComment)
-                ->group(array("IdComment", "VoteType"));
-        return $table->fetchAll($select);
+        $this->prepareConnection();
+
+        $map = new MongoCode("function() {
+                emit(this.l, {k:this.k, c:new Array((this.k>0)?1:0, (this.k<0)?1:0),
+                                        s:new Array((this.k>0)?this.k:0, (this.k<0)?this.k:0),
+                                        u:(this.u=='$idUser')?this.k:0 }); }");
+        $reduce = new MongoCode("function(lang, vals) { ".
+                                    "var c = new Array(0,0);".
+                                    "var s = new Array(0,0);".
+                                    "var u = 0;".
+                                    "for (var i in vals) {".
+                                        "c[0] += vals[i].c[0]; c[1] += vals[i].c[1];".
+                                        "s[0] += vals[i].s[0]; s[1] += vals[i].s[1];".
+                                        "u += vals[i].u;".
+                                    "}".
+                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI+0.5;".
+                                    "return {t:t, c:c, s:s, u:u}; }");
+
+        $votes = $this->db->command(array("mapreduce" => "vote", "map" => $map, "reduce" => $reduce,
+                             "query" => array('_id'=>new MongoRegex("/^$idFile/"))));
+        $langs = $this->db->selectCollection($votes['result'])->find();
+
+        $res = array();
+        $u = 0;
+        foreach ($langs as $lang=>$vals) {
+            $u += $vals['value']['u'];
+            unset($vals['value']['u']);
+            $res[$lang]=$vals['value'];
+        }
+        $res['user'] = $u;
+        return $res;
     }
 
-    public function getVotes($idFile)
+    public function getUserFileVotes($idFile, $idUser)
     {
-        $table = new ff_vote();
-        $select = $table->select()
-                ->from("ff_vote", "VoteType, count(*) c, sum(karma) k")
-                ->where("IdFile=?", $idFile)
-                ->group(array("IdFile", "VoteType"));
-        return $table->fetchAll($select);
+        $this->prepareConnection();
+        $cursor = $this->db->comment_vote->find(array('f'=>new MongoId($idFile), 'u'=>$idUser));
+        foreach ($cursor as $vote) {
+            $id = $vote['_id'];
+            $pos = strrpos($id, '_');
+            $votes[substr($id, 0, $pos)] = $vote;
+        }
+        unset ($cursor);
+        return $votes;
     }
 
-    public function getFilesVotes($where)
+    public function getCommentVotesSum($idComment, $idUser)
     {
-        $table = new ff_vote();
-        $select = $table->select()->from("ff_vote", "IdFile, count(*) c, VoteType")->where($where)->group(array("IdFile", "VoteType"));
-        return $table->fetchAll($select);
+        $this->prepareConnection();
+        $map = new MongoCode("function() {
+                pos = this._id.lastIndexOf('_');
+                emit('1', {k:this.k, c:new Array((this.k>0)?1:0, (this.k<0)?1:0),
+                                        s:new Array((this.k>0)?this.k:0, (this.k<0)?this.k:0),
+                                        u:(this.u=='$idUser')?this.k:0 }); }");
+        $reduce = new MongoCode("function(lang, vals) { ".
+                                    "var c = new Array(0,0);".
+                                    "var s = new Array(0,0);".
+                                    "var u = 0;".
+                                    "for (var i in vals) {".
+                                        "c[0] += vals[i].c[0]; c[1] += vals[i].c[1];".
+                                        "s[0] += vals[i].s[0]; s[1] += vals[i].s[1];".
+                                        "u += vals[i].u;".
+                                    "}".
+                                    "t = Math.atan((s[0]*c[0]+s[1]*c[1])/(c[0]+c[1]))/Math.PI+0.5;".
+                                    "return {t:t, c:c, s:s, u:u}; }");
 
+        $votes = $this->db->command(array("mapreduce" => "comment_vote", "map" => $map, "reduce" => $reduce,
+                             "query" => array('_id'=>new MongoRegex("/^$idComment/"))));
+        $vals = $this->db->selectCollection($votes['result'])->findOne();
+        return $vals['value'];
     }
 
-    public function getFilesComments($where)
+    public function getComment($id)
     {
-        $table = new ff_comment();
-        $select = $table->select()->from("ff_comment", "IdFile, count(*) c")->where($where)->group(array("IdFile"));
-        return $table->fetchAll($select);
-
+        $this->prepareConnection();
+        return $this->db->comment->findOne(array('_id'=>$id));
     }
-
-    public function deleteVote($idFile, $idUser, $type)
+    
+    public function saveVote(array $data)
     {
-        $table = new ff_vote();
-        return $table->delete("IdFile=$idFile and IdUser=$idUser and VoteType=$type");
-    }
-
-    public function deleteCommentVote($idComment, $idUser, $type)
-    {
-        $table = new ff_comment_vote();
-        return $table->delete("IdComment=$idComment and IdUser=$idUser and VoteType=$type");
-    }
-
-    public function saveCommentVote(array $data)
-    {
-        return $this->save(new ff_comment_vote(), $data);
+        $this->prepareConnection();
+        $this->db->vote->save($data);
     }
 
     public function saveComment(array $data)
     {
-        return $this->save(new ff_comment(), $data);
+        $this->prepareConnection();
+        $this->db->comment->save($data);
     }
 
-    public function saveVote(array $data)
+    public function saveCommentVote(array $data)
     {
-        return $this->save(new ff_vote(), $data);
+        $this->prepareConnection();
+        $this->db->comment_vote->save($data);
     }
 
     public function saveUser(array $data)
     {
-        return $this->save(new ff_users(), $data);
+        $this->prepareConnection();
+        $data ['created'] = new MongoDate();
+        $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
+        $data['password'] = hash('sha256', $data['password'], FALSE);
+        $data['karma'] = 0.2;
+
+        $safe_insert = true;
+        return $this->db->users->insert($data, $safe_insert);
     }
 
-    public function save($table, array $data)
+    public function updateUser( $username, array $data)
     {
-        $fields = $table->info ( Zend_Db_Table_Abstract::COLS );
-        foreach ( $data as $field => $value )
-        {
-            if (! in_array ( $field, $fields )) unset ( $data [$field] );
-        }
-        return $table->insert ( $data );
+        $this->prepareConnection();
+        return $this->db->users->update(array("username" => $username), array('$set' => $data));
     }
 
-    public function updateUser(array $data)
+    public function updateCommentVotes($id, $votes)
     {
-        $table = new ff_users();
-        $where = $table->getAdapter ()->quoteInto ( 'IdUser = ?', $data['IdUser'] );
-        $table->update ( $data, $where );
+        $this->prepareConnection();
+        $this->db->comment->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
     }
 
-
-    function deleteUser($id)
+    function deleteUser($username)
     {
-        $table = new ff_users();
-        $table->delete('IdUser =' . (int)$id);
+        $this->prepareConnection();
+        $filter = array('username' => $username);
+        $this->db->users->remove($filter);
     }
 
-    function deleteUserComments ($id)
+    public function checkUserLogin($email, $password)
     {
-        $table = new ff_comment();
-        $table->delete('IdUser =' . (int)$id);
-    }
-
-    function deleteUserCommentsVotes ($id)
-    {
-        $table = new ff_comment_vote();
-        $table->delete('IdUser =' . (int)$id);
-    }
-
-    function deleteUserVotes ($id)
-    {
-        $table = new ff_vote();
-        $table->delete('IdUser =' . (int)$id);
-    }
-
-
-    public function checkUserEmail($email)
-    {
-        $table = new ff_users();
-        return $table-> fetchRow ( $table->select()->where( 'email = ?', $email ) );
-    }
-
-    public function checkUsername($username)
-    {
-        $table = new ff_users();
-        return $table->fetchRow ( $table->select()->where( 'username = ?', $username ));
+        $this->prepareConnection();
+        return $this->db->users->findOne( array('email' =>$email,'password' =>$password, 'active' => 1 ) );
     }
 
     public function getUserToken($email)
     {
-        $table = new ff_users();
-        return $table->fetchRow ( $table->select()->where(  'email = ?', $email ))->token;
+        $this->prepareConnection();
+       $user = $this->db->users->findOne( array('email' =>$email), array('token') );
+       return $user['token'];
     }
 
-    public function validateUserToken($token)
+    public function fetchUserByToken($token)
     {
-        $table = new ff_users();
-        return $table->fetchRow (  $table->select()->where( 'token = ?', $token ));
+        $this->prepareConnection();
+        return $this->db->users->findOne( array('token' =>$token) );
     }
-
-    public function checkUserIsLocked($id)
-    {
-        $table = new ff_users();
-        return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
-    }
-
-    public function checkUserType($id)
-    {
-        $table = new ff_users();
-        return $table->fetchRow (  $table->select()->where( 'IdUser = ?', $id ))->locked;
-    }
-
 
     public function fetchUser($id)
     {
-        $table = new ff_users();
-        return $table->fetchRow(  $table->select()->where( 'IdUser = ?', $id ) );
+        $this->prepareConnection();
+       return $this->db->users->findOne( array('IdUser' =>$id) );
     }
 
-     public function fetchUserByUsername($username)
+    public function fetchUserByUsername($username)
     {
-        $table = new ff_users();
-        return $table->fetchRow(  $table->select()->where( 'username = ?', $username ) );
+        $this->prepareConnection();
+        return $this->db->users->findOne( array('username' =>$username) );
     }
-
-
-}
-
-class ff_users extends Zend_Db_Table
-{
-    protected $_primary = 'IdUser';
-
-    public function insert(array $data)
+    
+    public function fetchUserByEmail($email)
     {
-        $data ['created'] = date ( 'Y-m-d H:i:s' );
-        $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
-        $data['password'] = hash('sha256', $data['password'], TRUE);
-        return parent::insert ( $data );
+        $this->prepareConnection();
+        $user = $this->db->users->findOne( array('email' =>$email) );
+        return $user;
     }
-
-
-
 }
 
-class ff_vote extends Zend_Db_Table
-{
-    protected $_primary = array('IdFile', 'IdFilename', 'IdUser', 'VoteType');
-}
-
-class ff_comment extends Zend_Db_Table
-{
-    protected $_primary = 'IdComment';
-}
-
-class ff_comment_vote extends Zend_Db_Table
-{
-    protected $_primary = array('IdComment', 'IdUser', 'VoteType');
-}

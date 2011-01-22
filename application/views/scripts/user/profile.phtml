@@ -1,5 +1,5 @@
 <div id="container_user">
-    <h2><?=$this->translate ( 'User profile' ).'  -  '.$this->user['username'];?></h2>
+    <h2><?=$this->translate ( 'User profile' ).'  -  '.$this->user['username'];?></h2> <h3><?=$this->editprofile ?></h3><br />
     <?php
     if (isset ( $this->error )) :
         ?>
@@ -7,26 +7,32 @@
             <?=$this->escape ( $this->error );?>
     </div>
     <?php endif;?>
+<?
+if (count ( $this->mensajes ) > 0) {
+	echo '<div class="success">';
+	foreach ( $this->mensajes as $msg ) {
+		echo $msg . '<br>';
+	}
+	echo '</div>';
+}
+?>
 
-<?=$this->editprofile ?>
 
     <div class="user_profile">
         <h3><?=$this->translate('User name:').' '.$this->user['username'];?></h3>
         <h3><?=$this->translate('Location:').' '.$this->escape( $this->user['location'] );?></h3>
-        <h3><?=$this->translate('Member since:').' '.$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($this->user['created'])));?></h3>
+        <h3><?=$this->translate('Member since:').' '.$this->escape(date('j-m-Y, g:i:s', $this->user['created']->sec));?></h3>
     </div>
     <br />
-    <h3><?=$this->translate('Last 5 comments:');?></h3>
+    
     <? if ($this->comments): ?>
-
-    <? //Zend_Debug::dump($this->comments)  ?>
-
+    <h3><?=$this->translate('Last 5 comments:');?></h3>
         <?php
         foreach ($this->comments as $key => $val):?>
     <br />
     <div >
         <div ><a href="/<?=$this->lang ?>/download/<?=$val['IdFile'] ?>"> <?=$val['text']; ?></a> </div>
-        <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['IdUser']) ?>"><?=$val['username'] ?></a> 
+        <div class="file_comment_nick"><a href="/<?=$this->lang ?>/user/profile/id/<?=$this->escape($val['username']) ?>"><?=$val['username'] ?></a>
                 <?=$this->escape(date( $this->translate('l dS \o\f F Y H:i:s'), strtotime($val['date']))); ?></div>
     </div>
     <?php endforeach; ?>

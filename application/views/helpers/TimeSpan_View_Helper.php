@@ -2,20 +2,20 @@
 
 class TimeSpan_View_Helper extends Zend_View_Helper_Abstract
 {
+    static $worldBeginning = null;
     function __construct()
     {
         $this->dateParts = array("y"=>"year", "M"=>"month", "d"=>"day", "h"=>"hour", "m"=>"minute", "s"=>"second");
         $this->now = Zend_Date::now()->toValue();
-        $this->base = new Zend_Date(0);
+        if ($this->worldBeginning==null) $this->worldBeginning = new Zend_Date(0);
     }
 
     function show_date_span($date)
     {
-        $span = new Zend_Date($date, "yyyy-MM-dd HH:mm:ss");
-        $span = new Zend_Date($this->now-$span->toValue());
+        $span = new Zend_Date($this->now-$date);
         foreach ($this->dateParts as $p=>$desc)
         {
-            $diff = (int)$span->toValue($p) - $this->base->toValue($p);
+            $diff = (int)$span->toValue($p) - $this->worldBeginning->toValue($p);
             if ($diff>0) break;
         }
         if ($diff>1) $desc.="s";

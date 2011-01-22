@@ -5,13 +5,13 @@
         <?=$this->headTitle()->setPrefix('foofind.com');?>
         <?=$this->headLink()->appendStylesheet( STATIC_PATH . '/css/main.css');?>
         <link rel="shortcut icon" href="<?=STATIC_PATH ;?>/images/favicon.ico" />
-        <? include_once("header_common.phtml");?></head>
+        <? include_once("header_common_nosearch.phtml");?></head>
     <body>
         <div id="header" ></div>
-        <div class="content">
-            <div id="container_search">
+        <div class="content<?php if ($this->advices) { echo " advices";}?>">
+            <div id="container_error">
                 <h1>
-                    <a href="/" ><img border="0" src="<?=STATIC_PATH ;?>/images/foofind_search.gif" alt="File search engine - Foodind" title="File search engine - foodind" /> </a>
+                    <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
                 </h1>
                 <hr />
                 <?php echo $this->layout('error')->content ?>

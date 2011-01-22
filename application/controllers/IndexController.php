@@ -1,16 +1,12 @@
 <?php
 
+
 class IndexController extends Zend_Controller_Action
 {
-
     public function init()
     {
-
-        //validate domain foofind
-        $this->_helper->checkdomain->check();
-
-        require_once APPLICATION_PATH . '/models/Files.php';
-
+        
+        // validate domain foofind
         $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang =  $this->_helper->checklang->check();
@@ -26,8 +22,9 @@ class IndexController extends Zend_Controller_Action
             $umodel = new Model_Users();
             $data = (array)$auth->getIdentity();
             $data['lang'] = $lang;
-            $umodel->updateUser($data);
+            $umodel->updateUser($data['username'], $data);
             $auth->getStorage()->write((object)$data);
+            unset($umodel);
         }
 
         setcookie ( "lang", $lang, null, '/' );
@@ -44,16 +41,18 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $f = new Zend_Filter();
+        //$f->addFilter(new Zend_Filter_HtmlEntities($encoding));
+        $f->addFilter(new Zend_Filter_StringTrim());
+        $f->addFilter(new Zend_Filter_StripTags());
 
-        $this->view->totalFilesIndexed = Zend_Locale_Format::toNumber($this->fetchQuery(new ff_file(), "SELECT COUNT(IdFile) as res FROM ff_file"),
-                                        array( 'locale' => $this->view->lang));
-        
+        $type = $this->_getParam('type');
+        $type = $f->filter ( $type );
+        $this->view->qs = array('type'=>$type);
+
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
-
-
-        $request = $this->getRequest ();
-
+        
         $form->addElement('radio', 'src', array(
            
             'label'      => 'source:',
@@ -68,41 +67,43 @@ class IndexController extends Zend_Controller_Action
                             'e' => 'Ed2k'
                             ),
             'separator'     => '',
-            'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge',
-             
+            'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge'             
         ));
-
-
-
+        $form->addElement('hidden', 'type', array('value'=>$type));
         $form->setAction( '/'. $this->view->lang.'/search/');
         $form->loadDefaultDecoratorsIsDisabled(false);
         foreach($form->getElements() as $element) {
             $element->removeDecorator('DtDdWrapper');
             $element->removeDecorator('Label');
-
         }
+
+        $jquery = $this->view->jQuery();
+        $jquery->enable(); // enable jQuery Core Library
+
+        // get current jQuery handler based on noConflict settings
+        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+        
+        $onload = '(".tabs a").click(function(event) '
+                  . '{'
+                  . '   event.preventDefault();'
+                  . '   $(".tabs a").removeClass("actual");'
+                  . '   $(this).addClass("actual");'
+                  . '   var v=$(this).attr("t");'
+                  . '   $("#type").val(v);'
+                  . '});';
+
+        $jquery->addOnload($jqHandler . $onload);
+
         // assign the form to the view
         $this->view->form = $form;
-        
     }
 
     public function queryAction()
     {
-        $type =  $this->getRequest()->getParam('type') ;
         $this->_helper->layout->disableLayout();
-        switch ($type)
-        {
-            case 'count':
-                $table = new ff_file();
-                $query = "SELECT COUNT(IdFile) as res FROM ff_file";
-                break;
-            case 'ts':
-                $table = new ff_touched();
-                $query = "SELECT MAX(timestamp) as res FROM ff_touched";
-                break;
-        }
-        
-        if ($table) $this->view->value = $this->fetchQuery($table, $query);
+        $model = new Model_Files();
+        $this->view->value = $model->countFiles();
+        unset($model);
     }
 
 
@@ -114,19 +115,19 @@ class IndexController extends Zend_Controller_Action
         
         $this->view->lang =  $this->_helper->checklang->check();
 
-        $limit = 500;
+
+        $limit = 100;
 
         $fmodel = new Model_Files();
-        //$this->view->lastFilesIndexed = $fmodel->getLastFilesIndexed();
 
         $paginator = Zend_Paginator::factory( $fmodel->getLastFilesIndexed( (int) $limit ));
         $paginator->setItemCountPerPage(25);
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
 
-
         $this->view->lastfiles = $paginator;
 
+        unset($fmodel);
     }
 
 
@@ -143,15 +144,9 @@ class IndexController extends Zend_Controller_Action
         $fmodel = new Model_Files();
         $this->view->lastfiles = $fmodel->getLastFilesIndexed( (int) $limit );
 
-
+        unset($fmodel);
     }
 
-
-    function fetchQuery($table, $query)
-    {
-         $row = $table->getAdapter()->query($query)->fetchAll();
-         return $row[0]['res'];
-    }
     /**
      *
      * @return Form_Search
