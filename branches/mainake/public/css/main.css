@@ -7,7 +7,7 @@
 html {
     height: 100%;
     min-height: 100%;
-    min-width: 1024px;
+    min-width: 1000px;
 }
 body {
     min-height:400px;
@@ -21,7 +21,7 @@ html>body, x:-moz-any-link {
     height:100%;
 }
 body, .content {
-    height /*\**/:100%\9
+    height /*\**/:100%\9;
 }
 
 /** {
@@ -89,7 +89,7 @@ dd#src-element{
     margin-bottom: 10px;
     display: block;
     clear: both;
-    cursor: hand;
+    //cursor: hand;
     cursor: pointer;
 }
 
@@ -150,6 +150,7 @@ dd#src-element label{
 
 .content {
     position:relative;
+    min-height: 100%;
 }
 
 #q-element {
@@ -157,7 +158,7 @@ dd#src-element label{
 }
 input#q {
     margin-right: 8px;
-    height: 18px;
+    height: 30px;
     width: 350px;
     font-size: 12px;
 }
@@ -443,13 +444,18 @@ input#q {
 
 .file_excerpt {
     display: block;
-    margin-top: 5px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.file_excerpt h3{
+    max-width: 95%;
 }
 
 .file_excerpt span{
     display: block;
-    max-width:42em;
+    max-width: 95%;
 }
 
 .file_excerpt span.useract {
@@ -466,6 +472,14 @@ input#q {
     background-color: #FFEEEE;
     background-repeat: no-repeat;
     padding-right: 4px;
+}
+
+.file_excerpt div.show_file_pannel {
+    display: none;
+    width: 16px;
+    height: 16px;
+    float: right;
+    background-image: url(/images/icons/show_file_panel.gif);
 }
 
 .file_excerpt div.comments{
@@ -650,10 +664,68 @@ h3 {
 }
 
 #results {
-    padding-left:10px;
+    float: left;
+    width: 50%;
+    padding: 10px 0 0 10px;
     word-wrap: break-word;
     text-align: left;
     overflow: hidden;
+}
+
+#results li:hover {
+    background-color: #fbeffb;
+}
+
+#filepanel {
+    display: none;
+    position: fixed;
+    top: 137px;
+    left: 51%;
+    right: 10px;
+    word-wrap: break-word;
+    text-align: left;
+    border-left: 1px solid #cd0069;
+}
+
+#filepanel_close {
+    display: block;
+    text-align: right;
+    margin: 0 10px 0 0;
+    padding: 5px 10px 5px 0;
+    background-color: #fbeffb;
+    cursor: pointer;
+}
+
+#filepanel .loading {
+    display: block;
+    padding: 20px;
+}
+
+#fileinfo {
+    margin: 0 10px 0 0;
+    max-height: 350px;
+    overflow: auto;
+}
+
+#fileinfo #header, #fileinfo #footer {
+    display: none;
+}
+
+#fileinfo a, td{
+    font-size: 0.9em;
+}
+
+#fileinfo .file_download {
+    width: 100%;
+}
+
+#fileinfo .download_button {
+    float: right !important;
+    margin-top: 20 !important;
+}
+
+#fileinfo .download_file_metadata {
+    padding: 0;
 }
 
 #menu_page {
@@ -865,11 +937,11 @@ h2{
     position: relative;
     text-align: center;
     display: block;
-    top:-20px;
+    top: -20px;
     vertical-align: middle;
-    float:left;
-
+    float: left;
 }
+
 .download_file_metadata{
     width: 410px;
     display: inline-block;

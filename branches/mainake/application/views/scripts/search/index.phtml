@@ -81,7 +81,8 @@ if (count ( $this->mensajes ) > 0) {
     <div id="results">
     <ul>
        <?php foreach ($this->paginator as $val): ?>
-        <li class="file_excerpt">
+        <li class="file_excerpt" onmouseover="$(this).children('.show_file_pannel').show();" onmouseout="$(this).children('.show_file_pannel').hide();" onclick="$('#fileinfo').html('<span class=\'loading\'><?php print $this->translate('Loading...'); ?></span>');$('#fileinfo').load('/<?php print $this->lang."/filepanel/".$val['view']['url']."/"; ?>');$('#filepanel').show();">
+	    <div class="show_file_pannel"></div>
             <h3>
                 <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches( $this->formatHTML( $val['view']['fn']), $this->qs['q'], false) ?></a>
                 <?php
@@ -116,6 +117,10 @@ if (count ( $this->mensajes ) > 0) {
         </li>
         <?php endforeach ?>
     </ul>
+    </div>
+    <div id="filepanel">
+	<a id="filepanel_close" onclick="$('#filepanel').hide();$('#fileinfo').html('');"><?php print $this->translate('Close'); ?></a>
+	<div id="fileinfo"></div>
     </div>
     <?=$this->paginationControl($this->paginator,'Sliding','paginator_search.phtml'); ?>
 <?php else: ?>
