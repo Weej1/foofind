@@ -1,10 +1,10 @@
-<? include_once("header_common.phtml");?>
+<?php include_once("header_common.phtml");?>
 <div class="content<?php if ($this->advices) { echo " advices";}?>">
 <div id="container_search">
     <h1>
         <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
     </h1>
-    <?
+    <?php
     require_once APPLICATION_PATH . '/forms/Search.php';
     $form = new Form_Search( );
 
