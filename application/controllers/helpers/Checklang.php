@@ -41,6 +41,7 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
 
         if ($this->langtest && (!isset($_COOKIE['langtest']) || $_COOKIE['langtest']!="0")) {
             $controller = $this->getActionController();
+            $controller->view->extra .= " advices";
             if (!$controller->view->advices) $controller->view->advices = array();
             $controller->view->advices["langtest"] = $controller->view->translate("BetaTranslation", "/{$this->lang}/page/translate?lang={$this->lang}");
             $controller->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.advice.js');

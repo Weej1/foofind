@@ -9,6 +9,7 @@ html {
     min-width: 1024px;
 }
 body {
+    position:relative;
     min-height:450px;
 }
 
@@ -22,30 +23,7 @@ table, body {
 html>body, x:-moz-any-link {
     height:100%;
 }
-body, .content {
-    height /*\**/:100%\9
-}
 
-/** {
-    padding: 0px;
-    margin: 0px; 
-}
-
-html {
-    height:100%;
-    min-width: 1024px;
-}
-
-body {
-    height:100%;
-    min-height: 500px;
-    margin:0;
-    padding:0;
-    font-family:  Arial,Verdana,Helvetica,sans-serif;
-    font-size: 13px;
-    font-style: normal;
-    font-variant: normal;
-}*/
 
 html form {
     display: block;
@@ -87,6 +65,10 @@ p {
     padding: 0 6px 1em;
 }
 
+em {
+    font-weight: bold;
+    font-style: normal;
+}
 dd#src-element{
     margin-bottom: 10px;
     display: block;
@@ -111,21 +93,24 @@ dd#src-element label{
     background: #FFFF99;
     font-weight: bold;
     padding: 5px;
-    margin-right:340px;
+    max-width:67%;
+    font-size:12px;
+    padding-right:25px;
 }
 
 .close_advice {
-    display: inline-block;
-    text-align: center;
+    top:5px;
+    right:2px;
+    position:absolute;
     width: 15px;
-    height: 14px;
-    line-height: 10px;
-    padding: 3px 0px 0px 1px;
-    margin-left: 10px;
+    height: 16px;
+    line-height: 16px;
     color: black;
     text-decoration: none;
     font-size:18px;
     font-family: Times New Roman, Times;
+    z-index:100;
+    text-align: center;
 }
 
 .close_advice:hover {
@@ -134,13 +119,11 @@ dd#src-element label{
 }
 
 .beta_lang {
-    position: absolute;
-    display:block;
+    position:absolute;
     width: 19px;
     height: 6px;
-    margin-left:-1px;
-    margin-top:-4px;
-    margin-bottom: 8px;
+    margin-left:-22px;
+    margin-top:14px;
     background-image: url(/images/foofind.png);
     background-position: -161px 0px;
 }
@@ -160,8 +143,8 @@ dd#src-element label{
 #q-element {
     display: inline-block;
 }
+
 input#q {
-    margin: 3px;
     height: 30px;
     width: 360px;
 }
@@ -193,26 +176,32 @@ input#q {
 
 #container_home .logo {
     background: transparent url(/images/logo.gif) no-repeat scroll center bottom;
-    vertical-align: bottom;
+    vertical-align: bottom !important;
+    height:100%;
 }
 
-#container_home .logo p{
+#container_home #legend{
     font-size: 16px;
-    font-weight: bold;
     text-align: center;
+    font-weight: bold;
     text-shadow: 0em 0.1em 0.1em #ccc;
     color: #666;
-    padding-top: 20px;
-    padding-left: 130px;
-    padding-bottom: 5px;
+    height:30px;
+    margin-top:-25px;
+    margin-left:125px;
 }
 
 #container_home input#q {
     margin: 10px;
-    margin-top: 25px;
+    margin-top: 20px;
     height: 35px;
     width: 450px;
     font-size: 20px;
+}
+
+#container_home input[type=submit] {
+    position: relative;
+    top:-2px;
 }
 
 #container_home .social_widgets {
@@ -351,7 +340,7 @@ input#q {
     top: 25px;
 }
 
-#container_page form{
+#container_page form {
     position: relative;
     display: block;
     width: auto;
@@ -1233,7 +1222,7 @@ dd#submit-element {
     text-decoration: none !important;
 }
 
-#select_language_box a span {
+#select_language_box a span.lang_name {
     display: inline-block;
     text-decoration: underline;
 }
@@ -1254,13 +1243,17 @@ dd#submit-element {
 }
 
 .flag {
+    display:inline-block;
     background: url(/images/flags.png) no-repeat;
-    display: inline-block;
     height:11px;
     width:16px;
     margin-right: 5px;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
     vertical-align: middle;
+}
+
+.flag.beta {
+    margin-bottom: 4px;
 }
 
 .flag.en{

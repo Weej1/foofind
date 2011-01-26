@@ -71,7 +71,6 @@ class IndexController extends Zend_Controller_Action
         ));
         $form->addElement('hidden', 'type', array('value'=>$type));
         $form->setAction( '/'. $this->view->lang.'/search/');
-        $form->loadDefaultDecoratorsIsDisabled(false);
         foreach($form->getElements() as $element) {
             $element->removeDecorator('DtDdWrapper');
             $element->removeDecorator('Label');
@@ -96,6 +95,8 @@ class IndexController extends Zend_Controller_Action
 
         // assign the form to the view
         $this->view->form = $form;
+
+        if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE) $this->view->extra .= " iehome";
     }
 
     public function queryAction()

@@ -44,7 +44,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
             else
                 $w = htmlentities($w, ENT_QUOTES, "UTF-8");
 
-            if ($w!='') $res = preg_replace("/\b(".preg_quote($w).")\b/iu", "<b>$1</b>", $res, -1,$found);
+            if ($w!='') $res = preg_replace("/\b(".preg_quote($w).")\b/iu", "<em>$1</em>", $res, -1,$found);
         }
         $found = $found>0;
         return $res;
