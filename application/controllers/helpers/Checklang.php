@@ -6,8 +6,8 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
 
     function init()
     {
-        Zend_Registry::set('languages', array('en'=>'English', 'es'=>'Español', 'fr'=>'Français', 'it'=>'Italiano', 'tr'=>'Türkçe' ));
-        $testlangs = array('fr'=>1, 'it'=>1, 'tr'=>1);
+        Zend_Registry::set('languages', array('en'=>'English', 'es'=>'Español', 'fr'=>'Français', 'it'=>'Italiano', 'pt'=>'Português', 'tr'=>'Türkçe' ));
+        $testlangs = array('fr'=>1, 'it'=>1, 'pt'=>1, 'tr'=>1);
         Zend_Registry::set('testlangs', $testlangs);
 
         $this->lang = $this->getRequest()->getParam("language");

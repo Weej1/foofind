@@ -1,5 +1,10 @@
 <? include_once("header_common_nosearch.phtml");?>
 <div class="content<?php if ($this->advices) { echo " advices";}?>">
+        <?if ($this->advices):
+            foreach ($this->advices as $name=>$advice):?>
+            <div id="advice_<?=$name?>" class="advice"><?=$advice?> <a class="close_advice" href="#">&times;</a></div>
+        <?  endforeach;
+        endif;?>
     <div id="container_page">
     <h1>
         <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>

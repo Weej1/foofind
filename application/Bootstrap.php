@@ -51,7 +51,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('view');
         $view = $this->getResource('view');
         $view->setEncoding('UTF-8');
-        $view->doctype('XHTML1_STRICT');
 
         ZendX_JQuery::enableView($view);
         $view->jQuery()->enable();
