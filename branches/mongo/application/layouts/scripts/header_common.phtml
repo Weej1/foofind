@@ -1,11 +1,5 @@
-<?$numCss=13;
-if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE 7")!==FALSE)
-    $ie = 7;
-else if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE 8")!==FALSE)
-    $ie = 8;
-else
-    $ie=-1;
-?>
+<?$numCss=14;
+ $ie = (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE);?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <html>
     <head>
@@ -15,8 +9,7 @@ else
         <? $this->headTitle()->setPrefix('foofind.com');
         echo  $this->headTitle();?>
         <? $this->headLink()->appendStylesheet(STATIC_PATH . '/css/main.css?numCss=' . $numCss);
-           if ($ie==7) $this->headLink()->appendStylesheet(STATIC_PATH . '/css/ie7.css?numCss=' . $numCss);
-           else if ($ie==8)  $this->headLink()->appendStylesheet(STATIC_PATH . '/css/ie8.css?numCss=' . $numCss); ?>
+           if ($ie) $this->headLink()->appendStylesheet(STATIC_PATH . '/css/ie.css?numCss=' . $numCss); ?>
         <link rel="shortcut icon" href="<?= STATIC_PATH; ?>/images/favicon.ico" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?= $this->lang ?>.xml" title="Foofind" />
         <?
@@ -33,7 +26,7 @@ else
         <? echo $this->headLink(); ?>
         <?= $this->jQuery()->setLocalPath(STATIC_PATH . '/js/jquery.min.js'); ?>
         <? echo $this->headScript(); ?>
-        <? if ($ie>0): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '/images/alert-overlay.png'); });</script><? endif; ?>
+        <? if ($ie): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '/images/alert-overlay.png'); });</script><? endif; ?>
         <script type="text/javascript">if (window != top) top.location.href = location.href;</script>
         <script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_setDomainName', '.foofind.com']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
     </head>
@@ -66,12 +59,14 @@ else
                     foreach ($langs as $lang=>$name):
                         $langlink = "/$lang/index/setlang";
                         if ($testlangs[$lang]==1) {
-                            $beta = "<span class='beta_lang'></span>";
+                            $beta = " beta";
+                            $beta_lang = "<span class='beta_lang'></span>";
                             if ($this->lang==$lang) $langlink = "/$lang/page/translate?lang=$lang";
-                        } else
-                            $beta = "";
+                        } else {
+                            $beta = $beta_lang = "";
+                        }
                         ?>
-                        <a class="lang<?=($this->lang==$lang)?" active":""?>" href='<?=$langlink?>'><span class="flag <?=$lang?>"></span><span><?=$name?></span><?=$beta?></a>
+                        <a class="lang<?=($this->lang==$lang)?" active":""?>" href='<?=$langlink?>'><span class="flag <?=$lang.$beta?>"></span><?=$beta_lang?><span class="lang_name"><?=$name?></span></a>
                     <?php endforeach;?>
                     <a href='/<?=$this->lang?>/page/translate'><?=$this->translate('Other');?>...</a>
                 </div>
