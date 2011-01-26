@@ -161,9 +161,9 @@ dd#src-element label{
     display: inline-block;
 }
 input#q {
-    margin-top: 3px;
+    margin: 3px;
     height: 30px;
-    width: 350px;
+    width: 360px;
 }
 
 #container_home {
@@ -391,10 +391,10 @@ input#q {
 }
 
 .contentype{
-    width: 375px;
+    width: 380px;
     position: relative;
     float: left;
-    top: -26px;
+    top: -30px;
     display: block;
     text-align: center;
 }
@@ -625,6 +625,7 @@ h3 {
 
 #socontainer {
     text-align:right;
+    padding:2px;
 }
 
 #show_options
@@ -1304,7 +1305,7 @@ ul#tabnav {
     padding-bottom: 0px;
     padding-left: 44px;
     margin: 0;
-    padding-top: 15px;
+    padding-top: 27px;
 }
 
 ul#tabnav li {
