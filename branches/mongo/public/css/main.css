@@ -5,12 +5,14 @@
 }
 
 html {
-    height: 100%;
     min-height: 100%;
     min-width: 1024px;
 }
 body {
-    min-height:400px;
+    min-height:450px;
+}
+
+table, body {
     font-family:Arial,Verdana,Helvetica,sans-serif;
     font-size: 13px;
     font-style: normal;
@@ -94,9 +96,9 @@ dd#src-element{
 }
 
 dd#src-element label{
-    padding: 10px;
     vertical-align: middle;
     line-height:20px;
+    padding:10px;
 }
 
 #header-navigation a, #footer a {
@@ -106,10 +108,10 @@ dd#src-element label{
 .advice
 {
     position:absolute;
-    z-index:20;
     background: #FFFF99;
     font-weight: bold;
     padding: 5px;
+    margin-right:340px;
 }
 
 .close_advice {
@@ -132,11 +134,13 @@ dd#src-element label{
 }
 
 .beta_lang {
-    display:inline-block;
+    position: absolute;
+    display:block;
     width: 19px;
     height: 6px;
-    margin-left: 2px;
-    margin-bottom: 4px;
+    margin-left:-1px;
+    margin-top:-4px;
+    margin-bottom: 8px;
     background-image: url(/images/foofind.png);
     background-position: -161px 0px;
 }
@@ -150,31 +154,27 @@ dd#src-element label{
 
 .content {
     position:relative;
+    min-height:100%;
 }
 
 #q-element {
     display: inline-block;
 }
 input#q {
-    margin-right: 8px;
-    height: 18px;
+    margin-top: 3px;
+    height: 30px;
     width: 350px;
-    font-size: 12px;
 }
 
 #container_home {
     display:table;
     width:100%;
     height:100%;
-    /*position:absolute;
-    top:0px;
-    bottom:0px;
-    left:0px;
-    right:0px;*/
     text-align: center;
 }
 
 #container_search, #container_page, #container_user {
+    min-height:400px;
     padding: 10px;
     padding-bottom: 30px;
 }
@@ -227,7 +227,6 @@ input#q {
 
 #container_home .search
 {
-    margin-top:-90px;
     display: block;
 }
 
@@ -287,13 +286,13 @@ input#q {
 }
 
 #container_home .form .zend_form {
-    padding:10px;
     margin-top:0px !important;
     background-color:#FBEFFB;
     border: #EA1F85 2px solid;
     display:inline-block;
     width: 610px;
     text-align: center;
+    padding:5px;
 }
 
 #container_home .form #src-element {
@@ -305,16 +304,12 @@ input#q {
     display:table-row;
     min-height:100px;
     height:33%;
-    /*position: relative;*/
+    overflow:hidden;
 }
 
 .valign_home > div {
     display:table-cell !important;
     vertical-align: middle;
-    /*position: relative;
-    top:50%;
-    /*left:0px;
-    right:0px;*/
 }
 
 .logo_site div {
@@ -396,10 +391,10 @@ input#q {
 }
 
 .contentype{
-    width: 378px;
+    width: 375px;
     position: relative;
     float: left;
-    top: -28px;
+    top: -26px;
     display: block;
     text-align: center;
 }
@@ -418,7 +413,7 @@ input#q {
     padding-right: 5px;
 }
 
-.contentype .actual{
+.actual{
     color:black !important;
     text-decoration: none;
     font-weight: bold;
@@ -579,7 +574,8 @@ dd#message-element{
 .search_info{
     display: block;
     text-align: right;
-    margin-right: 10px;
+    margin-top: 16px;
+    margin-right: 17px;
     margin-bottom: -35px;
 }
 
@@ -623,18 +619,18 @@ h3 {
     margin-bottom: 15px;
 }
 
-.actual a:link a:visited{
+.actual a:link a:visited {
     color: black !important;
 }
 
 #socontainer {
     text-align:right;
-    padding-right: 20px;
 }
 
 #show_options
 {
     font-size: 0.9em;
+    margin: 4px;
 }
 
 #options a {
@@ -1186,10 +1182,10 @@ div.icon50 {
 }
 
 #header{
-    z-index: 300;
+    z-index: 10;
     position: absolute;
-    right: 5px;
     top:3px;
+    right:5px;
 }
 
 #header-navigation{
@@ -1257,7 +1253,7 @@ div.icon50 {
     height:11px;
     width:16px;
     margin-right: 5px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     vertical-align: middle;
 }
 
@@ -1272,6 +1268,9 @@ div.icon50 {
 }
 .flag.it{
     background-position: -80px -11px;
+}
+.flag.pt{
+    background-position: -16px 0px;
 }
 .flag.tr{
     background-position: -128px 0px;
@@ -1303,9 +1302,9 @@ ul#tabnav {
     border-bottom: 1px solid #CD0069;
     list-style-type: none;
     padding-bottom: 0px;
-    padding-left: 20px;
+    padding-left: 44px;
     margin: 0;
-    padding-top: 13px;
+    padding-top: 15px;
 }
 
 ul#tabnav li {
@@ -1436,9 +1435,12 @@ ul#tabnav a:hover   {
     margin-left:5px;
 }
 
-.joboffer h3 {
-    text-decoration: underline;
+.joboffer h2 {
+    margin-left:0px !important;
+    margin-bottom:0px;
+    margin-top:10px;
 }
+
 .joboffer ul, .joboffer p {
     list-style: circle;
     margin-top: 7px;
