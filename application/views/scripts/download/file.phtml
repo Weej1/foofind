@@ -26,6 +26,13 @@ if (count ( $this->mensajes ) > 0) {
 }
 ?>
     <div class="wrap_download">
+    <div class="download_more_info">
+        <h3><?=$this->translate('How to download?'); ?></h3>
+        <p><?=$this->translate('DownloadExplanation'); ?></p>
+        <p><div title="eDonkey, eMule, MLDonkey, aMule" alt="eDonkey, eMule, MLDonkey, aMule" class="icon icon24 ed2k24"></div> eMule, MLDonkey, aMule.</p>
+        <p><div title="Gnutella, Frostwire,Limewire, Shareaza, Phex" alt="Gnutella, Frostwire, Limewire, Shareaza, Phex" class="icon icon24 gnutella24"></div> Limewire, Shareaza, Phex.</p>
+        <p><div title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission" class="icon icon24 torrent24"></div> µTorrent, Transmission.</p>
+    </div>
     <div class="file_download">
         <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->coalesce($this->file['votes'][$this->lang]['c'][0], 0)?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->coalesce(-$this->file['votes'][$this->lang]['c'][1],0)?>)</span></a></div>
         <h2><?=$this->file['view']['fn'];?></h2>
@@ -184,14 +191,6 @@ if (count ( $this->mensajes ) > 0) {
     <div class="comment_form"><?=$this->createcomment?></div>
 
     </div>
-    </div>
-
-    <div class="download_more_info">
-        <h3><?=$this->translate('How to download?'); ?></h3>
-        <p><?=$this->translate('DownloadExplanation'); ?></p>
-        <p><div title="eDonkey, eMule, MLDonkey, aMule" alt="eDonkey, eMule, MLDonkey, aMule" class="icon icon24 ed2k24"></div> eMule, MLDonkey, aMule.</p>
-        <p><div title="Gnutella, Frostwire,Limewire, Shareaza, Phex" alt="Gnutella, Frostwire, Limewire, Shareaza, Phex" class="icon icon24 gnutella24"></div> Limewire, Shareaza, Phex.</p>
-        <p><div title="Torrent, Vuze, µTorrent, Transmission" alt="Torrent, Vuze, µTorrent, Transmission" class="icon icon24 torrent24"></div> µTorrent, Transmission.</p>
     </div>
 </div>
 </div>

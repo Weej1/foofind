@@ -272,7 +272,7 @@ class DownloadController extends Zend_Controller_Action
             return $form;
 
         } else {
-            $this->view->createcomment ="<a style='float:left' href='/{$this->view->lang}/auth/login' rel='superbox[ajax][/{$this->view->lang}/auth/login/source/comment.foo]'>".$this->view->translate('Add a comment')."</a>";
+            $this->view->createcomment ="<a href='/{$this->view->lang}/auth/login' rel='superbox[ajax][/{$this->view->lang}/auth/login/source/comment.foo]'>".$this->view->translate('Add a comment')."</a>";
         }
     }
 }

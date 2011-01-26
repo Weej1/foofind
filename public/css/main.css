@@ -587,7 +587,7 @@ hr {
     height:1px;
     top: 12px;
     clear: left;
-    margin-bottom:12px;
+    padding-bottom:12px;
 }
 
 
@@ -770,9 +770,7 @@ h2{
 
 .file_download{
     vertical-align: top;
-    margin-right: 20px;
-    width:72%;
-    display:inline-block;
+    padding-right:260px;
 }
 
 .file_download h2 {
@@ -895,17 +893,14 @@ h2{
 }
 
 .download_more_info{
-    position: relative;
     display: inline-block;
-    vertical-align: top;
+    float: right;
     width: 210px;
     border:1px solid #cd0069;
     background-color: #FBEFFB;
     color: #cd0069;
     padding: 10px;
-    top: 2px;
-    margin-bottom: 10px;
-    overflow: hidden;
+    margin-top:10px;
 }
 
 .download_more_info h3{
@@ -1127,20 +1122,30 @@ div.icon50 {
     margin-top: 15px;
 }
 
+dd#t-element {
+    width: 70%;
+    display:inline-block;
+}
+
+dt#submit-label {
+    display: none;
+}
+
+dd#submit-element {
+    width: 25%;
+    display:inline-block;
+    text-align:right;
+}
 
 .comment_form textarea {
     height: 4em;
     border:1px solid #cd0069;
     font-weight: normal;
     margin-left: 20px;
-    margin-right: 3px;
     padding: 3px;
-    float: left;
-    width: 70%;
 }
 
 .comment_form input {
-    float: right;
 }
 
 .comments_paginator {
