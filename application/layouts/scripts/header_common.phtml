@@ -45,7 +45,6 @@ echo $this->doctype();
         <?  endforeach;
         endif;?>
         <div id="header" >
-        
             <div id="header-navigation" >
                 <div class="user_login_box">
                     <?php
@@ -68,12 +67,12 @@ echo $this->doctype();
                     foreach ($langs as $lang=>$name):
                         $langlink = "/$lang/index/setlang";
                         if ($testlangs[$lang]==1) {
-                            $beta = "<div class='beta_lang'></div>";
+                            $beta = "<span class='beta_lang'></span>";
                             if ($this->lang==$lang) $langlink = "/$lang/page/translate?lang=$lang";
                         } else
                             $beta = "";
                         ?>
-                        <a class="lang<?=($this->lang==$lang)?" active":""?>" href='<?=$langlink?>'><div class="flag <?=$lang?>"></div><span><?=$name?></span><?=$beta?></a>
+                        <a class="lang<?=($this->lang==$lang)?" active":""?>" href='<?=$langlink?>'><span class="flag <?=$lang?>"></span><span><?=$name?></span><?=$beta?></a>
                     <?php endforeach;?>
                     <a href='/<?=$this->lang?>/page/translate'><?=$this->translate('Other');?>...</a>
                 </div>
