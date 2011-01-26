@@ -4,14 +4,14 @@
 "Legal";"Aviso legal"
 "Terms";"Termos e condições"
 "Privacy";"Privacidade"
-
+"Report link";"Reportar ligação"
 "Source code";"Código fonte"
 "files indexed";"arquivos indexados"
 "Last indexed files";"Últimos arquivos indexados"
 "I. Want. That. File.";"Eu. Quero. Aquele. Arquivo"
 
 #search
-"Search";"Busca"
+"Search";"Procura"
 "All";"Tudo"
 "Direct downloads";"Downloads diretos"
 "Audio";"Áudio"
@@ -114,7 +114,7 @@
 "hello,";"oi,"
 "logout";"sair"
 "login";"entrar"
-"Login";"Login"
+"Login";"Entrar"
 "new user";"usuário novo"
 "New user";"Usuário novo"
 "or";"ou"
