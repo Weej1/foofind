@@ -1,6 +1,13 @@
 <?$numCss=14;
- $ie = (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE);?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+ $ie = (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE);
+
+ if ($ie && strpos($_SERVER['HTTP_USER_AGENT'], "MSIE 7")!==FALSE)
+    $doctype = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
+ else
+    $doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">';
+
+ echo $doctype;
+ ?>
 <html>
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=7" />
