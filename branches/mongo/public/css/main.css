@@ -500,12 +500,14 @@ input#q {
 
 #footer #footer_links {
     padding: 10px;
+    padding-right: 5px;
     display:block;
     float:left;
 }
 
 #footer #footer_text {
     padding: 10px;
+    padding-left: 5px;
     display:block;
     float:right;
 }
