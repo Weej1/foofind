@@ -1,12 +1,14 @@
 <?$numCss=14;
- $ie = (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE);
-
- if ($ie && strpos($_SERVER['HTTP_USER_AGENT'], "MSIE 7")!==FALSE)
+ $ieinfo = array();
+ $ie = preg_match("/; MSIE (\d)+\./", $_SERVER['HTTP_USER_AGENT'], &$ieinfo)==1;
+ if ($ie && $ieinfo[1] && $ieinfo[1]<7)
+    $doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
+ else if ($ie && $ieinfo[1] && $ieinfo[1]<8)
     $doctype = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
  else
     $doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">';
 
- echo $doctype;
+echo $doctype;
  ?>
 <html>
     <head>
@@ -33,7 +35,7 @@
         <? echo $this->headLink(); ?>
         <?= $this->jQuery()->setLocalPath(STATIC_PATH . '/js/jquery.min.js'); ?>
         <? echo $this->headScript(); ?>
-        <? if ($ie): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '/images/alert-overlay.png'); });</script><? endif; ?>
+        <? if ($ie && $ieinfo[1]>6): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '/images/alert-overlay.png'); });</script><? endif; ?>
         <script type="text/javascript">if (window != top) top.location.href = location.href;</script>
         <script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-808946-19']);_gaq.push(['_setDomainName', '.foofind.com']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
     </head>
@@ -79,3 +81,8 @@
                 </div>
             </div>
         </div>
+        <? if ($ie && $ieinfo[1]<7): ?>
+        <script type="text/javascript">$("#select_language_box a").mouseenter(function(){$("#select_language_box").addClass("deployed_languages");});
+            $("#select_language_box a").mouseleave(function(){$("#select_language_box").removeClass("deployed_languages");});
+        </script>
+        <? endif;?>

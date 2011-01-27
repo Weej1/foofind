@@ -3,6 +3,10 @@ html, #container_home .logo {
     height:100%;
 }
 
+#container_home .logo {
+    _height: 150px;
+}
+
 body {
     min-width: 1024px;
 }
@@ -19,7 +23,7 @@ body {
 .file_excerpt div.votes_down, #advsearch, #prev, #norm, .pagination #current, #next,
 .file_download_vote a, .file_comment_vote a, .download_file_metadata, .download_more_info,
 .download_source a, .download_source input, .download_source span, a.source, a.source span,
-div.icon, .awesome, .awesome:visited, #select_language_box, #select_language_box a span, .flag,
+div.icon, .awesome, .awesome:visited, #select_language_box, #select_language_box a span.lang_name, .flag,
 .social_widgets, iframe, .logo_home, .file_download  {
     display: inline !important;
     zoom: 1;
@@ -67,4 +71,48 @@ input[type="submit"] {
 
 #container_search form.searchbox {
     padding: 0px !important;
+}
+
+.awesome, .awesome:visited {
+    _background-image: none;
+}
+
+#header-navigation{
+    _width:280px;
+}
+
+/*
+#select_language_box {
+}
+
+#select_language_box:hover {
+    overflow: visible;
+    height: 500px;
+    border: 1px solid red;
+}
+
+#select_language_box a {
+}
+
+#select_language_box a span.lang_name {
+    display: block;
+    zoom: 0
+}
+
+#select_language_box:hover a, #select_language_box .lang.active  {
+    display: block;
+    zoom: 0;
+}
+
+#select_language_box .lang.active:hover {
+    padding-bottom:400px;
+}*/
+
+.deployed_languages {
+    height: auto !important;
+    display: block !important;
+}
+
+.deployed_languages a {
+    display: block !important;
 }
