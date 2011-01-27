@@ -119,13 +119,13 @@ dd#src-element label{
 }
 
 .beta_lang {
+    font-size:4px;
     position:absolute;
     width: 19px;
     height: 6px;
     margin-left:-22px;
-    margin-top:15px;
-    background-image: url(/images/foofind.png);
-    background-position: -161px 0px;
+    margin-top:14px;
+    background: url(/images/foofind.png) -161px 0px no-repeat;
 }
 
 .content.advices #container_search,
@@ -149,6 +149,7 @@ dd#src-element label{
 input#q {
     height: 30px;
     width: 380px;
+    z-index: 1000;
 }
 
 #container_home {
@@ -1191,24 +1192,26 @@ div.icon50 {
 }
 
 .user_login_box {
+    text-align: right;
     display: inline-block;
     padding-top:4px;
-    padding-right:100px;
+    margin-right: 100px;
 }
 
 #select_language_box {
     position:absolute;
     top:0px;
     right:0px;
-    border: 1px solid transparent;
-    height: 20px;
+    border: 1px solid white;
     display: inline-block;
+    height: 25px;
     overflow: hidden;
     vertical-align: top;
     width: 92px;
     padding-top: 24px;
 }
-#select_language_box:hover {
+
+#select_language_box:hover, .deployed_languages {
     border: 1px solid #999;
     background-color: #FBEFFB;
     height: auto;
@@ -1230,7 +1233,7 @@ div.icon50 {
     text-decoration: underline;
 }
 
-#select_language_box:hover a, #select_language_box .lang.active  {
+#select_language_box:hover a, .deployed_languages a, #select_language_box .lang.active  {
     display: block;
 }
 
@@ -1246,17 +1249,18 @@ div.icon50 {
 }
 
 .flag {
+    font-size:4px;
     display:inline-block;
     background: url(/images/flags.png) no-repeat;
     height:11px;
     width:16px;
     margin-right: 5px;
-    margin-bottom: 0px;
+    margin-bottom: 1px;
     vertical-align: middle;
 }
 
 .flag.beta {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
 
 .flag.en{
