@@ -148,7 +148,7 @@ dd#src-element label{
 
 input#q {
     height: 30px;
-    width: 360px;
+    width: 380px;
 }
 
 #container_home {
@@ -337,8 +337,6 @@ input#q {
 #container_search form.searchbox{
     position: relative;
     display: block;
-    width: 550px;
-    padding-left: 185px; /*reserve the a logo space to fix it*/
     top: 25px;
 }
 
@@ -384,11 +382,10 @@ input#q {
 .contentype{
     width: 380px;
     position: relative;
+    text-align:center;
     float: left;
-    top: -30px;
+    top: -25px;
     display: block;
-    text-align: center;
-    overflow: hidden;
 }
 
 .contentype a{
