@@ -1,12 +1,14 @@
 <?$numCss=14;
- $ie = (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE);
-
- if ($ie && strpos($_SERVER['HTTP_USER_AGENT'], "MSIE 7")!==FALSE)
+ $ieinfo = array();
+ $ie = preg_match("/; MSIE (\d)+\./", $_SERVER['HTTP_USER_AGENT'], &$ieinfo)==1;
+ if ($ie && $ieinfo[1] && $ieinfo[1]<7)
+    $doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
+ else if ($ie && $ieinfo[1] && $ieinfo[1]<8)
     $doctype = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
  else
     $doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">';
 
- echo $doctype;
+echo $doctype;
  ?>
 <html>
     <head>
@@ -15,7 +17,7 @@
         <?=$this->headTitle()->setPrefix('foofind.com');?>
         <? $this->headLink()->appendStylesheet(STATIC_PATH . '/css/main.css?numCss=' . $numCss);?>
         <link rel="shortcut icon" href="<?=STATIC_PATH ;?>/images/favicon.ico" />
-        <? if ($ie): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '/images/alert-overlay.png'); });</script><? endif; ?>
+        <? if ($ie && $ieinfo[1]>6): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '/images/alert-overlay.png'); });</script><? endif; ?>
         <? include_once("header_common_nosearch.phtml");?></head>
     <body>
         <div id="header" ></div>
