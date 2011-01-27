@@ -93,7 +93,7 @@ dd#src-element label{
     background: #FFFF99;
     font-weight: bold;
     padding: 5px;
-    max-width:67%;
+    max-width:66%;
     font-size:12px;
     padding-right:25px;
 }
@@ -132,7 +132,7 @@ dd#src-element label{
 .content.advices #container_page,.content.advices #container_user,
 .content.advices #container_error
 {
-    padding-top:30px !important;
+    padding-top:40px !important;
 }
 
 .content {
