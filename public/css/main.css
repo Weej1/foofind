@@ -494,17 +494,18 @@ input#q {
     bottom:0px;
     left:0px;
     right:0px;
-    padding: 10px;
     text-align: center;
     font-size: 12px;
 }
 
 #footer #footer_links {
+    padding: 10px;
     display:block;
     float:left;
 }
 
 #footer #footer_text {
+    padding: 10px;
     display:block;
     float:right;
 }
@@ -1111,16 +1112,16 @@ div.icon50 {
     margin-top: 15px;
 }
 
-dd#t-element {
+.comment_form dd#t-element {
     width: 70%;
     display:inline-block;
 }
 
-dt#submit-label {
+.comment_form dt#submit-label {
     display: none;
 }
 
-dd#submit-element {
+.comment_form dd#submit-element {
     width: 25%;
     display:inline-block;
     text-align:right;
