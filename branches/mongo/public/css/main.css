@@ -128,7 +128,7 @@ dd#src-element label{
     background-position: -161px 0px;
 }
 
-.content.advices #container_search,.content.advices #container_home,
+.content.advices #container_search,
 .content.advices #container_page,.content.advices #container_user,
 .content.advices #container_error
 {
@@ -138,6 +138,8 @@ dd#src-element label{
 .content {
     position:relative;
     min-height:100%;
+    -webkit-box-size: padding-box;
+    -moz-box-sizing: padding-box;
 }
 
 #q-element {
@@ -195,7 +197,7 @@ input#q {
     margin: 10px;
     margin-top: 20px;
     height: 35px;
-    width: 450px;
+    width: 420px;
     font-size: 20px;
 }
 
@@ -279,7 +281,7 @@ input#q {
     background-color:#FBEFFB;
     border: #EA1F85 2px solid;
     display:inline-block;
-    width: 610px;
+    width: 630px;
     text-align: center;
     padding:5px;
 }
@@ -335,7 +337,7 @@ input#q {
 #container_search form.searchbox{
     position: relative;
     display: block;
-    width: 500px;
+    width: 550px;
     padding-left: 185px; /*reserve the a logo space to fix it*/
     top: 25px;
 }
@@ -386,6 +388,7 @@ input#q {
     top: -30px;
     display: block;
     text-align: center;
+    overflow: hidden;
 }
 
 .contentype a{
