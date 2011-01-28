@@ -159,7 +159,7 @@ input#q {
     text-align: center;
 }
 
-#container_search, #container_page, #container_user {
+#container_search, #container_page, #container_user, #container_error {
     min-height:400px;
     padding: 10px;
     padding-bottom: 30px;
@@ -171,7 +171,7 @@ input#q {
     padding: 0px;
 }
 
-#container_page h2{
+#container_page h2 {
     margin-top: 20px;
     margin-left: 172px;
     padding-bottom: 10px;
@@ -328,7 +328,7 @@ input#q {
     font-weight: bold;
 }
 
-#container_search h1, #container_page h1, #container_user h1{
+#container_search h1, #container_page h1, #container_user h1, #container_error h1{
     position: relative;
     left:5px;
     top:3px;
