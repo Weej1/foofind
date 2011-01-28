@@ -1,6 +1,6 @@
 <?$numCss=15;
  $ieinfo = array();
- $ie = preg_match("/; MSIE (\d)+\./", $_SERVER['HTTP_USER_AGENT'], &$ieinfo)==1;
+ $ie = preg_match("/; MSIE (\d)+\./", $_SERVER['HTTP_USER_AGENT'], $ieinfo)==1;
  if ($ie && $ieinfo[1] && $ieinfo[1]<7)
     $doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
  else if ($ie && $ieinfo[1] && $ieinfo[1]<8)
