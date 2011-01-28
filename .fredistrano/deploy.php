@@ -36,13 +36,13 @@
 		'/library/Zend', //this is for staging deployment, (links to zend lib on prod)
 		'/library/ZendX/',
 		'/library/ZendX', //this is for staging deployment, (links to zend lib on prod)
-		'/tests/'
+		'/tests/',
+                '/env/'
         );
 
         // Directories list on which the write permission will applied during the finalization step of the deployment process
         // log, cache, upload directories, etc...
         var $writable = array (
-
 		'/public/images/captcha/'
 
         );
