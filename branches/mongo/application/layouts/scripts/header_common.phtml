@@ -47,7 +47,7 @@ echo $doctype;
         endif;?>
         <div id="header" >
             <div id="header-navigation" >
-                <div class="user_login_box">
+                <div class="user_login_box" nowrap>
                     <?php
                     $auth = Zend_Auth::getInstance ();
                     if (!$auth->hasIdentity()) {

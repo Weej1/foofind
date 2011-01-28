@@ -1,34 +1,17 @@
-<?$numCss=15;
- $ieinfo = array();
- $ie = preg_match("/; MSIE (\d)+\./", $_SERVER['HTTP_USER_AGENT'], $ieinfo)==1;
- if ($ie && $ieinfo[1] && $ieinfo[1]<7)
-    $doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
- else if ($ie && $ieinfo[1] && $ieinfo[1]<8)
-    $doctype = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
- else
-    $doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">';
-
-echo $doctype;
- ?>
-<html>
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=7" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <?=$this->headTitle()->setPrefix('foofind.com');?>
-        <? $this->headLink()->appendStylesheet(STATIC_PATH . '/css/main.css?numCss=' . $numCss);?>
-        <link rel="shortcut icon" href="<?=STATIC_PATH ;?>/images/favicon.ico" />
-        <? if ($ie && $ieinfo[1]>6): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '/images/alert-overlay.png'); });</script><? endif; ?>
-        <? include_once("header_common_nosearch.phtml");?></head>
-    <body>
-        <div id="header" ></div>
-        <div class="content<?php if ($this->advices) { echo " advices";}?>">
-            <div id="container_error">
-                <h1>
-                    <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
-                </h1>
-                <hr />
-                <?php echo $this->layout('error')->content ?>
-            </div>
-          </div>
-    </body>
+        <? include_once("header_common_nosearch.phtml");?>
+<div class="content<?php if ($this->advices) { echo " advices";}?>">
+    <?if ($this->advices):
+        foreach ($this->advices as $name=>$advice):?>
+        <div id="advice_<?=$name?>" class="advice"><?=$advice?> <a class="close_advice" href="#">&times;</a></div>
+    <?  endforeach;
+    endif;?>
+    <div id="container_error">
+        <h1>
+            <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+        </h1>
+        <hr />
+        <?php echo $this->layout('error')->content ?>
+    </div>
+  </div>
+</body>
 </html>

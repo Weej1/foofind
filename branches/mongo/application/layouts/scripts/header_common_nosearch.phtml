@@ -43,7 +43,7 @@ echo $doctype;
         <?if ($this->langtest):?><div id="beta_translation"><?=$this->translate("BetaTranslation", "/{$this->lang}/page/translate/?lang={$this->lang}")?></div><?endif;?>
         <div id="header" >
             <div id="header-navigation" >
-                <span class="user_login_box">
+                <span class="user_login_box" nowrap>
                     <?php
                     $auth = Zend_Auth::getInstance ();
                     if (!$auth->hasIdentity()) {

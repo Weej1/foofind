@@ -14,8 +14,8 @@
         echo '</div>';
     }
     ?>
-        <div class="form">
-        <div class="tabs">
+        <div class="form" nowrap>
+        <div class="tabs" nowrap>
             <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" t="" href="/" ><?=$this->translate('All');?></a>
             <a class="<?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" t="Audio" href="/?type=Audio" ><?=$this->translate('Audio');?></a>
             <a class="<?=(preg_match("/^Video$/", $this->qs['type']))?"actual":""?>" t="Video" href="/?type=Video" ><?=$this->translate('Video');?></a>

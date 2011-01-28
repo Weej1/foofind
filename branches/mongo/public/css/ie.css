@@ -15,6 +15,17 @@ body {
     height:100%;
 }
 
+.content.iehome #footer
+{
+    _position:absolute !important;
+}
+
+.content #footer
+{
+    _top:auto;
+    _position:static;
+}
+
 .social_widgets {
     margin-top:50px;
 }
@@ -59,6 +70,20 @@ input#q {
 
 #container_home input#q {
     height: 23px !important;
+    _height: 30px;
+}
+
+#container_home .form {
+    _width:10%;
+}
+
+#container_home .tabs {
+    _margin-left:10px !important;
+}
+#container_home form.searchbox {
+    _margin-left:0px !important;
+    _padding-left:20px !important;
+    _padding-right:20px !important;
 }
 
 input[type="submit"] {
@@ -80,33 +105,6 @@ input[type="submit"] {
 #header-navigation{
     _width:280px;
 }
-
-/*
-#select_language_box {
-}
-
-#select_language_box:hover {
-    overflow: visible;
-    height: 500px;
-    border: 1px solid red;
-}
-
-#select_language_box a {
-}
-
-#select_language_box a span.lang_name {
-    display: block;
-    zoom: 0
-}
-
-#select_language_box:hover a, #select_language_box .lang.active  {
-    display: block;
-    zoom: 0;
-}
-
-#select_language_box .lang.active:hover {
-    padding-bottom:400px;
-}*/
 
 .deployed_languages {
     height: auto !important;
