@@ -14,6 +14,7 @@
         echo '</div>';
     }
     ?>
+        <div class="form">
         <div class="tabs">
             <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" t="" href="/" ><?=$this->translate('All');?></a>
             <a class="<?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" t="Audio" href="/?type=Audio" ><?=$this->translate('Audio');?></a>
@@ -23,7 +24,6 @@
             <a class="<?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" t="Software" href="/?type=Software" ><?=$this->translate('Software');?></a>
             <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" t="Archive" href="/?type=Archive" ><?=$this->translate('Archive');?></a>
         </div>
-        <div class="form">
             <?= $this->form; ?>
             <script type="text/javascript">document.getElementById('q').focus();</script>
         </div>

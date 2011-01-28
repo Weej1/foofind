@@ -24,7 +24,7 @@ body {
 .file_download_vote a, .file_comment_vote a, .download_file_metadata, .download_more_info,
 .download_source a, .download_source input, .download_source span, a.source, a.source span,
 div.icon, .awesome, .awesome:visited, #select_language_box, #select_language_box a span.lang_name, .flag,
-.social_widgets, iframe, .logo_home, .file_download  {
+.social_widgets, iframe, .logo_home, .file_download, #container_home .form {
     display: inline !important;
     zoom: 1;
 }
