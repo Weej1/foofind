@@ -96,6 +96,7 @@ dd#src-element label{
     max-width:60%;
     font-size:12px;
     padding-right:25px;
+    z-index:11;
 }
 
 .close_advice {
