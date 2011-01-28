@@ -8,7 +8,7 @@ html, #container_home .logo {
 }
 
 body {
-    min-width: 1024px;
+    min-width: 960px;
 }
 
 .content.iehome {
