@@ -1,35 +1,36 @@
 <div id="container_home">
-    <div class="valign_home">
+    <div class="valign_home" style="height:35%; min-height: 150px;">
         <div><div title="foofind" class="logo"></div><div id="legend"><?=$this->translate('I. Want. That. File.')?></div></div>
     </div>
 
-    <div class="valign_home">
+    <div class="valign_home" style="height:42%;">
     <div class="search">
     <?
     if (count($this->mensajes) > 0) {
         echo '<div class="success">';
         foreach ($this->mensajes as $msg) {
-            echo $msg . '<br>';
+            echo $msg.$sep;
+            $sep='<br/>';
         }
         echo '</div>';
     }
     ?>
         <div class="form" nowrap>
         <div class="tabs" nowrap>
-            <a class="<?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" t="" href="/" ><?=$this->translate('All');?></a>
-            <a class="<?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" t="Audio" href="/?type=Audio" ><?=$this->translate('Audio');?></a>
-            <a class="<?=(preg_match("/^Video$/", $this->qs['type']))?"actual":""?>" t="Video" href="/?type=Video" ><?=$this->translate('Video');?></a>
-            <a class="<?=(preg_match("/^Image$/", $this->qs['type']))?"actual":""?>" t="Image" href="/?type=Image" ><?=$this->translate('Image');?></a>
-            <a class="<?=(preg_match("/^Document$/", $this->qs['type']))?"actual":""?>" t="Document" href="/?type=Document" ><?=$this->translate('Document');?></a>
-            <a class="<?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" t="Software" href="/?type=Software" ><?=$this->translate('Software');?></a>
-            <a class="<?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" t="Archive" href="/?type=Archive" ><?=$this->translate('Archive');?></a>
+            <a class="ss <?=(preg_match("/^$/",  $this->qs['type']))?"actual":""?>" href="/" ><?=$this->translate('All');?></a>
+            <a class="ss <?=(preg_match("/^Audio$/", $this->qs['type']))?"actual":""?>" href="/?type=Audio" ><?=$this->translate('Audio');?></a>
+            <a class="ss <?=(preg_match("/^Video$/", $this->qs['type']))?"actual":""?>" href="/?type=Video" ><?=$this->translate('Video');?></a>
+            <a class="ss <?=(preg_match("/^Image$/", $this->qs['type']))?"actual":""?>" href="/?type=Image" ><?=$this->translate('Image');?></a>
+            <a class="ss <?=(preg_match("/^Document$/", $this->qs['type']))?"actual":""?>" href="/?type=Document" ><?=$this->translate('Document');?></a>
+            <a class="ss <?=(preg_match("/^Software$/", $this->qs['type']))?"actual":""?>" href="/?type=Software" ><?=$this->translate('Software');?></a>
+            <a class="ss <?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="/?type=Archive" ><?=$this->translate('Archive');?></a>
         </div>
             <?= $this->form; ?>
             <script type="text/javascript">document.getElementById('q').focus();</script>
         </div>
     </div>
     </div>
-    <div class="valign_home" >
+    <div class="valign_home" style="height:23%; min-height: 90px;">
     <div class="social_widgets">
         <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffoofind.com&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no"
                 frameborder="0" style="border:none; overflow:hidden; width:380px; padding-right: 20px; height:50px;" allowTransparency="true"></iframe>

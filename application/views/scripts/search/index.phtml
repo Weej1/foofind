@@ -123,7 +123,7 @@ if (count ( $this->mensajes ) > 0) {
     </h2>
     
     <?php if ($this->info["notypecount"]): ?>
-        <p id="no_results"><?=sprintf($this->translate("NoTypeCount"), $this->qs['type'], $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
+        <p id="no_results"><?=sprintf($this->translate("NoTypeCount"), $this->translate($this->qs['type']), $this->info['notypecount'], $this->qs(array(), array('page'=>1, 'type'=>1)));?></p>
     <?php endif;?>
 <?php endif;?>
 </div>

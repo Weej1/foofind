@@ -14,7 +14,7 @@ class Form_Contact extends Zend_Form {
                 $this->addElement ( 'text', 'email', array ('label' => 'Your email:', 'required' => true, 'filters' => array ('StringTrim' ), 'validators' => array ('EmailAddress' ) ) );
 
                 $this->addElement ( 'textarea', 'message', 
-                        array ('label' => 'Your message:', 'validators' => array (array ('StringLength', false, array (20, 2000 ) ) ), 'required' => true,'rows' => 4,'cols' => 60 )
+                        array ('label' => 'Your message:', 'validators' => array (array ('StringLength', false, array (20, 8000 ) ) ), 'required' => true,'rows' => 4,'cols' => 60 )
 
                  );
 

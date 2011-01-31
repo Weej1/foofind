@@ -86,8 +86,9 @@ class IndexController extends Zend_Controller_Action
                   . '{'
                   . '   event.preventDefault();'
                   . '   $(".tabs a").removeClass("actual");'
-                  . '   $(this).addClass("actual");'
-                  . '   var v=$(this).attr("t");'
+                  . '   $(this).addClass("actual"); '
+                  . '   var v=$(this).attr("href");'
+                  . '   v=v.substring(Math.abs(v.indexOf("="))+1);'
                   . '   $("#type").val(v);'
                   . '});';
 

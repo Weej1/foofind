@@ -333,7 +333,7 @@ El equipo Foofind.
                                 $f = new Zend_Filter_StripTags ( );
                                 $email = $f->filter ( $this->_request->getPost ( 'email' ) );
                                 $message = $f->filter ( $this->_request->getPost ( 'message' ) );
-
+                                $message = str_replace("\n", "<br/>", $message);
                                 
                                 $user_info .= $_SERVER ['REMOTE_ADDR'];
                                 $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];

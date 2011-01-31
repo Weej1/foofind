@@ -8,9 +8,15 @@ html {
     min-height: 100%;
     min-width: 960px;
 }
+
 body {
-    position:relative;
-    min-height:450px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    min-height:520px;
+    min-width: 960px;
 }
 
 table, body {
@@ -19,11 +25,6 @@ table, body {
     font-style: normal;
     font-variant: normal;
 }
-
-html>body, x:-moz-any-link {
-    height:100%;
-}
-
 
 html form {
     display: block;
@@ -148,15 +149,17 @@ dd#src-element label{
 }
 
 input#q {
-    height: 30px;
+    height: 18px;
     width: 380px;
     z-index: 1000;
 }
 
 #container_home {
-    display:table;
-    width:100%;
-    height:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:30px;
     text-align: center;
 }
 
@@ -180,8 +183,8 @@ input#q {
 
 #container_home .logo {
     background: transparent url(/images/logo.gif) no-repeat scroll center bottom;
-    vertical-align: bottom !important;
     height:100%;
+    min-height: 150px;
 }
 
 #container_home #legend{
@@ -201,9 +204,10 @@ input#q {
     margin-top: 20px;
 }
 #container_home input#q {
-    height: 35px;
+    height: 22px;
     width:420px;
     font-size: 20px;
+    line-height: 20px;
 }
 
 #container_home input[type=submit] {
@@ -214,6 +218,9 @@ input#q {
 #container_home .social_widgets {
     display: inline-block;
     text-align: center;
+    top:30%;
+    position: relative;
+    min-height: 100px;
 }
 
 #container_home .social_widgets iframe {
@@ -289,6 +296,7 @@ input#q {
     padding:5px;
     z-index: 1;
     width:100%;
+    top:5%;
 }
 
 #container_home .form #src-element {
@@ -297,15 +305,14 @@ input#q {
 }
 
 .valign_home {
-    display:table-row;
-    min-height:100px;
-    height:33%;
+    position:relative;
     overflow:hidden;
+    min-height: 200px;
 }
 
 .valign_home > div {
-    display:table-cell !important;
-    vertical-align: middle;
+    height:100%;
+    min-height: 150px;
 }
 
 .logo_site div {
@@ -342,7 +349,7 @@ input#q {
 #container_search form.searchbox{
     position: relative;
     display: block;
-    top: 25px;
+    top: 26px;
 }
 
 #container_page form {
@@ -669,7 +676,7 @@ h2{
     background: #FBEFFB;
     color: #cd0069;
     padding: .8em;
-    margin: 1em 3em 1em 3em;
+    margin: 1em 3em 0em 3em;
     border: 1px solid #cd0069;
 }
 
