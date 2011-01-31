@@ -1,4 +1,4 @@
-<?$numCss=16;
+<?$numCss=17;
  $ieinfo = array();
  $ie = preg_match("/; MSIE (\d)+\./", $_SERVER['HTTP_USER_AGENT'], $ieinfo)==1;
  if ($ie && $ieinfo[1] && $ieinfo[1]<7)
@@ -6,7 +6,7 @@
  else if ($ie && $ieinfo[1] && $ieinfo[1]<8)
     $doctype = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
  else
-    $doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">';
+    $doctype = '<!DOCTYPE html>';
 
 echo $doctype;
  ?>

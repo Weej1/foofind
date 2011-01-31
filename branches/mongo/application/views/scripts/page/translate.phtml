@@ -13,7 +13,7 @@
 <script>
     var controls = $('textarea,input[type=text]').not('[name^="safe_"]');
     var empties = controls.filter("[value='']");
-    $("#searchempty").text(100-100*empties.size()/controls.size()+'%');
+    $("#searchempty").text(Math.round(10000-10000*empties.size()/controls.size())/100+'%');
     $("#searchempty").click(function(event){
         event.preventDefault();
         var offset, docScroll, docHeight;
@@ -34,12 +34,12 @@
                 break;
             }
         }
-        $(this).text(100-100*empties.size()/controls.size()+'%');
+        $(this).text(Math.round(10000-10000*empties.size()/controls.size())/100+'%');
     });
 
     $("textarea,input[type=text]").change(function(){
         empties = controls.filter("[value='']");
-        $("#searchempty").text(100-100*empties.size()/controls.size()+'%');
+        $("#searchempty").text(Math.round(10000-10000*empties.size()/controls.size())/100+'%');
     });
 </script>
 <?php endif;?>

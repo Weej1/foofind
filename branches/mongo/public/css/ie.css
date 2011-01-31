@@ -9,6 +9,7 @@ html, #container_home .logo {
 
 body {
     min-width: 960px;
+    height:100%;
 }
 
 .content.iehome {
@@ -24,10 +25,6 @@ body {
 {
     _top:auto;
     _position:static;
-}
-
-.social_widgets {
-    margin-top:50px;
 }
 
 .file_excerpt span.useract, .file_excerpt div.comments, .file_excerpt div.votes_up,

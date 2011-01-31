@@ -28,7 +28,7 @@
 "sources";"kaynak"
 "of about";"toplam"
 "results for";"sonuç için, arama:"
-"NoTypeCount";"Aramanız için ...'da hiçbir sonuç bulunamadı, ama diğer kategorilerde ... kadar sonuç bulunmaktadır."
+"NoTypeCount";"Aramanız için <i>%1$s</i> da hiçbir sonuç bulunamadı, ama <a href='%3$s'>diğer kategorilerde</a> %2$d kadar sonuç bulunmaktadır."
 "Foofind does not allow browse results after page 1000.";"Foofind 1000. sayfadan sonra sonuç göstermez, üzgünüz."
 "How to download?";"Nasıl indirebilirim?"
 "DownloadExplanation";"Bağlantısı bulunan dosyayı indirmek için harici bir yazılıma ihtiyacınız olabilir. İşte birkaç uyumlu uygulamalar:"

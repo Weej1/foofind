@@ -200,7 +200,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         $res = '';
         if (($title = $md["book:title"]) || ($title = $md["document:title"])) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
         if (($author = $md["book:author"]) || ($author = $md["document:author"])) $res .= $start.$this->view->translate("Author").$middle.$this->searchable($details, $author).$end;
-        if ($pages = $md["document:pages"]) $res .= $start.$this->view->translate("Nº of pages").$middle.$pages.$end;
+        if ($pages = $md["document:pages"]) $res .= $start.$this->view->translate("Num. of pages").$middle.$pages.$end;
 
         if ($details)
         {

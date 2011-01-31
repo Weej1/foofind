@@ -105,6 +105,7 @@
 "Related files";"Archivos relacionados"
 
 #user profile
+"User profile";"Perfil de usuario"
 "Choose your password:";"Elige tu contraseña:"
 "Insert your password (yep, again):";"Introduce tu contraseña (si, otra vez):"
 "Please, fill this form to be a Foofind registered member:";"Por favor, rellena este formulario para ser un usuario registrado de Foofind:"
@@ -135,6 +136,7 @@
 "your password?";"tu contraseña?"
 "Password:";"Contraseña:"
 "'%password%' is less than 5 characters long";"'%password%' tiene menos de 5 carácteres'"
+"The  passwords entered do not match.";"Las contraseñas introducidas no coinciden."
 "Are you sure you want to delete your foofind account?";"¿Estás seguro de querer borrar tu cuenta de foofind?"
 "Yes";"Si"
 "Your account has been deleted.";"Tu cuenta ha sido eliminada."
