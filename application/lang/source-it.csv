@@ -29,6 +29,7 @@
 "of about";"su"
 "results for";"risultati per"
 "NoTypeCount";"Nessun risultato è stato trovato per la tua ricerca <i>%s</<i>, ma ci sono circa %d risultati per la tua ricerca in <a href='%s'>altre categorie</a>."
+"NoTypeCount";"Nessun risultato è stato trovato per la tua ricerca ...,        ma ci sono circa ...risultati per la tua ricerca in altre categorie."
 "Foofind does not allow browse results after page 1000.";"Foofind non permette di scorrere i risultati dopo la pagina 1000"
 "How to download?";"Come scaricare?"
 "DownloadExplanation";"Per scaricare il file linkato, potresti aver bisogno di un software esterno. Qui ci sono alcune applicazioni compatibili:"

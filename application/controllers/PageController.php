@@ -84,7 +84,6 @@ class PageController extends Zend_Controller_Action
                 $tform = new Zend_Form();
                 $tform->setMethod ( 'post' );
                 $tform->setAttrib('class', 'texts');
-                $tform->setTranslator($adapter);
                 $tform->addElement ( 'captcha', 'safe_captcha', array (
                     'label' => 'Please, insert the 5 characters shown:', 'required' => true,
                     'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 300,
@@ -132,6 +131,7 @@ class PageController extends Zend_Controller_Action
                         'validators' => array (array ('StringLength', false, array (1, $maxlen ) ) ), 'required' => false,
                         'label' => $text, 'value' => $val, 'cols'=>40, 'rows'=>$rows) );
                     $input = $tform->getElement("text$index");
+                    $input->setTranslator($adapter);
                     if ($val=='') $input->getDecorator('Label')->setOption('class','empty');
                     $valid = $input->getValidator("StringLength")->setEncoding('UTF-8');
                     $index++;
@@ -156,16 +156,23 @@ class PageController extends Zend_Controller_Action
 
                             $mod = false;
                             $val = $data["text$index"];
-                            if ($val!="" && (!array_key_exists($key, $lang) || ($mod=($lang[$key]!=$val))))
+
+                            $comp = $lang[$key];
+                            $comp = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $comp);
+                            $comp = preg_replace("/(\<[^\>]*\>)/", " ", $comp);
+                            $comp = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $comp);
+
+                            if ($val!="" && (!array_key_exists($key, $lang) || ($mod=($comp!=$val))))
                             {
                                 $body .= "\"$key\";\"$val\"".($mod?' ***':"")."<br>";
+                                if ($mod) $body .= "\"$key\";\"$comp\"".($mod?' ***':"")."<br>";
                                 $newdata = true;
                             }
                             else
                                 $body .= "<br>";
                             $index++;
                         }
-
+                        
                         if (!$newdata) {
                             $this->view->error = $this->view->translate ( 'Please, translate at least one text.' );
                             return;

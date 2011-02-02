@@ -212,7 +212,15 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     // Temporary solves megaupload-megavideo conflict
                     if (($type==Model_Files::SOURCE_MEGAUPLOAD) && (stripos($url, "http://www.megavideo.com/") === 0))
                         $continue = true;
-                    
+
+                    var_dump($url);
+                    if ($type==Model_Files::SOURCE_MEGAVIDEO) {
+                        $found=array();
+                        preg_match("\"http:\/\/www.megavideo.com\/\?(\w)=([^&]*).*\"", $url, $found);
+                        if ($found[1]) $obj['view']['sources'][$source]['idtype'] = $found[1];
+                        if ($found[1]) $obj['view']['sources'][$source]['id'] = $found[2];
+                    }
+
                     break;
                 case Model_Files::SOURCE_FTP:
                     $linkWeight = 0.9;
