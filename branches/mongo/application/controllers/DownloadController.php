@@ -38,30 +38,34 @@ class DownloadController extends Zend_Controller_Action
         //plugin Qs
         require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
 
-        if ($_SERVER['HTTP_REFERER'])
+        $q = $opt = $type = null;
+        if (isset($_SERVER['HTTP_REFERER']))
         {
             parse_str(substr(strstr($_SERVER['HTTP_REFERER'], '?'), 1));
 
             $f = new Zend_Filter();
             $f->addFilter(new Zend_Filter_StringTrim());
             $f->addFilter(new Zend_Filter_StripTags());
-            $q = $f->filter (trim(stripcslashes(strip_tags($q))));
-            $type = $f->filter ( $type );
-            $src = $f->filter ( $src );
+            if (isset($q)) {
+                $q = $f->filter (trim(stripcslashes(strip_tags($q))));
             $form->getElement('q')->setValue($q);
-            $form->addElement("hidden", "type", array("value"=>$type));
+            }
+            if (isset($type)) {
+                $type = $f->filter ( $type );
+                $form->addElement("hidden", "type", array("value"=>$type));
+            }
+            if (isset($src)) $src = $f->filter ( $src );
         }
 
-        if(!$src) if ($_COOKIE['src']) $src = $_COOKIE['src'];
+        if (!isset($src) && isset($_COOKIE['src'])) $src = $_COOKIE['src'];
 
         $src2 = ($src=='')?'wftge':$src;
-        $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' => $year, 'brate' => $brate, 'page' => $page);
+        $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type);
 
         $helper = new QueryString_View_Helper();
         $helper->setParams($conds);
 
         $this->view->registerHelper($helper, 'qs');
-        $this->view->src = $srcs;
         $this->view->qs = $conds;
 
         // now check to see if the form submitted exists, and
@@ -103,7 +107,7 @@ class DownloadController extends Zend_Controller_Action
         $urlfn = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
         $urlfn = explode('/', $urlfn);
         $fn = null;
-        if ($urlfn[4]) {
+        if (isset($urlfn[4])) {
             $fn = urldecode($urlfn[4]);
             if (strlen($fn)>5 && substr($fn, -5)==".html") $fn = substr($fn, 0, -5);
         }
@@ -147,8 +151,8 @@ class DownloadController extends Zend_Controller_Action
         $this->view->headTitle()->append($obj['view']['fn']);
 
         //add meta to file related (better seo)
-        $this->view->headMeta()->appendName('description', 'download, '.$obj['file']['x'].', '.$obj['file']['n']);
-        $this->view->headMeta()->appendName('keywords',  'download, '.$obj['file']['x'].', '.$obj['file']['n']);
+        $this->view->headMeta()->appendName('description', 'download, '.$obj['view']['fnx'].', '.$obj['view']['nfn']);
+        $this->view->headMeta()->appendName('keywords',  'download, '.$obj['view']['fnx'].', '.$obj['view']['nfn']);
 
         $this->createComment( $hexuri );
 
@@ -170,7 +174,7 @@ class DownloadController extends Zend_Controller_Action
         }
         
         // only get votes if file has its
-        if (array_key_exists('vs', $obj['file'])) {
+        if (isset($obj['file']['vs'])) {
             $obj['votes'] = $this->umodel->getFileVotesSum($hexuri, $this->identity->_id);
             if ($myvote = $obj['votes']['user']) {
                 if ($myvote>0)
@@ -182,14 +186,16 @@ class DownloadController extends Zend_Controller_Action
             $obj['votes'] = null;
         }
 
-        if ($this->isAuth) {
+        if ($this->view->isAuth) {
             $obj['cvotes'] = $this->umodel->getUserFileVotes($hexuri, $this->identity->_id);
-            foreach ($obj['cvotes'] as $comment=>$vote)
-            {
-                if ($vote['k']>0)
-                    $obj['comments'][$comment]['myvote'] = "upactive";
-                else if ($vote['k']<0)
-                    $obj['comments'][$comment]['myvote'] = "downactive";
+            if (isset($obj['cvotes'])) {
+                foreach ($obj['cvotes'] as $comment=>$vote)
+                {
+                    if ($vote['k']>0)
+                        $obj['comments'][$comment]['myvote'] = "upactive";
+                    else if ($vote['k']<0)
+                        $obj['comments'][$comment]['myvote'] = "downactive";
+                }
             }
         }
         $this->view->file = $obj;

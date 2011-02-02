@@ -10,10 +10,8 @@ class PageController extends Zend_Controller_Action
             
             $this->_helper->layout()->setLayout('page');
 
-            $request = $this->getRequest ();
-            $requesttitle .= ' '.$this->_getParam('q');
+            $request = $this->getRequest();
             $this->view->headTitle()->append(' - ');
-            $this->view->headTitle()->append($requesttitle);
 
             $this->_flashMessenger = $this->_helper->getHelper ( 'FlashMessenger' );
             $this->view->mensajes = $this->_flashMessenger->getMessages ();
@@ -61,11 +59,12 @@ class PageController extends Zend_Controller_Action
             $this->view->langsform = $lform;
 
             if ($newlang!=null){
-                if (array_key_exists($newlang, $newlangs))
+                if (isset($newlangs[$newlang]))
                     $this->view->newlangtext = $newlangs[$newlang];
                 else
                     $newlang==null;
             }
+            
             if ($newlang==null) {
                 $elem_newlang->clearMultiOptions();
                 $elem_newlang->addMultiOption("", "-- ".$this->view->translate("Choose language")." --");
@@ -95,9 +94,9 @@ class PageController extends Zend_Controller_Action
                 {
                     if (strpos($key, "safe_")===0) continue;
 
-                    if ($userlang && array_key_exists($key, $userlang))
+                    if (isset($userlang[$key]))
                        $text = $userlang[$key];
-                    elseif (array_key_exists($key, $en))
+                    elseif (isset($en[$key]))
                        $text = $en[$key];
                     else
                        $text = $key;
@@ -107,7 +106,7 @@ class PageController extends Zend_Controller_Action
                     $text = preg_replace("/(\<[^\>]*\>)/", " ", $text);
                     $text = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $text);
                     
-                    if (array_key_exists($key, $lang)) {
+                    if (isset($lang[$key])) {
                         $val = $lang[$key];
                         $maxlen = strlen($val)*3;
                        
@@ -162,7 +161,7 @@ class PageController extends Zend_Controller_Action
                             $comp = preg_replace("/(\<[^\>]*\>)/", " ", $comp);
                             $comp = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $comp);
 
-                            if ($val!="" && (!array_key_exists($key, $lang) || ($mod=($comp!=$val))))
+                            if ($val!="" && (!isset($lang[$key]) || ($mod=($comp!=$val))))
                             {
                                 $body .= "\"$key\";\"$val\"".($mod?' ***':"")."<br>";
                                 if ($mod) $body .= "\"$key\";\"$comp\"".($mod?' ***':"")."<br>";

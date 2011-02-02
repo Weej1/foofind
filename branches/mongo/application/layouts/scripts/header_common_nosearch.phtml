@@ -52,24 +52,25 @@ echo $doctype;
                         echo '<a href="/' . $this->lang . '/auth/login">' . $this->translate('login') . '</a>';
                     } else {
                         $auth_username = $auth->getIdentity()->username;
-                        $auth_userid = $auth->getIdentity()->IdUser;
                         echo $this->translate('hello,') . '<b>&nbsp;<a href="/' .
                         $this->lang . '/profile/' . $this->escape($auth_username) . '">' . $this->escape($auth_username) . '</a></b> | ' . '<a href="/' . $this->lang . '/auth/logout">' .
                         $this->translate('logout') . '</a>';
                     } ?></span>&nbsp;&nbsp;
                 <div id="select_language_box">
-                    <?php
+                   <?php
                     $langs = Zend_Registry::get("languages");
-                    $testlangs = Zend_Registry::get("testlangs");
+                    $activelangs = Zend_Registry::get("activelangs");
                     foreach ($langs as $lang=>$name):
                         $langlink = "/$lang/index/setlang";
-                        if ($testlangs[$lang]==1) {
-                            $beta = "<span class='beta_lang'></span>";
+                        if ($activelangs[$lang]==1) {
+                            $beta = " beta";
+                            $beta_lang = "<span class='beta_lang'></span>";
                             if ($this->lang==$lang) $langlink = "/$lang/page/translate?lang=$lang";
-                        } else
-                            $beta = "";
+                        } else {
+                            $beta = $beta_lang = "";
+                        }
                         ?>
-                        <a class="lang<?=($this->lang==$lang)?" active":""?>" href='<?=$langlink?>'><span class="flag <?=$lang?>"></span><?=$beta?><span class="lang_name"><?=$name?></span></a>
+                        <a class="lang<?=($this->lang==$lang)?" active":""?>" href='<?=$langlink?>'><span class="flag <?=$lang.$beta?>"></span><?=$beta_lang?><span class="lang_name"><?=$name?></span></a>
                     <?php endforeach;?>
                     <a href='/<?=$this->lang?>/page/translate'><?=$this->translate('Other');?>...</a>
                 </div>

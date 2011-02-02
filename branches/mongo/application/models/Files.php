@@ -68,7 +68,8 @@ class Model_Files
         "wrap"=>2, "wrf"=>9, "wri"=>9, "wv"=>1, "x3f"=>5, "xar"=>5, "xbm"=>5, "xcf"=>5, "xls"=>10,
         "xlsm"=>10, "xlsx"=>10, "xdiv"=>2, "xhtml"=>9, "xls"=>9, "xml"=>9, "xpi"=>6, "xpm"=>5,
         "xps"=>9, "yuv"=>5, "z"=>7, "zip"=>7, "zipx"=>7, "zix"=>7, "zoo"=>7 );
-        return $exts[$ext];
+        if (isset($exts[$ext])) return $exts[$ext];
+        return null;
     }
 
     static function ct2string($ct) {
@@ -76,7 +77,8 @@ class Model_Files
                       Model_Files::CONTENT_TORRENT => 'Archive', Model_Files::CONTENT_IMAGE => 'Image', Model_Files::CONTENT_APPLICATION => 'Software',
                       Model_Files::CONTENT_ARCHIVE => 'Archive', Model_Files::CONTENT_ROM => 'Software', Model_Files::CONTENT_DOCUMENT => 'Document',
                       Model_Files::CONTENT_SPREADSHEET => 'Document', Model_Files::CONTENT_PRESENTATION => 'Document');
-        return $ct2s[$ct];
+        if (isset($ct2s[$ct])) return $ct2s[$ct];
+        return null;
     }
 
     static function ct2ints($ct) {
@@ -84,7 +86,8 @@ class Model_Files
                       'Document' => array(Model_Files::CONTENT_BOOK, Model_Files::CONTENT_DOCUMENT, Model_Files::CONTENT_SPREADSHEET, Model_Files::CONTENT_PRESENTATION),
                       'Archive' => array(Model_Files::CONTENT_TORRENT, Model_Files::CONTENT_ARCHIVE, Model_Files::CONTENT_ROM),
                       'Image' => array(Model_Files::CONTENT_IMAGE), 'Software' => array(Model_Files::CONTENT_APPLICATION));
-        return $ct2i[$ct];
+        if (isset($ct2i[$ct])) return $ct2i[$ct];
+        return null;
     }
 
     static function src2ints($src) {
@@ -94,7 +97,8 @@ class Model_Files
                         't' => array(3,107),
                         'g' => array(1,5,6),
                         'e' => array(2));
-        return $src2i[$src];
+        if (isset($src2i[$src])) return $src2i[$src];
+        return null;
     }
 
     private function prepareConnections($main = true, $oldids = false, $datas = false)
@@ -167,9 +171,9 @@ class Model_Files
         $querys = array();
         foreach ($cursor as $ifile) {
             $s = (int)$ifile['s'];
-            if (!array_key_exists($s, $querys)) $querys[$s] = array();
+            if (!isset($querys[$s])) $querys[$s] = array();
 
-            if (array_key_exists('t', $ifile))
+            if (isset($ifile['t']))
                 $querys[$s][]=new MongoId($ifile['t']);
             else
                 $querys[$s][]=new MongoId($ifile['_id']);
@@ -195,7 +199,7 @@ class Model_Files
         $id = new MongoId($hexuri);
         $ifile = $this->db_main->indir->findOne( array("_id" =>$id) );
         if ($ifile==null) return null;
-        if (array_key_exists('t', $ifile)) $id = $ifile['t'];
+        if (isset($ifile['t'])) $id = $ifile['t'];
         $s = $ifile['s'];
         $conn = $this->db_data[$s];
         $conn->connect();

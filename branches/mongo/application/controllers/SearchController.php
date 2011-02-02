@@ -237,10 +237,10 @@ class SearchController extends Zend_Controller_Action {
         $this->view->mensajes = $this->_flashMessenger->getMessages ();
         $this->view->lang = $this->_helper->checklang->check();
         
+        $this->config = Zend_Registry::get('config');
     }
 
     public function indexAction() {
-        
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');
         $page = $this->_getParam('page', 1);
@@ -355,8 +355,8 @@ class SearchController extends Zend_Controller_Action {
             $paginator->getCurrentItems();
 
             $paginator->tcount = $SphinxPaginator->tcount;
-            $paginator->time = $SphinxPaginator->time;
-            if ($conds['type']!=null && $SphinxPaginator->count()==0)
+            if (isset($SphinxPaginator->time)) $paginator->time = $SphinxPaginator->time;
+            if (isset($conds['type']) && $SphinxPaginator->count()==0)
             {
                 $conds['type']=null;
                 $SphinxPaginator->setFilters($conds);

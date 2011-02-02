@@ -34,7 +34,12 @@ if (count ( $this->mensajes ) > 0) {
         <p><div title="Vuze, µTorrent, Transmission" alt="Vuze, µTorrent, Transmission" class="icon icon24 torrent24"></div> µTorrent, Transmission.</p>
     </div>
     <div class="file_download">
-        <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$this->coalesce($this->file['votes'][$this->lang]['c'][0], 0)?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$this->coalesce(-$this->file['votes'][$this->lang]['c'][1],0)?>)</span></a></div>
+        <? if (isset($this->file['votes'][$this->lang]['c'])) 
+                $votes = $this->file['votes'][$this->lang]['c'];
+            else
+                $votes = array(0,0);
+        ?>
+        <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$votes[0]?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$votes[1]?>)</span></a></div>
         <h2><?=$this->file['view']['fn'];?></h2>
         
         <div class="top_download">
@@ -76,7 +81,7 @@ if (count ( $this->mensajes ) > 0) {
         </div>
 
 
-        <? if (array_key_exists("related", $this->file['view'])): ?>
+        <? if (isset($this->file['view']['related'])): ?>
     <div class="download_section related">
         <div class="icon link"></div><h4><?=$this->translate('Related files'); ?></h4>
             <? foreach ($this->file['view']['related'] as $rel):?>
@@ -96,12 +101,15 @@ if (count ( $this->mensajes ) > 0) {
             $this->count = count($this->file['comments']);
             $i = $this->count + 1 - ($this->paginator->getCurrentPageNumber()-1)*$this->paginator->getItemCountPerPage();
             foreach ($this->paginator as $key => $val):
-                $i--; ?>
+                $i--;
+
+                if (isset($val['vs']['c'][0])) $vs = $val['vs']['c']; else $vs = array(0,0);
+                ?>
         <div class="comment">
            <div class="file_comment_number"><a name="c<?=$i?>" href="?page=<?=$this->paginator->getCurrentPageNumber()?>#c<?=$i?>">#<?=$i?></a></div>
-           <div class="file_comment_vote small <?=$val['myvote'] ?>" idcomment="<?=$val['_id']?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><span><?=0+$val['vs']['c'][0]?></span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><span><?=0-$val['vs']['c'][1]?></span></a></div>
+           <div class="file_comment_vote small <?=(isset($val['myvote'])?$val['myvote']:"") ?>" idcomment="<?=$val['_id']?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><span><?=$vs[0]?></span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><span><?=0-$vs[1]?></span></a></div>
            <div id="c<?=$i?>"><?= $this->format_comment($val['t']); ?></div>
-           <div class="file_comment_nick"><a href="/<?=$this->lang ?>/profile/<?=$this->escape($val['u']['username']) ?>"><?=$val['u']['username'] ?></a> - <? echo $this->show_date_span($val['d']->sec); if ($val['u']['username']!=null) echo  " ". $this->translate("from") ." ". $val['u']['location']; ?></div>
+           <div class="file_comment_nick"><a href="/<?=$this->lang ?>/profile/<?=$this->escape($val['u']['username']) ?>"><?=$val['u']['username'] ?></a> - <? echo $this->show_date_span($val['d']->sec); if (isset($val['u']['location'])) echo  " ". $this->translate("from") ." ". $val['u']['location']; ?></div>
         </div>
 
         <?php endforeach;?>

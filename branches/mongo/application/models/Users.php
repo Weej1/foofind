@@ -111,6 +111,7 @@ class Model_Users
     {
         $this->prepareConnection();
         $cursor = $this->db->comment_vote->find(array('f'=>new MongoId($idFile), 'u'=>$idUser));
+        $votes=null;
         foreach ($cursor as $vote) {
             $id = $vote['_id'];
             $pos = strrpos($id, '_');
