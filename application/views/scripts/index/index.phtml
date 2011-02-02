@@ -8,6 +8,7 @@
     <?
     if (count($this->mensajes) > 0) {
         echo '<div class="success">';
+        $sep="";
         foreach ($this->mensajes as $msg) {
             echo $msg.$sep;
             $sep='<br/>';

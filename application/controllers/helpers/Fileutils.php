@@ -263,7 +263,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         
         foreach ($obj['view']['sources'] as $src=>$info)
         {
-            if (array_key_exists('join', $info) && $info['join'])
+            if (isset($info['join']))
             {
                 if (isset($obj['file']['z'])) $size = "&xl=".$obj['file']['z']; else $size="";
                 $url = "magnet:?dn=".$obj['view']['efn'].$size."&".implode("&", $info['parts']);
@@ -273,16 +273,15 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             }
         }
 
-        
     }
 
     function chooseType(&$obj, $type=null)
     {
         if ($type==null) {
-            try { $type = $obj["file"]["ct"]; } catch (Exception $ex) { }
-            if ($type==null) try { $type = $obj["search"]["ct"]; } catch (Exception $ex) { }
-            if ($type==null) try { $type = Model_Files::ext2ct($obj['view']['fnx']); } catch (Exception $ex) { }
-            if ($type!=null) try { $type = Model_Files::ct2string($type); } catch (Exception $ex) { }
+            if (isset($obj["file"]["ct"])) $type = $obj["file"]["ct"];
+            if ($type==null && isset($obj["search"]["ct"])) $type = $obj["search"]["ct"];
+            if ($type==null && isset($obj["view"]["fnx"]) ) $type = Model_Files::ext2ct($obj['view']['fnx']);
+            if ($type!=null) $type = Model_Files::ct2string($type);
         }
 
         if ($type!=null) {
@@ -293,16 +292,16 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
     function searchRelatedFiles(&$obj)
     {
         $md = $obj['file']['md'];
-
-        $artist = array_key_exists("audio:artist", $md);
-        $album = array_key_exists("audio:album", $md);
-        $title = array_key_exists("audio:title", $md);
+        $artist = $album = $title = false;
+        if (isset($md["audio:artist"])) $artist = $md["audio:artist"];
+        if (isset($md["audio:album"])) $album = $md["audio:album"];
+        if (isset($md["audio:title"])) $title = $md["audio:title"];
         if ($artist || $album || $title)
         {
             $query = "";
-            if ($artist) $query .= "|\"{$md["audio:artist"]}\"";
-            if ($album) $query .= "|\"{$md["audio:album"]}\"";
-            if ($title) $query .= "|\"{$md["audio:title"]}\"";
+            if ($artist) $query .= "|\"$artist\"";
+            if ($album) $query .= "|\"$album\"";
+            if ($title) $query .= "|\"$title\"";
             $query = substr($query, 1);
             $mode = SPH_MATCH_EXTENDED2;
         } else {

@@ -14,9 +14,9 @@ class QueryString_View_Helper extends Zend_View_Helper_Abstract
         $res = '';
         foreach ($this->params as $key => $val)
         {
-            if (array_key_exists($key, $add))
+            if (isset($add[$key]))
                 $pair = '&'.$key.'='.urlencode($add[$key]);
-            else if (array_key_exists($key, $delete))
+            else if (isset($delete[$key]))
                 $pair = '';
             else
                 $pair = '&'.$key.'='.urlencode($val);

@@ -85,11 +85,11 @@ if (count ( $this->mensajes ) > 0) {
             <h3>
                 <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches( $this->formatHTML( $val['view']['fn']), $this->qs['q'], false) ?></a>
                 <?php
-                if (array_key_exists('vs', $val['file'])){
-                    if ($val['file']['vs'][$this->lang]) echo "<div class='useract votes_up'></div>{$val['file']['vs'][$this->lang]['c'][0]}";
-                    if ($val['file']['vs'][$this->lang]) echo "<div class='useract votes_down'></div>{$val['file']['vs'][$this->lang]['c'][1]}";
+                if (isset($val['file']['vs'][$this->lang]['c'])){
+                    echo "<div class='useract votes_up'></div>{$val['file']['vs'][$this->lang]['c'][0]}";
+                    echo "<div class='useract votes_down'></div>{$val['file']['vs'][$this->lang]['c'][1]}";
                 }
-                if (array_key_exists('cs', $val['file']) && $val['file']['cs'][$this->lang]) echo "<div class='useract comments'></div>{$val['file']['cs'][$this->lang]}";
+                if (isset($val['file']['cs'][$this->lang])) echo "<div class='useract comments'></div>{$val['file']['cs'][$this->lang]}";
                 if (APPLICATION_ENV!='production'):?>
                     <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fw:<?=$val['search']['fw'] ?> fc:<?=$val['search']['fc']?></span>
                 <?php  endif; ?>

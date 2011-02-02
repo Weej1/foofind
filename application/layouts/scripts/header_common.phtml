@@ -64,10 +64,10 @@ echo $doctype;
                 <div id="select_language_box">
                     <?php
                     $langs = Zend_Registry::get("languages");
-                    $testlangs = Zend_Registry::get("testlangs");
+                    $activelangs = Zend_Registry::get("activelangs");
                     foreach ($langs as $lang=>$name):
                         $langlink = "/$lang/index/setlang";
-                        if ($testlangs[$lang]==1) {
+                        if ($activelangs[$lang]==1) {
                             $beta = " beta";
                             $beta_lang = "<span class='beta_lang'></span>";
                             if ($this->lang==$lang) $langlink = "/$lang/page/translate?lang=$lang";

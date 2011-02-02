@@ -86,7 +86,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
             $mins = $mins%60;
         }
     }
-    if ($hours)
+    if (isset($hours))
         return sprintf("%d:%02d:%02d", $hours, $mins, $secs);
     else
         return sprintf("%d:%02d", $mins, $secs);
@@ -138,18 +138,19 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
 
         if ($res=='')
         {
-            if (array_key_exists('nfn', $obj['view'])) $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']).$end;
+            if (isset($obj['view']['nfn'])) $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']).$end;
             $desc = strtolower($type).":description";
-            if (array_key_exists($desc, $md)) $res .= $start.$this->view->translate("Description").$middle.$this->searchable($details, $md[$desc]).$end;
+            if (isset($md[$desc])) $res .= $start.$this->view->translate("Description").$middle.$this->searchable($details, $md[$desc]).$end;
         }
         if ($res!='') $res = "<$element>$res</$element>";
 
+        $extra="";
         if ($details && $obj['view']['fnx']=="torrent")
         {
-            if ($files = $md["torrent:filepaths"]) {
+            if ($files = $this->getValue($md,"torrent:filepaths")) {
                 $names = explode("//", $files);
 
-                $sizes = $md["torrent:filesizes"];
+                $sizes = $this->getValue($md,"torrent:filesizes");
                 if ($sizes) $sizes = explode(" ", $sizes);
 
                 for ($i=0; $i<count($names); $i++)
@@ -174,22 +175,22 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
     function formatAudio($obj, $md, $details, $start, $middle, $end)
     {
         $res = '';
-        if ($artist = $md["audio:artist"]) $res .= $start.$this->view->translate("Artist").$middle.$this->searchable($details, $artist).$end;
-        if ($title = $md["audio:title"]) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
+        if ($artist = $this->getValue($md,"audio:artist")) $res .= $start.$this->view->translate("Artist").$middle.$this->searchable($details, $artist).$end;
+        if ($title = $this->getValue($md,"audio:title")) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
 
-        if ($album = $md["audio:album"]) {
+        if ($album = $this->getValue($md,"audio:album")) {
             $res .= $start.$this->view->translate("Album").$middle.$this->searchable($details, $album);
-            if (($year = $md["audio:year"]) && is_numeric($year) && $year>1901 && $year<2100)
+            if (($year = $this->getValue($md,"audio:year")) && is_numeric($year) && $year>1901 && $year<2100)
                 $res .= "&nbsp;($year)";
             $res .= $end;
         }
-        if ($details && $track = $md["audio:track"]) $res .= $start.$this->view->translate("Track").$middle.$track.$end;
-        if ($genre = $md["audio:genre"]) $res .= $start.$this->view->translate("Genre").$middle.$genre.$end;
-        if ($len = $md["audio:seconds"]) $res .= $start.$this->view->translate("Length").$middle.$this->formatLength($len).$end;
-        if ($bitrate = $md["audio:bitrate"]) {
+        if ($details && ($track = $this->getValue($md,"audio:track"))) $res .= $start.$this->view->translate("Track").$middle.$track.$end;
+        if ($genre = $this->getValue($md,"audio:genre")) $res .= $start.$this->view->translate("Genre").$middle.$genre.$end;
+        if ($len = $this->getValue($md,"audio:seconds")) $res .= $start.$this->view->translate("Length").$middle.$this->formatLength($len).$end;
+        if ($bitrate = $this->getValue($md,"audio:bitrate")) {
             $bitrate = str_replace("~", "", $bitrate);
             $bitrate .= "&nbsp;kbit/s";
-            if ($details && $md["audio:soundtype"]) $bitrate .= " - ".$md["audio:soundtype"];
+            if ($details &&  ($st = $this->getValue($md,"audio:soundtype"))) $bitrate .= " - ".$st;
             $res .= $start.$this->view->translate("Quality").$middle.$bitrate.$end;
         }
         return $res;
@@ -198,20 +199,21 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
     function formatDocument($obj, $md, $details, $start, $middle, $end)
     {
         $res = '';
-        if (($title = $md["book:title"]) || ($title = $md["document:title"])) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
-        if (($author = $md["book:author"]) || ($author = $md["document:author"])) $res .= $start.$this->view->translate("Author").$middle.$this->searchable($details, $author).$end;
-        if ($pages = $md["document:pages"]) $res .= $start.$this->view->translate("Num. of pages").$middle.$pages.$end;
+        if ($title =  $this->getValue($md,"book:title","document:title")) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
+        if ($author =  $this->getValue($md,"book:author", "document:author")) $res .= $start.$this->view->translate("Author").$middle.$this->searchable($details, $author).$end;
+        if ($pages =  $this->getValue($md,"document:pages")) $res .= $start.$this->view->translate("Num. of pages").$middle.$pages.$end;
 
         if ($details)
         {
-            if ($format = $md["document:format"]) {
+            if ($format = $this->getValue($md,"document:format")) {
                 $res .= $start.$this->view->translate("Format").$middle.$format;
-                if ($fversion = $md["document:formatversion"]) $res .= "&nbsp;v.$fversion";
+                if ($fversion = $this->getValue("document:formatversion")) $res .= "&nbsp;v.$fversion";
                 $res .= $end;
             }
-            if ($version = (int)$md["document:version"]) {
+            if ($version = $this->getValue($md,"document:version")) {
+                $version = (int)$version;
                 $res .= $start.$this->view->translate("Version").$middle.$version;
-                if ($revision = $md["document:revision"]) $res .= "&nbsp;$revision";
+                if ($revision = $this->getValue("document:revision")) $res .= "&nbsp;$revision";
                 $res .= $end;
             }
         }
@@ -222,16 +224,16 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
     function formatImage($obj, $md, $details, $start, $middle, $end)
     {
         $res = '';
-        if ($title = $md["image:title"]) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
-        if ($artist = $md["image:artist"]) $res .= $start.$this->view->translate("Artist").$middle.$this->searchable($details, $artist).$end;
+        if ($title = $this->getValue($md,"image:title")) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
+        if ($artist = $this->getValue($md,"image:artist")) $res .= $start.$this->view->translate("Artist").$middle.$this->searchable($details, $artist).$end;
 
         if ($details)
         {
-            if ($desc = $md["image:description"]) $res .= $start.$this->view->translate("Description").$middle.$desc.$end;
+            if ($desc = $this->getValue($md,"image:description")) $res .= $start.$this->view->translate("Description").$middle.$desc.$end;
         }
-        if (($width = $md["image:width"]) && ($height = $md["image:height"]))
+        if (($width = $this->getValue($md,"image:width")) && ($height = $this->getValue($md,"image:height")))
             $res .= $start.$this->view->translate("Size").$middle.$width."x".$height.$end;
-        if ($colors = $md["image:colors"])
+        if ($colors = $this->getValue($md,"image:colors"))
             $res .= $start.$this->view->translate("Colors").$middle.$colors.$end;
 
         return $res;
@@ -240,18 +242,22 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
     function formatVideo($obj, $md, $details, $start, $middle, $end)
     {
         $res = '';
-        if ($title = $md["video:title"]) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
-        if ($artist = $md["video:artist"]) $res .= $start.$this->view->translate("Artist").$middle.$this->searchable($details, $artist).$end;
+        if ($title = $this->getValue($md,"video:title")) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
+        if ($artist = $this->getValue($md,"video:artist")) $res .= $start.$this->view->translate("Artist").$middle.$this->searchable($details, $artist).$end;
 
-        if (($len = $md["video:minutes"]*60) || ($len = $md["video:length"]))
+        if ($len = $this->getValue($md,"video:minutes", "video:length"))
+        {
+            if (isset($md["video:minutes"])) $len *= 60;
             $res .= $start.$this->view->translate("Length").$middle.$this->formatLength($len).$end;
-        if (($width = $md["video:width"]) && ($height = $md["video:height"]))
+        }
+        if (($width = $this->getValue($md,"video:width")) && ($height = $this->getValue($md,"video:height")))
             $res .= $start.$this->view->translate("Size").$middle.$width."x".$height.$end;
 
         if ($details) {
-            if ($fps = (int)$md["video:framerate"]) {
+            if ($fps = $this->getValue($md,"video:framerate")) {
+                $fps=(int)$fps;
                  $res .= $start.$this->view->translate("Quality").$middle.$fps." fps";
-                 if ($codec = $md["video:codec"]) $res .= ' '.htmlentities($codec, ENT_QUOTES, "UTF-8");
+                 if ($codec = $this->getValue($md, "video:codec")) $res .= ' '.htmlentities($codec, ENT_QUOTES, "UTF-8");
                  $res .= $end;
             }
         }
@@ -261,17 +267,17 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
     function formatSoftware($obj, $md, $details, $start, $middle, $end)
     {
         $res = '';
-        if ($title = $md["application:title"]) {
+        if ($title = $this->getValue($md,"application:title")) {
             $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title);
-            if ($version = $md["application:version"]) $res .= "&nbsp;$version";
+            if ($version = $this->getValue($md,"application:version")) $res .= "&nbsp;$version";
              $res .= $end;
         }
          
         if ($details) {
-            if ($fversion = $md["application:fileversion"])
+            if ($fversion = $this->getValue($md,"application:fileversion"))
                 $res .= $start.$this->view->translate("Version").$middle.$fversion.$end;
 
-            if ($os = $md["application:os"])
+            if ($os = $this->getValue($md,"application:os"))
                 $res .= $start.$this->view->translate("OS").$middle.$os.$end;
         }
         return $res;
@@ -282,18 +288,28 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
     {
         $res = '';
 
-        if (($title = $md["archive:title"]) || ($title = $md["archive:name"]))
+        if ($title = $this->getValue($md,"archive:title","archive:name"))
             $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
 
-        if ($files = $md["archive:files"])
+        if ($files = $this->getValue($md,"archive:files"))
             $res .= $start.$this->view->translate("Files").$middle.$files.$end;
 
         if ($details) {
-            if ($folders = $md["archive:folders"])
+            if ($folders = $this->getValue($md,"archive:folders"))
                 $res .= $start.$this->view->translate("Folders").$middle.$folders.$end;
-            if ($usize = $md["archive:unpackedsize"])
+            if ($usize = $this->getValue($md,"archive:unpackedsize"))
                 $res .= $start.$this->view->translate("Unpacked size").$middle.$this->formatSize($usize).$end;
         }
         return $res;
+    }
+
+    function getValue($md, $key1, $key2=null)
+    {
+        if (isset($md[$key1]))
+            return $md[$key1];
+        else if ($key2 && isset($md[$key2]))
+            return $md[$key2];
+        else
+            return null;
     }
 }
