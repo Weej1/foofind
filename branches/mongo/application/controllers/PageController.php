@@ -74,8 +74,13 @@ class PageController extends Zend_Controller_Action
                 $translate = new Zend_Translate ( 'csv', FOOFIND_PATH . '/application/lang/', 'en', $options );
                 $adapter = $translate->getAdapter();
                 $es = $adapter->getMessages('es');
-
-                if (strcmp($this->view->lang,$newlang)!=0) $userlang = $adapter->getMessages($this->view->lang);
+                if (strcmp($this->view->lang,$newlang)!=0) {
+                    $userlang = $adapter->getMessages($this->view->lang);
+                    $adapter->setLocale($this->view->lang);
+                } else {
+                    $adapter->setLocale("en");
+                }
+                
                 $en = $adapter->getMessages('en');
 
                 $lang = $adapter->getMessages($newlang);
@@ -88,6 +93,7 @@ class PageController extends Zend_Controller_Action
                     'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 300,
                      'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
+$tform->setTranslator($adapter);
 
                 $index = 0;
                 foreach ($es as $key => $text)
@@ -102,7 +108,6 @@ class PageController extends Zend_Controller_Action
                        $text = $key;
                     
                     $maxlen = strlen($text)*3;
-                    $text = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $text);
                     $text = preg_replace("/(\<[^\>]*\>)/", " ", $text);
                     $text = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $text);
                     
@@ -110,7 +115,6 @@ class PageController extends Zend_Controller_Action
                         $val = $lang[$key];
                         $maxlen = strlen($val)*3;
                        
-                        $val = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $val);
                         $val = preg_replace("/(\<[^\>]*\>)/", " ", $val);
                         $val = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $val);
                     } else {
@@ -130,7 +134,6 @@ class PageController extends Zend_Controller_Action
                         'validators' => array (array ('StringLength', false, array (1, $maxlen ) ) ), 'required' => false,
                         'label' => $text, 'value' => $val, 'cols'=>40, 'rows'=>$rows) );
                     $input = $tform->getElement("text$index");
-                    $input->setTranslator($adapter);
                     if ($val=='') $input->getDecorator('Label')->setOption('class','empty');
                     $valid = $input->getValidator("StringLength")->setEncoding('UTF-8');
                     $index++;
@@ -157,7 +160,6 @@ class PageController extends Zend_Controller_Action
                             $val = $data["text$index"];
 
                             $comp = $lang[$key];
-                            $comp = preg_replace("/(\<[^\>]*\>)([^\<]*)(\<\/[^\>]*\>)/", "$2", $comp);
                             $comp = preg_replace("/(\<[^\>]*\>)/", " ", $comp);
                             $comp = preg_replace("/(\'?%[a-zA-Z\-]*%?\'?)/", "...", $comp);
 

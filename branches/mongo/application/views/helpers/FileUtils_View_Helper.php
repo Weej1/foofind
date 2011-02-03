@@ -23,7 +23,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
 
     public function formatURL($url)
     {
-        return htmlentities($url, ENT_QUOTES, "UTF-8");
+        return str_replace("%", "%25", htmlentities($url, ENT_QUOTES, "UTF-8"));
     }
 
     public function formatHTML($html)

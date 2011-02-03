@@ -14,6 +14,8 @@ class Model_Files
     const SOURCE_RAPIDSHARE = 11;
     const SOURCE_MEGAVIDEO = 12;
     const SOURCE_4SHARED = 13;
+    const SOURCE_BLIPTVD = 14;
+    const SOURCE_BLIPTVS = 15;
 
     const CONTENT_AUDIO = 1;
     const CONTENT_VIDEO = 2;
@@ -91,8 +93,8 @@ class Model_Files
     }
 
     static function src2ints($src) {
-        $src2i = array('s' => array(12),
-                        'w' => array(4,8,10,11,13),
+        $src2i = array('s' => array(12,15),
+                        'w' => array(4,8,10,11,13,14),
                         'f' => array(9),
                         't' => array(3,107),
                         'g' => array(1,5,6),

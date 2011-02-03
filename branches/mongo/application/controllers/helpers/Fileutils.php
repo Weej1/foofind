@@ -198,6 +198,8 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_RAPIDSHARE:
                 case Model_Files::SOURCE_MEGAVIDEO:
                 case Model_Files::SOURCE_4SHARED:
+                case Model_Files::SOURCE_BLIPTVD:
+                case Model_Files::SOURCE_BLIPTVS:
                     $linkWeight = 1;
 
                     // prefer megavideo for streaming searches
