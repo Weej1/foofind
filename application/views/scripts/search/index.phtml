@@ -108,7 +108,7 @@ if (count ( $this->mensajes ) > 0) {
 
                 foreach ($info['urls'] as $url)
                 {
-                    echo "<a class='source' title='{$info['tip']}' href='".$this->formatURL($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a>&nbsp;&nbsp;";
+                    echo "<a target='_blank' class='source' title='{$info['tip']}' href='".$this->formatURL($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a>&nbsp;&nbsp;";
                 }
             }
         ?>

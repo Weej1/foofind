@@ -67,7 +67,7 @@ if (count ( $this->mensajes ) > 0) {
             {
                 $max-=1; $maxSrc-=1; if ($max<0 || $maxSrc<0) break;
                 echo '<input onClick="javascript:this.focus();this.select();" type="text"  value="'.$url.'" />';
-                echo "<div><div class='icon icon30 {$info['icon']}30'></div>&nbsp;<a title='$url' href='".$this->formatURL($url)."'>".ucfirst ( $text )."</a></div>";
+                echo "<div><div class='icon icon30 {$info['icon']}30'></div>&nbsp;<a target='_blank' title='$url' href='".$this->formatURL($url)."'>".ucfirst ( $text )."</a></div>";
             }
             echo "</div>";
         }
