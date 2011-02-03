@@ -15,8 +15,7 @@ class DownloadController extends Zend_Controller_Action
         $this->view->lang = $this->_helper->checklang->check();
         $this->view->langcode =  $this->_helper->checklang->getcode();
 
-        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.dimensions.min.js');
-        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.superbox.min.js');
+        $this->view->headScript()->appendFile( STATIC_PATH . '/js/jquery.download.min.js');
         
         // get auth info
         $auth = Zend_Auth::getInstance ();

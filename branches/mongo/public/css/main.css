@@ -127,7 +127,7 @@ dd#src-element label{
     height: 6px;
     margin-left:-22px;
     margin-top:14px;
-    background: url(/images/foofind.png) -161px 0px no-repeat;
+    background: url(/images/foofind3.png) -161px -290px no-repeat;
 }
 
 .content.advices #container_search,
@@ -318,7 +318,7 @@ input#q {
 .logo_site div {
     width: 161px;
     height: 67px;
-    background-image: url(/images/foofind.png);
+    background-image: url(/images/foofind3.png);
 }
 
 .logo_site span {
@@ -326,8 +326,8 @@ input#q {
 }
 
 .warning {
-    background: url(/images/icon_alert.gif) no-repeat 0px top;
-    padding-left: 24px;
+    background: url(/images/foofind3.png) no-repeat -162px -297px;
+    padding-left: 20px;
     margin-left:172px;
 }
 
@@ -466,7 +466,7 @@ input#q {
 
 .file_excerpt div.comments{
     display: inline-block;
-    background-image: url(/images/foofind.png);
+    background-image: url(/images/foofind3.png);
     background-position: -164px -120px;
     vertical-align: middle;
     width: 19px;
@@ -476,7 +476,7 @@ input#q {
 
 .file_excerpt div.votes_up{
     display: inline-block;
-    background-image: url(/images/foofind.png);
+    background-image: url(/images/foofind3.png);
     background-position: -120px -120px;
     vertical-align: absmiddle;
     width: 14px;
@@ -486,7 +486,7 @@ input#q {
 
 .file_excerpt div.votes_down{
     display: inline-block;
-    background-image: url(/images/foofind.png);
+    background-image: url(/images/foofind3.png);
     background-position: -135px -120px;
     vertical-align: absmiddle;
     width: 14px;
@@ -798,13 +798,13 @@ h2{
 
 
 .small .vote_up div {
-    background: url(/images/foofind.png) -120px -140px;
+    background: url(/images/foofind3.png) -120px -140px;
     width: 15px;
     height: 20px;
 }
 
 .small .vote_down div {
-    background: url(/images/foofind.png) -135px -140px;
+    background: url(/images/foofind3.png) -135px -140px;
     width: 15px;
     height: 20px;
 }
@@ -818,7 +818,7 @@ h2{
 }
 
 .vote_up div {
-    background: url(/images/foofind.png) -90px -120px;
+    background: url(/images/foofind3.png) -90px -120px;
     width: 30px;
     height: 40px;
     margin-left:10px;
@@ -826,7 +826,7 @@ h2{
 }
 
 .vote_down div{
-    background: url(/images/foofind.png) -30px -120px;
+    background: url(/images/foofind3.png) -30px -120px;
     width: 30px;
     height: 40px;
     margin-left:10px;
@@ -834,11 +834,11 @@ h2{
 }
 
 .upactive .vote_up div, .vote_up:hover div {
-    background: url(/images/foofind.png) -60px -120px !important;
+    background: url(/images/foofind3.png) -60px -120px !important;
 }
 
 .downactive .vote_down div, .vote_down:hover div {
-    background: url(/images/foofind.png) -0px -120px !important;
+    background: url(/images/foofind3.png) -0px -120px !important;
 }
 
 .vote_up span {
@@ -963,7 +963,7 @@ a.source span
 }
 
 div.icon {
-    background: url(/images/foofind.png);
+    background: url(/images/foofind3.png);
     overflow: hidden;
     display: inline-block;
     vertical-align: middle;
@@ -1262,7 +1262,7 @@ div.icon50 {
 .flag {
     font-size:4px;
     display:inline-block;
-    background: url(/images/flags.png) no-repeat;
+    background: url(/images/foofind3.png) no-repeat;
     height:11px;
     width:16px;
     margin-right: 5px;
@@ -1275,22 +1275,22 @@ div.icon50 {
 }
 
 .flag.en{
-    background-position: -96px -11px;
+    background-position: -96px -301px;
 }
 .flag.es{
-    background-position: 0px 0px;
+    background-position: 0px -290px;
 }
 .flag.fr{
-    background-position: -80px 0px;
+    background-position: -80px -290px;
 }
 .flag.it{
-    background-position: -80px -11px;
+    background-position: -80px -301px;
 }
 .flag.pt{
-    background-position: -16px 0px;
+    background-position: -16px -290px;
 }
 .flag.tr{
-    background-position: -128px 0px;
+    background-position: -128px -290px;
 }
 
 .shake {
@@ -1370,7 +1370,8 @@ ul#tabnav a:hover   {
 
 .awesome, .awesome:visited {
     font-family:Arial,Verdana,Helvetica,sans-serif;
-    background: transparent url(/images/alert-overlay.png) repeat-x;
+    /*background: transparent url(/images/alert-overlay.png) repeat-x;*/
+    background: transparent url(/images/foofind3.png) 0px -312px repeat-x;
     display: inline-block;
     padding: 4px 10px 4px 10px;
     color: #fff;
