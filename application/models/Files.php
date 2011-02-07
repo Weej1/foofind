@@ -187,6 +187,33 @@ class Model_Files
             $conn->connect();
             $cursor = $conn->foofind->foo->find(array("_id" => array('$in' => $suris ) ) );
             foreach ($cursor as $file) {
+                $best = $bestval = 0;
+
+                foreach ($file['fn'] as $fncrc => $fn) {
+                    $acum = 0;
+                    foreach ($file['src'] as $hexuri => $src)
+                        if (isset($file['src'][$hexuri]['fn'][$fncrc])) $acum += $file['src'][$hexuri]['fn'][$fncrc]['m'];
+
+                    if ($acum>$bestval) {
+                        $bestval = $acum;
+                        $best = $fncrc;
+                    }
+                }
+
+                $bestfn = array($best=>$file['fn'][$best]);
+                $bestsrc = array();
+                foreach ($file['src'] as $hexuri => $src) {
+                    if (!isset($src['fn'][$best])) continue;
+                    $tempfn = $src['fn'][$best];
+                    $bestsrc[$hexuri]=$src;
+                    unset($bestsrc[$hexuri]['fn']);
+                    $bestsrc[$hexuri]['fn'] = array($best=>$tempfn);
+                }
+
+                unset($file['fn']);
+                unset($file['src']);
+                $file['fn'] = $bestfn;
+                $file['src'] = $bestsrc;
                 $files[$file['_id']->__toString()] = $file;
             }
             unset ($cursor);
