@@ -108,7 +108,8 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
             $end = ". ";
         }
 
-        $type = $obj['view']['type'];
+        $type=null;
+        if (isset($obj['view']['type'])) $type = $obj['view']['type'];
         switch ($type)
         {
             case "Audio":

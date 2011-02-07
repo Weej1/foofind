@@ -21,15 +21,6 @@ class QueryString_View_Helper extends Zend_View_Helper_Abstract
             else
                 $pair = '&'.$key.'='.urlencode($val);
 
-            /*try {
-                $del = $delete[$key];
-                if ($del) $pair = '';
-            } catch (Exception $ex) {}
-            
-            try {
-                $new = $add[$key];
-                if ($new) $pair = '&'.$key.'='.urlencode($new);
-            } catch (Exception $ex) {}*/
             $res .= $pair;
         }
         $res[0]='?';
