@@ -66,7 +66,7 @@ class IndexController extends Zend_Controller_Action
                             'e' => 'Ed2k'
                             ),
             'separator'     => '',
-            'value'         =>($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge'             
+            'value'         =>isset($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge'
         ));
         $form->addElement('hidden', 'type', array('value'=>$type));
         $form->setAction( '/'. $this->view->lang.'/search/');
