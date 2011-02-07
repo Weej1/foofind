@@ -9,7 +9,7 @@
   * *ls*: _last seen date_, 
   * *fs*: _first seen date_,
   * *ct*: _content type_,
-  * *bl*: _0=ok, 1=blocked file_, 
+  * *bl*: _0=ok, 1=blocked file, 3=unreachable file_, 
   * *s*: _server where is located_, 
   * *tt*: _times touched_,
   * *md*: _metadata_ {
