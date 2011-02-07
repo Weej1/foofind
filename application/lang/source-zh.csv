@@ -20,21 +20,20 @@
 "Document";"文档"
 "Software";"软件"
 "Archive";"达到"
-
 "No results for:";"没有结果"
+"Hey! Write something";"你好！欢迎留言"
 "Previous";"上一个"
 "Next";"下一个"
 "sources";"可链接数"
 "of about";"关于"
 "results for";"结果"
-
-
-
+"NoTypeCount";"没有找到您要查找的内容，但是有一些和您要查找的内容相类似的其他内容。"
+"Foofind does not allow browse results after page 1000.";"Foofind不允许浏览1000页以后的结果。"
 "How to download?";"怎样下载"
+"DownloadExplanation";"您可以用一些第三方软件来下载链接中的文件。下面是一些可以用来下载的程序："
 
-
-
-
+#advanced search
+"All sizes";"文件完整大小"
 
 
 
@@ -192,6 +191,11 @@
 
 
 
+#complaint
+"Your name:";"您的名："
+"Your surname:";"您的姓："
+"Your company:";"您的公司："
+"Your phone number:";"您的电话号码："
 
 
 
@@ -329,19 +333,16 @@
 
 
 
-
-
-
-
-
-
-
-
+#error
+"Foofind.com is under maintenance. Please, come back later.";"Foofind.com正在维护中，请稍候访问。"
+"This link does not exist or may have been deleted!";"此链接不存在或者已被删除！"
 
 #translate
-
-
+"Translate";"翻译"
+"Help us to translate Foofind.com to your language";"协助我们将Foofind.com翻译为您使用的语言"
 
 "Choose language";"选择语言"
-
+"Your translation has been sent. Thanks for your help!";"您的翻译结果已经提交成功。谢谢您的帮助！"
 "Please, translate at least one text.";"请至少一个文本翻译"
+
+"Other";"其他"

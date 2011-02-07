@@ -166,7 +166,6 @@ $tform->setTranslator($adapter);
                             if ($val!="" && (!isset($lang[$key]) || ($mod=($comp!=$val))))
                             {
                                 $body .= "\"$key\";\"$val\"".($mod?' ***':"")."<br>";
-                                if ($mod) $body .= "\"$key\";\"$comp\"".($mod?' ***':"")."<br>";
                                 $newdata = true;
                             }
                             else
