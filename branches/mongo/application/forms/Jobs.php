@@ -24,7 +24,7 @@ class Form_Jobs extends Zend_Form {
                 $this->addElement('file', 'cv', array('label'=>'Curriculum Vitae (opcional, extensiones permitidas: pdf, doc, odt, html, htm, txt, rtf o zip):',
                     'destination' => "/tmp/attach",
                     'validators' => array(
-                            array('Size', false, 2048000),
+                            array('Size', false, 8388608),
                             array('Extension', false, 'pdf,doc,odt,html,htm,txt,rtf,zip'),
                             array('Count', false, 1)
                 )));
