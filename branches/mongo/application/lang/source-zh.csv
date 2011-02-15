@@ -34,18 +34,18 @@
 
 #advanced search
 "All sizes";"文件完整大小"
+"advanced search";"高级搜索"
 
-
-"Smaller than";"小雨于"
-
+"Smaller than";"小于"
+"Larger than";"大于"
 
 
 "All years";"全年"
+"Before";"前"
 
 
-
-
-
+#metadata
+"Artist";"艺术家"
 "Title";"题目"
 "Author";"作者"
 "Format";"格式"
@@ -85,6 +85,8 @@
 "second";"秒"
 
 
+#download
+"Loading...";"读取"
 "Close";"关闭"
 "Share this:";"分享"
 
