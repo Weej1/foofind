@@ -16,7 +16,7 @@
 
            ?>
         <li class="file_excerpt">
-            <h3><a href="/<?=$this->lang?>/download/<?=$url ?>/<?=$value['n'].'.html'; ?>"><?=$value['n'] ?></a></h3>
+            <h3><a href="/<?=$this->lang?>/download/<?=$url ?>/<?=$this->formatURL($value['n']).'.html'; ?>"><?=$value['n'] ?></a></h3>
         </li>
         <?php          
             endforeach; ?>

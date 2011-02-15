@@ -1,5 +1,6 @@
 <?php
 
+require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
 
 class IndexController extends Zend_Controller_Action
 {
@@ -116,6 +117,8 @@ class IndexController extends Zend_Controller_Action
         
         $this->view->lang =  $this->_helper->checklang->check();
 
+        $helper = new FileUtils_View_Helper();
+        $helper->registerHelper($this->view);
 
         $limit = 100;
 
