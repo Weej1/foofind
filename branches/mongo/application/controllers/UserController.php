@@ -184,7 +184,7 @@ class UserController extends Zend_Controller_Action
                                 $response = $client->request();
 
                                 $oauthuser = json_decode($response->getBody());
-                                $username = $oauthuser->name;
+                                $username = $oauthuser->screen_name;
                                 $oauthid = $oauthuser->id;
                                 $data['lang'] = $oauthuser->lang;
                                 $data['location'] = $oauthuser->location;
