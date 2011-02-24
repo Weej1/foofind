@@ -87,6 +87,7 @@
 
 == Indexes ==
 {{{
+db.users.ensureIndex({'oauthid':1});
 db.users.ensureIndex({'email':1});
 db.users.ensureIndex({'token':1});
 db.users.ensureIndex({'username':1});
