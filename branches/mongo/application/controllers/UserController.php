@@ -66,7 +66,6 @@ class UserController extends Zend_Controller_Action
                 //not allow to use the email as username
                 if ( $formulario['email'] == $formulario['username'])
                 {
-
                     $view = $this->initView();
                     $view->error .= $this->view->translate('You can not use your email as username. Please,
 									      choose other username');
@@ -119,9 +118,185 @@ class UserController extends Zend_Controller_Action
 
             }
         }
+        
         $this->view->form = $form;
     }
 
+    public function oauthAction()
+    {
+        $config = Zend_Registry::get('config');
+        $type = $this->getRequest()->getParam('type');
+        $step = $this->getRequest()->getParam('step');
+
+        // for all steps
+        switch ($type){
+            case "tw":
+                $oauthconf=array(
+                    'callbackUrl'=>$config->oauth->twitter->callbackUrl,
+                    'siteUrl' => $config->oauth->twitter->siteUrl,
+                    'consumerKey'=>$config->oauth->twitter->consumerKey,
+                    'consumerSecret'=>$config->oauth->twitter->consumerSecret
+                );
+                require_once 'Zend/Oauth/Consumer.php';
+                $consumer=new Zend_Oauth_Consumer($oauthconf);
+                break;
+        }
+
+        switch($step) {
+            case "login":
+                switch ($type){
+                    case "tw":
+                        try {
+                            // fetch a request token
+                            $token = $consumer->getRequestToken();
+                            // persist the token to storage
+                            $_SESSION["TWITTER_REQUEST_TOKEN"] = serialize($token);
+                            // redirect the user
+                            $consumer->redirect();
+                        } catch (Exception $e)
+                        {
+                            $this->_helper->_flashMessenger->addMessage ( sprintf($this->view->translate ( 'Sorry, we are experiencing technical problems with the %s service.' ), "Twitter") );
+                            $this->_redirect ("/{$this->view->lang}/auth/login");
+                        }
+                        break;
+
+                    case "fb":
+                        $this->_redirect ("{$config->oauth->facebook->siteUrl}?scope=user_location&client_id={$config->oauth->facebook->consumerKey}&redirect_uri={$config->oauth->facebook->callbackUrl}");
+                        break;
+                }
+                break;
+            
+            case "callback":
+                switch ($type){
+                    case "tw":
+                        if (!empty($_GET) && isset($_SESSION["TWITTER_REQUEST_TOKEN"]))
+                        {
+                            if (isset($_GET['denied'])) {
+                                $this->_helper->_flashMessenger->addMessage ( sprintf($this->view->translate ("You should allow Foofind access to your %s account to use this feature."), "Twitter") );
+                                $this->_redirect ("/{$this->view->lang}/auth/login");
+                            }
+                            try {
+                                $token = $consumer->getAccessToken($_GET, unserialize($_SESSION["TWITTER_REQUEST_TOKEN"]));
+
+                                $client = $token->getHttpClient($oauthconf);
+                                $client->setUri($config->oauth->twitter->queryUrl);
+                                $client->setMethod(Zend_Http_Client::GET);
+                                $response = $client->request();
+
+                                $oauthuser = json_decode($response->getBody());
+                                $username = $oauthuser->name;
+                                $oauthid = $oauthuser->id;
+                                $data['lang'] = $oauthuser->lang;
+                                $data['location'] = $oauthuser->location;
+
+                                // Now that we have an Access Token, we can discard the Request Token
+                                $_SESSION["TWITTER_REQUEST_TOKEN"] = null;
+                            } catch (Exception $e)
+                            {
+                                $this->_helper->_flashMessenger->addMessage ( sprintf($this->view->translate ( 'Sorry, we are experiencing technical problems with the %s service.' ), "Twitter") );
+                                $this->_redirect ("/{$this->view->lang}/auth/login");
+                            }
+                        } else {
+                            $this->_helper->_flashMessenger->addMessage ($this->view->translate ( 'Error' ));
+                            $this->_redirect ("/{$this->view->lang}/auth/login");
+                        }
+                        break;
+                    case "fb":
+
+                        try {
+                            $code = $this->getRequest()->getParam('code');
+                            if ($code==null)
+                            {
+                                $error = $this->getRequest()->getParam('error');
+                                if ($error=="access_denied")
+                                {
+                                    $this->_helper->_flashMessenger->addMessage ( sprintf($this->view->translate ("You should allow Foofind access to your %s account to use this feature."), "Facebook") );
+                                } else {
+                                    $this->_helper->_flashMessenger->addMessage ( sprintf($this->view->translate ( 'Sorry, we are experiencing technical problems with the %s service.' ), "Facebook") );
+                                    
+                                }
+                                $this->_redirect ("/{$this->view->lang}/auth/login");
+                            }
+
+                            $httpconf = array('adapter' => 'Zend_Http_Client_Adapter_Socket', 'ssltransport' => 'tls');
+                            $access_url = "{$config->oauth->facebook->accessUrl}?client_id={$config->oauth->facebook->consumerKey}&redirect_uri=".urlencode($config->oauth->facebook->callbackUrl)."&client_secret={$config->oauth->facebook->consumerSecret}&code=".urlencode($code);
+                            $httpclient = new Zend_Http_Client($access_url, $httpconf);
+
+                            $response = $httpclient->request();
+                            parse_str($response->getBody(),$access_code);
+                            $httpclient = new Zend_Http_Client($config->oauth->facebook->queryUrl."?".http_build_query($access_code), $httpconf);
+                            $response = $httpclient->request();
+
+                            $oauthuser = json_decode($response->getBody());
+                            if (strstr($oauthuser->link, "profile.php?id=")===false && ($username = strrchr($oauthuser->link, "/"))!==false )
+                            {
+                                $username = substr($username, 1);
+                            } else {
+                                $username = $oauthuser->name;
+                            }
+
+                            $oauthid = $oauthuser->id;
+                            if (isset($oauthuser->locale)) $data['lang'] = substr($oauthuser->locale,0,2);
+                            if (isset($oauthuser->location->name)) $data['location'] = $oauthuser->location->name;
+                        }
+                        catch (Exception $e)
+                        {
+                            $this->_helper->_flashMessenger->addMessage ( sprintf($this->view->translate ( 'Sorry, we are experiencing technical problems with the %s service.' ), "Facebook") );
+                            $this->_redirect ("/{$this->view->lang}/auth/login");
+                        }
+                        break;
+                }
+
+                $oauthid = $oauthid.'@'.$type;
+                $model = $this->_getModel();
+
+                $user = $model->fetchUserByOauthid($oauthid);
+
+                if ($user == null)
+                {
+                    $usernamepre = $username = $this->adapt_username($username);
+                    $checkusers = $model->fetchSimilarUsernames ( $username );
+                    $usernamecount = 1;
+                    while (isset($checkusers[$username]))
+                    {
+                        $username = $usernamepre."_".$usernamecount;
+                        $usernamecount++;
+                    }
+                    $data['oauthid'] = $oauthid;
+                    $data['username'] = $username;
+                    $model->saveUser ($data);
+
+                    $user = $model->fetchUserByOauthid($oauthid);
+                }
+
+                // do the authentication
+                $auth = Zend_Auth::getInstance ();
+                $auth->getStorage ()->write ( (object)$user );
+
+                $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'You are now logged in,' ) .' '. $auth->getIdentity()->username );
+
+                //check if user wants to be remembered by 7 days
+                $seconds  = 60 * 60 * 24 * 7;
+                Zend_Session::RememberMe($seconds);
+
+                try {
+                    Zend_Session::start();
+                } catch(Zend_Session_Exception $e) {}
+
+                //check the redir value if setted
+                $aNamespace = new Zend_Session_Namespace('Foofind');
+                $redir = $aNamespace->redir;
+
+                if ($redir !== null)
+                {
+                    $aNamespace->redir = null; //reset redir value
+                    $this->_redirect ( $redir );
+                }
+                else
+                    $this->_redirect ( '/' );
+        }
+
+    }
 
     public function editAction()
     {
@@ -132,7 +307,6 @@ class UserController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance ();
         $model = $this->_getModel ();
         $user = $model->fetchUserByUsername( $username );
-
         if (($auth->getIdentity()->username  == $user['username']) )
         { //if is the user profile owner lets edit
 
@@ -158,13 +332,12 @@ class UserController extends Zend_Controller_Action
 
                     $data['username'] = $form->getValue('username');
                     $data['location'] = $form->getValue('location');
-
+                    
                     if ($form->getValue('password') )
                     {
                         $data['password'] = hash('sha256', trim( $form->getValue('password') ), FALSE);
                     }
 
-                    $model = $this->_getModel ();
                     $model->updateUser ( $user['username'], $data ) ;
 
                     //now need to get the fresh user row to pass to auth
@@ -186,10 +359,9 @@ class UserController extends Zend_Controller_Action
 
             } else
             {
-                $username = $this->_getParam('username', 0);
+                $username = $this->_getParam('username');
                 if ($username != null)
                 {
-
                     $form->populate($model->fetchUserByUsername($username) );
                 }
 
@@ -289,8 +461,7 @@ class UserController extends Zend_Controller_Action
         if ( ( $auth->getIdentity()->username  == $this->view->user['username']) )
         { //if is the user profile owner lets delete it
 
-            $this->view->editprofile = '
-        <a href="/'.$this->view->lang .'/user/edit/'.$auth->getIdentity()->username. ' ">'.$this->view->translate('edit profile').'</a>';
+            $this->view->editprofile = '<a href="/'.$this->view->lang .'/user/edit/'.$auth->getIdentity()->username. ' ">'.$this->view->translate('edit profile').'</a>';
 
         }
 
@@ -298,7 +469,7 @@ class UserController extends Zend_Controller_Action
 
     protected function _getModel()
     {
-        if (null === $this->_model)
+        if (!isset($this->_model))
         {
             require_once APPLICATION_PATH . '/models/Users.php';
             $this->_model = new Model_Users ( );
@@ -448,6 +619,12 @@ class UserController extends Zend_Controller_Action
             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Sorry, register url no valid or expired.' ) );
             $this->_redirect ( '/' );
         }
+    }
 
+    private function adapt_username($username) {
+        $username = preg_replace('/[^a-z0-9]/', '', strtolower($username));
+        if (is_numeric(substr($username,0,1))) $username = "u$username";
+        if (strlen($username)<3) $username .= "Foofy";
+        return substr($username, 0, 20);
     }
 }

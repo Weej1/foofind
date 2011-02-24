@@ -20,13 +20,18 @@ class IndexController extends Zend_Controller_Action
         if ($auth->hasIdentity())
         {
             $umodel = new Model_Users();
-            $data = (array)$auth->getIdentity();
+            $user = (array)$auth->getIdentity();
             $data['lang'] = $lang;
-            $umodel->updateUser($data['username'], $data);
-            $auth->getStorage()->write((object)$data);
+            $umodel->updateUser($user['username'], $data);
+
+            //now need to get the fresh user row to pass to auth
+            $freshuser = $umodel->fetchUserByUsername($user['username']);
+            unset ($freshuser['password']); //not accesible ever, but just in case...
+            $freshuser['_id'] = $freshuser['_id']->__toString(); //remove the mongo id object, we can not put into zend auth
+
+            $auth->getStorage()->write((object)$freshuser);
             unset($umodel);
         }
-
         setcookie ( "lang", $lang, null, '/' );
 
         if ($this->hasValidReferer())

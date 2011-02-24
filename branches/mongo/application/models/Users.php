@@ -174,9 +174,12 @@ class Model_Users
     public function saveUser(array $data)
     {
         $this->prepareConnection();
+
         $data ['created'] = new MongoDate();
-        $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
-        $data['password'] = hash('sha256', $data['password'], FALSE);
+        if (!isset($data["oauthid"])) {
+            $data ['token'] = md5 ( uniqid ( rand (), 1 ) );
+            $data['password'] = hash('sha256', $data['password'], FALSE);
+        }
         $data['karma'] = 0.2;
 
         $safe_insert = true;
@@ -186,6 +189,8 @@ class Model_Users
     public function updateUser( $username, array $data)
     {
         $this->prepareConnection();
+
+            var_dump($this->db->users);
         return $this->db->users->update(array("username" => $username), array('$set' => $data));
     }
 
@@ -232,11 +237,30 @@ class Model_Users
         $this->prepareConnection();
         return $this->db->users->findOne( array('username' =>$username) );
     }
+
+    public function fetchSimilarUsernames($username)
+    {
+        $this->prepareConnection();
+        $cursor = $this->db->users->find( array('username' =>new MongoRegex("/^".$username."(\\d)*$/")), array('username') );
+        $res = array();
+        foreach ($cursor as $nick) {
+            $res[$nick["username"]]=$nick["username"];
+        }
+        unset($cursor);
+        return $res;
+    }
     
     public function fetchUserByEmail($email)
     {
         $this->prepareConnection();
         $user = $this->db->users->findOne( array('email' =>$email) );
+        return $user;
+    }
+
+    public function fetchUserByOauthid($oauthid)
+    {
+        $this->prepareConnection();
+        $user = $this->db->users->findOne( array('oauthid' =>$oauthid) );
         return $user;
     }
 }

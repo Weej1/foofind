@@ -378,6 +378,10 @@ input#q {
     width:40%;
 }
 
+.translate form input[type=text]:focus, .translate form textarea:focus {
+    background-color: #FFFF99;
+}
+
 .translate form input[type=text], .translate form textarea, .translate form select {
     width:40%;
     margin-bottom: 10px;
@@ -1280,6 +1284,9 @@ div.icon50 {
 .flag.es{
     background-position: 0px -290px;
 }
+.flag.eu{
+    background-position: -128px -301px;
+}
 .flag.fr{
     background-position: -80px -290px;
 }
@@ -1466,4 +1473,21 @@ ul#tabnav a:hover   {
 
 .joboffer ul li {
     margin-left: 20px;
+}
+
+.oauth {
+    width:89px;
+    height:21px;
+    display:inline-block;
+}
+
+.oauth span {
+    display:none;
+}
+
+.oauth.tw {
+    background: url(/images/foofind3.png) 0px -362px no-repeat;
+}
+.oauth.fb {
+    background: url(/images/foofind3.png) -89px -362px no-repeat;
 }

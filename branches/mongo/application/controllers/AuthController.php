@@ -56,8 +56,6 @@ class AuthController extends Zend_Controller_Action
         {
             if ($form->isValid ( $request->getPost () ))
             {
-
-
                 // collect the data from the user
                 $f = new Zend_Filter_StripTags ( );
                 $email = $f->filter ( trim( $this->_request->getPost ( 'email' ) ) );
@@ -67,7 +65,6 @@ class AuthController extends Zend_Controller_Action
                 require_once APPLICATION_PATH . '/models/Users.php';
                 $model = new Model_Users();
                 $checkuser  = $model->checkUserLogin($email,$password);
-
 
                 if ( $checkuser  )
                 {
@@ -101,8 +98,6 @@ class AuthController extends Zend_Controller_Action
                           
                     }
 
-
-
                     //check the redir value if setted
                     $aNamespace = new Zend_Session_Namespace('Foofind');
                     $redir = $aNamespace->redir;
@@ -125,7 +120,6 @@ class AuthController extends Zend_Controller_Action
         }
         // assign the form to the view
         $this->view->form = $form;
-
     }
 
     

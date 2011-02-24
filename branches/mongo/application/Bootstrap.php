@@ -4,8 +4,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initRegistry()
     {
-        $config = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production' );
 
+        $config = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production', array("allowModifications"=>true) );
+        if (file_exists(APPLICATION_PATH . '/configs/local.ini')) {
+            $lconfig = new Zend_Config_Ini( APPLICATION_PATH . '/configs/local.ini' , 'production' );
+            $config->merge($lconfig);
+            $config->setReadOnly();
+        }
+        
         // build a caching object
         $backend = new Zend_Cache_Backend_Memcached(
                         array('servers' => array( array('host' => '127.0.0.1', 'port' => '11211') ),
@@ -13,22 +19,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontend = new Zend_Cache_Core(array('caching' => true, 'lifetime' => 3600,
                         'cache_id_prefix' => 'foofind', 'automatic_serialization' => true) );
         $cache = Zend_Cache::factory( $frontend, $backend );
-        
-        //$this->view->totalFilesIndexed = Zend_Locale_Format::toNumber(  $total, array( 'locale' => $this->view->lang));
 
         // databases connections
         $main = new Mongo($config->mongo->server, array("connect"=>false));
         $users = new Mongo($config->mongo->users, array("connect"=>false));
+        $feedback = new Mongo($config->mongo->feedback, array("connect"=>false));
         $oldids = new Mongo($config->mongo->oldids, array("connect"=>false));
 
         //registry set
         Zend_Registry::set('db_main', $main);
         Zend_Registry::set('db_users', $users);
+        Zend_Registry::set('db_feedback', $feedback);
         Zend_Registry::set('db_oldids', $oldids);
 
         Zend_Registry::set('cache', $cache);
         Zend_Registry::set('config', $config);
-
 
         $key = "files_count";
         $existsCache = $cache->test($key);
@@ -132,6 +137,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $routeProfile = new Zend_Controller_Router_Route( ':language/profile/:username', array( 'language' => null, 'controller' => 'user', 'action' => 'profile') );
         //set the edit username route
         $routeEdituser = new Zend_Controller_Router_Route( ':language/user/edit/:username', array( 'language' => null, 'controller' => 'user', 'action' => 'edit') );
+        //set the oauth route
+        $routeOauthuser = new Zend_Controller_Router_Route( ':language/user/oauth/:type/:step', array( 'language' => null, 'controller' => 'user', 'action' => 'oauth') );
         //set the api route
         $routeApi = new Zend_Controller_Router_Route('/api/:action/*', array(  'controller' => 'api', 'action' => 'index') );
 
@@ -140,6 +147,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute ( 'vote', $routeVote );
         $router->addRoute ( 'profile/username', $routeProfile );
         $router->addRoute ( 'user/edit', $routeEdituser );
+        $router->addRoute ( 'user/oauth', $routeOauthuser );
         $router->addRoute ( 'api', $routeApi );
 
         //set all routes
