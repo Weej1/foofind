@@ -197,7 +197,7 @@ class UserController extends Zend_Controller_Action
                                 $this->_redirect ("/{$this->view->lang}/auth/login");
                             }
                         } else {
-                            $this->_helper->_flashMessenger->addMessage ($this->view->translate ( 'Error' ));
+                            $this->_helper->_flashMessenger->addMessage ( sprintf($this->view->translate ( 'Sorry, we are experiencing technical problems with the %s service.'), "Twitter"));
                             $this->_redirect ("/{$this->view->lang}/auth/login");
                         }
                         break;
