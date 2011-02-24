@@ -17,6 +17,7 @@
   * 13->http 4s
   * 14->http btv
   * 15->streaming btv
+  * 16->streaming vimeo
 
 = Content Type =
   * 1->audio
@@ -40,4 +41,4 @@
   * 6->crawler mu
   * 7->crawler rs
   * 8->crawler 4s
-  * 9->crawler btv
+  * 9->crawler btv, vimeo
