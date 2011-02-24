@@ -114,8 +114,8 @@
 "Your profile was edited succesfully!";"Tu perfil se ha actualizado con éxito"
 "hello,";"hola,"
 "logout";"salir"
-"login";"acceder"
-"Login";"Acceder"
+"login";"iniciar sesión"
+"Login";"Iniciar sesión"
 "new user";"nuevo usuario"
 "New user";"Nuevo usuario"
 "or";"o"
@@ -162,7 +162,6 @@
 "Otherwise, ignore this message.";"En caso contrario, ignora este mensaje."
 "The foofind team.";"El equipo de foofind.com."
 "This user does not exist";"Este usuario no existe"
-
 "You are now logged in,";"Has iniciado sesión,"
 "(If you already are a registered user, please";"(Si ya eres un usuario registrado, por favor"
 "login here";"accede aquí"
@@ -171,10 +170,13 @@
 "This email is not in our database. Please, try again.";"La dirección de correo introducida no está en nuestra base de datos. Por favor, inténtalo de nuevo."
 "Please, login to vote";"Por favor, accedite para votar"
 "Please, login to comment";"Por favor, accede para añadir un comentario"
+"Sorry, we are experiencing technical problems with the %s service.";"Lo sentimos, estamos teniendo problemas técnicos con el servicio de %s."
+"You should allow Foofind access to your %s account to use this feature.";"Para utilizar esta funcionalidad deberías permitir a Foofind acceder a tu cuenta de %s."
 
 #contact
 "Contact form";"Formulario de contacto"
-"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>. Complaints done trough this form will be ignored.";"Importante: Si desea reclamar la supresión de un enlace, debe utilizar exclusivamente el <a href='/es/page/complaint'>formulario de reclamación</a>. La reclamaciones realizadas a través de este formulario serán ignoradas."
+"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>.";"Importante: Si desea reclamar la supresión de un enlace, debe utilizar exclusivamente el <a href='/es/page/complaint'>formulario de reclamación</a>."
+"Complaints done trough this form will be ignored.";"La reclamaciones realizadas a través de este formulario serán ignoradas."
 "Your email:";"Tu email:"
 "Your message:";"Tu mensaje:"
 "Please, insert the 5 characters shown:";"Por favor, introduce los 5 caracteres que se muestran:"
@@ -202,6 +204,11 @@
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
 "literal_check_agree";"He leído y acepto los <a href='/es/page/tos'>términos de uso</a> y la <a href='/es/page/privacy'>política de privacidad</a>."
 "Please, accept the terms of use and privacy policy";"Por favor, debes leer y aceptar los términos de uso y la política de privacidad"
+
+#submit links
+"Submit links";"Enviar enlaces"
+"Please include one http, ftp, ed2k or magnet link per line.<br />It will be crawled automatically and added to search results shortly.";"Por favor, incluye un enlace http, ftp, ed2k o magnet por linea.<br />Estos serán analizados automáticamente y añadidos a los resultados de búsqueda en breve."
+"The links have been sent. Thanks for your help!";"Los enlaces han sido enviados. ¡Gracias por la ayuda!"
 
 #about
 "this is the about text";"Foofind es un motor de búsqueda universal. En Foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.<br /><br />Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en Madrid, España por MP2P Technologies."

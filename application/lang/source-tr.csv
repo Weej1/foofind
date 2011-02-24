@@ -173,7 +173,8 @@
 
 #contact
 "Contact form";"İletişim formu"
-"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>. Complaints done trough this form will be ignored.";"Not: Bir balantının kaldırılmasını istiyorsanız, <a href='/tr/page/complaint'>şikayet formunu</a> kullanmanız gerekir. Bu formdan yapılan şikayetler dikkate alınmayacaktır."
+"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>.";"Not: Bir balantının kaldırılmasını istiyorsanız, <a href='/tr/page/complaint'>şikayet formunu</a> kullanmanız gerekir."
+"Complaints done trough this form will be ignored.";"Bu formdan yapılan şikayetler dikkate alınmayacaktır."
 "Your email:";"E-mail adresiniz:"
 "Your message:";"Mesajınız:"
 "Please, insert the 5 characters shown:";"Lütfen gösterilen 5 karakteri giriniz:"

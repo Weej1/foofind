@@ -5,7 +5,7 @@
 <?php if (isset ( $this->error )) :?>
 <div class="error"><?=$this->escape ( $this->error );?></div>
 <?php endif;?>
-    <?php if (isset ( $this->newlang )) :?><a href="#" id="searchempty">%</a><?php endif;?>
+    <?php if (isset ( $this->newlang )) :?><a href="#" id="searchempty">% &darr;</a><?php endif;?>
     <br/><?=$this->langsform?>
 <? if ($this->newlang!=null) echo '<div>'.$this->textsform.'</div>'; ?>
 </div>
@@ -13,7 +13,7 @@
 <script>
     var controls = $('textarea,input[type=text]').not('[name^="safe_"]');
     var empties = controls.filter("[value='']");
-    $("#searchempty").text(Math.round(10000-10000*empties.size()/controls.size())/100+'%');
+    $("#searchempty").html(Math.round(10000-10000*empties.size()/controls.size())/100+'% &darr;');
     $("#searchempty").click(function(event){
         event.preventDefault();
         var offset, docScroll, docHeight;
@@ -34,12 +34,12 @@
                 break;
             }
         }
-        $(this).text(Math.round(10000-10000*empties.size()/controls.size())/100+'%');
+        $(this).html(Math.round(10000-10000*empties.size()/controls.size())/100+'% &darr;');
     });
 
     $("textarea,input[type=text]").change(function(){
         empties = controls.filter("[value='']");
-        $("#searchempty").text(Math.round(10000-10000*empties.size()/controls.size())/100+'%');
+        $("#searchempty").html(Math.round(10000-10000*empties.size()/controls.size())/100+'% &darr;');
     });
 </script>
 <?php endif;?>

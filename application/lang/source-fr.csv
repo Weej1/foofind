@@ -172,7 +172,8 @@
 
 #contact
 "Contact form";"Formulaire de contact"
-"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>. Complaints done trough this form will be ignored.";"Note : si vous réclamez la suppression d'un lien, vous devez utiliser le <a href='/fr/page/complaint'>formulaire pour signaler un lien</a>. Les plaintes envoyés depuis ce formulaire seront ignorés."
+"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>.";"Note : si vous réclamez la suppression d'un lien, vous devez utiliser le <a href='/fr/page/complaint'>formulaire pour signaler un lien</a>."
+"Complaints done trough this form will be ignored.";"Les plaintes envoyés depuis ce formulaire seront ignorés."
 "Your email:";"Votre e-mail :"
 "Your message:";"Votre message :"
 "Please, insert the 5 characters shown:";"Veuillez entrer les 5 caractères affichés :"

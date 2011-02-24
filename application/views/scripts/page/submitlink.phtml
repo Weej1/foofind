@@ -1,7 +1,7 @@
-<?=$this->headTitle()->append($this->translate('Contact form'));?>
-<h2><?=$this->translate('Contact form')?></h2>
-<p class="warning"><?=$this->translate("Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>.")." ".$this->translate("Complaints done trough this form will be ignored.")?></p>
+<?=$this->headTitle()->append($this->translate('Submit links'));?>
+<h2><?=$this->translate('Submit links')?></h2>
 <form action="<?=$this->escape ( $this->form->getAction () )?>" method="<?=$this->escape ( $this->form->getMethod () )?>">
+<p><?=$this->translate("Please include one http, ftp, ed2k or magnet link per line.<br />It will be crawled automatically and added to search results shortly.");?></p>
 <?php
 if (isset ( $this->error )) :
     ?>
@@ -10,8 +10,7 @@ if (isset ( $this->error )) :
 </div>
 <?php endif;?>
 <?
-        echo $this->form->email;
-        echo $this->form->message;
+        echo $this->form->urls;
         echo $this->form->captcha; ?>
         <span id="agree">
         <?=$this->form->agree.$this->translate('literal_check_agree');?>

@@ -42,9 +42,33 @@ class PageController extends Zend_Controller_Action
         public function apiAction(){
         }
 
+        public function submitlinkAction(){
+
+            $request = $this->getRequest ();
+            $form = $this->_getSubmitlinkForm();
+            $form->populate($request->getParams());
+
+            if ($form->getElement("submit")->getValue()!=null) {
+                $data = $form->getValues();
+
+                if ($form->isValid($data))
+                {
+                    $urls = explode("\n",$form->getElement("urls")->getValue());
+
+                    $model = $this->_getFeedbackModel();
+                    $model->saveSubmittedLinks($urls);
+
+                    $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'The links have been sent. Thanks for your help!' ) );
+                    //$this->_redirect ( '/' );
+                }
+            }
+            // assign the form to the view
+            $this->view->form = $form;
+        }
+
         public function translateAction(){
             $request = $this->getRequest();
-            $newlangs = array('de'=>'Deutsch', 'fr'=>'Français',  'it'=>'Italiano', 'ja'=>html_entity_decode('&#26085;&#26412;&#35486;', ENT_COMPAT, 'UTF-8'), 'pt'=>'Português', 'tr'=>'Türkçe', 'zh'=>html_entity_decode('&#31616;&#20307;&#20013;&#25991;', ENT_COMPAT, 'UTF-8') );
+            $newlangs = array('de'=>'Deutsch', 'eu'=>'Euskara', 'fr'=>'Français',  'it'=>'Italiano', 'ja'=>html_entity_decode('&#26085;&#26412;&#35486;', ENT_COMPAT, 'UTF-8'), 'pt'=>'Português', 'tr'=>'Türkçe', 'zh'=>html_entity_decode('&#31616;&#20307;&#20013;&#25991;', ENT_COMPAT, 'UTF-8') );
             
             $lform = new Zend_Form();
             $lform->setMethod ( 'get' );
@@ -93,7 +117,7 @@ class PageController extends Zend_Controller_Action
                     'captcha' => array ('captcha' => 'Image', 'wordLen' => 5, 'height' => 50, 'width' => 160, 'gcfreq' => 50, 'timeout' => 300,
                      'font' => APPLICATION_PATH . '/configs/antigonimed.ttf',
                      'imgdir' => FOOFIND_PATH . '/public/images/captcha' ) ) );
-$tform->setTranslator($adapter);
+                $tform->setTranslator($adapter);
 
                 $index = 0;
                 foreach ($es as $key => $text)
@@ -185,7 +209,10 @@ $tform->setTranslator($adapter);
                         $auth = Zend_Auth::getInstance ();
                         if ($auth->hasIdentity ())
                         {
-                            $mail->setFrom($auth->getIdentity()->email, $auth->getIdentity()->username);
+                            if (isset($auth->getIdentity()->email))
+                                $mail->setFrom($auth->getIdentity()->email, $auth->getIdentity()->username);
+                            else
+                                $mail->setFrom("noreply@foofind.com", $auth->getIdentity()->username);
                         } else {
                             $mail->setFrom("noreply@foofind.com");
                         }
@@ -300,17 +327,6 @@ El equipo Foofind.
 
         }
 
-
-        /**
-         *
-         * @return Form_Complaint
-         */
-        protected function _getComplaintForm() {
-                require_once APPLICATION_PATH . '/forms/Complaint.php';
-                $form = new Form_Complaint ( );
-
-                return $form;
-        }
 
        public function contactAction(){
 
@@ -433,6 +449,16 @@ El equipo Foofind.
             $this->view->form = $form;
        }
 
+        /**
+         *
+         * @return Form_Submitlink
+         */
+        protected function _getSubmitlinkForm() {
+                require_once APPLICATION_PATH . '/forms/Submitlink.php';
+                $form = new Form_Submitlink( );
+
+                return $form;
+        }
 
         /**
          *
@@ -456,7 +482,25 @@ El equipo Foofind.
                 return $form;
         }
 
+        /**
+         *
+         * @return Form_Complaint
+         */
+        protected function _getComplaintForm() {
+                require_once APPLICATION_PATH . '/forms/Complaint.php';
+                $form = new Form_Complaint ( );
 
-       
+                return $form;
+        }
+
+        protected function _getFeedbackModel()
+        {
+            if (null === $this->_fbmodel)
+            {
+                require_once APPLICATION_PATH . '/models/Feedback.php';
+                $this->_fbmodel = new Model_Feedback ( );
+            }
+            return $this->_fbmodel;
+        }
 }
 
