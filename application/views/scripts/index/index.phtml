@@ -1,6 +1,6 @@
 <div id="container_home">
     <div class="valign_home" style="height:35%; min-height: 150px;">
-        <div><div title="foofind" class="logo"></div><div id="legend"><?=$this->translate('I. Want. That. File.')?></div></div>
+        <div><div title="foofind" class="logo"></div><div id="legend" <?=in_array($this->lang, array("zh", "pt"))?" class='small'":""?>><?=$this->translate('I. Want. That. File.')?></div></div>
     </div>
 
     <div class="valign_home" style="height:42%;">

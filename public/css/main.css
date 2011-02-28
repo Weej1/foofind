@@ -188,6 +188,7 @@ input#q {
 }
 
 #container_home #legend{
+    line-height: 19px;
     font-size: 16px;
     text-align: center;
     font-weight: bold;
@@ -198,6 +199,9 @@ input#q {
     margin-left:125px;
 }
 
+#container_home #legend.small{
+    font-size: 13px;
+}
 
 #container_home #q-element {
     margin-right: 10px;
@@ -1298,6 +1302,9 @@ div.icon50 {
 }
 .flag.tr{
     background-position: -128px -290px;
+}
+.flag.zh{
+    background-position: 0px -301px;
 }
 
 .shake {
