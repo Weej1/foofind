@@ -1,6 +1,6 @@
 #main layout
 "About";"关于"
-"Contact";"连接"
+"Contact";"联系方式"
 "Legal";"法律"
 "Terms";"时代"
 "Privacy";"隐私"
@@ -8,7 +8,7 @@
 "Source code";"源代码"
 "files indexed";"文件目录"
 "Last indexed files";"最后索引的文件"
-"I. Want. That. File.";"我想知道这个文件"
+"I. Want. That. File.";"我。想知道。这个。文件。"
 
 #search
 "Search";"查找"
@@ -16,18 +16,18 @@
 "Direct downloads";"直接下载"
 "Audio";"音频"
 "Video";"视频"
-"Image";"想象"
+"Image";"图片"
 "Document";"文档"
 "Software";"软件"
-"Archive";"达到"
+"Archive";"存档"
 "No results for:";"没有结果"
 "Hey! Write something";"你好！欢迎留言"
 "Previous";"上一个"
 "Next";"下一个"
-"sources";"可链接数"
+"sources";"来源"
 "of about";"关于"
 "results for";"结果"
-"NoTypeCount";"没有找到您要查找的内容，但是有一些和您要查找的内容相类似的其他内容。"
+"NoTypeCount";"没有找到您要查找的内容(<i>%s</<i>)，但是有%d些和您要查找的内容相类似的<a href='%s'>其他</a>内容。"
 "Foofind does not allow browse results after page 1000.";"Foofind不允许浏览1000页以后的结果。"
 "How to download?";"怎样下载"
 "DownloadExplanation";"您可以用一些第三方软件来下载链接中的文件。下面是一些可以用来下载的程序："
@@ -35,14 +35,14 @@
 #advanced search
 "All sizes";"文件完整大小"
 "advanced search";"高级搜索"
-
+"hide advanced search";"隐藏高级搜索选项"
 "Smaller than";"小于"
 "Larger than";"大于"
-
-
+"All qualities";"所有品质资源"
+"or better";"更多"
 "All years";"全年"
-"Before";"前"
-
+"Before";"之前的"
+"Last year";"去年"
 
 #metadata
 "Artist";"艺术家"
@@ -56,8 +56,8 @@
 "Genre";"流派"
 
 "Minutes";"分"
-"Sources";"资源"
-
+"Sources";"来源"
+"Source";"来源"
 "Height";"高度"
 "Width";"宽度"
 "Track";"轨迹"
@@ -73,9 +73,9 @@
 "Files";"文件"
 "Soundtype";"声音类别"
 "year";"年"
-
+"years";"年代"
 "month";"月"
-
+"months";"月份"
 "day";"日"
 
 "hour";"时"
@@ -89,121 +89,133 @@
 "Loading...";"读取"
 "Close";"关闭"
 "Share this:";"分享"
-"share on facebook";"分享至脸谱"
-
-
+"share on facebook";"分享到facebook"
+"share on twitter";"分享到twitter"
+"send by email";"发送邮件"
 "Download";"下载"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"login here";"在这儿注册"
-"Send";"发"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"Watch";"监视"
+"Your comments";"你的评论"
+"since";"以前的%s%d"
+"Post comment";"发表评论"
+"Add a comment";"添加评论"
+"from";"来自"
+"I like it!";"我喜欢!"
+"Booo!";"赞!"
+"Comment published succesfully!";"发表评论成功!"
+"Related files";"相关文件"
+"User profile";"用户设置"
+"Choose your password:";"设置密码"
+"Insert your password (yep, again):";"输入密码"
+"Please, fill this form to be a Foofind registered member:";"填好这张表格成为Foofind注册会员:"
+"Nickname:";"昵称"
+"Edit your profile";"编辑你的自述"
+"Your profile was edited succesfully!";"你的档案编辑成功!"
+"hello,";"你好!"
+"logout";"注销"
+"login";"登录"
+"Login";"登录"
+"new user";"新用户"
+"New user";"新用户"
+"or";"或"
+"Register";"注册"
+"(If you are a new user, please";"(如果你是新用户"
+"register here";"点此注册"
+"Choose a nickname:";"选择昵称"
+"Please, fill this form to be a Foofind registered member.";"填好这张表格成为Foofind注册会员"
+"User login";"用户登录"
+"Remember me";"记住我"
+"Your location:";"你的位置"
+"Change your password here: (otherwise leave it blank)";"找回密码:(否则,可留空不填)"
+"Save profile";"保存资料"
+"You are not allowed to view this page";"你不能查看此页面"
+"This username is taken. Please choose another one.";"用户名已有 请另选一个"
+"This email is taken. Please use another one.";"电子邮件已被使用 请另选"
+"Forgot";"忘记"
+"your password?";"你的密码是？"
+"Password:";"密码："
+"'%password%' is less than 5 characters long";"...少于5个字符"
+"The passwords entered do not match.";"密码错误"
+"Are you sure you want to delete your foofind account?";"你确定要删除你的foofind帐户吗?"
+"Yes";"是的"
+"Your account has been deleted.";"你的账号已删除"
+"Nice to hear that";"很高兴听你这么说"
+"profile";"属性"
+"edit profile";"编辑属性"
+"User name:";"用户名"
+"Member since:";"成为会员："
+"Last 5 comments:";"最后5个评论"
+"Delete your foofind.com account";"删除你的foofind.com帐户"
+"Forgot your password?";"忘记密码？"
+"Wrong email or password, please try again";"错误的电子邮件或密码 重新输入"
+"Welcome";"欢迎"
+"Please, click on this url to finish your register process:";"点击此处完成注册"
+"Sorry, this token does not exist or has been already used";"抱歉 用户名不存在或已使用"
+", confirm your email";"确认你的电子邮件"
+", restore your foofind access";"找回你的foofind密码"
+"Please, enter your email address. An email to recover your access will be sent to you.";"输入你的电邮地址 将发送一封邮件回复你的访问"
+"Check your inbox email to restore your foofind.com access";"检查你的收件箱 找回你的foofind.com密码"
+"Check your inbox email to finish the register process";"检查你的收件箱完成注册"
+"Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"或许你想要恢复您的foofind访问 点击这个链接来恢复您的foofind帐户:"
+"Otherwise, ignore this message.";"否则不理睬这个信息"
+"The foofind team.";"foofind团队"
+"This user does not exist";"用户名不存在"
+"You are now logged in,";"现在登录"
+"(If you already are a registered user, please";"(如果您已经是一名注册的用户"
+"login here";"登录"
+"Send";"发送"
+"The email address must be the same you used to register.";"电子邮件地址必须和你登记的相同"
+"This email is not in our database. Please, try again.";"电子邮件不存在 再试一次"
+"Please, login to vote";"投票"
+"Please, login to comment";"评论"
+
+
+
+
+
+
+#contact
+"Contact form";"联系方式"
+"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>.";"注意：如果你选择注销 你必须完成<a href='/zh/page/complaint'>报告</a> 投诉才不会被会略"
+
+"Your email:";"你的电子邮件地址"
+"Your message:";"你的短消息"
+"Please, insert the 5 characters shown:";"不低于5个字符的解释"
+"Value is required and can't be empty";"评价是必需的 不能为空"
+"Captcha value is wrong";"验证码错误"
+"'%value%' is less than 20 characters long";"'%value%'少于20个字符长度"
+"'%value%' is less than 9 characters long";"'%value%'少于9个字符长度"
+"'%value%' is less than 5 characters long";"'%value%'少于5个字符长度"
+"'%value%' is less than %min% characters long";"'%value%'少于%d字符长度"
+"'%value%' is no valid email address in the basic format local-part@hostname";"无效的电子邮件地址 格式错误"
+"'%hostname%' is no valid hostname for email address '%value%'";"无效的电子邮件地址"
+"'%value%' appears to be a local network name but local network names are not allowed";"'%value%'似乎是一个局域网的名字,但局域网的名字是不允许的"
+
+
+"Message sent successfully!";"消息发送成功!"
 
 #complaint
 "Your name:";"您的名："
 "Your surname:";"您的姓："
 "Your company:";"您的公司："
 "Your phone number:";"您的电话号码："
+"Please, insert the link to be reviewed:";"填入评论"
+"Please, insert the url where this content appears:";"插入链接"
+"Reason of your complaint:";"投诉理由："
+"'%value%' contains characters which are non alphabetic and no digits";"'%value%'包括字符,非顺序的字母及不能是数字"
+"literal_check_agree";"我已阅读并接受<a href='/zh/page/tos'>使用条款</a>和<a href='/zh/page/privacy'>隐私政策</a>。"
+"Please, accept the terms of use and privacy policy";"接受使用条款和隐私政策"
 
+#submit links
 
 
 
 
+#about
+"this is the about text";"Foofind是一种通用的搜索引擎。通过Foofind创造生成所有网络上的索引文件。通过这种方式,我们打算提供的最大的收集链接可用。<br /><br />Foofind是Pablo Soto在西班牙马德里创造发展P2P技术为MP2P技术。"
 
+#footer
 
+"Last indexed files.";"最后的索引文件"
 
 
 
@@ -256,6 +268,8 @@
 
 
 
+#tos
+"Terms of use";"使用条款"
 
 
 
@@ -309,15 +323,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
+#legal
 
 
 
@@ -341,9 +347,9 @@
 #translate
 "Translate";"翻译"
 "Help us to translate Foofind.com to your language";"协助我们将Foofind.com翻译为您使用的语言"
-
+"translate text";"Foofind.com当前可用的语言,但你可以帮助我们把它翻译为你自己的语言。只要选择从它下面列出的及翻译的文本。你不需提交的所有领域方式,任何的帮助将很感激的。<br/><br/>如果你的语言是不在列表中,请与我们联系来增加。"
 "Choose language";"选择语言"
 "Your translation has been sent. Thanks for your help!";"您的翻译结果已经提交成功。谢谢您的帮助！"
 "Please, translate at least one text.";"请至少一个文本翻译"
-
+"BetaTranslation";"这个语言翻译在测试阶段。如果你发现缺失或是错误的翻译,请报告<a href='%s'>在这里</a>。"
 "Other";"其他"
