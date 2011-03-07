@@ -26,21 +26,21 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $weights = array();
 
         // filenames
-        $weights["fn1"] = 10;
+        $weights["fn1"] = 20;
         for ($i = 2; $i < 21; $i++)
             $weights["fn$i"] = 1;
 
-        // metadata
-        /*$weights['mta'] = 10;   //artist
-        $weights['mtc'] = 1;   //composer
-        $weights['mtf'] = 10;   //folder
-        $weights['mti'] = 10;   // archive folders and files
-        $weights['mtk'] = 1;   // video keywords
-        $weights['mtl'] = 10;   // album
-        $weights['mtt'] = 10;   // title*/
+        /*/ metadata
+        $weights['mta'] = 0;   //artist
+        $weights['mtc'] = 0;   //composer
+        $weights['mtf'] = 0;   //folder
+        $weights['mti'] = 0;   // archive folders and files
+        $weights['mtk'] = 0;   // video keywords
+        $weights['mtl'] = 0;   // album
+        $weights['mtt'] = 0;   // title */
 
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, @weight as sw, w*ATAN(@weight/40000) as fw");
+        $this->cl->SetSelect("*, @weight as sw, w*w*ATAN(@weight/40000) as fw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         $this->cl->SetMaxQueryTime(1000);
     }
