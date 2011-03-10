@@ -22,6 +22,7 @@
    * _URI = SHA256 of type and URL_: {
     * *t*: _type of source_, 
     * *url*: _unique locator for file_,
+    * *bl*: !=0 bloqued source,
     * *fn*: _filenames_ {
      * _filename-crc_:{ *l*:_last sources count_, *m*:_max sources count_}, 
      * ...},
