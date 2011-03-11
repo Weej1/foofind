@@ -50,6 +50,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $maxCount = 0; $hasText = 0;
         foreach ($srcs as $hexuri => $src)
         {
+            if (isset($src['bl']) && $src['bl']!=0) continue;
             $srcfns = $src['fn'];
             foreach ($srcfns as $crc => $srcfn)
             {
@@ -132,6 +133,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $maxWeight = 0;
         foreach ($srcs as $hexuri => $src)
         {
+            if (isset($src['bl']) && $src['bl']!=0) continue;
             $continue = false;
             $join = false;
             $type = (int)$src['t'];
