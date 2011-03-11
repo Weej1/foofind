@@ -43,6 +43,8 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetSelect("*, @weight as sw, w*w*ATAN(@weight/40000) as fw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
         $this->cl->SetMaxQueryTime(1000);
+
+        $this->urls = array();
     }
 
     public function setFileUtils($fileutils)
@@ -214,11 +216,24 @@ class Sphinx_Paginator implements Zend_Paginator_Adapter_Interface {
                         $this->tcount--;
                         unset($docs[$hexuri]);
                     }
-                }
+                    else {
+                        foreach ($docs[$hexuri]['view']['sources'] as $type => $src)
+                        {
+                            if($src['icon']=="web") {
+                                $this->urls = array_merge($this->urls, $src['urls']);
+                            }
+                        }
+                    }
+                }                
             }
         }
 
         return $docs;
+    }
+
+    public function getUrls()
+    {
+        return $this->urls;
     }
 
     public function count()
@@ -343,6 +358,7 @@ class SearchController extends Zend_Controller_Action {
             //cache hit, load from memcache.
             $paginator = $oCache->load( $key  );
             $paginator->getAdapter()->setFileUtils($this->_helper->fileutils);
+
         } else {
             $SphinxPaginator = new Sphinx_Paginator('idx_files');
             $SphinxPaginator->setFileUtils($this->_helper->fileutils);
@@ -368,8 +384,17 @@ class SearchController extends Zend_Controller_Action {
             $paginator->getAdapter()->setFileUtils(null);
 
             if ($this->config->cache->searches) $oCache->save( $paginator, $key );
-        }
 
+            if (strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "bot")===false) {
+                $urls = $SphinxPaginator->getUrls();
+                if (count($urls)>0) {
+                    require_once APPLICATION_PATH . '/models/Feedback.php';
+                    $fbmodel = new Model_Feedback ( );
+                    $fbmodel->saveVisitedLinks($urls);
+                }
+            }
+        }
+        
         $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
         $this->view->paginator = $paginator;
 
@@ -410,5 +435,5 @@ class SearchController extends Zend_Controller_Action {
                 $form = new Form_Search( );
                 return $form;
         }
-}
+ }
 

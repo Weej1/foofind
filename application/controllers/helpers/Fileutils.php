@@ -265,7 +265,6 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             }
         }
 
-        
         foreach ($obj['view']['sources'] as $src=>$info)
         {
             if (isset($info['join']))
