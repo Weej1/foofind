@@ -12,7 +12,7 @@ class Model_Feedback
         }
     }
 
-    public function saveSubmittedLinks(mixed $urls)
+    public function saveSubmittedLinks($urls)
     {
         include('Net/URL2.php');
 
@@ -25,6 +25,22 @@ class Model_Feedback
             if (strlen($url)<3) continue;
             $un = new Net_URL2(trim($url));
             $this->db->links->save(array("_id"=>$un->getNormalizedURL()));
+        }
+    }
+
+    public function saveVisitedLinks($urls)
+    {
+        include('Net/URL2.php');
+
+        $this->prepareConnection();
+
+        if (!is_array($urls)) $urls = array($urls);
+
+        foreach ($urls as $url)
+        {
+            if (strlen($url)<3) continue;
+            $un = new Net_URL2(trim($url));
+            $this->db->vlinks->save(array("_id"=>$un->getNormalizedURL()));
         }
     }
 }
