@@ -85,7 +85,6 @@
 "seconds";"秒"
 "second";"秒"
 
-
 #download
 "Loading...";"读取"
 "Close";"关闭"
@@ -104,6 +103,8 @@
 "Booo!";"赞!"
 "Comment published succesfully!";"发表评论成功!"
 "Related files";"相关文件"
+
+#user profile
 "User profile";"用户设置"
 "Choose your password:";"设置密码"
 "Insert your password (yep, again):";"输入密码"
@@ -144,7 +145,8 @@
 "edit profile";"编辑属性"
 "User name:";"用户名"
 "Member since:";"成为会员："
-"Last 5 comments:";"最后5个评论"
+"Last 5 comments:";"最后5个评论："
+"Location:";"位置："
 "Delete your foofind.com account";"删除你的foofind.com帐户"
 "Forgot your password?";"忘记密码？"
 "Wrong email or password, please try again";"错误的电子邮件或密码 重新输入"
@@ -202,12 +204,12 @@
 "Please, insert the link to be reviewed:";"填入评论"
 "Please, insert the url where this content appears:";"插入链接"
 "Reason of your complaint:";"投诉理由："
-"'%value%' contains characters which are non alphabetic and no digits";"'%value%'包括字符,非顺序的字母及不能是数字"
+"'%value%' contains characters which are non alphabetic and no digits";"'%value%'包括字符,非顺序的字母及非数字"
 "literal_check_agree";"我已阅读并接受<a href='/zh/page/tos'>使用条款</a>和<a href='/zh/page/privacy'>隐私政策</a>。"
 "Please, accept the terms of use and privacy policy";"接受使用条款和隐私政策"
 
 #submit links
-
+"Submit links";"提交连接"
 
 
 
