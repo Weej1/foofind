@@ -40,25 +40,26 @@ class DownloadController extends Zend_Controller_Action
         $q = $opt = $type = null;
         if (isset($_SERVER['HTTP_REFERER']))
         {
-            parse_str(substr(strstr($_SERVER['HTTP_REFERER'], '?'), 1));
+            parse_str(substr(strstr($_SERVER['HTTP_REFERER'], '?'), 1), $values);
 
             $f = new Zend_Filter();
             $f->addFilter(new Zend_Filter_StringTrim());
             $f->addFilter(new Zend_Filter_StripTags());
-            if (isset($q)) {
-                $q = $f->filter (trim(stripcslashes(strip_tags($q))));
-            $form->getElement('q')->setValue($q);
+            if (isset($values['q'])) {
+                $q = $f->filter (trim(stripcslashes(strip_tags($values['q']))));
+                $form->getElement('q')->setValue($q);
             }
-            if (isset($type)) {
-                $type = $f->filter ( $type );
+            if (isset($values['type'])) {
+                $type = $f->filter ($values['type']);
                 $form->addElement("hidden", "type", array("value"=>$type));
             }
-            if (isset($src)) $src = $f->filter ( $src );
+            if (isset($values['src'])) $src = $f->filter ($values['src']);
+            if (isset($values['opt'])) $src = $values['opt'];
         }
 
         if (!isset($src) && isset($_COOKIE['src'])) $src = $_COOKIE['src'];
 
-        $src2 = ($src=='')?'wftge':$src;
+        $src2 = (!isset($src) || $src=='')?'wftge':$src;
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type);
 
         $helper = new QueryString_View_Helper();
@@ -257,7 +258,6 @@ class DownloadController extends Zend_Controller_Action
     protected function _getSearchForm() {
         require_once APPLICATION_PATH . '/forms/Search.php';
         $form = new Form_Search( );
-
         return $form;
     }
 
