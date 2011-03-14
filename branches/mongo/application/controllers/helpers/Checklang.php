@@ -38,7 +38,7 @@ class Zend_Controller_Action_Helper_Checklang extends Zend_Controller_Action_Hel
             exit;
         }
 
-        if ($this->langtest && (!isset($_COOKIE['langtest']) || $_COOKIE['langtest']!="0")) {
+        if ($this->langtest && (!isset($_COOKIE['langtest']) || $_COOKIE['langtest']!="0") && $controller->view) {
             $controller = $this->getActionController();
             $controller->view->extra .= " advices";
             if (!$controller->view->advices) $controller->view->advices = array();

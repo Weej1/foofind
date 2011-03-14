@@ -1,12 +1,11 @@
 <?php
 
-require_once APPLICATION_PATH.'/controllers/SearchController.php';
+require_once APPLICATION_PATH.'/controllers/helpers/SphinxPaginator.php';
 require_once APPLICATION_PATH.'/controllers/helpers/Fileutils.php';
 
 
 class FoofindApi
 {
-
     public function getSearch($q, $lang, $src, $type, $size, $year, $brate, $results)
     {
         $this->_helper->fileutils = new Zend_Controller_Action_Helper_Fileutils();
@@ -29,7 +28,6 @@ class FoofindApi
 
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type, 'size' => $size, 'year' =>  (int) $year, 'brate' => $brate, 'results' => (int) $results);
 
-
         $oCache = Zend_Registry::get('cache');
 
         $key = "srh_".$lang."_".md5("m$q s$src2 o$opt t$type s$size y$year b$brate p$page");
@@ -39,7 +37,7 @@ class FoofindApi
             $paginator = $oCache->load( $key  );
             $paginator->getAdapter()->setFileUtils($this->_helper->fileutils);
         } else {
-            $SphinxPaginator = new Sphinx_Paginator('idx_files');
+            $SphinxPaginator = new SphinxPaginator('idx_files');
             $SphinxPaginator->setFileUtils($this->_helper->fileutils);
             $SphinxPaginator->setFilters($conds);
 
@@ -59,7 +57,6 @@ class FoofindApi
             } else {
                 $paginator->noTypeCount = "";
             }
-
 
             $paginator->getAdapter()->setFileUtils(null);
             $oCache->save( $paginator, $key );
