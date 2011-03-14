@@ -208,13 +208,13 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         {
             if ($format = $this->getValue($md,"document:format")) {
                 $res .= $start.$this->view->translate("Format").$middle.$format;
-                if ($fversion = $this->getValue("document:formatversion")) $res .= "&nbsp;v.$fversion";
+                if ($fversion = $this->getValue($md,"document:formatversion")) $res .= "&nbsp;v.$fversion";
                 $res .= $end;
             }
             if ($version = $this->getValue($md,"document:version")) {
                 $version = (int)$version;
                 $res .= $start.$this->view->translate("Version").$middle.$version;
-                if ($revision = $this->getValue("document:revision")) $res .= "&nbsp;$revision";
+                if ($revision = $this->getValue($md,"document:revision")) $res .= "&nbsp;$revision";
                 $res .= $end;
             }
         }
