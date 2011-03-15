@@ -7,7 +7,6 @@ require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
 define("MAX_RESULTS", 1000);
 define("MAX_HITS", 2000000);
 
-
 class SearchController extends Zend_Controller_Action {
 
     public function init() {
