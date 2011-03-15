@@ -104,7 +104,7 @@ class DownloadController extends Zend_Controller_Action
         $hexuri = $this->_helper->fileutils->uri2hex($uri);
 
         //check if the url filename (last slash param) matches with the fetched from ddbb from this file controller
-        $urlfn = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH );
+        $urlfn = parse_url(str_replace(":", "", $_SERVER['REQUEST_URI']), PHP_URL_PATH );
         $urlfn = explode('/', $urlfn);
         $fn = null;
         if (isset($urlfn[4])) {
