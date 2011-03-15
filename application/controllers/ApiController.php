@@ -17,6 +17,6 @@ class ApiController extends Zend_Controller_Action
         $server = new Zend_Rest_Server();
         $server->setClass('FoofindApi');
         $server->setEncoding('utf-8');
-        $server->handle();
+        $server->handle($_GET);
     }
 }
