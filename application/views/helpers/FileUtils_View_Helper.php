@@ -21,9 +21,12 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         return "";
     }
 
-    public function formatURL($url)
+    public function formatURL($url, $justSafe)
     {
-        return str_replace("%", "%25", htmlentities($url, ENT_QUOTES, "UTF-8"));
+        return rawurlencode($url);
+        /*$problems = array(" ", "\"", "%", "(", ")", "[", "]", "{", "}", "'", "&", "?");
+        $fixes = array("%20", "%22", "%25", "%28", "%29", "%5B", "%5D", "%7B", "%7D", "%27", "%26", "%3F");
+        return str_replace($problems, $fixes, $url);*/
     }
 
     public function formatHTML($html)
