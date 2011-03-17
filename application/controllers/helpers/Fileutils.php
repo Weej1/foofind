@@ -206,7 +206,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     $linkWeight = 1;
 
                     // prefer megavideo for streaming searches
-                    if (($_COOKIE['src']=='s') && ($type==Model_Files::SOURCE_MEGAVIDEO)) {
+                    if ($type==Model_Files::SOURCE_MEGAVIDEO && isset($_COOKIE['src']) && $_COOKIE['src']=='s') {
                         $obj['view']['action'] = 'Watch';
                         $linkWeight *= 2;
                     }
