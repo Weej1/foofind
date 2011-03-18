@@ -50,10 +50,14 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $maxCount = 0; $hasText = 0;
         foreach ($srcs as $hexuri => $src)
         {
+            
             if (isset($src['bl']) && $src['bl']!=0) continue;
             $srcfns = $src['fn'];
             foreach ($srcfns as $crc => $srcfn)
             {
+                $fnn = $fns[$crc]['n'];
+                if (strlen(trim($fnn))==0) continue;
+
                 $thisHasText = 0;
                 if (isset($fns[$crc]['c']))
                     $fns[$crc]['c'] += $srcfn['m'];
@@ -61,14 +65,14 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                     $fns[$crc]['c'] = $srcfn['m'];
 
                 if ($text!=null) {
-                    if (stripos($fns[$crc]['n'], $text)!==false)
+                    if (stripos($fnn, $text)!==false)
                         $thisHasText = 2000;
                     else {
                         $matches = 0;
                         $words = explode(" ", $text);
                         foreach ($words as $word) {
                             $word = preg_quote($word, "/");
-                            $matches += preg_match("/(\b$word\b)/i", $fns[$crc]['n']);
+                            $matches += preg_match("/(\b$word\b)/i", $fnn);
                         }
 
                         if ($matches>0) $thisHasText = 1000 + $matches;
@@ -88,24 +92,35 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         }
 
         $obj['view']['url'] = $this->uri2url($this->hex2uri($obj['file']['_id']->__toString()));
-        if (isset($chosen)){
+
+        if (isset($chosen))
+        {
             $filename = $fns[$chosen]['n'];
-            $obj['view']['fn'] = $filename;
-            $obj['view']['efn'] = str_replace(" ", "%20", $filename);
-
             $ext = $fns[$chosen]['x'];
-            $obj['view']['fnx'] = $ext;
-            
-            // clean filename
-            $end = strripos($filename, ".$ext");
-            if ($end === false)
-                $nfilename = $filename;
-            else
-                $nfilename = trim(substr($filename, 0, $end));
+        } else {
+            // uses filename from src
+            $srcurl = null;
+            foreach ($srcfns as $crc => $srcfn)
+                if (strpos($src['url'], "/")!=-1) $srcurl = $src['url'];
 
-            if (!strchr($nfilename, " ")) $nfilename = str_replace(array("_", "."), " ", $nfilename);
-            $obj['view']['nfn'] = $nfilename;
+            if ($srcurl==null) return;
+            $srcurl = substr($srcurl, strrpos($srcurl, "/")+1);
+            $filename = substr($srcurl, 0, strrpos($srcurl, "."));
+            $ext = substr($srcurl, strrpos($srcurl, ".")+1);
         }
+        $obj['view']['fn'] = $filename;
+        $obj['view']['efn'] = str_replace(" ", "%20", $filename);
+        $obj['view']['fnx'] = $ext;
+            
+        // clean filename
+        $end = strripos($filename, ".$ext");
+        if ($end === false)
+            $nfilename = $filename;
+        else
+            $nfilename = trim(substr($filename, 0, $end));
+
+        if (!strchr($nfilename, " ")) $nfilename = str_replace(array("_", "."), " ", $nfilename);
+        $obj['view']['nfn'] = $nfilename;
     }
 
     function getDomain($url)
