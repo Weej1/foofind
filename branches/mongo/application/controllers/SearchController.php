@@ -159,7 +159,7 @@ class SearchController extends Zend_Controller_Action {
                 }
             }
         }
-        
+
         $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
         $this->view->paginator = $paginator;
 
