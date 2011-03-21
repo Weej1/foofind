@@ -20,22 +20,23 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $weights = array();
 
         // filenames
-        $weights["fn1"] = 20;
-        for ($i = 2; $i < 21; $i++)
-            $weights["fn$i"] = 1;
+        $weights["fn1"] = 100;
+        /*for ($i = 2; $i < 21; $i++)
+            $weights["fn$i"] = 0;
 
-        /*/ metadata
+        // metadata
         $weights['mta'] = 0;   //artist
         $weights['mtc'] = 0;   //composer
         $weights['mtf'] = 0;   //folder
         $weights['mti'] = 0;   // archive folders and files
         $weights['mtk'] = 0;   // video keywords
         $weights['mtl'] = 0;   // album
-        $weights['mtt'] = 0;   // title */
+        $weights['mtt'] = 0;   // title
+        $weights['surl'] = 0;   // url*/
 
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, @weight as sw, w*w*ATAN(@weight/40000) as fw");
-        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "fw DESC" );
+        $this->cl->SetSelect("*, floor(@weight/10000) as sw, (ls-fs) as dd");
+        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC, uri1 DESC" );
         $this->cl->SetMaxQueryTime(1000);
 
         $this->urls = array();

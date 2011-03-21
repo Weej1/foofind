@@ -4,11 +4,11 @@
 "Legal";"Hukuki"
 "Terms";"Koşullar"
 "Privacy";"Gizlilik"
-"Report link";"Bağlantıyı rapor et"
+"Report link";"Bağlantı rapor et"
 "Source code";"Kaynak kod"
 "files indexed";"endekslenmiş dosya"
 "Last indexed files";"Son eklenen dosyalar"
-"I. Want. That. File.";"Bu. Dosayı. İstiyorum."
+"I. Want. That. File.";"Bu. Dosyayı. İstiyorum."
 
 #search
 "Search";"Ara"
@@ -21,7 +21,6 @@
 "Software";"Yazılım"
 "Archive";"Arşiv"
 "No results for:";"Sonuç bulunamadı:"
-
 "Hey! Write something";"Hey! Bir şeyler yazın"
 "Previous";"Önceki"
 "Next";"Sonraki"
@@ -76,7 +75,7 @@
 "year";"Sene"
 "years";"Seneleri"
 "month";"ay"
-"months";"ayl"
+"months";"ay"
 "day";"gün"
 "days";"gün"
 "hour";"saat"
@@ -102,10 +101,11 @@
 "from";"'den"
 "I like it!";"Beğendim bunu!"
 "Booo!";"Öf ki ne öf!"
-"Comment published succesfully!";"Yorum başarıyla yayımlandı"
+"Comment published succesfully!";"Yorum başarıyla yayınlandı"
 "Related files";"Benzer dosyalar"
 
 #user profile
+"User profile";"Kullanıcı profili"
 "Choose your password:";"Şifrenizi seçiniz"
 "Insert your password (yep, again):";"Şifrenizi giriniz (evet, yeniden):"
 "Please, fill this form to be a Foofind registered member:";"Foofind'a kayıt olmak için lütfen bu formu doldurunuz:"
@@ -136,6 +136,7 @@
 "your password?";"şifrenizi?"
 "Password:";"Şifre:"
 "'%password%' is less than 5 characters long";"'%password%' 5 karakterden kısa olmalıdır"
+"The passwords entered do not match.";"Girilen şifreler eşleşmiyor, değişik."
 "Are you sure you want to delete your foofind account?";"Hesabınızı silmek istediğinizden emin misiniz ?"
 "Yes";"Evet"
 "Your account has been deleted.";"Hesabınız silinmiştir."
@@ -158,10 +159,9 @@
 "Check your inbox email to restore your foofind.com access";"Hesabınıza erişimi yeniden kazanmak için e-mail adresinize gelen mesajları kontrol ediniz."
 "Check your inbox email to finish the register process";"Kayıt işlemlerini tamamlamak için e-mail adresinize gelen mesajları kontrol ediniz."
 "Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Birisi, muhtemelen siz, foofind oturumunuzu tekrar etkinleştirmek istiyor. Bu bağlantıyı tıklayarak foofind hesabınızı tekrar etkinleştirebilirsiniz:"
-"Otherwise, ignore this message.";"Yoksa bu mesajı gözmezden geliniz."
+"Otherwise, ignore this message.";"Yoksa bu mesajı görmezden geliniz."
 "The foofind team.";"Foofind ekibi."
 "This user does not exist";"Bu isimde bir kullanıcı yoktur"
-
 "You are now logged in,";"Oturum açılmıştır,"
 "(If you already are a registered user, please";"(Hesabınız varsa, lütfen"
 "login here";"buradan giriş yapın"
@@ -170,6 +170,8 @@
 "This email is not in our database. Please, try again.";"Bu e-mail veritabanımızda bulunmamaktadır. Yeniden deneyiniz."
 "Please, login to vote";"Oy vermek için giriş yapınız."
 "Please, login to comment";"Yorumlamak için giriş yapınız."
+"Sorry, we are experiencing technical problems with the %s service.";"%s servisimizde teknik bir sorun çıkmıştır, özür dileriz."
+"You should allow Foofind access to your %s account to use this feature.";"Bu işlevi kullanmak için Foofind'ın %s oturumunuza erişmesine izin vermelisiniz."
 
 #contact
 "Contact form";"İletişim formu"
@@ -202,6 +204,11 @@
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' ne alfabetik ne sayısal olan karakterler içermektedir."
 "literal_check_agree";"<a href='/tr/page/tos'>Kullanım şartları</a> ile <a href='/tr/page/privacy'>gizlilik kurallarını</a> okudum ve kabul ediyorum."
 "Please, accept the terms of use and privacy policy";"Lütfen kullanım şartlarını ve gizlilik kurallarını kabul ediniz"
+
+#submit links
+"Submit links";"Bağlantı önerimi"
+"Please include one http, ftp, ed2k or magnet link per line.<br />It will be crawled automatically and added to search results shortly.";"Lütfen satır başına bir http, ftp, ed2k ya da magnet bağlantısı giriniz.<br />Bunlar otomatik olarak taranacak ve kısa bir süre sonra arama sonuçlarına eklenecektir."
+"The links have been sent. Thanks for your help!";"Bağlantılar gönderilmiştir. Teşekkür ederiz!"
 
 #about
 "this is the about text";"Foofind evrensel bir arama motorudur. Foofind'da tüm ağları tarayan ve her dosyayı endeksleyen yazılımlar üzerinde çalışmaktayız. Bu şekilde mümkün olan en geniş bağlantı kolleksiyonunu sunmayı amaçlıyoruz.<br /><br />Foofind P2P teknoloji tasarımcısı Pablo Soto'nun eseri olup, Madrid, İspanya'da MP2P Technologies tarafından geliştirilmektedir."
