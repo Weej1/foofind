@@ -51,7 +51,7 @@
 "Format";"Format"
 "Pages";"Pages"
 "Album";"Album"
-"Length";"Longueur"
+"Length";"Durée"
 "Bitrate";"Débit binaire"
 "Genre";"Genre"
 "Seconds";"Secondes"
@@ -105,6 +105,7 @@
 "Related files";"Fichiers relatifs :"
 
 #user profile
+"User profile";"Profil d'utilisateur"
 "Choose your password:";"Choisissez votre mot de passe"
 "Insert your password (yep, again):";"Entrez votre mot de passe (ouaip, encore une fois) :"
 "Please, fill this form to be a Foofind registered member:";"SVP, remplissez ce formulaire pour devenir membre enregistré de Foofind :"
@@ -135,6 +136,7 @@
 "your password?";"votre mot de passe ?"
 "Password:";"Mot de passe :"
 "'%password%' is less than 5 characters long";"'%password%' fait moins de 5 caractères"
+"The passwords entered do not match.";"Les mots de passe entrés ne sont pas identiques."
 "Are you sure you want to delete your foofind account?";"Êtes-vous sûr de vouloir effacer votre compte foofind ?"
 "Yes";"Oui"
 "Your account has been deleted.";"Votre compte a été supprimé"
@@ -169,6 +171,8 @@
 "This email is not in our database. Please, try again.";"Cette adresse e-mail ne figure pas dans notre base de données. Veuillez essayer à nouveau."
 "Please, login to vote";"Veuillez vous connecter pour voter"
 "Please, login to comment";"Veuillez vous connecter pour commenter"
+"Sorry, we are experiencing technical problems with the %s service.";"Désolé, le service %s connaît des problèmes techniques."
+"You should allow Foofind access to your %s account to use this feature.";"Vous devriez autoriser Foofind à accéder à votre compte %s pour utiliser cette fonction."
 
 #contact
 "Contact form";"Formulaire de contact"
@@ -201,6 +205,11 @@
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contient des caractères qui ne sont pas des lettres de l'alphabet ni des chiffres"
 "literal_check_agree";"J'ai lu et j'accepte les <a href='/fr/page/tos'>conditions d'utilisation</a> et la <a href='/fr/page/privacy'>politique sur la vie privée</a>."
 "Please, accept the terms of use and privacy policy";"Veuillez accepter les conditions d'utilisation et la politique relative à la vie privée"
+
+#submit links
+"Submit links";"Suggérer des liens"
+"Please include one http, ftp, ed2k or magnet link per line.<br />It will be crawled automatically and added to search results shortly.";"Veuillez entrer un lien http, ftp, ed2k ou magnet par ligne.<br />Ils seront indexés automatiquement et rajoutés aux résultats de recherche sous peu."
+"The links have been sent. Thanks for your help!";"Les liens ont été envoyés. Merci pour votre aide !"
 
 #about
 "this is the about text";"Foofind est un moteur de recherche universel. Chez Foofind nous créons des logiciels qui examinent tous les réseaux et indexent tous les fichiers. Ainsi, nous avons l'intention d'offrir la plus grande collection de liens disponible.<br /><br />Foofind est l’œuvre de Pablo Soto, concepteur de technologies P2P, développé à Madrid, en Espagne, par MP2P Technologies."
@@ -333,8 +342,8 @@
 
 
 #error
-"Foofind.com is under maintenance. Please, come back later.";"Le site Foofind.com est en maintenance. Reconnectez vous plus tard SVP !"
-"This link does not exist or may have been deleted!";"Ce lien n existe pas ou a été efface"
+"Foofind.com is under maintenance. Please, come back later.";"Le site Foofind.com est en maintenance. Reconnectez-vous plus tard SVP !"
+"This link does not exist or may have been deleted!";"Ce lien n'existe pas ou a été effacé !"
 
 #translate
 "Translate";"Traduire"
@@ -343,5 +352,5 @@
 "Choose language";"Choisissez votre langue"
 "Your translation has been sent. Thanks for your help!";"Votre traduction a été envoyée. Merci de votre aide !"
 "Please, translate at least one text.";"S'il vous plaît, traduisez au moins un texte."
-"BetaTranslation";"La traduction de cette langue est encore en test. Si vous trouvez des traductions erronées ou manquantes, veuillez les signaler <a href='%s'>ici</a>."
+"BetaTranslation";"La traduction de cette langue est encore en phase de test. Si vous trouvez des traductions erronées ou manquantes, veuillez les signaler <a href='%s'>ici</a>."
 "Other";"Autre"
