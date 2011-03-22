@@ -141,6 +141,7 @@ class Model_Files
             }
             foreach ($this->servers as $s=>$data)
             {
+                if (!isset($data['ip'])) continue;
                 $this->db_data[$s] = new Mongo("{$data['ip']}:{$data['p']}", array("connect"=>false));
             }
         }
