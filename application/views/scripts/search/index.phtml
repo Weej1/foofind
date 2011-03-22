@@ -91,7 +91,7 @@ if (count ( $this->mensajes ) > 0) {
                 }
                 if (isset($val['file']['cs'][$this->lang])) echo "<div class='useract comments'></div>{$val['file']['cs'][$this->lang]}";
                 if (APPLICATION_ENV!='production'):?>
-                    <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fw:<?=$val['search']['fw'] ?> fc:<?=$val['search']['fc']?></span>
+                    <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fc:<?=$val['search']['fc']?></span>
                 <?php  endif; ?>
             </h3>
         <? echo $this->format($val, false); ?>
