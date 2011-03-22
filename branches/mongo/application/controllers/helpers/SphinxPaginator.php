@@ -35,7 +35,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $weights['surl'] = 0;   // url*/
 
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, floor(@weight/10000) as sw, (ls-fs) as dd");
+        $this->cl->SetSelect("*, floor(@weight/10000) as sw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC, uri1 DESC" );
         $this->cl->SetMaxQueryTime(1000);
 
