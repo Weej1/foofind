@@ -151,12 +151,14 @@ class SearchController extends Zend_Controller_Action {
             if ($this->config->cache->searches) $oCache->save( $paginator, $key );
 
             if (strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "bot")===false) {
+                try {
                 $urls = $SphinxPaginator->getUrls();
                 if (count($urls)>0) {
                     require_once APPLICATION_PATH . '/models/Feedback.php';
                     $fbmodel = new Model_Feedback ( );
                     $fbmodel->saveVisitedLinks($urls);
                 }
+                } catch (Exception $e) {}
             }
         }
 
