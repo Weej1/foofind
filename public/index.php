@@ -37,7 +37,7 @@ if ( APPLICATION_ENV == 'production' ){
         exit();
     }
 } else {
-    defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foofind.dev');
+    defined('STATIC_PATH') || define('STATIC_PATH',  '');
 }
 
 require_once 'Zend/Application.php';
