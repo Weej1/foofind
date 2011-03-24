@@ -4,7 +4,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initRegistry()
     {
-
         $config = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini' , 'production', array("allowModifications"=>true) );
         if (file_exists(APPLICATION_PATH . '/configs/local.ini')) {
             $lconfig = new Zend_Config_Ini( APPLICATION_PATH . '/configs/local.ini' , 'production' );
@@ -62,7 +61,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_TRANSITIONAL');
         
         if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE)
-            $view->jQuery()->addJavascriptFile("/js/jquery.msbr.min.js");
+            $view->jQuery()->addJavascriptFile(STATIC_PATH."/js/jquery.msbr.min.js");
 
         date_default_timezone_set('Europe/Madrid');
     }
@@ -86,6 +85,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $autoloader->registerNamespace('ZFDebug');
 
             $options = array(
+                    'jquery_path'       => STATIC_PATH.'/js/jquery.min.js',
                     'plugins' => array('Variables',
                             'File' => array('base_path' => APPLICATION_PATH),
                             'Memory',
