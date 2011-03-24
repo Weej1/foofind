@@ -31,13 +31,13 @@ if ( APPLICATION_ENV == 'production' ){
     defined('WEB_PATH') || define('WEB_PATH', 'http://foofind.com');
 
     $serverName = $_SERVER["SERVER_NAME"];
-    if(substr_compare(WEB_PATH, $serverName, -strlen($serverName), strlen($serverName)) !== 0) {
+    if(strlen($serverName)==0 || substr_compare(WEB_PATH, $serverName, -strlen($serverName), strlen($serverName)) !== 0) {
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: ".WEB_PATH.$_SERVER["REQUEST_URI"]);
         exit();
     }
 } else {
-    defined('STATIC_PATH') ||  define('STATIC_PATH',  '');
+    defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foofind.dev');
 }
 
 require_once 'Zend/Application.php';
