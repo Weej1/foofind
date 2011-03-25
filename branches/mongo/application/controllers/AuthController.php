@@ -157,7 +157,7 @@ class AuthController extends Zend_Controller_Action
         if (!$this->referer) return false;
 
         # invalid if is the same URL
-        $currentURI = $_SERVER['SCRIPT_URI'];
+        $currentURI = $_SERVER['REQUEST_URI'];
         if (strcmp($this->referer, $currentURI) == 0) return false;
 
         # invalid if is not in this site
