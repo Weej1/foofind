@@ -19,6 +19,7 @@
   * 15->streaming btv
   * 16->streaming vimeo
   * 17->streaming veoh
+  * 18->streaming youtube
 
 = Content Type =
   * 1->audio
@@ -42,4 +43,4 @@
   * 6->crawler mu
   * 7->crawler rs
   * 8->crawler 4s
-  * 9->crawler btv, vimeo
+  * 9->crawler btv, vimeo, veoh, youtube
