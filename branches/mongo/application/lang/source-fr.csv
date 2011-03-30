@@ -27,10 +27,10 @@
 "sources";"Sources"
 "of about";"sur environ"
 "results for";"résultats pour"
-"NoTypeCount";"Aucun résultat n'a été trouvé pour votre recherche de <i>%s</i>, mais il y a environ %d résultats pour votre recherche dans des <a href='%s'>autres catégories</a>."
+"NoTypeCount";"Aucun résultat n'a été trouvé pour votre recherche de <i>%s</i>, mais il y a environ %d résultats pour votre recherche dans <a href='%s'>d'autres catégories</a>."
 "Foofind does not allow browse results after page 1000.";"Foofind ne permet pas d'afficher les résultats après 1000 pages."
 "How to download?";"Comment télécharger ?"
-"DownloadExplanation";"Vous pourriez avoir besoin de télécharger un logiciel externe. Voici quelques applications compatibles :"
+"DownloadExplanation";"Pour télécharger le fichier, vous pourriez avoir besoin d'un logiciel externe. Voici quelques applications compatibles :"
 
 #advanced search
 "All sizes";"Toutes tailles"

@@ -28,6 +28,7 @@
 "of about";"关于"
 "results for";"结果"
 "NoTypeCount";"没有找到您要查找的内容(<i>%s</<i>)，但是有%d些和您要查找的内容相类似的<a href='%s'>其他</a>内容。"
+"NoTypeCount";"没有找到您要查找的内容(<i>%s</<i>)，但是有%d 和您要查找的内容相类似的<a href='%s'>其他</a>内容。"
 "Foofind does not allow browse results after page 1000.";"Foofind不允许浏览1000页以后的结果。"
 "How to download?";"怎样下载"
 "DownloadExplanation";"您可以用一些第三方软件来下载链接中的文件。下面是一些可以用来下载的程序："
@@ -155,7 +156,7 @@
 "Sorry, this token does not exist or has been already used";"抱歉 用户名不存在或已使用"
 ", confirm your email";"确认你的电子邮件"
 ", restore your foofind access";"找回你的foofind密码"
-"Please, enter your email address. An email to recover your access will be sent to you.";"输入你的电邮地址 将发送一封邮件回复你的访问"
+"Please, enter your email address. An email to recover your access will be sent to you.";"输入你的电邮地址 将发送一封邮件恢复你的访问"
 "Check your inbox email to restore your foofind.com access";"检查你的收件箱 找回你的foofind.com密码"
 "Check your inbox email to finish the register process";"检查你的收件箱完成注册"
 "Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"或许你想要恢复您的foofind访问 点击这个链接来恢复您的foofind帐户:"
@@ -178,7 +179,7 @@
 
 #contact
 "Contact form";"联系方式"
-"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>.";"注意：如果你选择注销 你必须完成<a href='/zh/page/complaint'>报告</a> 投诉才不会被会略"
+"Note: If you are claiming for a link removal, you must use <a href='/en/page/complaint'>report link form</a>.";"注意：如果你选择注销 你必须完成<a href='/zh/page/complaint'>报告</a> 投诉才不会被忽略"
 
 "Your email:";"你的电子邮件地址"
 "Your message:";"你的短消息"
@@ -350,9 +351,9 @@
 #translate
 "Translate";"翻译"
 "Help us to translate Foofind.com to your language";"协助我们将Foofind.com翻译为您使用的语言"
-"translate text";"Foofind.com当前可用的语言,但你可以帮助我们把它翻译为你自己的语言。只要选择从它下面列出的及翻译的文本。你不需提交的所有领域方式,任何的帮助将很感激的。<br/><br/>如果你的语言是不在列表中,请与我们联系来增加。"
+"translate text";"Foofind.com当前可用的语言,但你可以帮助我们把它翻译为你自己的语言。只要选择从它下面列出的及翻译的文本。你不需提交所有领域方式,任何的帮助将很感激的。<br/><br/>如果你的语言是不在列表中,请与我们联系来增加。"
 "Choose language";"选择语言"
 "Your translation has been sent. Thanks for your help!";"您的翻译结果已经提交成功。谢谢您的帮助！"
 "Please, translate at least one text.";"请至少一个文本翻译"
-"BetaTranslation";"这个语言翻译在测试阶段。如果你发现缺失或是错误的翻译,请报告<a href='%s'>在这里</a>。"
+"BetaTranslation";"这个语言翻译在测试阶段。如果你发现缺失或是错误的翻译,请在这<a href='%s'>里报告</a>。"
 "Other";"其他"
