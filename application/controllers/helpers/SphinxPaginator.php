@@ -10,6 +10,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $sphinxServer = $config->sphinx->server;
 
         $this->tcount = 0;
+        $this->canCache = true;
 
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
@@ -209,6 +210,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
                     if (!isset($doc['file']) || $doc['file']['bl']!=0) {
                         if (isset($doc["search"]) && isset($doc['file']) && $doc['file']['bl']!=0) $this->cl->UpdateAttributes("idx_files", array("bl"), array($doc["search"]["id"] => array(3)));
                         $this->tcount--;
+                        $this->canCache = false;
                         unset($docs[$hexuri]);
                     }
                     else {
@@ -234,5 +236,10 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
     public function count()
     {
         return min($this->tcount, MAX_RESULTS);
+    }
+
+    public function canCacheResults()
+    {
+        return $this->canCache;
     }
 }
