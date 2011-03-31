@@ -147,8 +147,7 @@ class SearchController extends Zend_Controller_Action {
              }
             
             $paginator->getAdapter()->setFileUtils(null);
-
-            if ($this->config->cache->searches) $oCache->save( $paginator, $key );
+            if ($this->config->cache->searches && $SphinxPaginator->canCacheResults()) $oCache->save( $paginator, $key );
 
             if (strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "bot")===false) {
                 try {
