@@ -52,6 +52,13 @@
   * *c*: _files count_, 
   * *mc*: _max supported files count_ }
 
+ * *server_image*: _data servers of images on the system_ {
+  * *`_`id*: _server id_,
+  * *ip*: _IP address_,
+  * *p*: _TCP port_,
+  * *c*: _files count_, 
+  * *mc*: _max supported files count_ }
+
  * *users*: _web users_ {
   * *`_`id*,
   * *username*,
