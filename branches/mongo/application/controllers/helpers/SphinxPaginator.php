@@ -13,7 +13,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $this->canCache = true;
 
         $this->cl = new SphinxClient();
-        $this->cl->SetServer( $sphinxServer, 3312 );
+        $this->cl->SetServer( $sphinxServer, 3313 );
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_SPH04 );
 
@@ -171,7 +171,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         global $content;
         $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS, MAX_HITS);
         $result = $this->cl->Query( $this->query, $this->table );
-
+        var_dump($this->cl->GetLastError());
         $docs = array();
         if ( $result !== false  ) {
 
@@ -203,6 +203,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
                     $this->fileutils->chooseFilename($obj, $this->query);
                     $this->fileutils->buildSourceLinks($obj);
                     $this->fileutils->chooseType($obj, $this->type);
+
                     $docs[$hexuri] = $obj;
                 }
                 foreach ($docs as $hexuri => $doc)

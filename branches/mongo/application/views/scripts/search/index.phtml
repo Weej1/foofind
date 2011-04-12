@@ -98,7 +98,6 @@ if (count ( $this->mensajes ) > 0) {
         <span>
         <?php
             if (isset($val['file']['z']) && $val['file']['z']>0) echo $this->formatSize($val["file"]["z"])." - ";
-
             foreach ($val['view']['sources'] as $src => $info)
             {
                 if (isset($info['count']))

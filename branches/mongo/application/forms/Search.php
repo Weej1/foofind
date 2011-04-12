@@ -16,16 +16,14 @@ class Form_Search extends Zend_Form
 
         $this->addElement ( 'text', 'q', array (
                 'required' => false,
-                'filters' => array ('StringTrim' )
+                'filters' => array ('StringTrim' ),
+                'autocomplete' => 'off'
                 ) );
 
         // add the submit button
-        $this->addElement ( 'submit', 'submit', array (
+        $this->addElement ( 'submit', 'sub', array (
                 'label' => 'Search',
                 'class' => 'large magenta awesome') );
-        
-
-
     }
 
 }

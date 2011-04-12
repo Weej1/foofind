@@ -60,6 +60,7 @@ class SearchController extends Zend_Controller_Action {
             return ;
         }
 
+
         $form->getElement('q')->setValue(trim($q));
 
         $form->loadDefaultDecoratorsIsDisabled(false);
@@ -125,7 +126,7 @@ class SearchController extends Zend_Controller_Action {
             $paginator->getAdapter()->setFileUtils($this->_helper->fileutils);
 
         } else {
-            $SphinxPaginator = new SphinxPaginator('idx_files');
+            $SphinxPaginator = new SphinxPaginator('idx_files3');
             $SphinxPaginator->setFileUtils($this->_helper->fileutils);
             $SphinxPaginator->setFilters($conds);
 

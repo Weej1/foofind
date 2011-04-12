@@ -27,7 +27,141 @@
             <a class="ss <?=(preg_match("/^Archive$/", $this->qs['type']))?"actual":""?>" href="/?type=Archive" ><?=$this->translate('Archive');?></a>
         </div>
             <?= $this->form; ?>
-            <script type="text/javascript">document.getElementById('q').focus();</script>
+            <script type="text/javascript">
+                var tamingtime = 0;
+                var textsearch = $("#q");
+                textsearch.after("<div id='tamingresults'></div>");
+                var tamingresults = $("#tamingresults");
+                var lastsearch = "";
+
+                function taming() {
+                    lastsearch = textsearch.val();
+                    if (lastsearch.length<2) {
+                        lastsearch = "";
+                        hideAutocomplete();
+                        return;
+                    }
+                    type = $("#type").val();
+                    if (type.length>0) type = "&t="+type;
+                    $.ajax({
+                        url:"http://mongo.foofind.dev/<?=$this->lang?>/taming/autocomplete?q="+escape(lastsearch)+type,
+                        dataType:"json",
+                        context: lastsearch,
+                        error: function() {
+                            tamingresults.html("");
+                            hideAutocomplete();
+                        },
+                        success: function(d) {
+                            if (this.context!=lastsearch) return;
+                            if (lastsearch.length<2 || d==null || !d) {
+                                tamingresults.html("");
+                                hideAutocomplete();
+                                return;
+                            }
+                            res = "";
+                            t = lastsearch;
+                            data = d;
+                            for (l in data)
+                            {
+                                if (data[l][0]<0) break;
+                                var i=0;
+                                for (; i<t.length; i++)
+                                    if (i>t.length || data[l][1][i]!=t[i]) break;
+                                res += "<li>"+data[l][1].substr(0,i)+"<b>"+data[l][1].substr(i)+"</b></li>";
+                            }
+                            if (res.length>0) {
+                                tamingresults.html("<ul>"+res+"</ul>");
+                                $("li", tamingresults).click(selectAutocomplete);
+                                $("li, b", tamingresults).mousemove(function(e){
+                                    $("li.active", tamingresults).removeClass("active");
+                                    if (e.target.localName=="li")
+                                        it = e.target;
+                                    else
+                                        it = e.target.parentNode;
+                                    activate($(it), false);
+                                });
+                                tamingresults.css("display","block");
+                            } else {
+                                tamingresults.html("");
+                                hideAutocomplete();
+                            }
+                        }
+                    })
+                }
+                function selectAutocomplete(e){
+                    if (e.target.localName=="li")
+                        it = e.target;
+                    else
+                        it = e.target.parentNode;
+                    textsearch.val($(it).text());
+                    hideAutocomplete();
+                    $("form").submit();
+                }
+                function hideAutocomplete(){
+                    if (tamingtime!=0) clearTimeout(tamingtime);
+                    tamingresults.css("display","none");
+                }
+                function showAutocomplete(){
+                    if (lastsearch=="" || lastsearch!=textsearch.val()) {
+                        lastsearch = "";
+                        tamingresults.html("");
+                    }
+                    if (tamingresults.html().length==0)
+                        tamingresults.css("display","none");
+                    else
+                        tamingresults.css("display","block");
+                }
+                function delay(f, time){
+                    return function() {
+                        if (tamingtime!=0) clearTimeout(tamingtime);
+                        tamingtime = setTimeout(f, time);
+                    }
+                }
+                function activate(item, show)
+                {
+                    if (show) textsearch.val(item.text());
+                    item.addClass("active");
+                }
+                textsearch.keydown(function(e) {
+                    switch(e.which){
+                        case 38:
+                            e.preventDefault();
+                            active = $("li.active", tamingresults);
+                            last = $("li:last", tamingresults);
+
+                            if (active.length==0)
+                                activate(last, true);
+                            else {
+                                active.removeClass("active");
+                                if (active.prev().length>0)
+                                    activate(active.prev(), true);
+                                else
+                                    activate(last, true);
+                            }
+                            break;
+                        case 40:
+                            active = $("li.active", tamingresults);
+                            first = $("li:first", tamingresults);
+                            e.preventDefault();
+
+                            if (active.length==0)
+                                activate(first, true);
+                            else {
+                                active.removeClass("active");
+                                if (active.next().length>0)
+                                    activate(active.next(), true);
+                                else
+                                    activate(first, true);
+                            }
+                            break;
+                        default:
+                            delay(taming, 100)();
+                            break;
+                    }
+                });
+                textsearch.blur(delay(hideAutocomplete, 200));
+                textsearch.focus(delay(showAutocomplete, 200));
+            </script>
         </div>
     </div>
     </div>
