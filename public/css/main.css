@@ -21,7 +21,7 @@ dd#src-element label{vertical-align:middle;line-height:20px;padding:10px;}
 .beta_lang{font-size:4px;position:absolute;width:19px;height:6px;margin-left:-22px;margin-top:14px;background:url(/images/foofind3.png) -161px -290px no-repeat;}
 .content.advices #container_search, .content.advices #container_page,.content.advices #container_user, .content.advices #container_error{padding-top:40px !important;}
 .content{position:relative;min-height:100%;-webkit-box-size:padding-box;-moz-box-sizing:padding-box;}
-#q-element{display:inline-block;}
+#q-element{display:inline-block; position:relative;}
 input#q{height:18px;width:380px;z-index:1000;}
 #container_home{position:absolute;top:0px;left:0px;right:0px;bottom:30px;text-align:center;}
 #container_search, #container_page, #container_user, #container_error{min-height:400px;padding:10px;padding-bottom:30px;}
@@ -257,3 +257,6 @@ ul#tabnav a:hover{background:#FFF;color:#000;}
 .oauth span{display:none;}
 .oauth.tw{background:url(/images/foofind3.png) 0px -362px no-repeat;}
 .oauth.fb{background:url(/images/foofind3.png) -89px -362px no-repeat;}
+#tamingresults{margin:0px !important; z-index:10;display:none;text-align:left; position:absolute; width:100%; background: white; border:1px solid #dd157a; font-size:16px;}
+#tamingresults li {padding:2px;}
+#tamingresults li.active {background: #dd157a; color:white;}

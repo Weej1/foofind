@@ -93,6 +93,11 @@ class Model_Files
         return null;
     }
 
+    static function cti2sct($cti) {
+        $cti2sct = array("(a", "(v", "(e", "(t", "(i", "(n", "(z", "(r", "(d", "(s", "(p");
+        return $cti2sct[$cti-1];
+    }
+
     static function src2ints($src) {
         $src2i = array('s' => array(12,15,16),
                         'w' => array(4,8,10,11,13,14),
