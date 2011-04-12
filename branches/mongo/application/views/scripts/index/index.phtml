@@ -44,7 +44,7 @@
                     type = $("#type").val();
                     if (type.length>0) type = "&t="+type;
                     $.ajax({
-                        url:"http://mongo.foofind.dev/<?=$this->lang?>/taming/autocomplete?q="+escape(lastsearch)+type,
+                        url:"/<?=$this->lang?>/taming/autocomplete?q="+escape(lastsearch)+type,
                         dataType:"json",
                         context: lastsearch,
                         error: function() {
