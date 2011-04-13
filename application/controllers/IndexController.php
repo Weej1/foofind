@@ -89,13 +89,13 @@ class IndexController extends Zend_Controller_Action
         
         $onload = '(".tabs a").click(function(event) '
                   . '{'
-                  . '   event.preventDefault();'
-                  . '   $(".tabs a").removeClass("actual");'
-                  . '   $(this).addClass("actual"); '
-                  . '   var v=$(this).attr("href");'
-                  . '   v=v.substring(Math.abs(v.indexOf("="))+1);'
-                  . '   $("#type").val(v);'
-                  . '});';
+                      . 'event.preventDefault();'
+                      . '$(".tabs a").removeClass("actual");'
+                      . '$(this).addClass("actual"); '
+                      . 'var v=$(this).attr("href");'
+                      . 'v=v.substring(Math.abs(v.indexOf("="))+1);'
+                      . '$("#type").val(v);'
+                  . '}); configTaming("'.$this->view->lang.'")';
 
         $jquery->addOnload($jqHandler . $onload);
 

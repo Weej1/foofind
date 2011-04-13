@@ -2,6 +2,11 @@
 require_once APPLICATION_PATH . '/models/Files.php';
 require_once APPLICATION_PATH.'../../library/Foofind/TamingTextClient.php';
 
+function utf8_urldecode($str) {
+    $str = preg_replace("/%u([0-9a-f]{3,4})/i","&#x\\1;",urldecode($str));
+    return html_entity_decode($str,null,'UTF-8');;
+}
+
 class TamingController extends Zend_Controller_Action
 {
     public function init()
@@ -20,9 +25,14 @@ class TamingController extends Zend_Controller_Action
     {
         $q = stripcslashes(strip_tags($this->_getParam('q')));
         $t = stripcslashes(strip_tags($this->_getParam('t')));
-
+        
+        if(strpos(strtolower($q), "%u")!==FALSE)
+            $q = utf8_urldecode($q);
+        else if(!mb_check_encoding($q, 'UTF-8'))
+            $q = utf8_encode($q);
+        
         // build a caching object
-        if ($this->config->cache->tamming) {
+        if ($this->config->cache->taming) {
             // build a caching object
             $oCache = Zend_Registry::get('cache');
             $key = "tam_".md5("{$this->lang}_t{$t}_{$q}.");
@@ -35,14 +45,14 @@ class TamingController extends Zend_Controller_Action
             //cache hit, load from memcache.
             echo $oCache->load( $key );
         } else {
-            $w = array(array("l"=>-1000, "c"=>2, $this->lang=>100));
+            $w = array(array("l"=>-250, "c"=>1, $this->lang=>100));
             if ($t) {
                 foreach (Model_Files::ct2ints($t) as $cti)
                     $w[0][Model_Files::cti2sct($cti)] = 500;
             }
             $result = $this->taming->tameText($q, $w, 4);
             echo $result;
-            if ($this->config->cache->tamming) $oCache->save( $result, $key );
+            if ($this->config->cache->taming) $oCache->save( $result, $key );
         }
     }
 }

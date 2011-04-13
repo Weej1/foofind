@@ -261,3 +261,4 @@ ul#tabnav a:hover{background:#FFF;color:#000;}
 #tamingresults{margin:0px !important; z-index:10;display:none;text-align:left; position:absolute; width:100%; background: white; border:1px solid #dd157a; font-size:16px;}
 #tamingresults li {padding:2px;}
 #tamingresults li.active {background: #dd157a; color:white;}
+.file_excerpt .thumb {float:left; margin-right:4px;}

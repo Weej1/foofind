@@ -4,8 +4,9 @@ require_once APPLICATION_PATH.'/controllers/helpers/SphinxPaginator.php';
 require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
 require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
 
-define("MAX_RESULTS", 1000);
 define("MAX_HITS", 2000000);
+define("MAX_RESULTS", 1000);
+define("PAGE_SIZE", 10);
 
 class SearchController extends Zend_Controller_Action {
 
@@ -103,7 +104,7 @@ class SearchController extends Zend_Controller_Action {
         $helper = new FileUtils_View_Helper();
         $helper->registerHelper($this->view);
 
-        if ($page>MAX_RESULTS/10)
+        if ($page>MAX_RESULTS/PAGE_SIZE)
         {
             $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Foofind does not allow browse results after page 1000.' ) );
             $this->_redirect("/{$this->view->lang}/search/".$helper->qs(array(), array('page'=>1)));
@@ -132,7 +133,7 @@ class SearchController extends Zend_Controller_Action {
 
             $paginator = new Zend_Paginator($SphinxPaginator);
             $paginator->setDefaultScrollingStyle('Elastic');
-            $paginator->setItemCountPerPage(10);
+            $paginator->setItemCountPerPage(PAGE_SIZE);
             $paginator->setCurrentPageNumber($page);
             $paginator->getCurrentItems();
 
@@ -162,7 +163,7 @@ class SearchController extends Zend_Controller_Action {
             }
         }
 
-        $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*10, 'end' => min($paginator->tcount, $page*10), 'notypecount' => $paginator->noTypeCount);
+        $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*PAGE_SIZE, 'end' => min($paginator->tcount, $page*PAGE_SIZE), 'notypecount' => $paginator->noTypeCount);
         $this->view->paginator = $paginator;
 
         $jquery = $this->view->jQuery();
@@ -173,21 +174,41 @@ class SearchController extends Zend_Controller_Action {
         
         $onload = '("#show_options").click(function() '
                   . '{'
-                  . '   active = $("#show_options").attr("active")=="1";'
-                  . '   switchOptions(active, true);'
+                    . 'active = $("#show_options").attr("active")=="1";'
+                    . 'switchOptions(active, true);'
                   . '});'
-                  . ' switchOptions('.($opt?'false':'true').', false);';
+                  . 'switchOptions('.($opt?'false':'true').', false);'
+                  . 'configTaming("'.$this->view->lang.'");';
 
+        //if ($this->showImages)
+        {
+            $onload.= "$('.file_excerpt .thumb').mouseenter(function() {"
+                            ."if (thumbani!=0) clearInterval(thumbani);"
+                            ."jimage = $(this);"
+                            ."jimagecount = parseInt(jimage.attr('ic'));"
+                            ."thumbani = setInterval(animateImage, 200);"
+                        ."});"
+                        ."$('.file_excerpt .thumb').mouseleave(function() {"
+                            ."if (thumbani!=0) clearInterval(thumbani);"
+                        ."});"
+                        ."$('.file_excerpt .thumb').each(function() {"
+                            ."icount = parseInt($(this).attr('ic'));"
+                            ."src = $(this).attr('url');"
+                            //."src = src.substr(0,src.length-1);"
+                            ."for (i=0; i<icount; i++) $('<img/>')[0].src = src+i.toString();"
+                            ."$(this).attr('src', src+'0');"
+                        ."});";
+        }
         $function = 'function switchOptions(active, fade) {'
-                  . '   if (active) {'
-                  . '       $("#results").removeClass("padding");'
-                  . '       $("#advsearch").toggle(false);'
-                  . '       $("#show_options").text("'.$this->view->translate('advanced search').'");'
-                  . '   } else {'
-                  . '       $("#results").addClass("padding");'
-                  . '       if (fade) $("#advsearch").fadeIn(); else $("#advsearch").toggle(true);'
-                  . '       $("#show_options").text("'.$this->view->translate('hide advanced search').'");'
-                  . '   } $("#show_options").attr("active", 1-(active?1:0));'
+                    . 'if (active) {'
+                        . '$("#results").removeClass("padding");'
+                        . '$("#advsearch").toggle(false);'
+                        . '$("#show_options").text("'.$this->view->translate('advanced search').'");'
+                    . '} else {'
+                    . '$("#results").addClass("padding");'
+                        . 'if (fade) $("#advsearch").fadeIn(); else $("#advsearch").toggle(true);'
+                        . '$("#show_options").text("'.$this->view->translate('hide advanced search').'");'
+                    . '} $("#show_options").attr("active", 1-(active?1:0));'
                   . '}';
         $jquery->addJavascript($function);
         $jquery->addOnload($jqHandler . $onload);
