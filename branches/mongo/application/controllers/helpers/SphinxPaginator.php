@@ -171,7 +171,6 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         global $content;
         $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS, MAX_HITS);
         $result = $this->cl->Query( $this->query, $this->table );
-        var_dump($this->cl->GetLastError());
         $docs = array();
         if ( $result !== false  ) {
 

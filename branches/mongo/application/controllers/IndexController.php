@@ -64,7 +64,7 @@ class IndexController extends Zend_Controller_Action
             'required'   => true,
             'order'         => 2,
             'multioptions'   => array(
-                            'wftge' => 'All',
+                            'swftge' => 'All',
                             'wf' => 'Direct downloads',
                             't' => 'Torrents',
                             's' => 'Streaming',
@@ -72,7 +72,7 @@ class IndexController extends Zend_Controller_Action
                             'e' => 'Ed2k'
                             ),
             'separator'     => '',
-            'value'         =>isset($_COOKIE['src'] ) ? $_COOKIE['src'] : 'wftge'
+            'value'         =>isset($_COOKIE['src'] ) ? $_COOKIE['src'] : 'swftge'
         ));
         $form->addElement('hidden', 'type', array('value'=>$type));
         $form->setAction( '/'. $this->view->lang.'/search/');

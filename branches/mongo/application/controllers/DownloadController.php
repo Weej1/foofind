@@ -54,12 +54,11 @@ class DownloadController extends Zend_Controller_Action
                 $form->addElement("hidden", "type", array("value"=>$type));
             }
             if (isset($values['src'])) $src = $f->filter ($values['src']);
-            if (isset($values['opt'])) $src = $values['opt'];
+            if (isset($values['opt'])) $opt = $values['opt'];
         }
-
         if (!isset($src) && isset($_COOKIE['src'])) $src = $_COOKIE['src'];
 
-        $src2 = (!isset($src) || $src=='')?'wftge':$src;
+        $src2 = (!isset($src) || $src=='')?'swftge':$src;
         $conds = array('q'=>trim($q), 'src'=>$src2, 'opt'=>$opt, 'type'=>$type);
 
         $helper = new QueryString_View_Helper();
@@ -139,7 +138,7 @@ class DownloadController extends Zend_Controller_Action
             $obj['file']['uri'] = $uri;
 
             $this->_helper->fileutils->chooseFilename($obj, $fn);
-            $this->_helper->fileutils->buildSourceLinks($obj);
+            $this->_helper->fileutils->buildSourceLinks($obj, $src);
             $this->_helper->fileutils->chooseType($obj);
             $this->_helper->fileutils->searchRelatedFiles($obj);
 

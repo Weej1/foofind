@@ -33,7 +33,7 @@ if (count ( $this->mensajes ) > 0) {
         <style>    .debuginfo {   font-size: 9px;     display:none !important;   }    </style><?php endif; ?></div>
 <?php endif;?>
     <ul id="tabnav">
-        <li><a class="<?=(preg_match("/^wftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
+        <li><a class="<?=(preg_match("/^swftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'swftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
         <li><a class="<?=(preg_match("/^wf$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'wf'), array('page'=>1)) ?>" ><?=$this->translate('Direct downloads');?></a></li>
         <li><a class="<?=(preg_match("/^t$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'t'), array('page'=>1))?>"><?=$this->translate('Torrents');?></a></li>
         <li><a class="<?=(preg_match("/^s$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'s'), array('page'=>1)) ?>" ><?=$this->translate('Streaming');?></a></li>
