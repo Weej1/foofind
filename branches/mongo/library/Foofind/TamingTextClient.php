@@ -19,7 +19,6 @@ class TamingTextClient {
     {
         if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
         if (!$this->conn) return null;
-
         $params["t"] = $text;
         $params["w"] = $weights;
         $params["l"] = $limit;
