@@ -186,7 +186,7 @@ class SearchController extends Zend_Controller_Action {
                             ."if (thumbani!=0) clearInterval(thumbani);"
                             ."jimage = $(this);"
                             ."jimagecount = parseInt(jimage.attr('ic'));"
-                            ."thumbani = setInterval(animateImage, 200);"
+                            ."thumbani = setInterval(animateImage, 500);"
                         ."});"
                         ."$('.file_excerpt .thumb').mouseleave(function() {"
                             ."if (thumbani!=0) clearInterval(thumbani);"
