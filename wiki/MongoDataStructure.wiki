@@ -7,6 +7,8 @@
   * *c*: _random_,
   * *z*: _size_,
   * *ls*: _last seen date_, 
+  * *i*: _server images_ [ 
+    *... ] ,
   * *fs*: _first seen date_,
   * *ct*: _content type_,
   * *bl*: _0=ok, 1=blocked file, 3=unreachable file_, 
