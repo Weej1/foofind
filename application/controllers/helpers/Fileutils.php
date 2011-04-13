@@ -139,7 +139,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         return $ret;
     }
 
-    function buildSourceLinks(&$obj)
+    function buildSourceLinks(&$obj, $prevsrc=NULL)
     {
         if (!isset($obj['view']['fn'])) $this->chooseFilename($obj);
 
@@ -218,10 +218,11 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_BLIPTVD:
                 case Model_Files::SOURCE_BLIPTVS:
                 case Model_Files::SOURCE_VIMEO:
+                case Model_Files::SOURCE_VEOH:
+                case Model_Files::SOURCE_YOUTUBE:
                     $linkWeight = 1;
-
                     // prefer megavideo for streaming searches
-                    if ($type==Model_Files::SOURCE_MEGAVIDEO && isset($_COOKIE['src']) && $_COOKIE['src']=='s') {
+                    if ((!isset($prevsrc) || strlen($prevsrc)==0 || strpos("s", $prevsrc)!==FALSE) && in_array($type, Model_Files::src2ints("s"))) {
                         $obj['view']['action'] = 'Watch';
                         $linkWeight *= 2;
                     }

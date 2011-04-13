@@ -84,7 +84,7 @@ class SearchController extends Zend_Controller_Action {
             setcookie( 'src', $src, null, '/' );
         }
         $srcs = array();
-        $src2 = ($src=='')?'wftge':$src;
+        $src2 = ($src=='')?'swftge':$src;
         $srcs['ed2k'] = (strpos($src2, 'e')===false)?$src.'e':str_replace('e', '', $src2);
         $srcs['gnutella'] = (strpos($src2, 'g')===false)?$src.'g':str_replace('g', '', $src2);
         $srcs['torrent'] = (strpos($src2, 't')===false)?$src.'t':str_replace('t', '', $src2);
