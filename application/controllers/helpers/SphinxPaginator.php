@@ -13,7 +13,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $this->canCache = true;
 
         $this->cl = new SphinxClient();
-        $this->cl->SetServer( $sphinxServer, 3313 );
+        $this->cl->SetServer( $sphinxServer, 3312 );
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_SPH04 );
 

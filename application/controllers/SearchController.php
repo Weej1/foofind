@@ -126,7 +126,7 @@ class SearchController extends Zend_Controller_Action {
             $paginator->getAdapter()->setFileUtils($this->_helper->fileutils);
 
         } else {
-            $SphinxPaginator = new SphinxPaginator('idx_files3');
+            $SphinxPaginator = new SphinxPaginator('idx_files');
             $SphinxPaginator->setFileUtils($this->_helper->fileutils);
             $SphinxPaginator->setFilters($conds);
 
