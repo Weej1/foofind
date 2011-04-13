@@ -15,9 +15,6 @@ class TamingController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
 
         $this->config = Zend_Registry::get('config');
-        $tamingServer = split(":", $this->config->taming->server);
-
-        $this->taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
         $this->lang = $this->_helper->checklang->check();
     }
 
@@ -45,6 +42,10 @@ class TamingController extends Zend_Controller_Action
             //cache hit, load from memcache.
             echo $oCache->load( $key );
         } else {
+            $tamingServer = split(":", $this->config->taming->server);
+
+            $this->taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+
             $w = array(array("l"=>-250, "c"=>1, $this->lang=>100));
             if ($t) {
                 foreach (Model_Files::ct2ints($t) as $cti)
