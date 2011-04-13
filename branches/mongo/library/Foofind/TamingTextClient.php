@@ -34,6 +34,6 @@ class TamingTextClient {
 
     function __destruct()
     {
-        if (!$this->conn) fclose($this->conn);
+        if ($this->conn) fclose($this->conn);
     }
 }
