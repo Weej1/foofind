@@ -224,7 +224,7 @@ class SearchController extends Zend_Controller_Action {
             foreach (Model_Files::ct2ints($type) as $cti)
                 $w[Model_Files::cti2sct($cti)] = 200;
         }
-        $result = json_decode($taming->tameText($q, $w, 1, 20));
+        $result = json_decode($taming->tameText($q, $w, 1, 0.8));
 
         if ($result[0][2]!=$q) $this->view->didyoumean = $result[0][2];
     }
