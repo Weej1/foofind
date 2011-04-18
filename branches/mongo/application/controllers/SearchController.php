@@ -3,6 +3,7 @@ require_once APPLICATION_PATH.'/models/Files.php';
 require_once APPLICATION_PATH.'/controllers/helpers/SphinxPaginator.php';
 require_once APPLICATION_PATH.'/views/helpers/QueryString_View_Helper.php';
 require_once APPLICATION_PATH.'/views/helpers/FileUtils_View_Helper.php';
+require_once APPLICATION_PATH.'../../library/Foofind/TamingTextClient.php';
 
 define("MAX_HITS", 2000000);
 define("MAX_RESULTS", 1000);
@@ -212,6 +213,20 @@ class SearchController extends Zend_Controller_Action {
                   . '}';
         $jquery->addJavascript($function);
         $jquery->addOnload($jqHandler . $onload);
+
+
+        $tamingServer = split(":", $this->config->taming->server);
+
+        $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+
+        $w = array("c"=>1, $this->lang=>200);
+        if ($type) {
+            foreach (Model_Files::ct2ints($type) as $cti)
+                $w[Model_Files::cti2sct($cti)] = 200;
+        }
+        $result = json_decode($taming->tameText($q, $w, 1, 20));
+
+        if ($result[0][2]!=$q) $this->view->didyoumean = $result[0][2];
     }
 
         /**
