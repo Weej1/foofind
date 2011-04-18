@@ -15,14 +15,14 @@ class TamingTextClient {
      *  lang_code: language
      *  (type: type
      */
-    function tameText($text, $weights, $limit, $strict)
+    function tameText($text, $weights, $limit, $minsimil)
     {
         if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
         if (!$this->conn) return null;
         $params["t"] = $text;
         $params["w"] = $weights;
         $params["l"] = $limit;
-        $params["x"] = $strict;
+        $params["s"] = $minsimil;
         $jparams = json_encode($params);
         $jparamslen = strlen($jparams);
         
