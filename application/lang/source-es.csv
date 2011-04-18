@@ -31,6 +31,7 @@
 "Foofind does not allow browse results after page 1000.";"Foofind no permite navegar resultados posteriores a la página 1000."
 "How to download?";"¿Cómo descargar?"
 "DownloadExplanation";"Para descargar el archivo enlazado en esta página se puede precisar un software externo. Aquí tienes algunos programas compatibles:"
+"Did you mean %s?";"¿Haz querido decir %s?"
 
 #advanced search
 "All sizes";"Todos los tamaños"

@@ -25,7 +25,6 @@ if (count ( $this->mensajes ) > 0) {
 	echo '</div>';
 }
 ?>
-    
 <?php if ($this->info['total']>0): ?>
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
         <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
@@ -40,9 +39,6 @@ if (count ( $this->mensajes ) > 0) {
         <li><a class="<?=(preg_match("/^g$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'g'), array('page'=>1)) ?>" ><?=$this->translate('Gnutella');?></a></li>
         <li><a class="<?=(preg_match("/^e$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'e'), array('page'=>1)) ?>" ><?=$this->translate('Ed2k');?></a></li>
     </ul>
-    
-   
-
     <div id="socontainer"><a id="show_options" href="#" active="<?=$this->qs['opt']?>"><?$this->translate("advanced seach")?></a></div>
     <div id="advsearch">
     <div id="common">
@@ -76,6 +72,10 @@ if (count ( $this->mensajes ) > 0) {
         </ul>
         <?php endif; ?>
     </div>
+<?php
+if (isset($this->didyoumean))
+    echo "<p class='didyoumean'>".sprintf($this->translate("Did you mean %s?"), "<a href='".$this->qs(array('q'=>$this->didyoumean), array('page'=>1))."'>".$this->didyoumean."</a>")."</p>";
+?>
     
 <?php if ($this->info['total']>0): ?>
     <div id="results">

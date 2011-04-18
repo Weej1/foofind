@@ -44,14 +44,14 @@ class TamingController extends Zend_Controller_Action
         } else {
             $tamingServer = split(":", $this->config->taming->server);
 
-            $this->taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
             
             $w = array("c"=>1, $this->lang=>200);
             if ($t) {
                 foreach (Model_Files::ct2ints($t) as $cti)
                     $w[Model_Files::cti2sct($cti)] = 200;
             }
-            $result = $this->taming->tameText($q, $w, 4, 5);
+            $result = $taming->tameText($q, $w, 4, 5);
             echo $result;
             if ($this->config->cache->taming) $oCache->save( $result, $key );
         }
