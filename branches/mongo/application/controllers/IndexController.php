@@ -94,7 +94,7 @@ class IndexController extends Zend_Controller_Action
                       . '$(this).addClass("actual"); '
                       . 'var v=$(this).attr("href");'
                       . 'v=v.substring(Math.abs(v.indexOf("="))+1);'
-                      . '$("#type").val(v);'
+                      . '$("#type").val(v); taming();'
                   . '}); configTaming("'.$this->view->lang.'")';
 
         $jquery->addOnload($jqHandler . $onload);
