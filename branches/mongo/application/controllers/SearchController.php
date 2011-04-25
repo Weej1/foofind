@@ -112,6 +112,16 @@ class SearchController extends Zend_Controller_Action {
             return;
         }
 
+        $tamingServer = explode(":", $this->config->taming->server);
+        $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+        $w = array("c"=>1, $this->view->lang=>200);
+        if ($type) {
+            foreach (Model_Files::ct2ints($type) as $cti)
+                $w[Model_Files::cti2sct($cti)] = 200;
+        }
+        $this->view->tags = json_decode($taming->tameText(trim($q)." ", $w, 20, 4, 0.7, 0));
+
+        
         // build a caching object
         if ($this->config->cache->searches) {
             // build a caching object
@@ -126,7 +136,6 @@ class SearchController extends Zend_Controller_Action {
             //cache hit, load from memcache.
             $paginator = $oCache->load( $key  );
             $paginator->getAdapter()->setFileUtils($this->_helper->fileutils);
-
         } else {
             $SphinxPaginator = new SphinxPaginator('idx_files');
             $SphinxPaginator->setFileUtils($this->_helper->fileutils);
@@ -139,6 +148,7 @@ class SearchController extends Zend_Controller_Action {
             $paginator->getCurrentItems();
 
             $paginator->tcount = $SphinxPaginator->tcount;
+            $paginator->showImages = $SphinxPaginator->showImages;
             if (isset($SphinxPaginator->time)) $paginator->time = $SphinxPaginator->time;
             if (isset($conds['type']) && $SphinxPaginator->count()==0)
             {
@@ -170,10 +180,7 @@ class SearchController extends Zend_Controller_Action {
         $jquery = $this->view->jQuery();
         $jquery->enable(); // enable jQuery Core Library
 
-        // get current jQuery handler based on noConflict settings
-        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
-        
-        $onload = '("#show_options").click(function() '
+        $onload = '$("#show_options").click(function() '
                   . '{'
                     . 'active = $("#show_options").attr("active")=="1";'
                     . 'switchOptions(active, true);'
@@ -181,7 +188,7 @@ class SearchController extends Zend_Controller_Action {
                   . 'switchOptions('.($opt?'false':'true').', false);'
                   . 'configTaming("'.$this->view->lang.'");';
 
-        //if ($this->showImages)
+        if ($paginator->showImages)
         {
             $onload.= "$('.file_excerpt .thumb').mouseenter(function() {"
                             ."if (thumbani!=0) clearInterval(thumbani);"
@@ -195,7 +202,6 @@ class SearchController extends Zend_Controller_Action {
                         ."$('.file_excerpt .thumb').each(function() {"
                             ."icount = parseInt($(this).attr('ic'));"
                             ."src = $(this).attr('url');"
-                            //."src = src.substr(0,src.length-1);"
                             ."for (i=0; i<icount; i++) $('<img/>')[0].src = src+i.toString();"
                             ."$(this).attr('src', src+'0');"
                         ."});";
@@ -212,21 +218,15 @@ class SearchController extends Zend_Controller_Action {
                     . '} $("#show_options").attr("active", 1-(active?1:0));'
                   . '}';
         $jquery->addJavascript($function);
-        $jquery->addOnload($jqHandler . $onload);
+        $jquery->addOnload($onload);
 
-
-        $tamingServer = split(":", $this->config->taming->server);
-
-        $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
-
-        $w = array("c"=>1, $this->lang=>200);
+        $w = array("c"=>1, $this->view->lang=>200);
         if ($type) {
             foreach (Model_Files::ct2ints($type) as $cti)
                 $w[Model_Files::cti2sct($cti)] = 200;
         }
-        $result = json_decode($taming->tameText($q, $w, 1, 0.8));
-
-        if ($result[0][2]!=$q) $this->view->didyoumean = $result[0][2];
+        $result = json_decode($taming->tameText($q, $w, 1, 3, 0.8));
+        if ($result && $result[0][2]!=$q) $this->view->didyoumean = $result[0][2];
     }
 
         /**

@@ -125,6 +125,8 @@ class DownloadController extends Zend_Controller_Action
             //cache hit, load from memcache.
             $obj = $oCache->load( $key  );
         } else {
+            $tamingServer = explode(":", $this->config->taming->server);
+            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
 
             $obj['file'] = $this->fmodel->getFile($hexuri);
 
@@ -137,10 +139,11 @@ class DownloadController extends Zend_Controller_Action
             $obj['file']['url'] = $url;
             $obj['file']['uri'] = $uri;
 
+            $obj['finfo'] = json_decode($taming->getFileInfo($obj["file"]), true);
             $this->_helper->fileutils->chooseFilename($obj, $fn);
             $this->_helper->fileutils->buildSourceLinks($obj, $src);
             $this->_helper->fileutils->chooseType($obj);
-            $this->_helper->fileutils->searchRelatedFiles($obj);
+            $this->_helper->fileutils->searchRelatedFiles($obj,$fileInfo["ph"]);
 
             if ($this->config->cache->files) $oCache->save( $obj, $key );
         }
@@ -200,7 +203,9 @@ class DownloadController extends Zend_Controller_Action
         $this->view->file = $obj;
 
         // get current jQuery handler based on noConflict settings
-        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
+        $jquery = $this->view->jQuery();
+        $onload = 'configTaming("'.$this->view->lang.'");';
+        $jquery->addOnload($onload);
 
         $paginator = Zend_Paginator::factory($obj['comments']);
         $paginator->setItemCountPerPage(25);

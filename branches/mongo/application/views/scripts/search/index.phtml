@@ -73,10 +73,19 @@ if (count ( $this->mensajes ) > 0) {
         <?php endif; ?>
     </div>
 <?php
+
+if (count($this->tags)>0) {
+    echo "<div class='tags'>";
+    foreach ($this->tags as $tag) {
+        echo "<a href='".$this->qs(array('q'=>$tag[2]),array('page'=>1))."' class='tag'>".str_replace($this->info['q']." ", "", $tag[2])."</a> ";
+    }
+    echo "</div>";
+}
+
 if (isset($this->didyoumean))
     echo "<p class='didyoumean'>".sprintf($this->translate("Did you mean %s?"), "<a href='".$this->qs(array('q'=>$this->didyoumean), array('page'=>1))."'>".$this->didyoumean."</a>")."</p>";
+
 ?>
-    
 <?php if ($this->info['total']>0): ?>
     <div id="results">
     <ul>

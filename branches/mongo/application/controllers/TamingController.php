@@ -42,7 +42,7 @@ class TamingController extends Zend_Controller_Action
             //cache hit, load from memcache.
             echo $oCache->load( $key );
         } else {
-            $tamingServer = split(":", $this->config->taming->server);
+            $tamingServer = explode(":", $this->config->taming->server);
 
             $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
             
@@ -51,7 +51,7 @@ class TamingController extends Zend_Controller_Action
                 foreach (Model_Files::ct2ints($t) as $cti)
                     $w[Model_Files::cti2sct($cti)] = 200;
             }
-            $result = $taming->tameText($q, $w, 4, 0.2);
+            $result = $taming->tameText($q, $w, 4, 3, 0.2);
             echo $result;
             if ($this->config->cache->taming) $oCache->save( $result, $key );
         }

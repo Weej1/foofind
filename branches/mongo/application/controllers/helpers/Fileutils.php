@@ -2,6 +2,7 @@
 
 require_once APPLICATION_PATH . '/models/Files.php';
 require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
+require_once APPLICATION_PATH.'../../library/Foofind/TamingTextClient.php';
 
 class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Helper_Abstract {
 
@@ -311,23 +312,20 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
 
     function searchRelatedFiles(&$obj)
     {
-        $md = $obj['file']['md'];
-        $artist = $album = $title = false;
-        if (isset($md["audio:artist"])) $artist = $md["audio:artist"];
-        if (isset($md["audio:album"])) $album = $md["audio:album"];
-        if (isset($md["audio:title"])) $title = $md["audio:title"];
-        if ($artist || $album || $title)
-        {
-            $query = "";
-            if ($artist) $query .= "|\"$artist\"";
-            if ($album) $query .= "|\"$album\"";
-            if ($title) $query .= "|\"$title\"";
-            $query = substr($query, 1);
-            $mode = SPH_MATCH_EXTENDED2;
+        $phrases = $obj["finfo"]["ph"];
+        $query = "";
+        if (count($phrases)>1) {
+            $parts = $phrases;
         } else {
-            $query = "{$obj['view']['nfn']}";
-            $mode = SPH_MATCH_ANY;
+            $parts = $phrases[0];
         }
+        foreach ($parts as $part)
+        {
+            if (is_array($part)) $part = implode(" ", $part);
+            $query .= "|\"".$part."\"";
+        }
+        $query = substr($query, 1);
+        $mode = SPH_MATCH_EXTENDED2;
         
         $config = Zend_Registry::get('config');
         $sphinxServer = $config->sphinx->server;
