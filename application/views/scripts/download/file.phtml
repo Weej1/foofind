@@ -41,7 +41,6 @@ if (count ( $this->mensajes ) > 0) {
         ?>
         <div class="file_download_vote <?=$this->myvote?>"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(<?=$votes[0]?>)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(<?=$votes[1]?>)</span></a></div>
         <h2><?=$this->file['view']['fn'];?></h2>
-        
         <div class="top_download">
         <div class="download_button">
             <div class="icon icon50 <?=strtolower($this->file['view']['type']) ?>50"></div><br />

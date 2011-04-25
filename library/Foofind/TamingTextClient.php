@@ -15,7 +15,7 @@ class TamingTextClient {
      *  lang_code: language
      *  (type: type
      */
-    function tameText($text, $weights, $limit, $minsimil)
+    function tameText($text, $weights, $limit, $maxdist, $minsimil, $dym=1, $rel=1)
     {
         if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
         if (!$this->conn) return null;
@@ -23,16 +23,32 @@ class TamingTextClient {
         $params["w"] = $weights;
         $params["l"] = $limit;
         $params["s"] = $minsimil;
+        $params["md"] = $maxdist;
+        $params["d"] = $dym;
+        $params["r"] = $rel;
         $jparams = json_encode($params);
         $jparamslen = strlen($jparams);
         
         fwrite($this->conn, chr((int)($jparamslen/256)).chr($jparamslen%256).$jparams);
 
-        $len = ord(fgetc($this->conn))<<8 | ord(fgetc($this->conn));
+        $len = ord(fgetc($this->conn))<<8 | ord(fgetc($this->conn))+1;
         $line = fgets($this->conn, $len);
-        return $line;
+        return substr($line,0,-1);
     }
 
+    function getFileInfo($file)
+    {
+        if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
+        if (!$this->conn) return null;
+        $params["f"] = $file;
+        $jparams = json_encode($params);
+        $jparamslen = strlen($jparams);
+        fwrite($this->conn, chr((int)($jparamslen/256)).chr($jparamslen%256).$jparams);
+        $len = ord(fgetc($this->conn))<<8 | ord(fgetc($this->conn))+1;
+        $line = fgets($this->conn, $len);
+        return substr($line,0,-1);
+    }
+    
     function __destruct()
     {
         if ($this->conn) fclose($this->conn);

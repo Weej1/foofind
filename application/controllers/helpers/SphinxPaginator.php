@@ -11,6 +11,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
 
         $this->tcount = 0;
         $this->canCache = true;
+        $this->showImages = false;
 
         $this->cl = new SphinxClient();
         $this->cl->SetServer( $sphinxServer, 3312 );
@@ -214,6 +215,9 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
                         unset($docs[$hexuri]);
                     }
                     else {
+                        if (!$this->showImages && isset($doc["file"]["i"]) && is_array($doc["file"]["i"]))
+                            $this->showImages = true;
+                        
                         foreach ($docs[$hexuri]['view']['sources'] as $type => $src)
                         {
                             if($src['icon']=="web") {
