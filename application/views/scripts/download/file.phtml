@@ -43,13 +43,23 @@ if (count ( $this->mensajes ) > 0) {
         <h2><?=$this->file['view']['fn'];?></h2>
         <div class="top_download">
         <div class="download_button">
-            <div class="icon icon50 <?=strtolower($this->file['view']['type']) ?>50"></div><br />
+            <?php
+            if (isset($this->file['file']['i']) && is_array($this->file['file']['i']))
+                {
+                    $var = count($this->file['file']['i']);
+                    echo "<a class='thumblink' href='".$this->formatHTML($this->file['view']['sources'][$this->file['view']['source']]['urls'][0])."'>";
+                    echo "<img class='thumb' ic='$var' src='http://images{$this->file['file']['i'][0]}.foofind.com/".$this->file['file']['_id']->__toString()."0' />";
+                    echo "</a>";
+                } else {
+                    echo "<div class='icon icon50 ".strtolower($this->file['view']['type'])."50'></div><br />";
+                }
+               ?>
             <a target="_blank" title="<?=$this->translate($this->file['view']['action'])?>" class="superlarge magenta awesome" href="<?=$this->formatHTML($this->file['view']['sources'][$this->file['view']['source']]['urls'][0])?>"><?=$this->translate($this->file['view']['action']).((isset($this->file['file']['z']) && $this->file['file']['z']>0)?" (".$this->formatSize($this->file["file"]["z"]).')':'');?></a>
          </div>
         <div class="download_file_metadata"><? echo $this->format($this->file, true); ?></div>
        </div>
 
-        <div class="dowload_file_sources">                
+        <div class="download_file_sources">
         <?
         $max = 15;
         foreach ($this->file['view']['sources'] as $src => $info)

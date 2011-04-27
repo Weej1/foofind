@@ -76,8 +76,8 @@ if (count ( $this->mensajes ) > 0) {
 
 if (count($this->tags)>0) {
     echo "<div class='tags'>";
-    foreach ($this->tags as $tag) {
-        echo "<a href='".$this->qs(array('q'=>$tag[2]),array('page'=>1))."' class='tag'>".str_replace($this->info['q']." ", "", $tag[2])."</a> ";
+    for ($i = 0; $i < $this->tags["count"]; $i++) {
+        echo "<a style='font-size:".$this->tags["weights"][$i]."%' href='".$this->qs(array('q'=>$this->tags["names"][$i]),array('page'=>1))."' class='tag'>".str_replace($this->info['q']." ", "", $this->tags["names"][$i])."</a> ";
     }
     echo "</div>";
 }
@@ -95,7 +95,9 @@ if (isset($this->didyoumean))
             if (isset($val['file']['i']) && is_array($val['file']['i']))
                 {
                     $var = count($val['file']['i']);
-                    echo "<img class='thumb' ic='$var' url='http://images{$val['file']['i'][0]}.foofind.com/".$val['file']['_id']->__toString()."' />";
+                    echo "<a href='/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']).".html'>";
+                    echo "<img class='thumb' ic='$var' src='http://images{$val['file']['i'][0]}.foofind.com/".$val['file']['_id']->__toString()."0' />";
+                    echo "</a>";
                 }?>
             <h3>
                 <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches( $this->formatHTML( $val['view']['fn']), $this->qs['q'], false) ?></a>

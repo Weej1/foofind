@@ -143,7 +143,7 @@ class DownloadController extends Zend_Controller_Action
             $this->_helper->fileutils->chooseFilename($obj, $fn);
             $this->_helper->fileutils->buildSourceLinks($obj, $src);
             $this->_helper->fileutils->chooseType($obj);
-            $this->_helper->fileutils->searchRelatedFiles($obj,$fileInfo["ph"]);
+            $this->_helper->fileutils->searchRelatedFiles($obj,$obj['finfo']["ph"]);
 
             if ($this->config->cache->files) $oCache->save( $obj, $key );
         }
@@ -205,6 +205,25 @@ class DownloadController extends Zend_Controller_Action
         // get current jQuery handler based on noConflict settings
         $jquery = $this->view->jQuery();
         $onload = 'configTaming("'.$this->view->lang.'");';
+
+        if (isset($this->view->file["file"]["i"]) && is_array($this->view->file["file"]["i"]))
+        {
+            $onload.= "$('.thumb').mouseenter(function() {"
+                            ."if (thumbani!=0) clearInterval(thumbani);"
+                            ."jimage = $(this);"
+                            ."jimagecount = parseInt(jimage.attr('ic'));"
+                            ."thumbani = setInterval(animateImage, 500);"
+                        ."});"
+                        ."$('.thumb').mouseleave(function() {"
+                            ."if (thumbani!=0) clearInterval(thumbani);"
+                        ."});"
+                        ."$('.thumb').each(function() {"
+                            ."icount = parseInt($(this).attr('ic'));"
+                            ."src = $(this).attr('src').slice(0,-1);"
+                            ."for (i=0; i<icount; i++) $('<img/>')[0].src = src+i.toString();"
+                        ."});";
+        }
+
         $jquery->addOnload($onload);
 
         $paginator = Zend_Paginator::factory($obj['comments']);

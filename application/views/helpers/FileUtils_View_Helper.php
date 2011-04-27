@@ -246,7 +246,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         if ($title = $this->getValue($md,"video:title")) $res .= $start.$this->view->translate("Title").$middle.$this->searchable($details, $title).$end;
         if ($artist = $this->getValue($md,"video:artist")) $res .= $start.$this->view->translate("Artist").$middle.$this->searchable($details, $artist).$end;
 
-        if ($len = $this->getValue($md,"video:minutes", "video:length"))
+        if ($len = $this->getValue($md,"video:minutes", "video:length", "video:duration"))
         {
             if (isset($md["video:minutes"])) $len *= 60;
             $res .= $start.$this->view->translate("Length").$middle.$this->formatLength($len).$end;
@@ -304,12 +304,14 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
         return $res;
     }
 
-    function getValue($md, $key1, $key2=null)
+    function getValue($md, $key1, $key2=null, $key3=null)
     {
         if (isset($md[$key1]))
             return $md[$key1];
         else if ($key2 && isset($md[$key2]))
             return $md[$key2];
+        else if ($key3 && isset($md[$key3]))
+            return $md[$key3];
         else
             return null;
     }
