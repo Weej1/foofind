@@ -74,7 +74,7 @@ if (count ( $this->mensajes ) > 0) {
     </div>
 <?php
 
-if (count($this->tags)>0) {
+if ($this->tags["count"]>0) {
     echo "<div class='tags'>";
     for ($i = 0; $i < $this->tags["count"]; $i++) {
         echo "<a style='font-size:".$this->tags["weights"][$i]."%' href='".$this->qs(array('q'=>$this->tags["names"][$i]),array('page'=>1))."' class='tag'>".str_replace($this->info['q']." ", "", $this->tags["names"][$i])."</a> ";
