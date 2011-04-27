@@ -322,7 +322,10 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         foreach ($parts as $part)
         {
             if (is_array($part)) $part = implode(" ", $part);
-            $query .= "|\"".$part."\"";
+            $minm = (int)(substr_count($part, " ")*0.5);
+            $part = "\"$part\"";
+            if ($minm>1) $part = "($part/$minm)";
+            $query .= "|$part";
         }
         $query = substr($query, 1);
         $mode = SPH_MATCH_EXTENDED2;

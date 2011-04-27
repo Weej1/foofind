@@ -66,7 +66,7 @@ input#q{height:18px;width:380px;z-index:1000;}
 .actual{color:black !important;text-decoration:none;font-weight:bold;}
 .container_form{position:relative;clear:both;display:block;text-align:left;padding:20px;width:480px;background-color:#fff;border:1px solid #999;margin:auto;}
 * html #container{height:100%;}
-.file_excerpt{display:block;margin-top:5px;margin-bottom:25px;}
+.file_excerpt{display:block;margin-top:5px;margin-bottom:25px;clear:left;}
 .file_excerpt span{display:block;max-width:42em;}
 .file_excerpt span.useract{display:inline-block;font-size:12px;height:15px;text-align:left;padding-top:3px;padding-bottom:1px;vertical-align:top;margin:0px;color:black;margin-left:5px;background-color:#FFEEEE;background-repeat:no-repeat;padding-right:4px;}
 .file_excerpt div.comments{display:inline-block;background-image:url(/images/foofind3.png);background-position:-164px -120px;vertical-align:middle;width:19px;height:20px;margin-left:5px;}
@@ -261,7 +261,9 @@ ul#tabnav a:hover{background:#FFF;color:#000;}
 #tamingresults{margin:0px !important; z-index:10;display:none;text-align:left; position:absolute; width:100%; background: white; border:1px solid #dd157a; font-size:16px;}
 #tamingresults li {padding:2px;}
 #tamingresults li.active {background: #dd157a; color:white;}
-.file_excerpt .thumb {float:left; margin-right:4px;}
+.file_excerpt .thumb {float:left; margin-right:4px; margin-bottom: 5px;}
+.download_button .thumblink {margin:10px; display:block;}
+.download_file_sources {clear:left;}
 .didyoumean{font-size:18px;font-style:italic;font-weight: bold;}
 .tags{font-size:15px; background: #FBEFFB; max-width:80%; padding:10px; margin-top:-19px; margin-bottom:5px;}
 .tags .tag {padding:3px;}

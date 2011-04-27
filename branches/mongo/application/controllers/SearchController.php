@@ -119,8 +119,14 @@ class SearchController extends Zend_Controller_Action {
             foreach (Model_Files::ct2ints($type) as $cti)
                 $w[Model_Files::cti2sct($cti)] = 200;
         }
-        $this->view->tags = json_decode($taming->tameText(trim($q)." ", $w, 20, 4, 0.7, 0));
+        $tags = json_decode($taming->tameText(trim($q)." ", $w, 20, 4, 0.7, 0));
 
+        $this->view->tags = array();
+        $this->view->tags["count"] = count($tags);
+        $mean = ($tags[0][0] + $tags[$this->view->tags["count"]-1][0])/2;
+        $this->view->tags["names"] = array_map(function($res){return $res[2];}, $tags);
+        $this->view->tags["weights"] = array_map(function($res) use ($mean) { return 100*max(min(1.25, $res[0]/$mean), 0.75);}, $tags);
+        array_multisort($this->view->tags["names"], SORT_ASC, SORT_STRING, $this->view->tags["weights"]);
         
         // build a caching object
         if ($this->config->cache->searches) {
@@ -190,20 +196,19 @@ class SearchController extends Zend_Controller_Action {
 
         if ($paginator->showImages)
         {
-            $onload.= "$('.file_excerpt .thumb').mouseenter(function() {"
+            $onload.= "$('.thumb').mouseenter(function() {"
                             ."if (thumbani!=0) clearInterval(thumbani);"
                             ."jimage = $(this);"
                             ."jimagecount = parseInt(jimage.attr('ic'));"
                             ."thumbani = setInterval(animateImage, 500);"
                         ."});"
-                        ."$('.file_excerpt .thumb').mouseleave(function() {"
+                        ."$('.thumb').mouseleave(function() {"
                             ."if (thumbani!=0) clearInterval(thumbani);"
                         ."});"
-                        ."$('.file_excerpt .thumb').each(function() {"
+                        ."$('.thumb').each(function() {"
                             ."icount = parseInt($(this).attr('ic'));"
-                            ."src = $(this).attr('url');"
+                            ."src = $(this).attr('src').slice(0,-1);"
                             ."for (i=0; i<icount; i++) $('<img/>')[0].src = src+i.toString();"
-                            ."$(this).attr('src', src+'0');"
                         ."});";
         }
         $function = 'function switchOptions(active, fade) {'

@@ -129,7 +129,16 @@ class IndexController extends Zend_Controller_Action
 
         $fmodel = new Model_Files();
 
-        $paginator = Zend_Paginator::factory( $fmodel->getLastFilesIndexed( (int) $limit ));
+        $docs = array();
+        $lastfiles = $fmodel->getLastFilesIndexed( (int) $limit );
+        foreach ($lastfiles as $file)
+        {
+            $obj['file'] = $file;
+            $this->_helper->fileutils->chooseFilename($obj);
+            $docs []= $obj;
+        }
+
+        $paginator = Zend_Paginator::factory($docs);
         $paginator->setItemCountPerPage(25);
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
