@@ -120,22 +120,49 @@ class SearchController extends Zend_Controller_Action {
             return;
         }
 
-        $tamingServer = explode(":", $this->config->taming->server);
-        $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
-        $w = array("c"=>1, $this->view->lang=>200);
-        if ($type) {
-            foreach (Model_Files::ct2ints($type) as $cti)
-                $w[Model_Files::cti2sct($cti)] = 200;
+        // build a caching object
+        if ($this->config->cache->taming) {
+            // build a caching object
+            $oCache = Zend_Registry::get('cache');
+            $key = "tam_".$this->view->lang."_".md5("m$q t$type");
+            $existsCache = $oCache->test($key);
+        } else {
+            $existsCache = false;
         }
-        $tags = json_decode($taming->tameText(trim($q)." ", $w, 20, 4, 0.7, 0));
 
-        $this->view->tags = array();
-        $this->view->tags["count"] = count($tags);
-        $this->mean = ($tags[0][0] + $tags[$this->view->tags["count"]-1][0])/2;
-        $this->view->tags["names"] = array_map(array($this,'getnames'), $tags);
-        $this->view->tags["weights"] = array_map(array($this,'getweights'), $tags);
-        array_multisort($this->view->tags["names"], SORT_ASC, SORT_STRING, $this->view->tags["weights"]);
-        
+        if  ( $existsCache  ) {
+            $this->view->tags = $oCache->load( "s".$key );
+            $this->view->didyoumean = $oCache->load( "d".$key );
+            if (!$this->view->didyoumean) unset($this->view->didyoumean);
+        } else {
+            $tamingServer = explode(":", $this->config->taming->server);
+            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+            $w = array("c"=>1, $this->view->lang=>200);
+            if ($type) {
+                foreach (Model_Files::ct2ints($type) as $cti)
+                    $w[Model_Files::cti2sct($cti)] = 200;
+            }
+            $tags = json_decode($taming->tameText(trim($q)." ", $w, 20, 4, 0.7, 0));
+
+            $this->view->tags = array();
+            $this->view->tags["count"] = count($tags);
+            $this->mean = ($tags[0][0] + $tags[$this->view->tags["count"]-1][0])/2;
+            $this->view->tags["names"] = array_map(array($this,'getnames'), $tags);
+            $this->view->tags["weights"] = array_map(array($this,'getweights'), $tags);
+            array_multisort($this->view->tags["names"], SORT_ASC, SORT_STRING, $this->view->tags["weights"]);
+
+            $result = json_decode($taming->tameText($q, $w, 1, 3, 0.8, 1, 0));
+            if ($result && $result[0][2]!=$q) $this->view->didyoumean = $result[0][2];
+
+            if ($this->config->cache->taming) {
+                $oCache->save( $this->view->tags, "s".$key );
+                if (isset($this->view->didyoumean)) 
+                    $oCache->save( $this->view->didyoumean, "d".$key );
+                else
+                    $oCache->save( false, "d".$key );
+            }
+        }
+
         // build a caching object
         if ($this->config->cache->searches) {
             // build a caching object
@@ -233,13 +260,6 @@ class SearchController extends Zend_Controller_Action {
         $jquery->addJavascript($function);
         $jquery->addOnload($onload);
 
-        $w = array("c"=>1, $this->view->lang=>200);
-        if ($type) {
-            foreach (Model_Files::ct2ints($type) as $cti)
-                $w[Model_Files::cti2sct($cti)] = 200;
-        }
-        $result = json_decode($taming->tameText($q, $w, 1, 3, 0.8, 1, 0));
-        if ($result && $result[0][2]!=$q) $this->view->didyoumean = $result[0][2];
     }
 
         /**
