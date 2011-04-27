@@ -22,6 +22,14 @@ class SearchController extends Zend_Controller_Action {
         $this->config = Zend_Registry::get('config');
     }
 
+    public function getnames($res) {
+        return $res[2];
+    }
+
+    public function getweights($res) {
+        return 100*max(min(1.25, $res[0]/$this->mean), 0.75);
+    }
+
     public function indexAction() {
         $qw = stripcslashes(strip_tags($this->_getParam('q')));
         $type = $this->_getParam('type');
@@ -123,9 +131,9 @@ class SearchController extends Zend_Controller_Action {
 
         $this->view->tags = array();
         $this->view->tags["count"] = count($tags);
-        $mean = ($tags[0][0] + $tags[$this->view->tags["count"]-1][0])/2;
-        $this->view->tags["names"] = array_map(function($res){return $res[2];}, $tags);
-        $this->view->tags["weights"] = array_map(function($res) use ($mean) { return 100*max(min(1.25, $res[0]/$mean), 0.75);}, $tags);
+        $this->mean = ($tags[0][0] + $tags[$this->view->tags["count"]-1][0])/2;
+        $this->view->tags["names"] = array_map(array($this,'getnames'), $tags);
+        $this->view->tags["weights"] = array_map(array($this,'getweights'), $tags);
         array_multisort($this->view->tags["names"], SORT_ASC, SORT_STRING, $this->view->tags["weights"]);
         
         // build a caching object
