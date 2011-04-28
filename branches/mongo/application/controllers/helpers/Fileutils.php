@@ -1,4 +1,4 @@
-<?php
+:<?php
 
 require_once APPLICATION_PATH . '/models/Files.php';
 require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
