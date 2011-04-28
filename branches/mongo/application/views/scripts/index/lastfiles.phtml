@@ -4,7 +4,7 @@
     <ul>
 <?php   foreach ($this->lastfiles as $file ): ?>
         <li class="file_excerpt">
-            <h3><a href="/<?=$this->lang?>/download/<?=$file["view"]["url"] ?>/<?=$this->formatURL($file["view"]["fn"]).'.html'; ?>"><?=$file["view"]["fn"] ?></a></h3>
+            <h3><a href="/<?=$this->lang?>/download/<?=$file["view"]["url"] ?>/<?=$this->formatURL($file["view"]["fn"]).'.html'; ?>"><?=$this->formatHTML($file["view"]["fn"]) ?></a></h3>
         </li>
 <?php   endforeach; ?>
     </ul>

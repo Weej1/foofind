@@ -100,7 +100,7 @@ if (isset($this->didyoumean))
                     echo "</a>";
                 }?>
             <h3>
-                <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches( $this->formatHTML( $val['view']['fn']), $this->qs['q'], false) ?></a>
+                <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches(  $val['view']['fn'] , $this->qs['q'], false) ?></a>
                 <?php
                 
                 if (isset($val['file']['vs'][$this->lang]['c'])){

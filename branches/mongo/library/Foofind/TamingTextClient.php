@@ -28,7 +28,6 @@ class TamingTextClient {
         $params["r"] = $rel;
         $jparams = json_encode($params);
         $jparamslen = strlen($jparams);
-        
         fwrite($this->conn, chr((int)($jparamslen/256)).chr($jparamslen%256).$jparams);
 
         $len = ord(fgetc($this->conn))<<8 | ord(fgetc($this->conn))+1;
