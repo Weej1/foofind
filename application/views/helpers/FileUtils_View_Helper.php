@@ -169,9 +169,9 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
     {
         $text = strip_tags($text);
         if ($details)
-            return "<a href='/{$this->view->lang}/search/?q=".urlencode($text)."'>".htmlentities($text, ENT_QUOTES, "UTF-8")."</a>";
+            return "<a href='/{$this->view->lang}/search/?q=".urlencode($text)."'>".$text."</a>";
         else
-            return htmlentities($text, ENT_QUOTES, "UTF-8");
+            return $text; // htmlentities($text, ENT_QUOTES, "UTF-8");
     }
 
     function formatAudio($obj, $md, $details, $start, $middle, $end)
