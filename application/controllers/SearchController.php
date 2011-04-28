@@ -146,10 +146,12 @@ class SearchController extends Zend_Controller_Action {
 
             $this->view->tags = array();
             $this->view->tags["count"] = count($tags);
-            $this->mean = ($tags[0][0] + $tags[$this->view->tags["count"]-1][0])/2;
-            $this->view->tags["names"] = array_map(array($this,'getnames'), $tags);
-            $this->view->tags["weights"] = array_map(array($this,'getweights'), $tags);
-            array_multisort($this->view->tags["names"], SORT_ASC, SORT_STRING, $this->view->tags["weights"]);
+            if ($this->view->tags["count"]>0) {
+                $this->mean = ($tags[0][0] + $tags[$this->view->tags["count"]-1][0])/2;
+                $this->view->tags["names"] = array_map(array($this,'getnames'), $tags);
+                $this->view->tags["weights"] = array_map(array($this,'getweights'), $tags);
+                array_multisort($this->view->tags["names"], SORT_ASC, SORT_STRING, $this->view->tags["weights"]);
+            }
 
             $result = json_decode($taming->tameText($q, $w, 1, 3, 0.8, 1, 0));
             if ($result && $result[0][2]!=$q) $this->view->didyoumean = $result[0][2];

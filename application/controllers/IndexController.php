@@ -84,10 +84,7 @@ class IndexController extends Zend_Controller_Action
         $jquery = $this->view->jQuery();
         $jquery->enable(); // enable jQuery Core Library
 
-        // get current jQuery handler based on noConflict settings
-        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
-        
-        $onload = '(".tabs a").click(function(event) '
+        $onload = '$(".tabs a").click(function(event) '
                   . '{'
                       . 'event.preventDefault();'
                       . '$(".tabs a").removeClass("actual");'
@@ -97,7 +94,7 @@ class IndexController extends Zend_Controller_Action
                       . '$("#type").val(v); taming();'
                   . '}); configTaming("'.$this->view->lang.'")';
 
-        $jquery->addOnload($jqHandler . $onload);
+        $jquery->addOnload($onload);
 
         // assign the form to the view
         $this->view->form = $form;
