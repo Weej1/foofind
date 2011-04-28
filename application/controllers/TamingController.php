@@ -25,7 +25,7 @@ class TamingController extends Zend_Controller_Action
         
         if(strpos(strtolower($q), "%u")!==FALSE)
             $q = utf8_urldecode($q);
-        else if(!mb_check_encoding($q, 'UTF-8'))
+        else if(mb_detect_encoding($q, "UTF-8")!='UTF-8')
             $q = utf8_encode($q);
         
         // build a caching object

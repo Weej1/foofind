@@ -124,16 +124,16 @@ class SearchController extends Zend_Controller_Action {
         if ($this->config->cache->taming) {
             // build a caching object
             $oCache = Zend_Registry::get('cache');
-            $key = "tam_".$this->view->lang."_".md5("m$q t$type");
+            $key = "stm_".$this->view->lang."_".md5("m$q t$type");
             $existsCache = $oCache->test($key);
         } else {
             $existsCache = false;
         }
 
         if  ( $existsCache  ) {
-            $this->view->tags = $oCache->load( "s".$key );
-            $this->view->didyoumean = $oCache->load( "d".$key );
-            if (!$this->view->didyoumean) unset($this->view->didyoumean);
+            $data = $oCache->load( $key );
+            $this->view->tags = $data["tags"];
+            $this->view->didyoumean = $data["dym"];
         } else {
             $tamingServer = explode(":", $this->config->taming->server);
             $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
@@ -155,11 +155,9 @@ class SearchController extends Zend_Controller_Action {
             if ($result && $result[0][2]!=$q) $this->view->didyoumean = $result[0][2];
 
             if ($this->config->cache->taming) {
-                $oCache->save( $this->view->tags, "s".$key );
-                if (isset($this->view->didyoumean)) 
-                    $oCache->save( $this->view->didyoumean, "d".$key );
-                else
-                    $oCache->save( false, "d".$key );
+                $data = array("tags"=>$this->view->tags, "dym"=>null);
+                if (isset($this->view->didyoumean)) $data["dym"]=$this->view->didyoumean;
+                $oCache->save( $data, $key );
             }
         }
 
