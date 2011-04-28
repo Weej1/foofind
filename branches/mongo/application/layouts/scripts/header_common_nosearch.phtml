@@ -33,7 +33,7 @@ echo $doctype;
         <?=$this->headLink(); ?>
         <link rel="shortcut icon" href="<?= STATIC_PATH ?>/images/favicon.ico" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch_<?= $this->lang ?>.xml" title="Foofind" />
-        <?= $this->jQuery()->setLocalPath(STATIC_PATH . '/js/jquery.min.js'); ?>
+        <?= $this->jQuery()->setLocalPath(STATIC_PATH . '/js/jq1.js'); ?>
         <?= $this->headScript(); ?>
         <? if ($ie && $ieinfo[1]>6): ?><script type="text/javascript">$(window).load(function() { corners('.awesome', '<?= STATIC_PATH ?>/images/alert-overlay.png'); });</script><? endif; ?>
         <script type="text/javascript">if (window != top) top.location.href = location.href;</script>
