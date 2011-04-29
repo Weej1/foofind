@@ -124,14 +124,14 @@ class SearchController extends Zend_Controller_Action {
         if ($this->config->cache->taming) {
             // build a caching object
             $oCache = Zend_Registry::get('cache');
-            $key = "stm_".$this->view->lang."_".md5("m$q t$type");
-            $existsTamingCache = $oCache->test($key);
+            $tkey = "stm_".$this->view->lang."_".md5("m$q t$type");
+            $existsTamingCache = $oCache->test($tkey);
         } else {
             $existsTamingCache = false;
         }
 
         if  ( $existsTamingCache  ) {
-            $data = $oCache->load( $key );
+            $data = $oCache->load( $tkey );
             $this->view->tags = $data["tags"];
             $this->view->didyoumean = $data["dym"];
         } else {
@@ -265,7 +265,7 @@ class SearchController extends Zend_Controller_Action {
             if ($this->config->cache->taming) {
                 $data = array("tags"=>$this->view->tags, "dym"=>null);
                 if (isset($this->view->didyoumean)) $data["dym"]=$this->view->didyoumean;
-                $oCache->save( $data, $key );
+                $oCache->save( $data, $tkey );
             }
         }
     }
