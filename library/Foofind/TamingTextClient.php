@@ -17,8 +17,14 @@ class TamingTextClient {
      */
     function tameText($text, $weights, $limit, $maxdist, $minsimil, $dym=1, $rel=1)
     {
+        $this->beginTameText($text, $weights, $limit, $maxdist, $minsimil, $dym, $rel);
+        return $this->endTameText();
+    }
+    function beginTameText($text, $weights, $limit, $maxdist, $minsimil, $dym=1, $rel=1)
+    {
         if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
         if (!$this->conn) return null;
+
         $params["t"] = $text;
         $params["w"] = $weights;
         $params["l"] = $limit;
@@ -29,7 +35,10 @@ class TamingTextClient {
         $jparams = json_encode($params);
         $jparamslen = strlen($jparams);
         fwrite($this->conn, chr((int)($jparamslen/256)).chr($jparamslen%256).$jparams);
+    }
 
+    function endTameText()
+    {
         $len = ord(fgetc($this->conn))<<8 | ord(fgetc($this->conn))+1;
         $line = fgets($this->conn, $len);
         return substr($line,0,-1);
