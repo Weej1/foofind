@@ -1,4 +1,14 @@
 <?php
+
+function ensure_utf8($text)
+{
+    if(strpos(strtolower($text), "%u")!==FALSE)
+        return utf8_urldecode($text);
+    else if(!mb_check_encoding($text, "UTF-8"))
+        return utf8_encode($text);
+    return $text;
+}
+
 class TamingTextClient {
     var $conn;
 
@@ -25,12 +35,7 @@ class TamingTextClient {
         if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
         if (!$this->conn) return null;
 
-        if(strpos(strtolower($text), "%u")!==FALSE)
-            $text = utf8_urldecode($text);
-        else if(!mb_check_encoding($text, "UTF-8"))
-            $text = utf8_encode($text);
-
-        $params["t"] = $text;
+        $params["t"] = ensure_utf8($text);
         $params["w"] = $weights;
         $params["l"] = $limit;
         $params["s"] = $minsimil;
@@ -51,12 +56,32 @@ class TamingTextClient {
 
     function getFileInfo($file)
     {
+        $this->beginGetFileInfo($file);
+        return $this->endGetFileInfo();
+    }
+
+    function beginGetFileInfo($file)
+    {
         if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
         if (!$this->conn) return null;
-        $params["f"] = $file;
+        $f = array("fn"=>array(), "md"=>array());
+
+        foreach ($file["fn"] as $key=>$value)
+        {
+            $f['fn'][$key] = array("n"=>ensure_utf8($file["fn"][$key]["n"]), "x"=>ensure_utf8($file["fn"][$key]["x"]));
+        }
+        foreach ($file["md"] as $key=>$value)
+        {
+            $f['md'][ensure_utf8($key)] = ensure_utf8($file["md"][$key]);
+        }
+        $params["f"] = $f;
         $jparams = json_encode($params);
         $jparamslen = strlen($jparams);
         fwrite($this->conn, chr((int)($jparamslen/256)).chr($jparamslen%256).$jparams);
+    }
+
+    function endGetFileInfo()
+    {
         $len = ord(fgetc($this->conn))<<8 | ord(fgetc($this->conn))+1;
         $line = fgets($this->conn, $len);
         return substr($line,0,-1);

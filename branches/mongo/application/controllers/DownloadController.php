@@ -136,13 +136,16 @@ class DownloadController extends Zend_Controller_Action
                 $this->_redirect ( '/'.$this->view->lang );
             }
 
+            $taming->beginGetFileInfo($obj["file"]);
+
             $obj['file']['url'] = $url;
             $obj['file']['uri'] = $uri;
 
-            $obj['finfo'] = json_decode($taming->getFileInfo($obj["file"]), true);
             $this->_helper->fileutils->chooseFilename($obj, $fn);
             $this->_helper->fileutils->buildSourceLinks($obj, $src);
             $this->_helper->fileutils->chooseType($obj);
+            
+            $obj['finfo'] = json_decode($taming->endGetFileInfo(), true);
             $this->_helper->fileutils->searchRelatedFiles($obj,$obj['finfo']["ph"]);
 
             if ($this->config->cache->files) $oCache->save( $obj, $key );
