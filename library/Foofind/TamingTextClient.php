@@ -21,7 +21,7 @@ class TamingTextClient {
     function openconn()
     {
         if (!$this->conn) {
-            $this->conn=fsockopen($this->server,$this->port, $errno, $errstr, 1+$this->timeout/1000);
+            $this->conn=fsockopen($this->server,$this->port, $errno, $errstr, 1.0*$this->timeout/1000);
             stream_set_timeout($this->conn,(int)$this->timeout/1000,$this->timeout%1000);
         }
         return ($this->conn!==false);
