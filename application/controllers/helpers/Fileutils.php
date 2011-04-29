@@ -312,12 +312,15 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
 
     function searchRelatedFiles(&$obj)
     {
+
         $phrases = $obj["finfo"]["ph"];
         $query = "";
-        if (count($phrases)>1) {
-            $parts = $phrases;
-        } else {
+        if ($phrases==null)
+            $parts = array($obj['view']['nfn']);
+        elseif (count($phrases)==1) {
             $parts = $phrases[0];
+        } else {
+            $parts = $phrases;
         }
         foreach ($parts as $part)
         {
@@ -327,6 +330,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             if ($minm>1) $part = "($part/$minm)";
             $query .= "|$part";
         }
+
         $query = substr($query, 1);
         $mode = SPH_MATCH_EXTENDED2;
         

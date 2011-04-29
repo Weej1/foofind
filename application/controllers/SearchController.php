@@ -136,7 +136,7 @@ class SearchController extends Zend_Controller_Action {
             $this->view->didyoumean = $data["dym"];
         } else {
             $tamingServer = explode(":", $this->config->taming->server);
-            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1], $this->config->taming->timeout);
             $w = array("c"=>1, $this->view->lang=>200);
             if ($type) {
                 foreach (Model_Files::ct2ints($type) as $cti)
