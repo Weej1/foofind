@@ -22,11 +22,6 @@ class TamingController extends Zend_Controller_Action
     {
         $q = stripcslashes(strip_tags($this->_getParam('q')));
         $t = stripcslashes(strip_tags($this->_getParam('t')));
-
-        if(strpos(strtolower($q), "%u")!==FALSE)
-            $q = utf8_urldecode($q);
-        else if(!mb_check_encoding($q, "UTF-8"))
-            $q = utf8_encode($q);
         
         // build a caching object
         if ($this->config->cache->taming) {

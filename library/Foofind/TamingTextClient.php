@@ -25,6 +25,11 @@ class TamingTextClient {
         if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
         if (!$this->conn) return null;
 
+        if(strpos(strtolower($text), "%u")!==FALSE)
+            $text = utf8_urldecode($text);
+        else if(!mb_check_encoding($text, "UTF-8"))
+            $text = utf8_encode($text);
+
         $params["t"] = $text;
         $params["w"] = $weights;
         $params["l"] = $limit;
