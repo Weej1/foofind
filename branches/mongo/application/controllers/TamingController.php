@@ -39,7 +39,7 @@ class TamingController extends Zend_Controller_Action
         } else {
             $tamingServer = explode(":", $this->config->taming->server);
 
-            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1], $this->config->taming->timeout);
             
             $w = array("c"=>1, $this->lang=>200);
             if ($t) {
@@ -47,8 +47,10 @@ class TamingController extends Zend_Controller_Action
                     $w[Model_Files::cti2sct($cti)] = 200;
             }
             $result = $taming->tameText($q, $w, 4, 3, 0.2);
-            echo $result;
-            if ($this->config->cache->taming) $oCache->save( $result, $key );
+            if ($result!=false) {
+                echo $result;
+                if ($this->config->cache->taming) $oCache->save( $result, $key );
+            }
         }
     }
 }

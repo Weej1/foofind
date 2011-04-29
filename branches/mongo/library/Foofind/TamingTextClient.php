@@ -12,11 +12,20 @@ function ensure_utf8($text)
 class TamingTextClient {
     var $conn;
 
-    function  __construct($server, $port) {
+    function  __construct($server, $port, $timeout) {
         $this->server = $server;
         $this->port = $port;
+        $this->timeout = $timeout;
     }
 
+    function openconn()
+    {
+        if (!$this->conn) {
+            $this->conn=fsockopen($this->server,$this->port);
+            stream_set_timeout($this->conn,(int)$this->timeout/1000,$this->timeout%1000);
+        }
+        return ($this->conn!==false);
+    }
     /***
      * weigths: array of assoc array with keys
      *  n: ngrams weight
@@ -32,8 +41,7 @@ class TamingTextClient {
     }
     function beginTameText($text, $weights, $limit, $maxdist, $minsimil, $dym=1, $rel=1)
     {
-        if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
-        if (!$this->conn) return null;
+        if (!$this->openconn()) return null;
 
         $params["t"] = ensure_utf8($text);
         $params["w"] = $weights;
@@ -54,26 +62,31 @@ class TamingTextClient {
         return substr($line,0,-1);
     }
 
-    function getFileInfo($file)
+    function getFileInfo($obj)
     {
         $this->beginGetFileInfo($file);
         return $this->endGetFileInfo();
     }
 
-    function beginGetFileInfo($file)
+    function beginGetFileInfo(&$obj)
     {
-        if (!$this->conn) $this->conn=fsockopen($this->server,$this->port);
-        if (!$this->conn) return null;
+        $file = $obj["file"];
+        if (!$this->openconn()) return null;
         $f = array("fn"=>array(), "md"=>array());
-
         foreach ($file["fn"] as $key=>$value)
         {
-            $f['fn'][$key] = array("n"=>ensure_utf8($file["fn"][$key]["n"]), "x"=>ensure_utf8($file["fn"][$key]["x"]));
+            $fn = $file["fn"][$key]["n"];
+            if (strlen($fn)>0) $f['fn'][$key] = array("n"=>ensure_utf8($fn), "x"=>ensure_utf8($file["fn"][$key]["x"]));
         }
+        if (count($f["fn"])==0) {
+            $f['fn']["url"] = array("n"=>ensure_utf8($obj["view"]["nfn"]), "x"=>ensure_utf8($obj["view"]["xfn"]));
+        }
+        
         foreach ($file["md"] as $key=>$value)
         {
             $f['md'][ensure_utf8($key)] = ensure_utf8($file["md"][$key]);
         }
+
         $params["f"] = $f;
         $jparams = json_encode($params);
         $jparamslen = strlen($jparams);

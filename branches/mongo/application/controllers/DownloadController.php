@@ -126,7 +126,7 @@ class DownloadController extends Zend_Controller_Action
             $obj = $oCache->load( $key  );
         } else {
             $tamingServer = explode(":", $this->config->taming->server);
-            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1]);
+            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1], $this->config->taming->timeout);
 
             $obj['file'] = $this->fmodel->getFile($hexuri);
 
@@ -136,21 +136,20 @@ class DownloadController extends Zend_Controller_Action
                 $this->_redirect ( '/'.$this->view->lang );
             }
 
-            $taming->beginGetFileInfo($obj["file"]);
-
             $obj['file']['url'] = $url;
             $obj['file']['uri'] = $uri;
-
             $this->_helper->fileutils->chooseFilename($obj, $fn);
+            $taming->beginGetFileInfo($obj);
+
             $this->_helper->fileutils->buildSourceLinks($obj, $src);
             $this->_helper->fileutils->chooseType($obj);
             
-            $obj['finfo'] = json_decode($taming->endGetFileInfo(), true);
-            $this->_helper->fileutils->searchRelatedFiles($obj,$obj['finfo']["ph"]);
+            $result = $taming->endGetFileInfo();
+            if ($result!=false) $obj['finfo'] = json_decode($result, true);
+            $this->_helper->fileutils->searchRelatedFiles($obj);
 
-            if ($this->config->cache->files) $oCache->save( $obj, $key );
+            if ($this->config->cache->files && $result!=false) $oCache->save( $obj, $key );
         }
-
 
         $this->view->headTitle()->append(' - '.$this->view->translate( 'download' ).' - ' );
         $this->view->headTitle()->append($obj['view']['fn']);
