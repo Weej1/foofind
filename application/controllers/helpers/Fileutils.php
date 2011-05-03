@@ -223,7 +223,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_YOUTUBE:
                     $linkWeight = 1;
                     // prefer megavideo for streaming searches
-                    if ((!isset($prevsrc) || strlen($prevsrc)==0 || strpos("s", $prevsrc)!==FALSE) && in_array($type, Model_Files::src2ints("s"))) {
+                    if ((!isset($prevsrc) || strlen($prevsrc)==0 || strpos($prevsrc,"s")!==FALSE) && in_array($type, Model_Files::src2ints("s"))) {
                         $obj['view']['action'] = 'Watch';
                         $linkWeight *= 2;
                     }
