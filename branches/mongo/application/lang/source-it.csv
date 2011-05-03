@@ -20,7 +20,6 @@
 "Document";"Documenti"
 "Software";"Software"
 "Archive";"Archivi"
-
 "No results for:";"Nessun risultato per:"
 "Hey! Write something";"Scrivi qualcosa!"
 "Previous";"Precedente"
@@ -32,6 +31,7 @@
 "Foofind does not allow browse results after page 1000.";"Foofind non permette di scorrere i risultati dopo la pagina 1000"
 "How to download?";"Come scaricare?"
 "DownloadExplanation";"Per scaricare il file linkato, potresti aver bisogno di un software esterno. Qui ci sono alcune applicazioni compatibili:"
+"Did you mean %s?";"Forse cercavi ...?"
 
 #advanced search
 "All sizes";"Tutte le dimensioni"
@@ -106,6 +106,7 @@
 "Related files";"Files collegati"
 
 #user profile
+"User profile";"Profilo utente"
 "Choose your password:";"Scegli la tua password:"
 "Insert your password (yep, again):";"Inserisci la tua password (ancora una volta):"
 "Please, fill this form to be a Foofind registered member:";"Per favore, riempi il modulo per essere un membro registrato di Foofind:"
@@ -136,6 +137,7 @@
 "your password?";"la tua password?"
 "Password:";"Password:"
 "'%password%' is less than 5 characters long";"'%password%' è meno di 5 caratteri"
+"The passwords entered do not match.";"Le password inserite non corrispondono."
 "Are you sure you want to delete your foofind account?";"Sei sicuro di voler cancellare il tuo account di Foofind?"
 "Yes";"Sì"
 "Your account has been deleted.";"Il tuo account è stato cancellato"
@@ -161,7 +163,6 @@
 "Otherwise, ignore this message.";"Altrimenti, ignora questo messaggio."
 "The foofind team.";"Il team foofind"
 "This user does not exist";"Questo user non esiste"
-
 "You are now logged in,";"Sei loggato,"
 "(If you already are a registered user, please";"(Se sei già registrato, per favore"
 "login here";"loggati qui"
@@ -170,6 +171,8 @@
 "This email is not in our database. Please, try again.";"Questa mail non è nel nostro database. Per favore, prova ancora."
 "Please, login to vote";"Per favore, loggati per votare"
 "Please, login to comment";"Per favore, loggati per commentare"
+"Sorry, we are experiencing technical problems with the %s service.";"Siamo spiacenti, abbiamo problemi tecnici con il ... servizio."
+"You should allow Foofind access to your %s account to use this feature.";"Devi consentire l'accesso Foofind al tuo ... account per utilizzare questa funzione."
 
 #contact
 "Contact form";"Modulo per contatti"
@@ -177,19 +180,19 @@
 "Complaints done trough this form will be ignored.";"I reclami fatti attraverso questo modulo saranno ignorati."
 "Your email:";"La tua e-mail:"
 "Your message:";"Il tuo messaggio:"
-
-
 "Please, insert the 5 characters shown:";"Per favore, inserisci i 5 caratteri mostrati"
-
-
-
-
-
-
-
-
-
-"Message sent successfully!";"Messaggio spedito con successo"
+"Value is required and can't be empty";"Il campo è obbligatorio e non può essere lasciato vuoto"
+"Captcha value is wrong";"Valore di Captcha sbagliato"
+"'%value%' is less than 20 characters long";"'%value%' è inferiore a 20 caratteri"
+"'%value%' is less than 9 characters long";"'%value%' è inferiore a 9 caratteri"
+"'%value%' is less than 5 characters long";"'%value%' è inferiore a 5 caratteri"
+"'%value%' is less than %min% characters long";"'%value%' è meno di %min% caratteri"
+"'%value%' is no valid email address in the basic format local-part@hostname";"'%value%' indirizzo email non è valido nel formato di base locale-part @ hostname"
+"'%hostname%' is no valid hostname for email address '%value%'";"'%hostname%' hostname non valido per l'indirizzo e-mail '%value%'"
+"'%value%' appears to be a local network name but local network names are not allowed";"'%value%' sembra essere un nome di rete locale, ma i nomi di rete locale non sono consentiti"
+"'%value%' does not match the expected structure for a DNS hostname";"'%value%' non corrisponde alla struttura prevista per un hostname DNS"
+"'%value%' appears to be a DNS hostname but cannot match TLD against known list";"'%value%' sembra essere un nome host DNS, ma non corrisponde a nessun TLD della lista"
+"Message sent successfully!";"Messaggio inviato con successo"
 
 #complaint
 "Your name:";"Il tuo nome"
@@ -197,21 +200,19 @@
 "Your company:";"La tua compagnia"
 "Your phone number:";"Il tuo numero di telefono"
 "Please, insert the link to be reviewed:";"Per favore, inserisci il link perchè possa essere esaminato:"
-
+"Please, insert the url where this content appears:";"Per favore, inserire l'URL in cui questo contenuto viene visualizzato:"
 "Reason of your complaint:";"Motivo della tua lamentela:"
-
+"'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caratteri che non sono in ordine alfabetico e senza cifre"
 "literal_check_agree";"Ho letto e accetto i <a href='/it/page/tos'>termini d'uso</a> e la <a href='/it/page/privacy'>privacy policy</a>"
 "Please, accept the terms of use and privacy policy";"Per favore, accetta il termini d'uso e la privacy policy"
 
-
-
 #submit links
-
-
+"Submit links";"Invia Link"
+"Please include one http, ftp, ed2k or magnet link per line.<br />It will be crawled automatically and added to search results shortly.";"Si prega di includere un http, ftp, ed2k o link magnete per riga. Sarà eseguita la scansione automaticamente e aggiunto ai risultati di ricerca a breve."
 "The links have been sent. Thanks for your help!";"il collegamento è stato inviato con successo. grazie per il vostro aiuto!"
 
-
-
+#about
+"this is the about text";"Foofind è un motore di ricerca universale. Noi di Foofind lavoriamo alla creazione di software che scansiona ogni rete p2p e incicizza ogni file. In questa maniera, intendiamo fornire la più grande raccolta di link possibile.<br /><br />Foofind è stato creato da Pablo Soto, p2p designer, sviluppato a Madrid, Spagna da M2P2P Technologies."
 
 #footer
 "this is the footer text";"Il sito è sotto licenza Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.it'>BY-NC-SA</a>. <a href='http://code.google.com/p/foofind/'>Codice sorgente</a> sotto licenza <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
