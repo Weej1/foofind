@@ -181,6 +181,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
 
             $this->tcount = $result["total_found"];
             $this->time = $result["time"];
+            $this->words = $result["words"];
 
             if (!empty($result["matches"]) ) {
                 $ids = array();

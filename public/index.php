@@ -26,7 +26,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 //define the static assets path
-if ( APPLICATION_ENV == 'production' ){
+if ( APPLICATION_ENV == 'production' || (APPLICATION_ENV == 'staging' && preg_match("/bot|spider/i", $_SERVER["HTTP_USER_AGENT"])>0) ){
     defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foof.in');
     defined('WEB_PATH') || define('WEB_PATH', 'http://foofind.com');
 
