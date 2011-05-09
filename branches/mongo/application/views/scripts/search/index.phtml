@@ -100,7 +100,7 @@ if (isset($this->didyoumean))
                     echo "</a>";
                 }?>
             <h3>
-                <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches(  $val['view']['fn'] , $this->qs['q'], false) ?></a>
+                <a href="<?="/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']) ?>.html"><?=$this->showMatches(  $val['view']['fn'], $this->info['words']) ?></a>
                 <?php
                 
                 if (isset($val['file']['vs'][$this->lang]['c'])){
@@ -112,7 +112,7 @@ if (isset($this->didyoumean))
                     <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fc:<?=$val['search']['fc']?></span>
                 <?php  endif; ?>
             </h3>
-        <? echo $this->format($val, false); ?>
+        <?= $this->format($val, false); ?>
         <span>
         <?php
             if (isset($val['file']['z']) && $val['file']['z']>0) echo $this->formatSize($val["file"]["z"])." - ";

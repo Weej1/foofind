@@ -4,6 +4,7 @@ require_once APPLICATION_PATH . '/models/Files.php';
 require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
 require_once APPLICATION_PATH.'../../library/Foofind/TamingTextClient.php';
 
+
 class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Helper_Abstract {
 
     function parse_uint($string) {

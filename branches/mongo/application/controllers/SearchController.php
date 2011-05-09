@@ -170,6 +170,7 @@ class SearchController extends Zend_Controller_Action {
             $paginator->setCurrentPageNumber($page);
             $paginator->getCurrentItems();
 
+            $paginator->words = $SphinxPaginator->words;
             $paginator->tcount = $SphinxPaginator->tcount;
             $paginator->showImages = $SphinxPaginator->showImages;
             if (isset($SphinxPaginator->time)) $paginator->time = $SphinxPaginator->time;
@@ -212,7 +213,7 @@ class SearchController extends Zend_Controller_Action {
             $taming->beginTameText($q, $w, 1, 3, 0.8, 1, 0);
         }
 
-        $this->view->info = array('total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*PAGE_SIZE, 'end' => min($paginator->tcount, $page*PAGE_SIZE), 'notypecount' => $paginator->noTypeCount);
+        $this->view->info = array('words'=>$paginator->words,'total'=>$paginator->tcount, 'time'=>$paginator->time, 'q' => $q, 'start' => 1+($page-1)*PAGE_SIZE, 'end' => min($paginator->tcount, $page*PAGE_SIZE), 'notypecount' => $paginator->noTypeCount);
         $this->view->paginator = $paginator;
 
         $jquery = $this->view->jQuery();
