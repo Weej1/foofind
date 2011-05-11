@@ -20,6 +20,7 @@
   * 16->streaming vimeo
   * 17->streaming veoh
   * 18->streaming youtube
+  * 18->http fs
 
 = Content Type =
   * 1->audio
@@ -42,5 +43,5 @@
   * 5->P2P ED2K
   * 6->crawler mu
   * 7->crawler rs
-  * 8->crawler 4s
+  * 8->crawler 4s,fs
   * 9->crawler btv, vimeo, veoh, youtube
