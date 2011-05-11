@@ -20,7 +20,7 @@
   * 16->streaming vimeo
   * 17->streaming veoh
   * 18->streaming youtube
-  * 18->http fs
+  * 19->http fs
 
 = Content Type =
   * 1->audio
