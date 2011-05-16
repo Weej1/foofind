@@ -70,7 +70,7 @@ class SearchController extends Zend_Controller_Action {
             return ;
         }
 
-
+        
         $form->getElement('q')->setValue(trim($q));
 
         $form->loadDefaultDecoratorsIsDisabled(false);
@@ -271,14 +271,15 @@ class SearchController extends Zend_Controller_Action {
         }
     }
 
-        /**
-         *
-         * @return Form_Search
-         */
-        protected function _getSearchForm() {
-                require_once APPLICATION_PATH . '/forms/Search.php';
-                $form = new Form_Search( );
-                return $form;
-        }
+    /**
+     *
+     * @return Form_Search
+     */
+    protected function _getSearchForm() {
+            require_once APPLICATION_PATH . '/forms/Search.php';
+            $form = new Form_Search( );
+            return $form;
+    }
+
  }
 

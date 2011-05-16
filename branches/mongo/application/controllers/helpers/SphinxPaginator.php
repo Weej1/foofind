@@ -34,10 +34,10 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $weights['mtk'] = 0;   // video keywords
         $weights['mtl'] = 0;   // album
         $weights['mtt'] = 0;   // title
-        $weights['surl'] = 0;   // url*/
+        $weights['surl'] = 1;   // url*/
 
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, floor(@weight/10000) as sw");
+        $this->cl->SetSelect("*, idiv(@weight,10000) as sw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC, uri1 DESC" );
         $this->cl->SetMaxQueryTime(1000);
 
