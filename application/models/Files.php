@@ -140,7 +140,7 @@ class Model_Files
                 $cursor = $this->db_main->server->find()->sort(array('lt'=>-1));
                 $this->servers = array();
                 foreach ($cursor as $server) {
-                    if (!isset($this->servers[0])) $this->servers[0] = $server['_id']; // current server
+                    if (!isset($this->currentServer)) $this->currentServer = $server['_id']; // current server
                     $this->servers[$server['_id']] = $server;
                 }
                 unset ($cursor);
@@ -148,7 +148,6 @@ class Model_Files
             }
             foreach ($this->servers as $s=>$data)
             {
-                if (!isset($data['ip'])) continue;
                 $this->db_data[$s] = new Mongo("{$data['ip']}:{$data['p']}", array("connect"=>false));
             }
         }
@@ -280,7 +279,7 @@ class Model_Files
     {
         $this->prepareConnections(true, false, true);
 
-        $conn = $this->db_data[$this->servers[0]];
+        $conn = $this->db_data[$this->currentServer];
         $conn->connect();
 
         $cursor = $conn->foofind->foo->find(array('bl'=>0))->sort(array('$natural' => -1))->limit($limit);

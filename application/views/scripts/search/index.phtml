@@ -108,9 +108,7 @@ if (isset($this->didyoumean))
                     echo "<div class='useract votes_down'></div>{$val['file']['vs'][$this->lang]['c'][1]}";
                 }
                 if (isset($val['file']['cs'][$this->lang])) echo "<div class='useract comments'></div>{$val['file']['cs'][$this->lang]}";
-                if (APPLICATION_ENV!='production'):?>
-                    <span class="debuginfo"> w:<?=$val['search']['w'] ?> sw:<?=$val['search']['sw'] ?> fc:<?=$val['search']['fc']?></span>
-                <?php  endif; ?>
+                 ?>
             </h3>
         <?= $this->format($val, false); ?>
         <span>

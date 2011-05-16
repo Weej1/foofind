@@ -1,4 +1,4 @@
-:<?php
+<?php
 
 require_once APPLICATION_PATH . '/models/Files.php';
 require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
@@ -51,15 +51,13 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         $hist= "";
         $maxCount = 0; $hasText = 0;
         foreach ($srcs as $hexuri => $src)
-        {
-            
+        {            
             if (isset($src['bl']) && $src['bl']!=0) continue;
             $srcfns = $src['fn'];
             foreach ($srcfns as $crc => $srcfn)
             {
                 $fnn = $fns[$crc]['n'];
                 if (strlen(trim($fnn))==0) continue;
-
                 $thisHasText = 0;
                 if (isset($fns[$crc]['c']))
                     $fns[$crc]['c'] += $srcfn['m'];
@@ -92,7 +90,6 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 }
             }
         }
-
         $obj['view']['url'] = $this->uri2url($this->hex2uri($obj['file']['_id']->__toString()));
 
         if (isset($chosen))
@@ -110,6 +107,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             $filename = substr($srcurl, 0, strrpos($srcurl, "."));
             $ext = substr($srcurl, strrpos($srcurl, ".")+1);
         }
+        
         $obj['view']['fn'] = $filename;
         $obj['view']['efn'] = str_replace(" ", "%20", $filename);
         $obj['view']['fnx'] = $ext;
@@ -121,7 +119,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         else
             $nfilename = trim(substr($filename, 0, $end));
 
-        if (!strchr($nfilename, " ")) $nfilename = str_replace(array("_", "."), " ", $nfilename);
+        $nfilename = str_replace(array("_", "."), " ", $nfilename);
         $obj['view']['nfn'] = $nfilename;
     }
 

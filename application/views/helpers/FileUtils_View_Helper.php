@@ -190,7 +190,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
 
         $element = $details?"table":"span";
 
-        if ($res=='')
+        if ($details && $res=='')
         {
             if (isset($obj['view']['nfn'])) $res = $start.$this->view->translate("Name").$middle.$this->searchable($details, $obj['view']['nfn']).$end;
             $desc = strtolower($type).":description";
