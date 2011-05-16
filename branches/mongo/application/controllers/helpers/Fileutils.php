@@ -220,6 +220,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_VIMEO:
                 case Model_Files::SOURCE_VEOH:
                 case Model_Files::SOURCE_YOUTUBE:
+                case Model_Files::SOURCE_FILESERVER:
                     $linkWeight = 1;
                     // prefer megavideo for streaming searches
                     if ((!isset($prevsrc) || strlen($prevsrc)==0 || strpos($prevsrc,"s")!==FALSE) && in_array($type, Model_Files::src2ints("s"))) {
