@@ -137,6 +137,7 @@ class Model_Files
             $existsCache = $cache->test($key);
             if  ( $existsCache  ) {
                 $this->servers = $cache->load($key);
+                $this->currentServer = $cache->load($key."c");
             } else {
                 $cursor = $this->db_main->server->find()->sort(array('lt'=>-1));
                 $this->servers = array();
@@ -146,6 +147,7 @@ class Model_Files
                 }
                 unset ($cursor);
                 $cache->save( $this->servers, $key );
+                $cache->save( $this->currentServer, $key."c" );
             }
             foreach ($this->servers as $s=>$data)
             {
