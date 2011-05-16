@@ -67,7 +67,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         }
 
         $this->src = $conditions['src'];
-        if ($this->src)
+        if ($this->src && $this->src!="swftge")
         {
             $this->srcs = array();
             foreach (str_split("swftge") as $s)

@@ -19,6 +19,7 @@ class Model_Files
     const SOURCE_VIMEO = 16;
     const SOURCE_VEOH = 17;
     const SOURCE_YOUTUBE = 18;
+    const SOURCE_FILESERVER = 19;
 
     const CONTENT_AUDIO = 1;
     const CONTENT_VIDEO = 2;
@@ -101,7 +102,7 @@ class Model_Files
     }
 
     static function src2ints($src) {
-        $src2i = array('s' => array(12,15,16,17,18),
+        $src2i = array('s' => array(12,15,16,17,18,19),
                         'w' => array(4,8,10,11,13,14),
                         'f' => array(9),
                         't' => array(3,107),
