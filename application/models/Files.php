@@ -151,7 +151,8 @@ class Model_Files
             }
             foreach ($this->servers as $s=>$data)
             {
-                $this->db_data[$s] = new Mongo("{$data['ip']}:{$data['p']}", array("connect"=>false));
+                $this->db_data[$s] = new Mongo("mongodb://{$data['ip']}:{$data['p']}", array("connect"=>false));
+               
             }
         }
     }
@@ -196,6 +197,7 @@ class Model_Files
         foreach ($querys as $s=>$suris) {
             $conn = $this->db_data[$s];
             $conn->connect();
+            $conn->foofind->foo->setSlaveOkay(true);
             $cursor = $conn->foofind->foo->find(array("_id" => array('$in' => $suris ) ) );
             foreach ($cursor as $file) {
 

@@ -280,6 +280,4 @@ class SearchController extends Zend_Controller_Action {
             $form = new Form_Search( );
             return $form;
     }
-
- }
-
+}
