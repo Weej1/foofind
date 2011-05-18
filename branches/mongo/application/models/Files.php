@@ -118,6 +118,7 @@ class Model_Files
         {
             $db = Zend_Registry::get("db_main");
             if (!$db->connected) $db->connect();
+            $db->setSlaveOkay(true);
             $this->db_main = $db->foofind;
         }
 
@@ -131,7 +132,6 @@ class Model_Files
         if ($datas && !isset($this->db_data))
         {
             $this->db_data = array();
-
             $cache = Zend_Registry::get("cache");
             $key = "svs";
             $existsCache = $cache->test($key);
