@@ -103,23 +103,32 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 if (strpos($src['url'], "/")!=-1) $srcurl = $src['url'];
 
             if ($srcurl==null) return;
+
             $srcurl = substr($srcurl, strrpos($srcurl, "/")+1);
-            $filename = substr($srcurl, 0, strrpos($srcurl, "."));
             $ext = substr($srcurl, strrpos($srcurl, ".")+1);
+            $filename = substr($srcurl, 0, strrpos($srcurl, "."));
         }
         
+        if (Model_Files::ext2ct($ext)==null) {
+            $filename .= $ext;
+            $ext="";
+            $nfilename = $filename;
+        } else {
+            // clean filename
+            $end = strripos($filename, ".$ext");
+            if ($end === false)
+                $nfilename = $filename;
+            else
+                $nfilename = trim(substr($filename, 0, $end));
+        }
+
         $obj['view']['fn'] = $filename;
         $obj['view']['efn'] = str_replace(" ", "%20", $filename);
         $obj['view']['fnx'] = $ext;
-            
-        // clean filename
-        $end = strripos($filename, ".$ext");
-        if ($end === false)
-            $nfilename = $filename;
-        else
-            $nfilename = trim(substr($filename, 0, $end));
 
-        $nfilename = str_replace(array("_", "."), " ", $nfilename);
+        if (strpos($nfilename, " ")===FALSE) $nfilename = str_replace(".", " ", $nfilename);
+        $nfilename = str_replace("_", " ", $nfilename);
+
         $obj['view']['nfn'] = $nfilename;
     }
 
