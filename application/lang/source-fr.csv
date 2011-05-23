@@ -31,6 +31,7 @@
 "Foofind does not allow browse results after page 1000.";"Foofind ne permet pas d'afficher les résultats après 1000 pages."
 "How to download?";"Comment télécharger ?"
 "DownloadExplanation";"Pour télécharger le fichier, vous pourriez avoir besoin d'un logiciel externe. Voici quelques applications compatibles :"
+"Did you mean %s?";"Essayez avec cette orthographe : %s"
 
 #advanced search
 "All sizes";"Toutes tailles"

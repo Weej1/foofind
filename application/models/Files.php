@@ -117,7 +117,16 @@ class Model_Files
         if (($main || $datas) && !isset($this->db_main))
         {
             $db = Zend_Registry::get("db_main");
-            if (!$db->connected) $db->connect();
+            if (!$db->connected) {
+                try {
+                    $db->connect();
+                } catch(Exception $e)
+                {
+                    $db = Zend_Registry::get("db_main2");
+                    $db->connect();
+                }
+            }
+            
             $db->setSlaveOkay(true);
             $this->db_main = $db->foofind;
         }
@@ -132,8 +141,9 @@ class Model_Files
         if ($datas && !isset($this->db_data))
         {
             $this->db_data = array();
-            $cache = Zend_Registry::get("cache");
+            $this->db_data2 = array();
             $key = "svs";
+            $cache = Zend_Registry::get("cache");
             $existsCache = $cache->test($key);
             if  ( $existsCache  ) {
                 $this->servers = $cache->load($key);
@@ -151,9 +161,27 @@ class Model_Files
             }
             foreach ($this->servers as $s=>$data)
             {
-                $this->db_data[$s] = new Mongo("mongodb://{$data['ip']}:{$data['p']}", array("connect"=>false));
-               
+                $this->db_data[$s] = new Mongo("mongodb://{$data['rip']}:{$data['rp']}", array("connect"=>false));
+                $this->db_data2[$s] = new Mongo("mongodb://{$data['ip']}:{$data['p']}", array("connect"=>false));
+
             }
+        }
+    }
+
+    public function connectToData($index)
+    {
+        if ($this->db_data[$index]->connected) return $this->db_data[$index];
+        if ($this->db_data2[$index]->connected) return $this->db_data2[$index];
+
+        try {
+            $this->db_data[$index]->connect();
+            $this->db_data[$index]->setSlaveOkay(true);
+            return $this->db_data[$index];
+        } catch(Exception $e)
+        {
+            $this->db_data2[$index]->connect();
+            $this->db_data2[$index]->setSlaveOkay(true);
+            return $this->db_data2[$index];
         }
     }
 
@@ -179,7 +207,6 @@ class Model_Files
     public function getFiles($uris)
     {
         $this->prepareConnections(true, false, true);
-
         $files = array();
         $cursor = $this->db_main->indir->find( array("_id" => array('$in' => $uris ) ) );
         $querys = array();
@@ -195,9 +222,7 @@ class Model_Files
         unset ($cursor);
 
         foreach ($querys as $s=>$suris) {
-            $conn = $this->db_data[$s];
-            $conn->connect();
-            $conn->foofind->foo->setSlaveOkay(true);
+            $conn = $this->connectToData($s);
             $cursor = $conn->foofind->foo->find(array("_id" => array('$in' => $suris ) ) );
             foreach ($cursor as $file) {
 
@@ -246,8 +271,7 @@ class Model_Files
         if ($ifile==null) return null;
         if (isset($ifile['t'])) $id = $ifile['t'];
         $s = $ifile['s'];
-        $conn = $this->db_data[$s];
-        $conn->connect();
+        $conn = $this->connectToData($s);
         
         return $conn->foofind->foo->findOne(array("_id" =>$id ) );
     }
@@ -260,8 +284,7 @@ class Model_Files
         $ifile = $this->db_main->indir->findOne( array("_id" =>$id) );
         $s = $ifile['s'];
 
-        $conn = $this->db_data[$s];
-        $conn->connect();
+        $conn = $this->connectToData($s);
         
         $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'vs' => $votes ) ) );
     }
@@ -274,8 +297,7 @@ class Model_Files
         $ifile = $this->db_main->indir->findOne( array("_id" =>$id) );
         $s = $ifile['s'];
 
-        $conn = $this->db_data[$s];
-        $conn->connect();
+        $conn = $this->connectToData($s);
         
         $conn->foofind->foo->update( array("_id" =>$id), array('$set' => array( 'cs' => $comments ) ) );
     }
@@ -284,8 +306,7 @@ class Model_Files
     {
         $this->prepareConnections(true, false, true);
 
-        $conn = $this->db_data[$this->currentServer];
-        $conn->connect();
+        $conn = $this->connectToData($this->currentServer);
 
         $cursor = $conn->foofind->foo->find(array('bl'=>0))->sort(array('$natural' => -1))->limit($limit);
         foreach ($cursor as $file) {
