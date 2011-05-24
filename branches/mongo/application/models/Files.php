@@ -119,16 +119,7 @@ class Model_Files
         if (($main || $datas) && !isset($this->db_main))
         {
             $db = Zend_Registry::get("db_main");
-            if (!$db->connected) {
-                try {
-                    $db->connect();
-                } catch(Exception $e)
-                {
-                    $db = Zend_Registry::get("db_main2");
-                    $db->connect();
-                }
-            }
-            
+            if (!$db->connected) $db->connect();
             $db->setSlaveOkay(true);
             $this->db_main = $db->foofind;
         }
@@ -163,27 +154,18 @@ class Model_Files
             }
             foreach ($this->servers as $s=>$data)
             {
-                $this->db_data[$s] = new Mongo("mongodb://{$data['rip']}:{$data['rp']}", array("connect"=>false, "timeout"=>$this->config->mongo->timeout));
-                $this->db_data2[$s] = new Mongo("mongodb://{$data['ip']}:{$data['p']}", array("connect"=>false));
+                $this->db_data[$s] = new Mongo("mongodb://{$data['rip']}:{$data['rp']},{$data['ip']}:{$data['p']}", array("connect"=>false, "timeout"=>$this->config->mongo->timeout));
             }
         }
     }
 
     public function connectToData($index)
     {
-        if ($this->db_data[$index]->connected) return $this->db_data[$index];
-        if ($this->db_data2[$index]->connected) return $this->db_data2[$index];
-
-        try {
+        if (!$this->db_data[$index]->connected) {
             $this->db_data[$index]->connect();
             $this->db_data[$index]->setSlaveOkay(true);
-            return $this->db_data[$index];
-        } catch(Exception $e)
-        {
-            $this->db_data2[$index]->connect();
-            $this->db_data2[$index]->setSlaveOkay(true);
-            return $this->db_data2[$index];
         }
+        return $this->db_data[$index];
     }
 
     public function getFileUrlFromID($id)
