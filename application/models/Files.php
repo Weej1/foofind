@@ -114,6 +114,8 @@ class Model_Files
 
     private function prepareConnections($main = true, $oldids = false, $datas = false)
     {
+        if (!isset($this->config)) $this->config = Zend_Registry::get('config');
+
         if (($main || $datas) && !isset($this->db_main))
         {
             $db = Zend_Registry::get("db_main");
@@ -161,9 +163,8 @@ class Model_Files
             }
             foreach ($this->servers as $s=>$data)
             {
-                $this->db_data[$s] = new Mongo("mongodb://{$data['rip']}:{$data['rp']}", array("connect"=>false));
+                $this->db_data[$s] = new Mongo("mongodb://{$data['rip']}:{$data['rp']}", array("connect"=>false, "timeout"=>$this->config->mongo->timeout));
                 $this->db_data2[$s] = new Mongo("mongodb://{$data['ip']}:{$data['p']}", array("connect"=>false));
-
             }
         }
     }
