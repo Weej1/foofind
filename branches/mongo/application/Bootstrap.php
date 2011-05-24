@@ -20,7 +20,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $cache = Zend_Cache::factory( $frontend, $backend );
 
         // databases connections
-        $main = new Mongo($config->mongo->server1, array("connect"=>false));
+        $main = new Mongo($config->mongo->server1, array("connect"=>false, "timeout"=>$config->mongo->timeout));
         $main2 = new Mongo($config->mongo->server2, array("connect"=>false));
         $users = new Mongo($config->mongo->users, array("connect"=>false));
         $feedback = new Mongo($config->mongo->feedback, array("connect"=>false));
