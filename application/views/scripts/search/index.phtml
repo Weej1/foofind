@@ -29,7 +29,7 @@ if (count ( $this->mensajes ) > 0) {
     <div class="search_info"><?=$this->info['start']?> - <?=$this->info['end'].' ';?><?=$this->translate("of about").' '?>
         <?=number_format($this->info['total'], 0) ?> <?=$this->translate("results for")?>
             <?php foreach (explode(' ', $this->info['q']) as $word) { echo "<a class='actual' href='".$this->qs(array('q'=>$word), array('page'=>1))."'>$word</a>&nbsp;"; }?><?php if (APPLICATION_ENV!='production'):?><div class="debuginfo">total:<?=number_format($this->info['time'],3)?></div>
-        <style>    .debuginfo {   font-size: 9px;     display:none !important;   }    </style><?php endif; ?></div>
+        <style>    .debuginfo {   font-size: 9px;     display:block !important;   }    </style><?php endif; ?></div>
 <?php endif;?>
     <ul id="tabnav">
         <li><a class="<?=(preg_match("/^swftge$/",  $this->qs['src']))?"tab_actual":""?>" href="<?=$this->qs(array('src'=>'swftge'), array('page'=>1))?>"><?=$this->translate('All');?></a></li>
@@ -108,7 +108,7 @@ if (isset($this->didyoumean))
                     echo "<div class='useract votes_down'></div>{$val['file']['vs'][$this->lang]['c'][1]}";
                 }
                 if (isset($val['file']['cs'][$this->lang])) echo "<div class='useract comments'></div>{$val['file']['cs'][$this->lang]}";
-                 ?>
+                ?>
             </h3>
         <?= $this->format($val, false); ?>
         <span>
