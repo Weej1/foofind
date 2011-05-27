@@ -22,7 +22,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $weights = array();
 
         // filenames
-        $weights["fn1"] = 100;
+        $weights["fn1"] = 20;
         /*for ($i = 2; $i < 21; $i++)
             $weights["fn$i"] = 0;
 
@@ -37,7 +37,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $weights['surl'] = 1;   // url*/
 
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, idiv(@weight,10000) as sw");
+        $this->cl->SetSelect("*, @weight as sw");
         $this->cl->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC, uri1 DESC" );
         $this->cl->SetMaxQueryTime(1000);
 
@@ -156,7 +156,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetLimits( 0, 1, 1);
         $this->cl->SetMaxQueryTime(100);
 
-        $result = $this->cl->Query( $this->query, $this->table );
+        $result = $this->cl->Query($this->query, $this->table );
 
         $this->time += (microtime(true) - $start_time);
 
@@ -171,7 +171,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
 
         global $content;
         $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS, MAX_HITS);
-        $result = $this->cl->Query( $this->query, $this->table );
+        $result = $this->cl->Query($this->query, $this->table );
         $docs = array();
         if ( $result !== false  ) {
 

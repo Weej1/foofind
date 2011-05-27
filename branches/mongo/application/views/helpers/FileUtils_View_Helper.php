@@ -309,6 +309,7 @@ class FileUtils_View_Helper extends Zend_View_Helper_Abstract
             $res .= $start.$this->view->translate("Size").$middle.$width."x".$height.$end;
 
         if ($details) {
+            if ($desc = $this->getValue($md,"video:description")) $res .= $start.$this->view->translate("Description").$middle.$desc.$end;
             if ($fps = $this->getValue($md,"video:framerate")) {
                 $fps=(int)$fps;
                  $res .= $start.$this->view->translate("Quality").$middle.$fps." fps";

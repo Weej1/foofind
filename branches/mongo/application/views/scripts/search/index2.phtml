@@ -1,0 +1,468 @@
+ <div id="container_search">
+    <div style="position:fixed; background-color:white; width:100%;z-index:100;top:-15px;height:95px;">
+    <h1>
+        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+    </h1><?=$this->form; ?><script>document.getElementById('q').focus();</script>
+    </div>
+<?
+if (count ( $this->mensajes ) > 0) {
+	echo '<div class="success">';
+	foreach ( $this->mensajes as $msg ) {
+		echo $msg . '<br />';
+	}
+	echo '</div>';
+}
+?>
+    <div style="height:70px;margin:0px;"></div>
+    <div id="info">
+        <div id="filters">
+            <div id="fileinfo">
+        <div class="file_download_vote %myvote%"><a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="1" class="vote_up"><div></div><?=$this->translate('I like it!')?><br/><span>(%votesup%)</span></a>&nbsp;<a href="#" rel="superbox[ajax][/<?=$this->lang?>/auth/login/source/vote.foo]" type="2" class="vote_down"><div></div><?=$this->translate('Booo!')?><br/><span>(%votesdown%)</span></a></div>
+        <h2 id="filetitle">%filename%</h2>
+        <a id="fileclose" href="">close</a>
+        <div id="extinfo"><iframe width="448" height="279" frameborder="0" allowfullscreen="false" src="%iframesrc%"></iframe></div>
+        <div id="filedetails"></div>
+        <div class="sharelinks"><?=$this->translate('Share this:');?>
+            <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->langcode?>/%url%"><div alt="<?=$this->translate('share on facebook');?>" class="icon facebook"></div></a>
+            <a href="mailto:?subject=%urlfilename%&body=http://foof.in/<?=$this->langcode?>/%url%"><div alt="<?=$this->translate('send by email');?>" class="icon email"></div></a>
+            <a href="http://twitter.com/home?status=http://foof.in/<?=$this->langcode?>/%url%"><div alt="<?=$this->translate('share on twitter');?>" class="icon twitter"></div></a>
+        </div>
+        <div id="p2pinfo" class="download_more_info">
+            <h3><?=$this->translate('How to download?'); ?></h3><p><?=$this->translate('DownloadExplanation'); ?></p>
+            <p><div title="eMule, MLDonkey, aMule" alt="eMule, MLDonkey, aMule" class="icon icon24 ed2k24"></div>eMule, MLDonkey, aMule.</p>
+            <p><div title="Frostwire, Shareaza, Phex" alt="Frostwire, Shareaza, Phex" class="icon icon24 gnutella24"></div>FrostWire, Shareaza, Phex.</p>
+            <p><div title="Vuze, µTorrent, Transmission" alt="Vuze, µTorrent, Transmission" class="icon icon24 torrent24"></div>Vuze, µTorrent, Transmission.</p>
+        </div>
+        </div>
+<ul id="filter-s">
+    <li>Origen</li>
+    <li filter="s0"><a><?=$this->translate('Direct downloads');?></a>
+        <ul id="filter-s0" class="subfilter"><li filter="s00"><a>MU</a></li><li filter="s01"><a>4S</a></li><li filter="s02"><a>RS</a></li><li filter="s03"><a>BL</a></li><li filter="s04"><a>FS</a></li><li filter="s05"><a>JA</a></li><li filter="s06"><a>WE</a></li><li><a>x</a></li></ul>
+    </li><li filter="s1"><a><?=$this->translate('Streaming');?></a>
+        <ul id="filter-s1" class="subfilter"><li filter="s10"><a>YT</a></li><li filter="s11"><a>MV</a></li><li filter="s12"><a>VI</a></li><li filter="s13"><a>VE</a></li><li filter="s14"><a>BL</a></li><li><a>x</a></li></ul>
+    </li>
+    <li filter="s2"><a>P2P</a>
+        <ul id="filter-s2" class="subfilter"><li filter="s20"><a>TR</a></li><li filter="s21"><a>GN</a></li><li filter="s22"><a>ED</a></li><li><a>x</a></li></ul>
+    </li><li><a>x</a></li>
+</ul>
+<ul id="filter-t">
+    <li>Tipo</li><li filter="t0"><a><?=$this->translate('Audio');?></a></li><li filter="t1"><a><?=$this->translate('Video');?></a></li><li filter="t2"><a><?=$this->translate('Document');?></a></li><li filter="t3"><a><?=$this->translate('Image');?></a></li><li filter="t4"><a><?=$this->translate('Archive');?></a></li><li filter="t5"><a><?=$this->translate('Software');?></a></li><li><a>x</a></li>
+</ul>
+<ul id="filter-z">
+    <li>Tamaño</li><li filter="z0"><a><?=$this->translate('Smaller than');?> 1</a></li><li filter="z1"><a>1-20</a></li><li filter="z2"><a>20-100</a></li><li filter="z3"><a>100-600</a></li><li filter="z4"><a>+600</a></li><li><a>x</a></li>
+</ul>
+<ul id="filter-l">
+    <li>Duración</li><li filter="l0"><a>0-5</a></li><li filter="l1"><a>5-30</a></li><li filter="l2"><a>+30</a></li><li><a>x</a></li>
+</ul>
+<ul id="filter-y">
+    <li>Año</li><li filter="y0"><a>-1960</a></li><li filter="y1"><a>1960-1980</a></li><li filter="y2"><a>1980-2000</a></li><li filter="y3"><a>2000-2010</a></li><li filter="y4"><a>2010-</a></li><li><a>x</a></li>
+</ul>
+        </div>
+        <?php
+
+if ($this->tags["count"]>0) {
+    echo "<div class='tags'>";
+    for ($i = 0; $i < $this->tags["count"]; $i++) {
+        echo "<a style='font-size:".$this->tags["weights"][$i]."%' href='".$this->qs(array('q'=>$this->tags["names"][$i]),array('page'=>1))."' class='tag'>".str_replace($this->info['q']." ", "", $this->tags["names"][$i])."</a> ";
+    }
+    echo "</div>";
+}
+?>
+</div>
+    <div id="search_results" style="margin-right: 500px;">
+<? $i=0;
+    foreach ( $this->sdocs as $hexuri => $w ):
+        $doc = $this->docs[$hexuri];
+        $i++; ?>
+        <div id="<?=$hexuri?>" vup="<?=$doc['view']['votes'][0]?>" vdown="<?=$doc['view']['votes'][1]?>" class="file_excerpt<?=$doc["class"]?> tag_<?=implode(" tag_",$doc["search"]["words"])?>">
+            <?php
+            if (isset($doc['file']['i']) && is_array($doc['file']['i']))
+                {
+                    $var = count($doc['file']['i']);
+                    echo "<a class='thumb' href='/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']).".html'>";
+                    echo "<img ic='$var' src='http://images{$doc['file']['i'][0]}.foofind.com/".$doc['file']['_id']->__toString()."0' />";
+                    echo "</a>";
+                }
+            else {
+                echo "<a class='thumb' href='/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']).".html'><span class='ext'>".strtoupper($doc['view']['fnx'])."</span><div class='icon icon50 ".strtolower($doc['view']['type'])."50'></div></a>";
+            }
+            ?>
+            <div class="dlinks">
+            <?php
+            foreach ($doc['view']['sources'] as $src => $info)
+            {
+                if (isset($info['count']) && $info['count']>1)
+                    $text = "{$info['tip']}&nbsp;({$info['count']})";
+                else
+                    $text = "{$info['tip']}";
+
+                foreach ($info['urls'] as $url)
+                {
+                    echo "<a target='_blank' class='source' title='{$info['tip']}' href='".$this->formatHTML($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a><br/>";
+                }
+            }
+            ?>
+            </div><h3><a href="<?="/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']) ?>.html"><?=$this->showMatches(  $doc['view']['nfn'], $this->words) ?></a></h3>
+            <div class="filedesc"><?= $this->format($doc, false); ?></div>
+            <div class="filesize">
+            <? if (isset($doc['file']['z']) && $doc['file']['z']>0) echo $this->formatSize($doc["file"]["z"])." "; ?>
+            </div>
+            
+
+        </div>
+<? endforeach; ?>
+    </div>
+    <div id="loading"><span>Loading...</span></div>
+</div>
+
+<script>
+    var filters = {"s0":[".t10", ".t13", ".t11", ".t14", ".t19", ".t4", ".t8,.t9"],
+                   "s1":[".t18", ".t12", ".t16", ".t17", ".t15"],
+                   "s2":[".t3,.t107", ".t1,.t5,.t6", ".t2"],
+                   "s":[".t4,.t8,.t9,.t10,.t11,.t13,.t14", ".t12,.t15,.t16,.t17,.t18,.t19", ".t1,.t5,.t6,.t2,.t3,.t107"],
+                   "t":[".c1", ".c2,.c18", ".c3,.c9,.c10,.c11", ".c5", ".c4,.c7", ".c6,.c8"],
+                   "l":[".l1", ".l2", ".l3"], "y":[".y1", ".y2", ".y3", ".y4", ".y5"], "z":[".z1", ".z2", ".z3", ".z4", ".z5"] };
+    var activeFilters = {};
+    var loading = false;
+    var qs = "";
+    
+    function updateResults()
+    {
+        var allres = $(".file_excerpt", "#search_results");
+        var filres = $(".file_excerpt", "#search_results");
+        lfilt = qs = "";
+        levelFilter = {};
+        for (f in filters)
+        {
+            level = (f.length>1)?1:0;
+
+            qsfilt = filt = "";
+            for (k in filters[f]) {
+                if (activeFilters[f+k]) {
+                    if (level==1) {levelFilter[f[0]] = true; levelFilter[f] = true;}
+                    if (!(f+k in levelFilter)) {
+                        filt += ","+filters[f][k];
+                        qsfilt += ","+k;
+                    }
+                } else {
+                    if (level==0) $("#filter-"+f+""+k+" ul.subfilter").slideUp();
+                }
+            }
+            if (filt.length>0 || (lfilt.length>0 && level==0)) {
+                qs += "&"+f+"="+qsfilt.substr(1);
+                if (level==0) {
+                    filres = filres.filter((filt+lfilt).substr(1));
+                    lfilt = "";
+                }
+                else
+                    lfilt += filt;
+                $("#filter-"+f+" > li:last-child > a").css("color","red");
+                $("#filter-"+f+" li:not(.active) ul.subfilter").slideUp();
+                $("#filter-"+f+" li.active ul.subfilter").slideDown();
+            } else if (!(f in levelFilter)) {
+                $("#filter-"+f+" li:last-child a").css("color","#ccc");
+                $("#filter-"+f+" ul.subfilter").slideUp();
+            }
+
+        }
+        allres.css("display", "none");
+        filres.css("display", "block");
+    }
+
+    function loadResults(){
+        if (loading || $(window).scrollTop()<$("#search_results").height()-$(window).height()) return;
+        loading = true;
+        $.ajax(
+            {
+                dataType:"html",
+                url: "/<?=$this->lang?>/search/index3?q=<?=$this->info['q']?>&offset="+$(".file_excerpt:visible").length+qs,
+                success: function(data){
+                    $("#search_results").append(data);
+                },
+                complete: function() {loading = false;loadResults();}
+            }
+        );
+    }
+    
+$(function(){
+    $('#filters li a').click(function(){
+        item = $(this).parent();
+        if (item.text()=="x"){
+            $("li", item.parent()).each(function(){activeFilters[$(this).attr('filter')]=false; $(this).removeClass('active');});
+            updateResults();
+            return false;
+        }
+        var active = item.hasClass('active');
+        var filter = item.attr('filter');
+        if (active) {
+            activeFilters[filter]=false;
+            item.removeClass('active');
+        } else {
+            activeFilters[filter]=true;
+            item.addClass('active');
+        }
+        updateResults();
+        loadResults();
+        return false;
+    });
+
+    var item, filehtml;
+    filehtml = $("#fileinfo").html();
+    $('.file_excerpt').live("mouseenter", function(event){
+       $(this).css("background","#FBEFFB");
+    });
+    $('.file_excerpt').live("mouseleave", function(event){
+       $(this).css("background","white");
+    });
+    $('.file_excerpt').live("click", function(event){
+        event.preventDefault();
+        container = $("#fileinfo");
+        link = $("h3", this);
+        file = link.parent();
+        templinfo = {"filename":link.text(), "urlfilename":escape(link.text()), "url":file.attr("id"),
+                     "votesup":file.attr("vup"), "votesdown":file.attr("vdown")};
+
+        extinfo = false;
+        p2pinfo = $(this).filter(filters["s"][2]).length>0;
+
+        if ($(this).filter(".t18").length>0)
+        {
+            srcid = $("a.source", this).attr("href");
+            srcid = srcid.substr(srcid.indexOf("v=")+2);
+            srcid = srcid.substr(0, srcid.indexOf("&"));
+            templinfo["iframesrc"] = "http://youtube.com/embed/" + srcid;
+            extinfo = true;
+        }
+
+        container.html($.template(filehtml, templinfo));
+        container.fadeIn();
+
+        $("#p2pinfo", container).toggle(p2pinfo);
+        $("#extinfo", container).toggle(extinfo);
+    });
+    $('.tags a').mouseenter(function(event){
+        $(".tag_"+$(this).text().replace(/ /g,"")).css("background","#FBEFFB");
+    });
+    $('.tags a').mouseleave(function(event){
+        $(".tag_"+$(this).text().replace(/ /g,"")).css("background","white");
+    });
+
+    $(window).scroll(function(){loadResults();});
+
+    $("#fileclose").live("click", function(){
+        $("#fileinfo").fadeOut();
+        return false;
+    });
+
+    $("#fileinfo iframe").live("load", function() {
+        $("#fileinfo #extinfo").css("display","block");
+    });
+});
+
+</script>
+<style>
+body {
+    overflow-y: scroll;
+}
+.file_excerpt {
+    position:relative;
+    overflow:auto;
+    margin:0px;
+    border-top: 1px dashed #ccc;
+    padding:3px;
+}
+.file_excerpt div.icon50 {
+    margin: -5px 0px 0px 6px !important;
+}
+
+.file_excerpt a.thumb {
+    text-decoration: none;
+}
+
+.file_excerpt .ext {
+    color: #cd0069;
+    font-size:14px;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    margin-left:-20px;
+    width:55px;
+    position:absolute;
+    text-decoration: none;
+}
+
+.file_excerpt h3 {
+    padding-top:4px;
+    padding-left:75px;
+}
+
+.file_excerpt .dlinks {
+    float:right;
+    margin-right:0px;
+    width: 120px;
+    text-align: left;
+}
+
+.file_excerpt .filedesc {
+    padding-left:75px;
+    font-size:12px;
+}
+
+.file_excerpt .filesize {
+    position:absolute;
+    bottom:5px;
+    right:130px;
+    color:#666;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+#fileinfo {
+    position:absolute;
+    width:485px;
+    height:100%;
+    /*border-left: 8px solid #ddd;
+    right:0px;
+    z-index:1;
+    padding:20px;*/
+    background: white;
+    display:none;
+}
+#fileinfo .file_download {
+    padding-right:0px;
+}
+#fileinfo #extinfo {
+    display:none;
+}
+#fileinfo #fileclose {
+    position:absolute;
+    right:15px;
+    top:0px;
+    color: #cd0069;
+}
+#fileinfo .file_download_vote {
+    margin-top: 20px !important;
+}
+
+#info {
+    border-left: 8px solid #ddd;
+    padding-left:10px;
+    width:485px;
+    right:0px;
+    position:fixed;
+    height:100%;
+}
+#filters {
+    width:470px;
+}
+#filters > ul {
+    display:table;
+    vertical-align: middle;
+    margin:2px;
+    border:1px solid #fafafa;
+    background: #eee;
+    width:470px;
+}
+#filters > ul > li:first-child {
+    padding-left:5px;
+    padding-right:5px;
+    color: #cd0069;
+}
+
+#filters > ul > li:last-child {
+    width: 20px;
+    text-align:center;
+}
+
+#filters ul li:last-child a {
+    color: #ccc;
+    font-weight: lighter !important;
+    min-width: 20px !important;
+}
+
+#filters ul li {
+    display:table-cell;
+    max-width: 120px;
+    line-height: 30px;
+    font-weight: bolder;
+    font-size:11px;
+}
+#filters ul li a {
+    display:inline-block;
+    width:100%;
+    margin:0px;
+    min-width: 40px;
+    text-align:center;
+    cursor:pointer;
+    text-decoration: none;
+    color: #666;
+    font-weight: bolder;
+}
+#filters ul li.active > a {
+    background: #fff;
+    color: black;
+}
+#filters ul.subfilter {
+    display:none;
+    vertical-align: middle;
+    margin:2px;
+    border:none;
+    background: #eee;
+    width:100%;
+    line-height: 15px !important;
+    white-space: nowrap;
+    text-align:center;
+}
+#filters ul.subfilter li {
+    display:inline-block;
+    line-height: 15px !important;
+}
+
+#filters ul.subfilter li a {
+    min-width: 20px;
+}
+
+#loading {
+    height:60px;
+    background: url(/images/loading.gif) center 10px no-repeat;
+    border-top: 1px dashed #ccc;
+    margin-right: 500px;
+}
+#loading span{
+    display:none;
+}
+
+#header, #footer {
+    position: fixed !important;
+    background: white;
+    z-index:101;
+}
+
+h1, .searchbox {
+    margin-top:10px;
+    display:inline-block;
+    position:static !important;
+
+}
+.searchbox {
+    margin-top:30px !important;
+}
+
+.tags {
+    margin-top: 10px !important;
+    max-width: 100% !important;
+    width: 370px;
+    padding:0px !important;
+    margin: 2px !important;
+    text-align:center;
+}
+.thumb {
+    margin: 0px 4px 0px 0px !important;
+}
+.thumb img {
+    margin:0px;
+    height:50px;
+}
+.file_excerpt span {
+    max-width: 37em !important;
+}
+</style>

@@ -1,0 +1,39 @@
+<? $i=0;
+foreach ( $this->sdocs as $hexuri => $w ):
+    $doc = $this->docs[$hexuri];
+    $i++; ?>
+    <div id="<?=$hexuri?>" vup="<?=$doc['view']['votes'][0]?>" vdown="<?=$doc['view']['votes'][1]?>" class="file_excerpt<?=$doc["class"]?> tag_<?=implode(" tag_",$doc["search"]["words"])?>">
+        <?php
+        if (isset($doc['file']['i']) && is_array($doc['file']['i']))
+            {
+                $var = count($doc['file']['i']);
+                echo "<a class='thumb' href='/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']).".html'>";
+                echo "<img ic='$var' src='http://images{$doc['file']['i'][0]}.foofind.com/".$doc['file']['_id']->__toString()."0' />";
+                echo "</a>";
+            }
+            else {
+                echo "<a class='thumb' href='/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']).".html'><span class='ext'>".strtoupper($doc['view']['fnx'])."</span><div class='icon icon50 ".strtolower($doc['view']['type'])."50'></div></a>";
+            }
+        ?>
+        <div class="dlinks">
+        <?php
+        foreach ($doc['view']['sources'] as $src => $info)
+        {
+            if (isset($info['count']) && $info['count']>1)
+                $text = "{$info['tip']}&nbsp;({$info['count']})";
+            else
+                $text = "{$info['tip']}";
+
+            foreach ($info['urls'] as $url)
+            {
+                echo "<a target='_blank' class='source' title='{$info['tip']}' href='".$this->formatHTML($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a><br/>";
+            }
+        }
+        ?>
+        </div><h3><a href="<?="/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']) ?>.html"><?=$this->showMatches(  $doc['view']['nfn'], $this->words) ?></a></h3>
+        <div class="filedesc"><?= $this->format($doc, false); ?></div>
+        <div class="filesize">
+            <? if (isset($doc['file']['z']) && $doc['file']['z']>0) echo $this->formatSize($doc["file"]["z"])." "; ?>
+        </div>
+    </div>
+<? endforeach; ?>
