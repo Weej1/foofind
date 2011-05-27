@@ -439,7 +439,7 @@ class SearchController extends Zend_Controller_Action {
                 if ($range!=null) $sphinx->SetFilterRange("may", $range[0], $range[1], true);
         }
 
-        if ($offset==0) {
+        if (!is_int($offset) || $offset==0) {
             $tamingServer = explode(":", $this->config->taming->server);
             $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1], $this->config->taming->timeout);
             $w = array("c"=>1, $this->view->lang=>200);
