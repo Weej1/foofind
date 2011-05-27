@@ -347,6 +347,7 @@ class SearchController extends Zend_Controller_Action {
         // assign the form to the view
         $this->view->form = $form;
 
+        $conds = array('q'=>trim($q));
         $helper = new QueryString_View_Helper();
         $helper->setParams($conds);
 
