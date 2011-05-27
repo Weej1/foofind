@@ -360,7 +360,6 @@ class SearchController extends Zend_Controller_Action {
         $helper->registerHelper($this->view);
 
         require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
-        require_once APPLICATION_PATH.'../../library/Foofind/colourgradient.class.php';
         $sphinxServer = $this->config->sphinx->server;
 
         $sphinx = new SphinxClient();
