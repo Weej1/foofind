@@ -493,6 +493,7 @@ class SearchController extends Zend_Controller_Action {
         }
 
         $docs = array();
+        $sdocs = array();
         $ids = array();
 
         $i=0;
