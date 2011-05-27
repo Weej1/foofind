@@ -300,7 +300,7 @@ class SearchController extends Zend_Controller_Action {
         $filtz = $this->_getParam('z', null);
         $filtl = $this->_getParam('l', null);
         $filty = $this->_getParam('y', null);
-        $offset = $this->_getParam('offset');
+        $offset = (int)$this->_getParam('offset');
 
         // Create a filter chain and add filters
         $encoding = array('quotestyle' => ENT_QUOTES, 'charset' => 'UTF-8');
