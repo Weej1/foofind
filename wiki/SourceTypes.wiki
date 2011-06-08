@@ -21,6 +21,8 @@
   * 17->streaming veoh
   * 18->streaming youtube
   * 19->http fs
+  * 20->http mf
+
 
 = Content Type =
   * 1->audio
