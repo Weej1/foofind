@@ -23,6 +23,7 @@
   * 19->http fs
   * 20->http mf
   * 21->streaming grooveshark
+  * 22->http hf
 
 
 = Content Type =
