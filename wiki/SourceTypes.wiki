@@ -25,6 +25,7 @@
   * 21->streaming grooveshark
   * 22->http hf
   * 23->http esnips
+  * 24->http zs
 
 
 = Content Type =
