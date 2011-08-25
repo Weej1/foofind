@@ -8,13 +8,14 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
 
         $config = Zend_Registry::get('config');
         $sphinxServer = $config->sphinx->server;
+        $sphinxPort = $config->sphinx->port;
 
         $this->tcount = 0;
         $this->canCache = true;
         $this->showImages = false;
 
         $this->cl = new SphinxClient();
-        $this->cl->SetServer( $sphinxServer, 3312 );
+        $this->cl->SetServer( $sphinxServer, $sphinxPort );
         $this->cl->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $this->cl->SetRankingMode( SPH_RANK_SPH04 );
 
@@ -22,23 +23,23 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $weights = array();
 
         // filenames
-        $weights["fn1"] = 20;
+        $weights["fn1"] = 100;
         /*for ($i = 2; $i < 21; $i++)
-            $weights["fn$i"] = 0;
+            $weights["fn$i"] = 3;
 
         // metadata
-        $weights['mta'] = 0;   //artist
-        $weights['mtc'] = 0;   //composer
-        $weights['mtf'] = 0;   //folder
-        $weights['mti'] = 0;   // archive folders and files
-        $weights['mtk'] = 0;   // video keywords
-        $weights['mtl'] = 0;   // album
-        $weights['mtt'] = 0;   // title
-        $weights['surl'] = 1;   // url*/
-
+        $weights['mta'] = 3;   //artist
+        $weights['mtc'] = 3;   //composer
+        $weights['mtf'] = 3;   //folder
+        $weights['mti'] = 1;   // archive folders and files
+        $weights['mtk'] = 1;   // video keywords
+        $weights['mtl'] = 3;   // album
+        $weights['mtt'] = 3;   // title
+        $weights['surl'] = 1;   // url
+        */
         $this->cl->SetFieldWeights($weights);
-        $this->cl->SetSelect("*, @weight as sw");
-        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC, uri1 DESC" );
+        $this->cl->SetSelect("*, idiv(@weight,10000) as sw");
+        $this->cl->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC, ls DESC" );
         $this->cl->SetMaxQueryTime(1000);
 
         $this->urls = array();

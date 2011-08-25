@@ -230,6 +230,11 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_VEOH:
                 case Model_Files::SOURCE_YOUTUBE:
                 case Model_Files::SOURCE_FILESERVER:
+                case Model_Files::SOURCE_MEDIAFIRE:
+                case Model_Files::SOURCE_TINYSONG:
+                case Model_Files::SOURCE_HOTFILE:
+                case Model_Files::SOURCE_ESNIPS:
+
                     $linkWeight = 1;
                     // prefer megavideo for streaming searches
                     if ((!isset($prevsrc) || strlen($prevsrc)==0 || strpos($prevsrc,"s")!==FALSE) && in_array($type, Model_Files::src2ints("s"))) {
@@ -281,7 +286,8 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             
             if (isset($url))
             {
-                $obj['view']['sources'][$source]['urls'] []= $url;
+                $obj['view']['sources'][$source]['count'] += 1;
+                $obj['view']['sources'][$source]['urls'][] = $url;
                 unset($url);
             }
 
@@ -345,8 +351,9 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         
         $config = Zend_Registry::get('config');
         $sphinxServer = $config->sphinx->server;
+        $sphinxPort = $config->sphinx->port;
         $cl = new SphinxClient();
-        $cl->SetServer( $sphinxServer, 3312 );
+        $cl->SetServer( $sphinxServer, $sphinxPort );
         $cl->SetMatchMode( $mode );
         $cl->SetRankingMode( SPH_RANK_MATCHANY );
 
@@ -385,6 +392,10 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
             $files = $fmodel->getFiles( $ids );
             foreach ($files as $file) {
                 $hexuri = $file['_id']->__toString();
+                if ($file['bl']!=0) {
+                    unset($docs[$hexuri]);
+                    continue;
+                }
                 $rel = $docs[$hexuri];
                 $rel['file'] = $file;
                 $this->chooseFilename($rel, $query);

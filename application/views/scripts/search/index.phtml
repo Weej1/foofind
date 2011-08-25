@@ -92,6 +92,7 @@ if (isset($this->didyoumean))
        <?php foreach ($this->paginator as $val): ?>
         <li class="file_excerpt">
             <?php
+            //var_dump($val["search"]);
             if (isset($val['file']['i']) && is_array($val['file']['i']))
                 {
                     $var = count($val['file']['i']);
@@ -116,15 +117,13 @@ if (isset($this->didyoumean))
             if (isset($val['file']['z']) && $val['file']['z']>0) echo $this->formatSize($val["file"]["z"])." - ";
             foreach ($val['view']['sources'] as $src => $info)
             {
-                if (isset($info['count']))
+                if (isset($info['count']) && $info['count']>1)
                     $text = "{$info['tip']}&nbsp;({$info['count']}&nbsp;".$this->translate('Sources').")";
                 else
                     $text = "{$info['tip']}";
 
-                foreach ($info['urls'] as $url)
-                {
-                    echo "<a target='_blank' class='source' title='{$info['tip']}' href='".$this->formatHTML($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a>&nbsp;&nbsp;";
-                }
+                echo "<a target='_blank' class='source' title='{$info['tip']}' href='".$this->formatHTML($info['urls'][0])."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a>&nbsp;&nbsp;";
+                
             }
         ?>
         </span>

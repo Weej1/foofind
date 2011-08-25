@@ -22,6 +22,10 @@ if (count ( $this->mensajes ) > 0) {
         <a id="fileclose" href="">close</a>
         <div id="extinfo"><iframe width="448" height="279" frameborder="0" allowfullscreen="false" src="%iframesrc%"></iframe></div>
         <div id="filedetails"></div>
+        <div>
+        <div class="icon icon30 %sourcetype%"></div>
+        <a href="http://www.4shared.com/audio/z9q4rmbb/The_Offspring_-_Dirty_Magic__A.htm" title="http://www.4shared.com/audio/z9q4rmbb/The_Offspring_-_Dirty_Magic__A.htm" target="_blank">4shared.com</a>
+        </div>
         <div class="sharelinks"><?=$this->translate('Share this:');?>
             <a href="http://www.facebook.com/share.php?u=http://foof.in/<?=$this->langcode?>/%url%"><div alt="<?=$this->translate('share on facebook');?>" class="icon facebook"></div></a>
             <a href="mailto:?subject=%urlfilename%&body=http://foof.in/<?=$this->langcode?>/%url%"><div alt="<?=$this->translate('send by email');?>" class="icon email"></div></a>
@@ -96,10 +100,7 @@ if ($this->tags["count"]>0) {
                 else
                     $text = "{$info['tip']}";
 
-                foreach ($info['urls'] as $url)
-                {
-                    echo "<a target='_blank' class='source' title='{$info['tip']}' href='".$this->formatHTML($url)."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a><br/>";
-                }
+                echo "<a target='_blank' class='source' title='{$info['tip']}' href='".$this->formatHTML($info['urls'][0])."'><div alt='{$info['tip']}' class='icon icon24 {$info['icon']}d24'></div><span>$text</span></a><br/>";
             }
             ?>
             </div><h3><a href="<?="/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']) ?>.html"><?=$this->showMatches(  $doc['view']['nfn'], $this->words) ?></a></h3>
@@ -163,23 +164,28 @@ if ($this->tags["count"]>0) {
                 $("#filter-"+f+" li:last-child a").css("color","#ccc");
                 $("#filter-"+f+" ul.subfilter").slideUp();
             }
-
         }
         allres.css("display", "none");
         filres.css("display", "block");
     }
 
-    function loadResults(){
-        if (loading || $(window).scrollTop()<$("#search_results").height()-$(window).height()) return;
+    function loadResults(force){
+        if (loading || $(window).scrollTop()<$("#search_results").height()-$(window).height()) {
+            if (loading && force)
+                lastreq.abort();
+            else
+                return;
+        }
         loading = true;
-        $.ajax(
+        lastreq=$.ajax(
             {
                 dataType:"html",
                 url: "/<?=$this->lang?>/search/index3?q=<?=$this->info['q']?>&offset="+$(".file_excerpt:visible").length+qs,
                 success: function(data){
-                    $("#search_results").append(data);
+                    $(data).each(function(e){if ($(".file_excerpt#"+$(this).attr("id")).length==0) $("#search_results").append(this)});
+                    setTimeout('loadResults()',1000);
                 },
-                complete: function() {loading = false;loadResults();}
+                complete: function() {loading = false;}
             }
         );
     }
@@ -202,7 +208,7 @@ $(function(){
             item.addClass('active');
         }
         updateResults();
-        loadResults();
+        loadResults(true);
         return false;
     });
 
@@ -298,8 +304,9 @@ body {
 .file_excerpt .dlinks {
     float:right;
     margin-right:0px;
-    width: 120px;
+    width: 140px;
     text-align: left;
+    overflow: hidden;
 }
 
 .file_excerpt .filedesc {
@@ -310,7 +317,7 @@ body {
 .file_excerpt .filesize {
     position:absolute;
     bottom:5px;
-    right:130px;
+    right:145px;
     color:#666;
     font-size: 14px;
     font-family: sans-serif;
@@ -450,7 +457,7 @@ h1, .searchbox {
 .tags {
     margin-top: 10px !important;
     max-width: 100% !important;
-    width: 370px;
+    width: 470px;
     padding:0px !important;
     margin: 2px !important;
     text-align:center;
