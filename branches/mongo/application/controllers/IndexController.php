@@ -57,7 +57,7 @@ class IndexController extends Zend_Controller_Action
 
         $request = $this->getRequest ();
         $form = $this->_getSearchForm();
-        
+
         $form->addElement('radio', 'src', array(
            
             'label'      => 'source:',

@@ -366,14 +366,28 @@ class SearchController extends Zend_Controller_Action {
         $sphinx = new SphinxClient();
         $sphinx->SetServer( $sphinxServer, 3312 );
         $sphinx->SetMatchMode( SPH_MATCH_EXTENDED2 );
-        $sphinx->SetRankingMode( SPH_RANK_SPH04 );
-        $sphinx->SetSelect("*, idiv(@weight,10000) as sw");
-        $sphinx->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC" );
+        $sphinx->SetRankingMode( SPH_RANK_SPH04 );        $weights["fn1"] = 5;
+        for ($i = 2; $i < 21; $i++)
+            $weights["fn$i"] = 3;
+
+        // metadata
+        $weights['mta'] = 3;   //artist
+        $weights['mtc'] = 3;   //composer
+        $weights['mtf'] = 3;   //folder
+        $weights['mti'] = 1;   // archive folders and files
+        $weights['mtk'] = 1;   // video keywords
+        $weights['mtl'] = 3;   // album
+        $weights['mtt'] = 3;   // title
+        $weights['surl'] = 1;   // url
+
+        $sphinx->SetFieldWeights($weights);
+        $sphinx->SetSelect("*, @weight/(fc+tc) as sw");
+        $sphinx->SetSortMode( SPH_SORT_EXTENDED, "w DESC, sw DESC, ls DESC" );
         $sphinx->SetFilter('bl', array(0));
 
         $filter = array();
         if ($filts!=null){
-            $types = array(array(4,8,10,11,13,14,19,8,9), array(12,15,16,17,18), array(3,107,1,5,6,2));
+            $types = array(array(4,8,10,11,13,14,19,20,8,9), array(12,15,16,17,18), array(3,107,1,5,6,2));
             foreach (explode(",", $filts) as $s) $filter = array_merge($filter, $types[$s]);
         }
         if ($filts0!=null){

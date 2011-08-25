@@ -64,10 +64,10 @@ if (count ( $this->mensajes ) > 0) {
         $max = 15;
         foreach ($this->file['view']['sources'] as $src => $info)
         {
-            if (isset($info['count']))
-                $text = "{$info['tip']} <br/><span>({$info['count']}&nbsp;".$this->translate('Sources').")</span>";
+            if (isset($info['count']) && $info['count']>1 && count($info['urls'])==1)
+                $text = "{$info['tip']}<br/><span>({$info['count']}&nbsp;".$this->translate('Sources').")</span>";
             else
-                $text = "{$info['tip']}";
+                $text = "{$info['tip']}<br/><span>&nbsp;</span>";
 
             echo "<div class='download_source' >";
 

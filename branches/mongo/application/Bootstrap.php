@@ -10,7 +10,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $config->merge($lconfig);
             $config->setReadOnly();
         }
-        
+
         // build a caching object
         $backend = new Zend_Cache_Backend_Memcached(
                         array('servers' => array( array('host' => '127.0.0.1', 'port' => '11211') ),
