@@ -234,6 +234,9 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
                 case Model_Files::SOURCE_TINYSONG:
                 case Model_Files::SOURCE_HOTFILE:
                 case Model_Files::SOURCE_ESNIPS:
+                case Model_Files::SOURCE_ZIPPYSHARE:
+                case Model_Files::SOURCE_DEPOSITFILES:
+                case Model_Files::SOURCE_SENDSPACE:
 
                     $linkWeight = 1;
                     // prefer megavideo for streaming searches
