@@ -105,11 +105,9 @@ All the requests will be completed with a status message , with the following va
 
 {{{
 <?php 
- $html = 'http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&results=';
- $doc = new DOMDocument();
- $doc->strictErrorChecking = FALSE; 
- $doc->loadHTML($html);
- $xml = simplexml_import_dom($doc);
+ $html =  file_get_contents('http://foofind.com/api/?method=getSearch&q=centos&lang=es&src=wftge&opt=&type=&size=&year=&brate=&results=');
+  $xml = new SimpleXMLElement($html);
+  var_dump($xml);
 
 ?>
 }}}
