@@ -102,10 +102,11 @@ class UserController extends Zend_Controller_Action
 
                     //now lets send the validation token by email to confirm the user email
                     $hostname = 'http://' . $this->getRequest ()->getHttpHost ();
+                    $validate_url = $hostname  . '/' . $this->view->lang . '/user/validate/t/' . $token;
 
                     $mail = new Zend_Mail ('utf-8');
                     $mail->setBodyHtml ( $this->view->translate ( 'Please, click on this url to finish your register process:' ).'<br />'
-                            . $hostname  . '/' . $this->view->lang  . '/user/validate/t/'  . $token .
+                            . '<a href="' . $validate_url . '">' . $validate_url . '</a>' .
                             '<br /><br />_______________________________<br />' . $this->view->translate ( 'The foofind team.' )  );
                     $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
 

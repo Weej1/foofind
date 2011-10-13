@@ -362,9 +362,10 @@ class SearchController extends Zend_Controller_Action {
 
         require_once APPLICATION_PATH.'../../library/Sphinx/sphinxapi.php';
         $sphinxServer = $this->config->sphinx->server;
+        $sphinxPort = (int)$this->config->sphinx->port;
 
         $sphinx = new SphinxClient();
-        $sphinx->SetServer( $sphinxServer, 3312 );
+        $sphinx->SetServer( $sphinxServer, $sphinxPort );
         $sphinx->SetMatchMode( SPH_MATCH_EXTENDED2 );
         $sphinx->SetRankingMode( SPH_RANK_SPH04 );        $weights["fn1"] = 5;
         for ($i = 2; $i < 21; $i++)

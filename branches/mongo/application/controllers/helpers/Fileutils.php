@@ -354,7 +354,7 @@ class Zend_Controller_Action_Helper_Fileutils extends Zend_Controller_Action_Hel
         
         $config = Zend_Registry::get('config');
         $sphinxServer = $config->sphinx->server;
-        $sphinxPort = $config->sphinx->port;
+        $sphinxPort = (int)$config->sphinx->port;
         $cl = new SphinxClient();
         $cl->SetServer( $sphinxServer, $sphinxPort );
         $cl->SetMatchMode( $mode );

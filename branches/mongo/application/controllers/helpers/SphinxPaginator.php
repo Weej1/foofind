@@ -8,7 +8,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
 
         $config = Zend_Registry::get('config');
         $sphinxServer = $config->sphinx->server;
-        $sphinxPort = $config->sphinx->port;
+        $sphinxPort = (int)$config->sphinx->port;
 
         $this->tcount = 0;
         $this->canCache = true;
