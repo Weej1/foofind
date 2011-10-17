@@ -275,7 +275,9 @@ class PageController extends Zend_Controller_Action
                                 .'<br/><br/>Message: '.$message;
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
-                                $mail->addTo ( 'hola@foofind.com', 'foofind hola' );
+
+                                $config = Zend_Registry::get('config');
+                                $mail->addTo($config->contact->email);
                                 $mail->setSubject ( 'foofind.com - complaint petition  from ' . $email );
 
                                 try {
@@ -365,7 +367,9 @@ El equipo Foofind.
                                 $body = $user_info.'<br/>'.$message;
                                 $mail->setBodyHtml ( $body );
                                 $mail->setFrom ( $email );
-                                $mail->addTo ( 'hola@foofind.com', 'hola foofind' );
+
+                                $config = Zend_Registry::get('config');
+                                $mail->addTo($config->contact->email);
 
                                 $mail->setSubject ( 'foofind.com - message contact  from ' . $email );
                                  try {
@@ -417,14 +421,16 @@ El equipo Foofind.
                         $offer = $f->filter ( $this->_request->getPost ( 'offer' ) );
                         $message = $f->filter ( $this->_request->getPost ( 'message' ) );
 
-                        $user_info .= $_SERVER ['REMOTE_ADDR'];
+                        $user_info = $_SERVER ['REMOTE_ADDR'];
                         $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];
 
                         $mail = new Zend_Mail ('utf-8');
                         $body = $user_info.'<br/>Oferta:'.$offer.'<br/>'.$message;
                         $mail->setBodyHtml ( $body );
                         $mail->setFrom ( $email );
-                        $mail->addTo ( 'hola@foofind.com', 'hola foofind' );
+
+                        $config = Zend_Registry::get('config');
+                        $mail->addTo($config->contact->email);
 
                         if ($form->cv->isUploaded()){
                             $filename = $form->cv->getFileName();
