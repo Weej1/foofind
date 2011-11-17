@@ -93,8 +93,9 @@ class Model_Users
                                     "return {t:t, c:c, s:s, u:u}; }");
 
         $votes = $this->db->command(array("mapreduce" => "vote", "map" => $map, "reduce" => $reduce,
-                             "query" => array('_id'=>new MongoRegex("/^$idFile/"))));
-        $langs = $this->db->selectCollection($votes['result'])->find();
+                             "query" => array('_id'=>new MongoRegex("/^$idFile/")), "out"=>array("inline"=>1)));
+        
+        $langs = $votes['result'];
 
         $res = array();
         $u = 0;
