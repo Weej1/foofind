@@ -143,8 +143,9 @@ class Model_Users
                                     "return {t:t, c:c, s:s, u:u}; }");
 
         $votes = $this->db->command(array("mapreduce" => "comment_vote", "map" => $map, "reduce" => $reduce,
-                             "query" => array('_id'=>new MongoRegex("/^$idComment/"))));
-        $vals = $this->db->selectCollection($votes['result'])->findOne();
+                             "query" => array('_id'=>new MongoRegex("/^$idComment/")), "out"=>array("inline"=>1)));
+        $vals = $votes['result'][0];
+
         return $vals['value'];
     }
 
