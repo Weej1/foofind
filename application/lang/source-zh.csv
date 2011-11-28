@@ -27,11 +27,11 @@
 "sources";"来源"
 "of about";"关于"
 "results for";"结果"
-"NoTypeCount";"没有找到您要查找的内容(<i>%s</<i>)，但是有%d些和您要查找的内容相类似的<a href='%s'>其他</a>内容。"
 "NoTypeCount";"没有找到您要查找的内容(<i>%s</<i>)，但是有%d 和您要查找的内容相类似的<a href='%s'>其他</a>内容。"
 "Foofind does not allow browse results after page 1000.";"Foofind不允许浏览1000页以后的结果。"
 "How to download?";"怎样下载"
 "DownloadExplanation";"您可以用一些第三方软件来下载链接中的文件。下面是一些可以用来下载的程序："
+"Did you mean %s?";"你的意思是%s？"
 
 #advanced search
 "All sizes";"文件完整大小"
@@ -171,7 +171,7 @@
 "This email is not in our database. Please, try again.";"电子邮件不存在 再试一次"
 "Please, login to vote";"投票"
 "Please, login to comment";"评论"
-
+"Sorry, we are experiencing technical problems with the %s service.";"对不起，我们的 %s 服务现在遭遇到了技术问题"
 
 
 
