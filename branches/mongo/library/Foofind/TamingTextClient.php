@@ -59,6 +59,7 @@ class TamingTextClient {
     {
         $len = ord(fgetc($this->conn))<<8 | ord(fgetc($this->conn))+1;
         $line = fgets($this->conn, $len);
+        if ($line===false) return "";
         return substr($line,0,-1);
     }
 
