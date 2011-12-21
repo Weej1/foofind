@@ -68,7 +68,10 @@ class PageController extends Zend_Controller_Action
 
         public function translateAction(){
             $request = $this->getRequest();
-            $newlangs = array('de'=>'Deutsch', 'eu'=>'Euskara', 'fr'=>'Français',  'it'=>'Italiano', 'ja'=>html_entity_decode('&#26085;&#26412;&#35486;', ENT_COMPAT, 'UTF-8'), 'pt'=>'Português', 'tr'=>'Türkçe', 'zh'=>html_entity_decode('&#31616;&#20307;&#20013;&#25991;', ENT_COMPAT, 'UTF-8') );
+            $newlangs = array('ca'=>'Català', 'de'=>'Deutsch', 'eu'=>'Euskara', 'fr'=>'Français',
+                'it'=>'Italiano', 'gl'=>'Galego', 'pt_BR'=>'Português brasileiro',
+                'ja'=>html_entity_decode('&#26085;&#26412;&#35486;', ENT_COMPAT, 'UTF-8'), 'pt'=>'Português',
+                'tr'=>'Türkçe', 'zh'=>html_entity_decode('&#31616;&#20307;&#20013;&#25991;', ENT_COMPAT, 'UTF-8') );
             
             $lform = new Zend_Form();
             $lform->setMethod ( 'get' );
