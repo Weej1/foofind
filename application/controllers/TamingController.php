@@ -46,9 +46,9 @@ class TamingController extends Zend_Controller_Action
                 foreach (Model_Files::ct2ints($t) as $cti)
                     $w[Model_Files::cti2sct($cti)] = 200;
             }
+
             $result = $taming->tameText($q, $w, 4, 3, 0.2);
             if ($result!=false) {
-                echo $result;
                 if ($this->config->cache->taming) $oCache->save( $result, $key );
             }
         }
