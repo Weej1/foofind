@@ -4,19 +4,27 @@ $url =  $_SERVER['REQUEST_URI'];
 
 $urlNum = explode("/", $url);
 
-        if (!$urlNum[1]) {
-                header('HTTP/1.1 301 Moved Permanently');
-                header('Location: http://foofind.com');
-                exit;
-        }
+$langs = array('en', 'es', 'fr', 'it', 'pt', 'tr', 'zh', 'ca', 'gl');
 
-	if ($urlNum[1] == 1) $urlNum[1] = 'en';
-        if ($urlNum[1] == 2) $urlNum[1] = 'es';
+if (!$urlNum[1] || !is_numeric($urlNum[1])) {
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: http://foofind.com');
+    exit;
+}
 
-        $id = $urlNum[2];
-        if (strlen($id)!=16) $id = hexdec($id);
-        header('HTTP/1.1 301 Moved Permanently');
-        header('Location: http://foofind.com/'.$urlNum[1].'/download/'.$id);
+$langnum = intval($urlNum[1])-1;
+if ($langnum<0 || $langnum>=count($langs)) {
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: http://foofind.com');
+    exit;
+}
 
-        exit;
+$langcod = $langs[$langnum];
+   
+$id = $urlNum[2];
+if (strlen($id)!=16) $id = hexdec($id);
+
+header('HTTP/1.1 301 Moved Permanently');
+header('Location: http://foofind.com/'.$langcod.'/download/'.$id);
+exit;
 ?>
