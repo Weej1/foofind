@@ -212,6 +212,8 @@ div.icon50{width:60px;height:50px;margin-bottom:10px;background-position:-60px -
 .flag.pt{background-position:-16px -290px;}
 .flag.tr{background-position:-128px -290px;}
 .flag.zh{background-position:0px -301px;}
+.flag.ca{background-position:-144px -301px;}
+.flag.gl{background-position:-144px -290px;}
 .shake{float:left !important;font-size:22px;padding:10px !important;margin:5px;width:30px;text-align:center;text-decoration:none !important;color:white !important;}
 .shake_file{display:block;padding-left:68px;}
 ul#tabnav{clear:left;line-height:22px;text-align:left;font-size:13px;font-weight:bold;border-bottom:1px solid #CD0069;list-style-type:none;padding-bottom:0px;padding-left:44px;margin:0;padding-top:27px;}

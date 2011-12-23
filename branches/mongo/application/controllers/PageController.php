@@ -70,7 +70,8 @@ class PageController extends Zend_Controller_Action
             $request = $this->getRequest();
             $newlangs = array('ca'=>'Català', 'de'=>'Deutsch', 'eu'=>'Euskara', 'fr'=>'Français',
                 'it'=>'Italiano', 'gl'=>'Galego', 'pt_BR'=>'Português brasileiro',
-                'ja'=>html_entity_decode('&#26085;&#26412;&#35486;', ENT_COMPAT, 'UTF-8'), 'pt'=>'Português',
+                'ja'=>html_entity_decode('&#26085;&#26412;&#35486;', ENT_COMPAT, 'UTF-8'), 
+                'pl'=>'Polski', 'pt'=>'Português',
                 'tr'=>'Türkçe', 'zh'=>html_entity_decode('&#31616;&#20307;&#20013;&#25991;', ENT_COMPAT, 'UTF-8') );
             
             $lform = new Zend_Form();

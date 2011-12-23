@@ -2,76 +2,77 @@
 "About";"Über"
 "Contact";"Kontakt"
 "Legal";"Rechtl. Hinweise"
-
+"Terms";"Allgemeine Geschäftsbedingungen"
 "Privacy";"Datenschutz"
-
-
-
-
-
+"Report link";"Link anfordern"
+"Source code";"Quellkode"
+"files indexed";"indexierte Dateien"
+"Last indexed files";"letzte indexierte Dateien"
+"I. Want. That. File.";"ich will. Diese. Datei"
 
 #search
 "Search";"Suchen"
 "All";"Alle"
-
-
-
-
+"Direct downloads";"direktes Download"
+"Audio";"Audio"
+"Video";"Video"
+"Image";"Bild"
 "Document";"Dokument"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"Software";"Software"
+"Archive";"Datei"
+"No results for:";"Es gibt leider keine Ergebnisse für:"
+"Hey! Write something";"Schreib was!"
+"Previous";"Vorherige"
+"Next";"Nächste"
+"sources";"Quelle"
+"of about";"etwa"
+"results for";"Ergebnisse für"
+"NoTypeCount";"Keine Ergebnisse gefunden für <i>%s</<i>, aber es gibt etwa %d Ergebnisse für Ihre Suche in <a href='%s'>anderen Kategorien</a>."
+"Foofind does not allow browse results after page 1000.";"Sorry! Foofind kann keine weiteren Ergebnisse ab Seite 1000 zeigen."
+"How to download?";"Wie kann ich eine Datei herunterladen?"
+"DownloadExplanation";"Um die Datei herunterladen zu können, benötigen Sie zusätzliche Software. Hier finden Sie einige kompatible Programme:"
+"Did you mean %s?";"Meinten Sie %s?"
 
 #advanced search
-
-
-
-
-
-
-
-
-
-
+"All sizes";"jede Größe"
+"advanced search";"erweiterte Suche"
+"hide advanced search";"erweiterte Suche verbergen"
+"Smaller than";"kleiner als"
+"Larger than";"größer als"
+"All qualities";"alle Dateiqualität"
+"or better";"oder besser"
+"All years";"alle Jahre"
+"Before";"vor"
+"Last year";"letztes Jahr"
 
 #metadata
+"Artist";"Artist"
 "Title";"Titel"
-
+"Author";"Autor"
 "Format";"Format"
 "Pages";"Seiten"
-
-
-
-
+"Album";"Album"
+"Length";"Dauer"
+"Bitrate";"Bitrate"
+"Genre";"Genre"
 "Seconds";"Sekunden"
 "Minutes";"Minuten"
-
-
+"Sources";"Quellen"
+"Source";"Quelle"
 "Height";"Hoch"
-
-
-
+"Width";"Breite"
+"Track";"Track"
+"Quality";"Qualität"
 "Num. of pages";"Seitennummer"
-
+"Include results from:";"folgende Ergebnisse einrechnen:"
 "Size";"Die Dateigröße"
-
+"Unpacked size";"Dateigröße&nbsp;ohne&nbsp;Komprimierung"
 "Colors";"Farben"
-
+"Version";"Version"
 "Name";"Name"
-
-
-
+"Description";"Beschreibung"
+"Files";"Dateien"
+"Soundtype";"Klangart"
 "year";"Jahr"
 "years";"Jahren"
 "month";"Monate"
@@ -85,70 +86,71 @@
 "second";"Sekunde"
 "seconds";"Sekunden"
 
-
 #download
-
-
-
-
-
-
-
+"Loading...";"Laden..."
+"Close";"Schließen"
+"Share this:";"Dieser Link schicken:"
+"share on facebook";"In Facebook posten:"
+"share on twitter";"In Twitter posten:"
+"send by email";"Per Mail senden:"
+"Download";"Herunterladen"
 "Watch";"Sehen"
-
-
-
-
+"Your comments";"Deine Kommentare"
+"since";"seit %d %s"
+"Post comment";"Kommentar senden"
+"Add a comment";"Kommentar hinzufügen"
 "from";"seit"
-
-
-
-
+"I like it!";"Gefällt!"
+"Booo!";"Buuh!"
+"Comment published succesfully!";"Kommentar erfolgreich veröffentlichen!"
+"Related files";"bezogene Dateien"
 
 #user profile
-
-
-
-
-
-
+"User profile";"Anwenderprofil"
+"Choose your password:";"Passwort eingeben:"
+"Insert your password (yep, again):";"Passwort eingeben (ja, noch Mal):"
+"Please, fill this form to be a Foofind registered member:";"Bitte Formular ausfüllen um eine registrierte Nutzer werden zu dürfen"
+"Nickname:";"Nick:"
+"Edit your profile";"Profil editieren"
+"Your profile was edited succesfully!";"Deine Profil würde erfolgreich aktualisiert"
 "hello,";"Hallo,"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"Password:";"Kennwort:"
-
-
+"logout";"Abmelden"
+"login";"Anmelden"
+"Login";"Anmelden"
+"new user";"Konto erstellen"
+"New user";"Konto erstellen"
+"or";"oder"
+"Register";"Anmelden"
+"(If you are a new user, please";"(Falls du neu bei uns bist, bitte "
+"register here";"sich hier anmelden"
+"Choose a nickname:";"Neckname wählen:"
+"Please, fill this form to be a Foofind registered member.";"Bitte Formular ausfüllen um eine registrierte Nutzer werden zu dürfen"
+"User login";"Einloggen"
+"Remember me";"Passwort erinnern"
+"Your location:";"meine Standort"
+"Change your password here: (otherwise leave it blank)";"neue Passwort eingeben (falls Sie es nicht ändern wollen, bitte das Feld einfach leer lassen)"
+"Save profile";"Änderungen speichern"
+"You are not allowed to view this page";"Sie haben auf diese Seite kein Zugriffsrecht."
+"This username is taken. Please choose another one.";"Sorry, diese Nutzername liegt schon vor. Bitte gibt eine neue ein."
+"This email is taken. Please use another one.";"Sorry, diese E-mail liegt auf unsere Datenbank schon vor. Bitte gibt eine neue ein."
+"Forgot";"Hast du dein Passwort vergessen?"
+"your password?";"Hast du dein Passwort vergessen?"
+"Password:";"Passwort:"
+"'%password%' is less than 5 characters long";"'%password%' hat weniger als 5 Charakteren"
+"The passwords entered do not match.";"die eingegebene Passworte stimmen nicht überein"
+"Are you sure you want to delete your foofind account?";"Sicher willst du deine Foofind Konto löschen?"
 "Yes";"Ja"
-
-
-
-
-
-
-
-
-
-
-
+"Your account has been deleted.";"Deine Foofind Konto würde erfolgreich gelöscht."
+"Nice to hear that";"Wir freuen uns drauf"
+"profile";"Profil"
+"edit profile";"Profil bearbeiten"
+"User name:";"Nick:"
+"Member since:";"Mitglied seit:"
+"Last 5 comments:";"letzten 5 Kommentare"
+"Location:";"Standort:"
+"Delete your foofind.com account";"Nutzerkonto vom Foofind.com löschen"
+"Forgot your password?";"Hast du dein Passwort vergessen?"
+"Wrong email or password, please try again";"Falsche e-mail Adresse oder falsches Passwort. Bitte erneut versuchen. "
 "Welcome";"Wilkommen"
 
 
