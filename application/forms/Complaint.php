@@ -26,16 +26,21 @@ class Form_Complaint extends Zend_Form {
                 $this->addElement ( 'text', 'phonenumber', array ('label' => 'Your phone number:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ('alnum', array ('StringLength', false, array (9, 30 ) ) ), 'required' => false ) );
 
                 //add link reported
-                $this->addElement ( 'text', 'linkreported', array ('label' => 'Please, insert the link to be reviewed:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ( array ('StringLength', false, array (9, 256 ) ) ), 'required' => true ) );
+                $foofyLink = new Zend_Validate_Regex("|^(?!https?://[^/]*foofind.com/?).*$|i");
+                $foofyLink->setMessage("Link can't be a Foofind page");
+                $this->addElement ( 'text', 'linkreported', array ('label' => 'Please, insert the link to be reviewed:', 'filters' => array ('StringTrim', 'StringToLower' ),
+                    'validators' => array ( array ('StringLength', false, array (9, 256 ) ), $foofyLink),
+                    'required' => true ) );
 
                  //add url reported
-                $this->addElement ( 'text', 'urlreported', array ('label' => 'Please, insert the url where this content appears:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ( array ('StringLength', false, array (9, 256 ) ) ), 'required' => true ) );
+                $foofyLink = new Zend_Validate_Regex("|^https?://foofind.com/\w\w/download/[a-zA-Z0-9!-]{16}(/.*)?$|i");
+                $foofyLink->setMessage("URL must be a valid Foofind download page");
+                $this->addElement ( 'text', 'urlreported', array ('label' => 'Please, insert the url where this content appears:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ( array ('StringLength', false, array (9, 256 ) ), $foofyLink ), 'required' => true ) );
+
 
                  //add reason
                 $this->addElement ( 'text', 'reason', array ('label' => 'Reason of your complaint:', 'filters' => array ( 'StringTrim' ), 'validators' => array ( array ('StringLength', false, array (3, 100 ) ) ), 'required' => true ) );
-
-
-                $this->addElement ( 'textarea', 'message', 
+                $this->addElement ( 'textarea', 'message',
                         array ('label' => 'Your message:', 'validators' => array (array ('StringLength', false, array (20, 2000 ) ) ), 'required' => true, 'rows' => 4,'cols' => 60 )
 
                  );

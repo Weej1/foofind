@@ -205,6 +205,8 @@
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contiene caracteres que no son letras ni números."
 "literal_check_agree";"He leído y acepto los <a href='/es/page/tos'>términos de uso</a> y la <a href='/es/page/privacy'>política de privacidad</a>."
 "Please, accept the terms of use and privacy policy";"Por favor, debes leer y aceptar los términos de uso y la política de privacidad"
+"URL must be a valid Foofind download page";"La dirección debe corresponder a una página de descarga de Foofind válida."
+"Link can't be a Foofind page";"El enlace no puede ser una página de Foofind."
 
 #submit links
 "Submit links";"Enviar enlaces"
@@ -357,3 +359,4 @@ Foofind ofrece un servicio de búsqueda de archivos que genera resultados de for
 "Please, translate at least one text.";"Por favor, traduce al menos una frase antes de enviar."
 "BetaTranslation";"Esta traduccion está en fase de pruebas. Si encuentras algún fallo o texto sin traducir, por favor infórmanos <a href='%s'>aquí</a>."
 "Other";"Otro"
+
