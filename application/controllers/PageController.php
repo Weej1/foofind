@@ -235,7 +235,7 @@ class PageController extends Zend_Controller_Action
         public function complaintAction() {
                 $request = $this->getRequest ();
                 $form = $this->_getComplaintForm ();
-                $form->getElement("linkreported")->setValue("http://foofind.com/".$this->view->lang."/download/");
+                $form->getElement("urlreported")->setValue("http://foofind.com/".$this->view->lang."/download/");
 
                 if ($this->getRequest ()->isPost ()) {
 
