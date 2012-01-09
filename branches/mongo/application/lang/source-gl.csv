@@ -205,6 +205,8 @@
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contén caracteres que non son letras nin números."
 "literal_check_agree";"Lin e acepto os <a href='/gl/page/tos'>termos de uso</a> e a <a href='/gl/page/privacy'>política de intimidade</a>."
 "Please, accept the terms of use and privacy policy";"Por favor, debes ler e aceptar os termos de uso e a política de intimidade"
+"URL must be a valid Foofind download page";"O URL debe ser unha páxina de descarga válida para Foofind"
+"Link can't be a Foofind page";"A ligazón non pode ser unha páxina de Foofind"
 
 #submit links
 "Submit links";"Enviar ligazóns"
