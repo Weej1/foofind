@@ -53,7 +53,7 @@
 "Pages";"Sayfa"
 "Album";"Albüm"
 "Length";"Süre"
-"Bitrate";"Bitrate"
+"Bitrate";"Veri akışı"
 "Genre";"Tarz"
 "Seconds";"Saniye"
 "Minutes";"Dakika"
@@ -138,7 +138,7 @@
 "Password:";"Şifre:"
 "'%password%' is less than 5 characters long";"'%password%' 5 karakterden kısa olmalıdır"
 "The passwords entered do not match.";"Girilen şifreler eşleşmiyor, değişik."
-"Are you sure you want to delete your foofind account?";"Hesabınızı silmek istediğinizden emin misiniz ?"
+"Are you sure you want to delete your foofind account?";"Hesabınızı silmek istediğinizden emin misiniz?"
 "Yes";"Evet"
 "Your account has been deleted.";"Hesabınız silinmiştir."
 "Nice to hear that";"Bunu duyduğumuza memnunuz"
@@ -207,6 +207,7 @@
 "Please, accept the terms of use and privacy policy";"Lütfen kullanım şartlarını ve gizlilik kurallarını kabul ediniz"
 "URL must be a valid Foofind download page";"URL'in geçerli bir Foofind indirme sayfası olması lâzımdır"
 "Link can't be a Foofind page";"Bağlantı bir Foofind sayfası olamaz"
+"Please, include the reported links in the appropriate fields on the form.";"Şikâyet ettiğiniz bağlantıları lütfen formda gereken alanlara giriniz."
 
 #submit links
 "Submit links";"Bağlantı önerimi"
