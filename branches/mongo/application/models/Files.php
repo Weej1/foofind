@@ -109,8 +109,8 @@ class Model_Files
     }
 
     static function src2ints($src) {
-        $src2i = array('s' => array(12,15,16,17,18,21),
-                        'w' => array(4,8,10,11,13,14,19,20,22,23,24,25,26),
+        $src2i = array('s' => array(15,16,17,18,21),
+                        'w' => array(4,8,11,13,14,19,20,22,23,24,25,26),
                         'f' => array(9),
                         't' => array(3,107),
                         'g' => array(1,5,6),

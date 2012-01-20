@@ -1,5 +1,4 @@
 #main layout
-"About";"À propos de"
 "About";"Qui sommes-nous ?"
 "Contact";"Contact"
 "Legal";"Mentions légales"
@@ -110,7 +109,7 @@
 "User profile";"Profil d'utilisateur"
 "Choose your password:";"Choisissez votre mot de passe :"
 "Insert your password (yep, again):";"Entrez votre mot de passe (ouaip, encore une fois) :"
-"Please, fill this form to be a Foofind registered member:";"Veuillez remplir ce formulaire pour devenir membre enregistré de Foofind :"
+"Please, fill this form to be a Foofind registered member.";"Veuillez remplir ce formulaire pour devenir un membre enregistré de Foofind."
 "Nickname:";"Pseudo :"
 "Edit your profile";"Éditer votre profile"
 "Your profile was edited succesfully!";"Votre profil a été modifié avec succès !"
@@ -162,9 +161,8 @@
 "Check your inbox email to finish the register process";"Vérifiez la boîte de réception de votre e-mail pour terminer la procédure d'enregistrement"
 "Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Quelqu'un, probablement vous-même, veut restaurer votre accès foofind. Cliquez sur ce lien pour restaurer votre compte :"
 "Otherwise, ignore this message.";"Sinon, ignorez ce message."
-"The foofind team.";"L'équipe foofind"
+"The foofind team.";"L'équipe foofind."
 "This user does not exist";"Cet utilisateur n'existe pas"
-
 "You are now logged in,";"Vous êtes désormais connecté,"
 "(If you already are a registered user, please";"(si vous êtes déjà un utilisateur enregistré, veuillez"
 "login here";"vous connecter ici"
@@ -209,6 +207,7 @@
 "Please, accept the terms of use and privacy policy";"Veuillez accepter les conditions d'utilisation et la politique relative à la vie privée"
 "URL must be a valid Foofind download page";"L'URL doit être une page de téléchargement Foofind valide"
 "Link can't be a Foofind page";"Le lien ne peut être une page Foofind"
+"Please, include the reported links in the appropriate fields on the form.";"Veuillez inclure les liens signalés dans les champs appropriés du formulaire."
 
 #submit links
 "Submit links";"Suggérer des liens"
