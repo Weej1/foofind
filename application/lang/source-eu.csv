@@ -20,8 +20,8 @@
 "Document";"Dokumentua"
 
 "Archive";"Fitxategia"
-
-
+"No results for:";"Ez daude emaitzak:"
+"Hey! Write something";"Zerbait idatzi!"
 "Previous";"Aurrekoa"
 "Next";"Hurrengoa"
 "sources";"iturriak"
@@ -31,7 +31,7 @@
 
 
 
-
+"Did you mean %s?";"Esan nahi al zenuen %s?"
 
 #advanced search
 
@@ -46,25 +46,25 @@
 
 
 #metadata
+"Artist";"Artista"
+"Title";"Izenburua"
+"Author";"Egile"
+
+
+"Album";"Albuma"
+"Length";"Iarunpena"
+"Bitrate";"Bit-tasa"
+
+"Seconds";"Segundu"
+"Minutes";"Minutu"
+"Sources";"Iturriak"
+"Source";"Iturri"
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"Quality";"Kalitate"
 
 
 "Colors";"Koloreak"
@@ -83,8 +83,8 @@
 "hours";"horduak"
 "minute";"minutu"
 "minutes";"minutuak"
-
-
+"second";"segundu"
+"seconds";"segundu"
 
 #download
 
@@ -114,7 +114,7 @@
 
 
 "hello,";"kaixo,"
-"logout";"sartu"
+"logout";"irten"
 
 
 
@@ -344,13 +344,16 @@
 
 
 
+
+
+
 #error
 
 
 
 #translate
-
-
+"Translate";"Itzuli"
+"Help us to translate Foofind.com to your language";"Lagunduiguzu itultzen Foofind.com zure hizkuntzara."
 
 
 
