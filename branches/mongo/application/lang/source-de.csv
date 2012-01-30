@@ -5,7 +5,7 @@
 "Terms";"Allgemeine Geschäftsbedingungen"
 "Privacy";"Datenschutz"
 "Report link";"Link anfordern"
-"Source code";"Quellkode"
+"Source code";"Quellcode"
 "files indexed";"indexierte Dateien"
 "Last indexed files";"letzte indexierte Dateien"
 "I. Want. That. File.";"ich will. Diese. Datei"
@@ -13,7 +13,7 @@
 #search
 "Search";"Suchen"
 "All";"Alle"
-"Direct downloads";"direktes Download"
+"Direct downloads";"direkt Download"
 "Audio";"Audio"
 "Video";"Video"
 "Image";"Bild"
@@ -152,10 +152,9 @@
 "Forgot your password?";"Hast du dein Passwort vergessen?"
 "Wrong email or password, please try again";"Falsche e-mail Adresse oder falsches Passwort. Bitte erneut versuchen. "
 "Welcome";"Wilkommen"
-
-
-
-
+"Please, click on this url to finish your register process:";"Klicke bitte auf die URL zum fertigstellen deiner Registratin"
+"Sorry, this token does not exist or has been already used";"Entschuldigun dieser Username ist nicht vorhanden oder wurde bereits verwendet"
+", confirm your email";"Bestätige bitte deine E-Mail Adresse"
 
 
 
