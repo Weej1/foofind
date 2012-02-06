@@ -218,7 +218,7 @@
 "this is the about text";"Foofind evrensel bir arama motorudur. Foofind'da tüm ağları tarayan ve her dosyayı endeksleyen yazılımlar üzerinde çalışmaktayız. Bu şekilde mümkün olan en geniş bağlantı koleksiyonunu sunmayı amaçlıyoruz.<br /><br />Foofind P2P teknoloji tasarımcısı Pablo Soto'nun eseri olup, Madrid, İspanya'da MP2P Technologies tarafından geliştirilmektedir."
 
 #footer
-"this is the footer text";"Web sitesi Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.tr'>BY-NC-SA</a> lisansı altındadır. <a href='http://code.google.com/p/foofind/'>Kaynak kodu</a> <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a> lisansı altındadır."
+"this is the footer text";"Web sitesi Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-sa/3.0/deed.tr'>BY-SA</a> lisansı altındadır. <a href='http://code.google.com/p/foofind/'>Kaynak kodu</a> <a rel='license source code' href='http://www.gnu.org/licenses/agpl.html'>Affero GPL</a> lisansı altındadır."
 "Last indexed files.";"Son endekslenen dosyalar."
 
 
