@@ -67,7 +67,7 @@ Foofind Labs, S.L.<br />
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.<br />
 <img src='/images/legal.png' /><br />
 <br />
-Inscribed in the Madrid Business Register<br />
+Inc. en el R.M. de Madrid,<br />
 Tomo 28.498, Folio 129, Sección 8, Hoja M-513051.
 <br />
 N.I.F. B-86116035<br />
@@ -89,8 +89,8 @@ You should read and accept our <a href='/en/page/tos'>terms of use</a> and our <
 
 
 #footer
-"this is the footer text";"Website under Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en'>BY-NC-SA</a> license.
- <a href='http://code.google.com/p/foofind/'>Source code</a> under <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a> license."
+"this is the footer text";"Website under Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en'>BY-SA</a> license.
+ <a href='http://code.google.com/p/foofind/'>Source code</a> under <a rel='license source code' href='http://www.gnu.org/licenses/agpl.html'>Affero GPL</a> license."
 
 #translate
 "translate text";"Foofind.com is currently available in a few languages, but you can help us to translate it to your own language. Just choose it from the following list and filling the fields with the translated texts. You don't need to fill all the fields to submit the form, any help will be very appreciated.<br/><br/>If your language is not in the list, please contact us for adding it.<br/><br/>"

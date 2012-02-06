@@ -215,7 +215,7 @@
 "this is the about text";"Foofind è un motore di ricerca universale. Noi di Foofind lavoriamo alla creazione di software che scansiona ogni rete p2p e incicizza ogni file. In questa maniera, intendiamo fornire la più grande raccolta di link possibile.<br /><br />Foofind è stato creato da Pablo Soto, p2p designer, sviluppato a Madrid, Spagna da M2P2P Technologies."
 
 #footer
-"this is the footer text";"Il sito è sotto licenza Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.it'>BY-NC-SA</a>. <a href='http://code.google.com/p/foofind/'>Codice sorgente</a> sotto licenza <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
+"this is the footer text";"Il sito è sotto licenza Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-sa/3.0/deed.it'>BY-SA</a>. <a href='http://code.google.com/p/foofind/'>Codice sorgente</a> sotto licenza <a rel='license source code' href='http://www.gnu.org/licenses/agpl.html'>Affero GPL</a>."
 "Last indexed files.";"Ultimi file indicizzati."
 
 
