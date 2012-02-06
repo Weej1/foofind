@@ -23,8 +23,8 @@ dd#src-element label{vertical-align:middle;line-height:20px;padding:10px;}
 .content{position:relative;min-height:100%;-webkit-box-size:padding-box;-moz-box-sizing:padding-box;}
 #q-element{display:inline-block; position:relative;}
 input#q{height:18px;width:380px;z-index:1000;}
-#container_home{position:absolute;top:0px;left:0px;right:0px;bottom:30px;text-align:center;}
-#container_search, #container_page, #container_user, #container_error{min-height:400px;padding:10px;padding-bottom:30px;}
+#container_home{position:absolute;top:0px;left:0px;right:0px;bottom:60px;text-align:center;}
+#container_search, #container_page, #container_user, #container_error{min-height:400px;padding:10px;padding-bottom:60px;}
 #container_user p{margin-bottom:10px;margin-top:10px;padding:0px;}
 #container_page h2{margin-top:20px;margin-left:172px;padding-bottom:10px;}
 #container_home .logo{background:transparent url(/images/logo.png) no-repeat scroll center bottom;height:100%;min-height:150px;}
@@ -58,7 +58,7 @@ input#q{height:18px;width:380px;z-index:1000;}
 .translate form dt{float:left;display:inline-block;margin-right:10px;width:40%;}
 .translate form input[type=text]:focus, .translate form textarea:focus{background-color:#FFFF99;}
 .translate form input[type=text], .translate form textarea, .translate form select{width:40%;margin-bottom:10px;}
-#searchempty{font-size:24px;z-index:10;right:30px;position:fixed;text-decoration:none;}
+#searchempty{font-size:24px;right:30px;position:fixed;text-decoration:none;}
 .contentype{width:380px;position:relative;text-align:center;float:left;top:-25px;display:block;}
 .contentype a{color:#df1279;padding-left:2px;padding-right:2px;}
 .contentype a:visited{color:#DF1279;}
@@ -74,8 +74,12 @@ input#q{height:18px;width:380px;z-index:1000;}
 .file_excerpt div.votes_down{display:inline-block;background-image:url(/images/foofind3.png);background-position:-135px -120px;vertical-align:absmiddle;width:14px;height:20px;margin-left:5px;}
 .file_excerpt a{text-decoration:underline;border:0;color:black;}
 #footer{border-top:1px #DDDDDD solid;position:absolute;bottom:0px;left:0px;right:0px;text-align:center;font-size:12px;}
-#footer #footer_links{padding:10px;padding-right:5px;display:block;float:left;}
-#footer #footer_text{padding:10px;padding-left:5px;display:block;float:right;}
+#footer #footer_links{padding:10px;display:block;text-align:left}
+#footer #footer_text{padding:10px;display:block;text-align:left;float:right}
+#footer_logos {display:none}
+.content.home #footer #footer_logos{padding:10px;display:block !important;float:right;display:block}
+.content.home #footer #footer_text{padding-bottom:5px !important;float:none !important}
+.content.home #footer #footer_links{padding-top:5px !important}
 #agree{display:inline;line-height:10px;height:20px;}
 form div, form dt{margin-top:10px;}
 form span.data{margin-bottom:10px;}
@@ -195,7 +199,7 @@ div.icon50{width:60px;height:50px;margin-bottom:10px;background-position:-60px -
 #header{z-index:10;position:absolute;top:3px;right:5px;}
 #header-navigation{float:right;}
 .user_login_box{text-align:right;display:inline-block;padding-top:4px;margin-right:100px;}
-#select_language_box{position:absolute;top:0px;right:0px;border:1px solid white;display:inline-block;height:25px;overflow:hidden;vertical-align:top;width:92px;padding-top:24px;}
+#select_language_box{position:absolute;top:0px;right:0px;border:1px solid white;display:inline-block;height:25px;overflow:hidden;vertical-align:top;width:92px;padding-top:24px}
 #select_language_box:hover, .deployed_languages{border:1px solid #999;background-color:#FBEFFB;height:auto;}
 #select_language_box a{padding:2px;padding-left:4px;padding-right:0px;line-height:16px;height:20px;display:none;width:100%;text-decoration:none !important;}
 #select_language_box a span.lang_name{display:inline-block;text-decoration:underline;}
