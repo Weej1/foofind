@@ -215,14 +215,14 @@
 "The links have been sent. Thanks for your help!";"Los enlaces han sido enviados. ¡Gracias por la ayuda!"
 
 #about
-"this is the about text";"Foofind es un motor de búsqueda universal. En Foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.<br /><br />Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en Madrid, España por MP2P Technologies."
+"this is the about text";"Foofind es un motor de búsqueda universal. En Foofind trabajamos creando software que recorre todas las redes e indexa todos los archivos. De esta forma, pretendemos ofrecer el mayor compendio de enlaces disponible.<br /><br />Foofind es una idea de Pablo Soto, creador de tecnologías P2P, desarrollada en Madrid, España por Foofind Labs S.L. en consorcio con MP2P Technologies."
 
 #footer
 "this is the footer text";"Sitio web bajo licencia Creative Commons <a rel='license content' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.es'>BY-NC-SA</a>. <a href='http://code.google.com/p/foofind/'>Código fuente</a> bajo licencia <a rel='license source code' href='http://www.gnu.org/licenses/gpl-3.0.txt'>GPLv3</a>."
 "Last indexed files.";"Últimos archivos indexados."
 
 #privacy
-"safe_privacytext";"<b>Finalidad y responsable del fichero</b><br />Por la presente y de conformidad con la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) le informa de la existencia de un fichero automatizado de datos creado por la misma y bajo su responsabilidad.
+"safe_privacytext";"<b>Finalidad y responsable del fichero</b><br />Por la presente y de conformidad con la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, Foofind Labs, S.L. (en adelante LA EMPRESA) le informa de la existencia de un fichero automatizado de datos creado por la misma y bajo su responsabilidad.
 <br /><br />
 La finalidad de dicho fichero es la de gestionar las funciones de acceso a la web de los usuarios registrados, dar el trámite que sea necesario a las dudas y comentarios dirigidos a LA EMPRESA, optimizar el orden de los resultados de las búsquedas en función de la ubicación geográfica de quien las realiza y de los votos del resto de usuarios, así como atender a las reclamaciones efectuadas por quien desee notificar la existencia de resultados y enlaces que dirijan a contenidos que considere ilícitos o difundidos sin la preceptiva autorización.  
 <br /><br />
@@ -239,7 +239,7 @@ No se aceptarán datos de usuarios menores de 18 años. LA EMPRESA eliminará lo
 El usuario podrá ejercer sus derechos de acceso, rectificación, cancelación y oposición comunicando con el responsable del fichero en la siguiente dirección:
 <br /><br />
 <img src='/images/privacy.png' /><br />
-M Punto 2 Punto Technologies, S.A.<br />
+Foofind Labs, S.L.<br />
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
 <br /><br />
 <b>Datos recabados del usuario registrado</b><br />
@@ -277,7 +277,7 @@ El uso del servicio con posterioridad a la modificación de la política de priv
 #tos
 "Terms of use";"Términos de uso"
 "safe_tostext";"<b>1.- Objeto y modo de aceptación de los términos de uso</b><br />
-El presente acuerdo regula el acceso y uso de la página web foofind.com que M Punto 2 Punto Technologies, S.A. (en adelante LA EMPRESA) pone a disposición de los usuarios interesados en el servicio.<br>
+El presente acuerdo regula el acceso y uso de la página web foofind.com que Foofind Labs, S.L. (en adelante LA EMPRESA) pone a disposición de los usuarios interesados en el servicio.<br>
 El uso de los servicios prestados en esta web supone la aceptación por parte del usuario de estos términos de uso.<br />
 LA EMPRESA podrá cesar en cualquier momento y sin previo aviso en la prestación de sus servicios a través de foofind.com así como modificar el servicio prestado, ya sea en aspectos accidentales o sustanciales.<br />
 LA EMPRESA no garantiza que el servicio prestado a través de Foofind sea ininterrumpido o sin errores.<br />
@@ -332,16 +332,16 @@ El uso del servicio con posterioridad a la modificación de los términos de uso
 
 #legal
 "Legal";"Aviso legal"
-"safe_legaltext";"M Punto 2 Punto Technologies, S.A.
+"safe_legaltext";"Foofind Labs, S.L.
 <br>
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.
 <br />
 <img src='/images/hola.png' /><br />
 <br />
 Inc. en el R.M. de Madrid,<br />
-Tomo 19.853, Folio 160, Hoja M-349777.
+Tomo 28.498, Folio 129, Sección 8, Hoja M-513051.
 <br />
-C.I.F. A-83940825
+C.I.F. B-86116035
 <br /><br />
 Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Foofind no aloja y, en consecuencia, no reproduce ni comunica públicamente los archivos enlazados que aparecen como resultados de las búsquedas. Foofind no asume ninguna obligación de control, vigilancia e inspección de las obras que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.<br /><br />
  Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, le rogamos nos solicite su retirada exclusivamente desde el siguiente <a href='/es/page/complaint'>formulario de reclamación.</a><br /><br />

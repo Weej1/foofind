@@ -100,6 +100,8 @@ class IndexController extends Zend_Controller_Action
         $this->view->form = $form;
 
         if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")!==FALSE) $this->view->extra .= " iehome";
+
+        $this->view->extra .= " home";
     }
 
     public function queryAction()

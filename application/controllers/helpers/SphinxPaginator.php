@@ -148,7 +148,18 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
             }
         }
 
-        $this->query = preg_replace("/[\W_]-[\W_]/iu", " ", $conditions['q']);
+
+        $this->id = $conditions['id'];
+        if ($this->id) {
+            $this->cl->ResetFilters();
+            $ids = unpack("I*", $this->id);
+            if ((int)$ids[1]>0) $this->cl->SetFilter("uri1", array((int)$ids[1]));
+            if ((int)$ids[2]>0) $this->cl->SetFilter("uri2", array((int)$ids[2]));
+            if ((int)$ids[3]>0) $this->cl->SetFilter("uri3", array((int)$ids[3]));
+            $this->query=substr($conditions['q'],20);
+        } else {
+            $this->query = preg_replace("/[\W_]-[\W_]/iu", " ", $conditions['q']);
+        }
     }
 
     public function justCount()
@@ -174,6 +185,7 @@ class SphinxPaginator implements Zend_Paginator_Adapter_Interface {
         $this->cl->SetLimits( $offset, $itemCountPerPage, MAX_RESULTS, MAX_HITS);
         $result = $this->cl->Query($this->query, $this->table );
         $docs = array();
+        
         if ( $result !== false  ) {
 
             if ( $this->cl->GetLastWarning() ) {

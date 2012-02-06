@@ -19,14 +19,14 @@ echo $form; ?>
     <hr />
     <script>document.getElementById('q').focus();</script>
     <?php echo $this->layout('with_search_form')->content ?>
-    <div id="footer" >
+    <div id="footer">
+        <span id="footer_text"><?=$this->translate('this is the footer text');  ?></span>
         <span id="footer_links">
+            <a class="navtype" href="/<?= $this->lang ?>/page/about/"><?= $this->translate('About'); ?></a>
             <a class="navtype" href="/<?= $this->lang ?>/page/legal/"><?= $this->translate('Legal'); ?></a>
-            <a class="navtype" href="/<?= $this->lang ?>/page/tos"><?= $this->translate('Terms'); ?></a>
-            <a class="navtype" href="/<?= $this->lang ?>/page/privacy"><?= $this->translate('Privacy'); ?></a>
+            <? if ($this->lang=="es"): ?><a class="navtype" href="/<?= $this->lang ?>/page/jobs/">Trabaja con nosotros</a><? endif; ?>
             <a class="navtype" href="/<?= $this->lang ?>/index/lastfiles" ><?= Zend_Locale_Format::toNumber(  Zend_Registry::get("files_count"), array( 'locale' => $this->lang))?> <?=$this->translate('files indexed'); ?></a>
         </span>
-        <span id="footer_text"><?=$this->translate('this is the footer text');  ?></span>
     </div>
 </div>
 </div>

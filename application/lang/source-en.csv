@@ -5,7 +5,7 @@
 "since";"%d %s ago"
 
 #privacy
-"safe_privacytext";"In accordance with Organic Law 15/1999, of December 13th, on the Protection of Personal Data, M Punto 2 Punto Technologies, S.A. (hereinafter THE COMPANY) hereby informs of the existence of an automated data file that it has created and for which it is responsible.
+"safe_privacytext";"In accordance with Organic Law 15/1999, of December 13th, on the Protection of Personal Data, Foofind Labs, S.L. (hereinafter THE COMPANY) hereby informs of the existence of an automated data file that it has created and for which it is responsible.
 <br /><br />
 This file is used for dealing with questions and comments, as well as claims made by users wishing to report the existence of results and links that direct to content that is illegal or that has been disseminated without the mandatory authorisation. THE COMPANY may send e-mails to the account provided by the user in order to inform them that the claim they have made is being processed.
 <br /><br />
@@ -14,7 +14,7 @@ The sending of personal data by means of any of our forms implies express author
 The user may exercise their rights to access, rectify, cancel or oppose by contacting those responsible for the file at the following address:
 <br /><br />
 <img src='/images/privacy.png' /><br />
-M Punto 2 Punto Technologies, S.A.<br />
+Foofind Labs, S.L.<br />
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.<br /><br />
 
 The user consents to the use of cookies that shall under no circumstances allow for them to be identified, in order to facilitate browsing on this website. Nevertheless, the user can disable the cookies by configuring the browser to do so.
@@ -33,7 +33,7 @@ Use of this website implies the user’s acceptance of its privacy policy.
 #tos
 "safe_tostext";"
 <b>1.- Purpose and acceptance of terms of use</b><br />
-This agreement regulates access to and use of the foofind.com website that M Punto 2 Punto Technologies, S.A. (hereinafter THE COMPANY) provides users interested in the service.
+This agreement regulates access to and use of the foofind.com website that Foofind Labs, S.L. (hereinafter THE COMPANY) provides users interested in the service.
 Use of the services provided on this website implies the user's acceptance of these terms of use.
 THE COMPANY may, at any time and without prior notification, stop rendering its services through foofind.com and may modify the service rendered, whether this be to accidental or significant aspects.
 THE COMPANY does not guarantee that the service provided through Foofind will be uninterrupted or without error.
@@ -63,13 +63,13 @@ Use of the service after changes have been made to the terms of use implies that
 
 #legal
 "safe_legaltext";"
-M Punto 2 Punto Technologies, S.A.<br />
+Foofind Labs, S.L.<br />
 Avda. Mediterráneo, 24. Esc. C. 1 C. 28007 Madrid. Spain.<br />
 <img src='/images/legal.png' /><br />
-Inscribed in the Madrid Business Register<br /><br />
-
-Volume 19.853, Folio 160, Sheet M-349777<br />
-VAT Nº: A-83940825<br />
+<br />
+Inscribed in the Madrid Business Register<br />
+Volume 28.498, Folio 129, Section 8, Sheet M-513051<br />
+VAT Nº: B-86116035<br />
 <br />
 Foofind provides a file search service that automatically generates results. Foofind does not host and does, therefore, not reproduce nor publicly announce the linked files that appear as search results. Foofind does not assume any obligation to control, supervise or inspect the works that are linked as a result of the search. Nevertheless, in strict compliance with article 17 LSSI, Foofind shall remove all of those results and links that it actually knows to be illegal.
 <br />
@@ -84,9 +84,7 @@ You should read and accept our <a href='/en/page/tos'>terms of use</a> and our <
 "literal_check_agree";"I have read and accept the <a href='/en/page/tos'>terms of use</a> and <a href='/en/page/privacy'>privacy policy</a>."
 
 #about
-"this is the about text";"Foofind is a universal search engine. In Foofind we work creating software that crawls every network and indexes every file. This way, we intend to offer the largest collection of links available.
-<br /><br />
-Foofind is a creation by Pablo Soto, P2P technology designer, developed in Madrid, Spain by MP2P Technologies."
+"this is the about text";"Foofind is a universal search engine. In Foofind we work creating software that crawls every network and indexes every file. This way, we intend to offer the largest collection of links available.<br /><br />Foofind is a creation by Pablo Soto, P2P technology designer, developed in Madrid, Spain by Foofind Labs S.L. in consortium with MP2P Technologies."
 
 
 #footer
