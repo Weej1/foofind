@@ -147,7 +147,7 @@
 "Member since:";"Membro desde:"
 "Last 5 comments:";"Últimos 5 comentários"
 "Location:";"Localização"
-"Delete your foofind.com account";"Apagar sua conta no foofind.com"
+"Delete your Foofind account";"Apagar sua conta no Foofind"
 "Forgot your password?";"Esqueceu sua senha?"
 "Wrong email or password, please try again";"Senha ou email errado, por favor tente de novo"
 "Welcome";"Bem-vindo"
@@ -156,7 +156,7 @@
 ", confirm your email";", confirme seu email"
 ", restore your foofind access";", recupere seu acesso ao foofind"
 "Please, enter your email address. An email to recover your access will be sent to you.";"Por favor, insira seu endereço de email. Uma mensagem para recuperar seu acesso será enviada a você."
-"Check your inbox email to restore your foofind.com access";"Verifique sua caixa de mensaqgens para recuperar o acesso ao foofind.com"
+"Check your inbox email to restore your Foofind access";"Verifique sua caixa de mensaqgens para recuperar o acesso ao Foofind"
 "Check your inbox email to finish the register process";"Verifique sua caixa de mensagens para terminar o processo de registro."
 "Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Alguém quer recuperar seu acesso ao foofind. Clique neste URL para recuperar sua conta do foofind."
 "Otherwise, ignore this message.";"Ao contrário, ignore esta mensagem."
@@ -341,13 +341,13 @@
 
 
 #error
-"Foofind.com is under maintenance. Please, come back later.";" Foofind está em manutenção. Por favor, volte mais tarde."
+"Foofind is under maintenance. Please, come back later.";" Foofind está em manutenção. Por favor, volte mais tarde."
 "This link does not exist or may have been deleted!";"O link não existe ou foi deletado!"
 
 #translate
 "Translate";"Traduzir"
-"Help us to translate Foofind.com to your language";"Ajude a traduzir Foofind.com no seu idioma"
-"translate text";"Foofind.com está disponível em alguns idiomas, mas você pode nos ajudar a traduzir em sua língua. Escolha na lista e preencha os campos com os textos traduzidos. Você não precisa preencher todos para enviar o formulário, e qualquer ajuda será bem-vinda.<br/><br/>Se seu idioma não aparece na lista, por favor, fale conosco para que seja adicionado. "
+"Help us to translate Foofind to your language";"Ajude a traduzir Foofind no seu idioma"
+"translate text";"Foofind está disponível em alguns idiomas, mas você pode nos ajudar a traduzir em sua língua. Escolha na lista e preencha os campos com os textos traduzidos. Você não precisa preencher todos para enviar o formulário, e qualquer ajuda será bem-vinda.<br/><br/>Se seu idioma não aparece na lista, por favor, fale conosco para que seja adicionado. "
 "Choose language";"Escolha o idioma"
 "Your translation has been sent. Thanks for your help!";"Sua tradução foi enviada. Obrigado por sua ajuda!"
 "Please, translate at least one text.";"Por favor, traduza pelo menos um texto."

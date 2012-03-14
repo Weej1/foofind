@@ -8,7 +8,7 @@ foreach ( $this->sdocs as $hexuri => $w ):
             {
                 $var = count($doc['file']['i']);
                 echo "<a class='thumb' href='/{$this->lang}/download/{$doc['view']['url']}/".$this->formatURL($doc['view']['fn']).".html'>";
-                echo "<img ic='$var' src='http://images{$doc['file']['i'][0]}.foofind.com/".$doc['file']['_id']->__toString()."0' />";
+                echo "<img ic='$var' src='http://images{$doc['file']['i'][0]}.".WEB_PATH."/".$doc['file']['_id']->__toString()."0' />";
                 echo "</a>";
             }
             else {

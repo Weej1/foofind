@@ -69,7 +69,7 @@ class FoofindApi
             $paginatorArray2[$i]['size'] = $paginatorArray[$i]['file']['z'];
             $paginatorArray2[$i]['type'] = $paginatorArray[$i]['view']['type'];
 
-            $paginatorArray2[$i]['dlink'] = '<![CDATA['.'http://foofind.com/'.$lang.'/download/'.$paginatorArray[$i]['view']['url'] .'/'.htmlentities($paginatorArray[$i]['view']['fn'], ENT_QUOTES, "UTF-8").'.html]]>';
+            $paginatorArray2[$i]['dlink'] = '<![CDATA['.'http://'.WEB_PATH.'/'.$lang.'/download/'.$paginatorArray[$i]['view']['url'] .'/'.htmlentities($paginatorArray[$i]['view']['fn'], ENT_QUOTES, "UTF-8").'.html]]>';
 
             //extract and reformat md data subarray (notation : is not xml complaint)
             foreach ($paginatorArray[$i]['file']['md'] as $key => $value)

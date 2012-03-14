@@ -1,4 +1,4 @@
-        <? include_once("header_common_nosearch.phtml");?>
+<? include_once("header_common_nosearch.phtml");?>
 <div class="content<?php if ($this->advices) { echo " advices";}?>">
     <?if ($this->advices):
         foreach ($this->advices as $name=>$advice):?>
@@ -7,7 +7,7 @@
     endif;?>
     <div id="container_error">
         <h1>
-            <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+            <a href="/" class="logo_site"><div></div><span>File search engine - <?=WEB_PATH?></span></a>
         </h1>
         <hr />
         <?php echo $this->layout('error')->content ?>

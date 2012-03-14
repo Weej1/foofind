@@ -235,7 +235,7 @@ class PageController extends Zend_Controller_Action
         public function complaintAction() {
                 $request = $this->getRequest ();
                 $form = $this->_getComplaintForm ();
-                $form->getElement("urlreported")->setValue("http://foofind.com/".$this->view->lang."/download/");
+                $form->getElement("urlreported")->setValue("http://".WEB_PATH."/".$this->view->lang."/download/");
 
                 if ($this->getRequest ()->isPost ()) {
 
@@ -246,7 +246,7 @@ class PageController extends Zend_Controller_Action
                                 
                     $message = $f->filter ( $this->_request->getPost ( 'message' ) );
                            
-                    if (preg_match("|https?://[^/]*foofind.com/?|i", $message)>0)
+                    if (preg_match("|https?://[^/]*".WEB_PATH."/?|i", $message)>0)
                     {
                         //check message don't include foofind links
                         $m = $form->getElement("message")->addError("Please, include the reported links in the appropriate fields on the form.");
@@ -289,7 +289,7 @@ class PageController extends Zend_Controller_Action
 
                             $config = Zend_Registry::get('config');
                             $mail->addTo($config->contact->email);
-                            $mail->setSubject ( 'foofind.com - complaint petition  from ' . $email );
+                            $mail->setSubject ( WEB_PATH.' - complaint petition  from ' . $email );
 
                             try {
                                   $mail->send();
@@ -307,7 +307,7 @@ class PageController extends Zend_Controller_Action
                             '<br/><br/>Esta es una respuesta automática a su solicitud de retirada de enlace.<br/><br/>
         Hemos recibido su solicitud y la procesaremos lo antes posible. No se requiere ninguna acción por su parte para completar el proceso.<br/><br/>
 
-        Tenga en cuenta que sólo podemos retirar enlaces específicos, no palabras de búsqueda, y que no podemos evitar que terceros sitios sigan ofreciendo los enlaces retirados por nosotros. Si lo desea, puede comprobar la no disponibilidad de los enlaces que ha solicitado retirar visitando foofind.com dentro de unos días.
+        Tenga en cuenta que sólo podemos retirar enlaces específicos, no palabras de búsqueda, y que no podemos evitar que terceros sitios sigan ofreciendo los enlaces retirados por nosotros. Si lo desea, puede comprobar la no disponibilidad de los enlaces que ha solicitado retirar visitando Foofind dentro de unos días.
         <br/><br/>
         Atentamente,<br/>
         El equipo Foofind.
@@ -315,7 +315,7 @@ class PageController extends Zend_Controller_Action
                             $mailautoreply->setBodyHtml ( $body2 );
                             $mailautoreply->setFrom ( 'noreply@foofind.com' );
                             $mailautoreply->addTo ( $email , $name.' '.$surname);
-                            $mailautoreply->setSubject ( 'foofind.com - about your complaint petition  , ' . $name.' '.$surname );
+                            $mailautoreply->setSubject ( WEB_PATH.' - about your complaint petition  , ' . $name.' '.$surname );
 
                             try {
                                   $mailautoreply->send();
@@ -380,7 +380,7 @@ class PageController extends Zend_Controller_Action
                                 $config = Zend_Registry::get('config');
                                 $mail->addTo($config->contact->email);
 
-                                $mail->setSubject ( 'foofind.com - message contact  from ' . $email );
+                                $mail->setSubject ( WEB_PATH.' - message contact  from ' . $email );
                                  try {
                                       $mail->send();
                                     } catch (Exception $e) {
@@ -447,7 +447,7 @@ class PageController extends Zend_Controller_Action
                             $attachment->filename = basename($filename);
                         }
 
-                        $mail->setSubject ( 'foofind.com - job offer reply from ' . $email );
+                        $mail->setSubject ( WEB_PATH.' - job offer reply from ' . $email );
                         try {
                               $mail->send();
 
