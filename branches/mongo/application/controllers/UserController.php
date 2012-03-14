@@ -108,7 +108,7 @@ class UserController extends Zend_Controller_Action
                     $mail->setBodyHtml ( $this->view->translate ( 'Please, click on this url to finish your register process:' ).'<br />'
                             . '<a href="' . $validate_url . '">' . $validate_url . '</a>' .
                             '<br /><br />_______________________________<br />' . $this->view->translate ( 'The foofind team.' )  );
-                    $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
+                    $mail->setFrom ( 'noreply@foofind.com');
 
                     $mail->addTo($formulario['email']);
                     $mail->setSubject ( $formulario ['username'] . $this->view->translate ( ', confirm your email' ) );
@@ -535,12 +535,12 @@ class UserController extends Zend_Controller_Action
                             '<br /><br />'.
                             $this->view->translate('Otherwise, ignore this message.').
                             '<br />____<br />' . $this->view->translate ( 'The foofind team.' )  );
-                    $mail->setFrom ( 'noreply@foofind.com', 'foofind.com' );
+                    $mail->setFrom ( 'noreply@foofind.com');
 
                     $mail->addTo($mailcheck ['email']);
                     $mail->setSubject ( $mailcheck ['username'] . $this->view->translate ( ', restore your foofind access' ) );
                     $mail->send ();
-                    $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to restore your foofind.com access' ) );
+                    $this->_helper->_flashMessenger->addMessage ( $this->view->translate ( 'Check your inbox email to restore your Foofind access' ) );
                     $this->_redirect ( '/' );
 
                 }

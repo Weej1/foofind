@@ -148,7 +148,7 @@
 "Member since:";"Miembro desde:"
 "Last 5 comments:";"Últimos 5 comentarios:"
 "Location:";"Ubicación:"
-"Delete your foofind.com account";"Eliminar tu cuenta de foofind.com"
+"Delete your Foofind account";"Eliminar tu cuenta de Foofind"
 "Forgot your password?";"¿Olvidaste tu contraseña?"
 "Wrong email or password, please try again";"Dirección de correo o contraseña erronea. Inténtalo de nuevo."
 "Welcome";"Bienvenido"
@@ -157,11 +157,11 @@
 ", confirm your email";", confirma tu email"
 ", restore your foofind access";", restaura tu acceso a foofind"
 "Please, enter your email address. An email to recover your access will be sent to you.";"Por favor, introduce tu dirección de email. Te enviaremos un mensaje para recuperar el acceso."
-"Check your inbox email to restore your foofind.com access";"Comprueba tu correo para recuperar tu acceso a foofind.com"
+"Check your inbox email to restore your Foofind access";"Comprueba tu correo para recuperar tu acceso a Foofind"
 "Check your inbox email to finish the register process";"Comprueba tu correo para completar el proceso de registro"
-"Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Alguien, probablemente tu, ha solicitado restaurar el acceso a tu cuenta de foofind.com. Haz click en esta url para recuperar tu cuenta:"
+"Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Alguien, probablemente tu, ha solicitado restaurar el acceso a tu cuenta de Foofind. Haz click en esta url para recuperar tu cuenta:"
 "Otherwise, ignore this message.";"En caso contrario, ignora este mensaje."
-"The foofind team.";"El equipo de foofind.com."
+"The foofind team.";"El equipo de Foofind."
 "This user does not exist";"Este usuario no existe"
 "You are now logged in,";"Has iniciado sesión,"
 "(If you already are a registered user, please";"(Si ya eres un usuario registrado, por favor"
@@ -277,9 +277,9 @@ El uso del servicio con posterioridad a la modificación de la política de priv
 #tos
 "Terms of use";"Términos de uso"
 "safe_tostext";"<b>1.- Objeto y modo de aceptación de los términos de uso</b><br />
-El presente acuerdo regula el acceso y uso de la página web foofind.com que Foofind Labs, S.L. (en adelante LA EMPRESA) pone a disposición de los usuarios interesados en el servicio.<br>
+El presente acuerdo regula el acceso y uso de la página web {%WEB_PATH%} que Foofind Labs, S.L. (en adelante LA EMPRESA) pone a disposición de los usuarios interesados en el servicio.<br>
 El uso de los servicios prestados en esta web supone la aceptación por parte del usuario de estos términos de uso.<br />
-LA EMPRESA podrá cesar en cualquier momento y sin previo aviso en la prestación de sus servicios a través de foofind.com así como modificar el servicio prestado, ya sea en aspectos accidentales o sustanciales.<br />
+LA EMPRESA podrá cesar en cualquier momento y sin previo aviso en la prestación de sus servicios a través de {%WEB_PATH%} así como modificar el servicio prestado, ya sea en aspectos accidentales o sustanciales.<br />
 LA EMPRESA no garantiza que el servicio prestado a través de Foofind sea ininterrumpido o sin errores.<br />
 LA EMPRESA podrá  cancelar o suspender la cuenta o el acceso a la web sin previo aviso del USUARIO que, según su criterio unilateral, considere que está incumplimiento los presentes Términos de Uso y/o la legalidad vigente. <br /><br />
 <b>2.- Precio por el uso del servicio</b><br>
@@ -345,16 +345,16 @@ N.I.F. B-86116035
 <br /><br />
 Foofind ofrece un servicio de búsqueda de archivos que genera resultados de forma automática. Foofind no aloja y, en consecuencia, no reproduce ni comunica públicamente los archivos enlazados que aparecen como resultados de las búsquedas. Foofind no asume ninguna obligación de control, vigilancia e inspección de las obras que se enlazan como resultados de la búsqueda. No obstante lo anterior, en estricto cumplimiento del artículo 17 LSSI, Foofind  eliminará todos aquellos resultados y enlaces de cuya ilicitud tenga conocimiento efectivo.<br /><br />
  Si considera que alguna o algunas de las obras enlazadas se están difundiendo sin la correspondiente autorización de los titulares de derechos o que infringe derechos de terceros, le rogamos nos solicite su retirada exclusivamente desde el siguiente <a href='/es/page/complaint'>formulario de reclamación.</a><br /><br />
-              Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde foofind.com."
+              Usted debe leer y aceptar nuestros <a href='/es/page/tos'>términos de uso</a> y nuestra <a href='/es/page/privacy'>política de privacidad</a> antes de usar los servicios suministrados desde {%WEB_PATH%}."
 
 #error
-"Foofind.com is under maintenance. Please, come back later.";"Foofind.com está en parada de mantenimiento. Por favor, vuelve dentro de un rato."
+"Foofind is under maintenance. Please, come back later.";"Foofind está en parada de mantenimiento. Por favor, vuelve dentro de un rato."
 "This link does not exist or may have been deleted!";"¡Este enlace no existe o ha sido eliminado!"
 
 #translate
 "Translate";"Traducir"
-"Help us to translate Foofind.com to your language";"Ayúdanos a traducir Foofind.com a tu idioma"
-"translate text";"Actualmente, Foofind.com está disponible en pocos idiomas, pero tú puedes ayudarnos a traducirlo al tuyo. Elígelo de la lista de idiomas que se encuentra a continuación y rellena los campos con los textos traducidos. No es necesario que completes todos los campos, cualquier aportación que puedas realizar será de gran ayuda.<br/><br/>Si no encuentras tu idioma en la lista, ponte en contacto con nosotros para que lo añadamos."
+"Help us to translate Foofind to your language";"Ayúdanos a traducir Foofind a tu idioma"
+"translate text";"Actualmente, Foofind está disponible en pocos idiomas, pero tú puedes ayudarnos a traducirlo al tuyo. Elígelo de la lista de idiomas que se encuentra a continuación y rellena los campos con los textos traducidos. No es necesario que completes todos los campos, cualquier aportación que puedas realizar será de gran ayuda.<br/><br/>Si no encuentras tu idioma en la lista, ponte en contacto con nosotros para que lo añadamos."
 "Choose language";"Elegir idioma"
 "Your translation has been sent. Thanks for your help!";"Tu traducción ha sido enviada. ¡Gracias por la ayuda!"
 "Please, translate at least one text.";"Por favor, traduce al menos una frase antes de enviar."

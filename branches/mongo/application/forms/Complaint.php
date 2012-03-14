@@ -26,14 +26,14 @@ class Form_Complaint extends Zend_Form {
                 $this->addElement ( 'text', 'phonenumber', array ('label' => 'Your phone number:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ('alnum', array ('StringLength', false, array (9, 30 ) ) ), 'required' => false ) );
 
                 //add link reported
-                $foofyLink = new Zend_Validate_Regex("|^(?!https?://[^/]*foofind.com/?).*$|i");
+                $foofyLink = new Zend_Validate_Regex("|^(?!https?://[^/]*".WEB_PATH."/?).*$|i");
                 $foofyLink->setMessage("Link can't be a Foofind page");
                 $this->addElement ( 'text', 'linkreported', array ('label' => 'Please, insert the link to be reviewed:', 'filters' => array ('StringTrim', 'StringToLower' ),
                     'validators' => array ( array ('StringLength', false, array (9, 256 ) ), $foofyLink),
                     'required' => true ) );
 
                  //add url reported
-                $foofyLink = new Zend_Validate_Regex("|^https?://foofind.com/\w\w/download/[a-zA-Z0-9!-]{16}(/.*)?$|i");
+                $foofyLink = new Zend_Validate_Regex("|^https?://".WEB_PATH."/\w\w/download/[a-zA-Z0-9!-]{16}(/.*)?$|i");
                 $foofyLink->setMessage("URL must be a valid Foofind download page");
                 $this->addElement ( 'text', 'urlreported', array ('label' => 'Please, insert the url where this content appears:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ( array ('StringLength', false, array (9, 256 ) ), $foofyLink ), 'required' => true ) );
 

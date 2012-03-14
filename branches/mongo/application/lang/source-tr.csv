@@ -148,7 +148,7 @@
 "Member since:";"Bu tarihten beri üye:"
 "Last 5 comments:";"Son 5 yorumu:"
 "Location:";"Konumu:"
-"Delete your foofind.com account";"Foofind hesabını sil"
+"Delete your Foofind account";"Foofind hesabını sil"
 "Forgot your password?";"Şifrenizi mi unuttunuz?"
 "Wrong email or password, please try again";"Hatalı e-mail ya da şifre, tekrar deneyiniz"
 "Welcome";"Hoş geldiniz"
@@ -157,7 +157,7 @@
 ", confirm your email";", e-mail adresinizi teyit ediniz"
 ", restore your foofind access";", foofind hesabınızı tekrar etkinleştiriniz"
 "Please, enter your email address. An email to recover your access will be sent to you.";"E-mail adresinizi giriniz. Hesabınıza erişimi yeniden kazanmanız için bir e-mail size gönderilecektir."
-"Check your inbox email to restore your foofind.com access";"Hesabınıza erişimi yeniden kazanmak için e-mail adresinize gelen mesajları kontrol ediniz."
+"Check your inbox email to restore your Foofind access";"Hesabınıza erişimi yeniden kazanmak için e-mail adresinize gelen mesajları kontrol ediniz."
 "Check your inbox email to finish the register process";"Kayıt işlemlerini tamamlamak için e-mail adresinize gelen mesajları kontrol ediniz."
 "Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"Birisi, muhtemelen siz, foofind oturumunuzu tekrar etkinleştirmek istiyor. Bu bağlantıyı tıklayarak foofind hesabınızı tekrar etkinleştirebilirsiniz:"
 "Otherwise, ignore this message.";"Yoksa bu mesajı görmezden geliniz."
@@ -345,12 +345,12 @@
 
 
 #error
-"Foofind.com is under maintenance. Please, come back later.";"Foofind.com bakımdadır. Daha sonra tekrar ziyaret ediniz."
+"Foofind is under maintenance. Please, come back later.";"Foofind bakımdadır. Daha sonra tekrar ziyaret ediniz."
 "This link does not exist or may have been deleted!";"Bu bağlantı yoktur ya da silinmiş olabilir!"
 
 #translate
 "Translate";"Tercüme"
-"Help us to translate Foofind.com to your language";"Foofind.com'u dilinize çevirmemize yardım edin"
+"Help us to translate Foofind to your language";"Foofind'u dilinize çevirmemize yardım edin"
 "translate text";"Foofind şu anda birkaç dilde hizmet sunmaktadır, ama çeviri için bize yardımda bulunabilirsiniz. Aşağıdaki listeden dilinizi seçip gereken alanları tercümeniz ile doldurmanız yeterli olacaktır. Bütün alanları doldurmanıza gerek yoktur, tüm yardımlar makbûle geçecektir.<br/><br/>Eğer diliniz listede mevcut değilse, eklememiz için bizimle iletişime geçmenizi rica ederiz."
 "Choose language";"Dil seçimi"
 "Your translation has been sent. Thanks for your help!";"Tercümeniz gönderilmiştir. Yardımınız için teşekkür ederiz!"

@@ -1,6 +1,6 @@
 <div id="container_search">
     <h1>
-        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+        <a href="/" class="logo_site"><div></div><span>File search engine - <?=WEB_PATH?></span></a>
     </h1>
     <?=$this->form; ?>
     <script>document.getElementById('q').focus();</script>
@@ -48,7 +48,7 @@ if (count ( $this->mensajes ) > 0) {
                 {
                     $var = count($this->file['file']['i']);
                     echo "<a class='thumblink' href='".$this->formatHTML($this->file['view']['sources'][$this->file['view']['source']]['urls'][0])."'>";
-                    echo "<img class='thumb' ic='$var' src='http://images{$this->file['file']['i'][0]}.foofind.com/".$this->file['file']['_id']->__toString()."0' />";
+                    echo "<img class='thumb' ic='$var' src='http://images{$this->file['file']['i'][0]}.".WEB_PATH."/".$this->file['file']['_id']->__toString()."0' />";
                     echo "</a>";
                 } else {
                     echo "<div class='icon icon50 ".strtolower($this->file['view']['type'])."50'></div><br />";

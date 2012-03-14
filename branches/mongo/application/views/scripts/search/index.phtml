@@ -1,7 +1,7 @@
 <div id="container_search">
     <div style="height:70px">
     <h1>
-        <a href="/" class="logo_site"><div></div><span>File search engine - foofind.com</span></a>
+        <a href="/" class="logo_site"><div></div><span>File search engine - <?=WEB_PATH?></span></a>
     </h1>
 <?=$this->form; ?>
     <script>document.getElementById('q').focus();</script>
@@ -97,7 +97,7 @@ if (isset($this->didyoumean))
                 {
                     $var = count($val['file']['i']);
                     echo "<a href='/{$this->lang}/download/{$val['view']['url']}/".$this->formatURL($val['view']['fn']).".html'>";
-                    echo "<img class='thumb' ic='$var' src='http://images{$val['file']['i'][0]}.foofind.com/".$val['file']['_id']->__toString()."0' />";
+                    echo "<img class='thumb' ic='$var' src='http://images{$val['file']['i'][0]}.".WEB_PATH."/".$val['file']['_id']->__toString()."0' />";
                     echo "</a>";
                 }?>
             <h3>

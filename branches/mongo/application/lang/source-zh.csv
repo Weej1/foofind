@@ -148,7 +148,7 @@
 "Member since:";"成为会员："
 "Last 5 comments:";"最后5个评论："
 "Location:";"位置："
-"Delete your foofind.com account";"删除你的foofind.com帐户"
+"Delete your Foofind account";"删除你的Foofind帐户"
 "Forgot your password?";"忘记密码？"
 "Wrong email or password, please try again";"错误的电子邮件或密码 重新输入"
 "Welcome";"欢迎"
@@ -157,7 +157,7 @@
 ", confirm your email";"确认你的电子邮件"
 ", restore your foofind access";"找回你的foofind密码"
 "Please, enter your email address. An email to recover your access will be sent to you.";"输入你的电邮地址 将发送一封邮件恢复你的访问"
-"Check your inbox email to restore your foofind.com access";"检查你的收件箱 找回你的foofind.com密码"
+"Check your inbox email to restore your Foofind access";"检查你的收件箱 找回你的Foofind密码"
 "Check your inbox email to finish the register process";"检查你的收件箱完成注册"
 "Somebody, probably you, wants to restore your foofind access. Click on this url to restore your foofind account:";"或许你想要恢复您的foofind访问 点击这个链接来恢复您的foofind帐户:"
 "Otherwise, ignore this message.";"否则不理睬这个信息"
@@ -342,13 +342,13 @@
 
 
 #error
-"Foofind.com is under maintenance. Please, come back later.";"Foofind.com正在维护中，请稍候访问。"
+"Foofind is under maintenance. Please, come back later.";"Foofind正在维护中，请稍候访问。"
 "This link does not exist or may have been deleted!";"此链接不存在或者已被删除！"
 
 #translate
 "Translate";"翻译"
-"Help us to translate Foofind.com to your language";"协助我们将Foofind.com翻译为您使用的语言"
-"translate text";"Foofind.com当前可用的语言,但你可以帮助我们把它翻译为你自己的语言。只要选择从它下面列出的及翻译的文本。你不需提交所有领域方式,任何的帮助将很感激的。<br/><br/>如果你的语言是不在列表中,请与我们联系来增加。"
+"Help us to translate Foofind to your language";"协助我们将Foofind翻译为您使用的语言"
+"translate text";"Foofind当前可用的语言,但你可以帮助我们把它翻译为你自己的语言。只要选择从它下面列出的及翻译的文本。你不需提交所有领域方式,任何的帮助将很感激的。<br/><br/>如果你的语言是不在列表中,请与我们联系来增加。"
 "Choose language";"选择语言"
 "Your translation has been sent. Thanks for your help!";"您的翻译结果已经提交成功。谢谢您的帮助！"
 "Please, translate at least one text.";"请至少一个文本翻译"

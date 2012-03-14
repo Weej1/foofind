@@ -26,7 +26,7 @@ class ErrorController extends Zend_Controller_Action
             default:
                 // 500 error
                 $this->getResponse()->setHttpResponseCode(500);
-                $this->view->message = $this->view->translate('Foofind.com is under maintenance. Please, come back later.');
+                $this->view->message = $this->view->translate('Foofind is under maintenance. Please, come back later.');
                 break;
         }
         

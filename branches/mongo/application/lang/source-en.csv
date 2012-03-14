@@ -33,9 +33,9 @@ Use of this website implies the user’s acceptance of its privacy policy.
 #tos
 "safe_tostext";"
 <b>1.- Purpose and acceptance of terms of use</b><br />
-This agreement regulates access to and use of the foofind.com website that Foofind Labs, S.L. (hereinafter THE COMPANY) provides users interested in the service.
+This agreement regulates access to and use of the {%WEB_PATH%} website that Foofind Labs, S.L. (hereinafter THE COMPANY) provides users interested in the service.
 Use of the services provided on this website implies the user's acceptance of these terms of use.
-THE COMPANY may, at any time and without prior notification, stop rendering its services through foofind.com and may modify the service rendered, whether this be to accidental or significant aspects.
+THE COMPANY may, at any time and without prior notification, stop rendering its services through {%WEB_PATH%} and may modify the service rendered, whether this be to accidental or significant aspects.
 THE COMPANY does not guarantee that the service provided through Foofind will be uninterrupted or without error.
 <br /><br />
 <b>2.- Price for using the service</b><br />
@@ -78,7 +78,7 @@ If you believe any of the linked works are being disseminated without the approp
 <br /><br />
 
 
-You should read and accept our <a href='/en/page/tos'>terms of use</a> and our <a href='/es/page/privacy'>privacy policy</a>  before using the services provided by foofind.com.
+You should read and accept our <a href='/en/page/tos'>terms of use</a> and our <a href='/es/page/privacy'>privacy policy</a>  before using the services provided by {%WEB_PATH%}.
 "
 
 #complaint
@@ -93,5 +93,5 @@ You should read and accept our <a href='/en/page/tos'>terms of use</a> and our <
  <a href='http://code.google.com/p/foofind/'>Source code</a> under <a rel='license source code' href='http://www.gnu.org/licenses/agpl.html'>Affero GPL</a> license."
 
 #translate
-"translate text";"Foofind.com is currently available in a few languages, but you can help us to translate it to your own language. Just choose it from the following list and filling the fields with the translated texts. You don't need to fill all the fields to submit the form, any help will be very appreciated.<br/><br/>If your language is not in the list, please contact us for adding it.<br/><br/>"
+"translate text";"Foofind is currently available in a few languages, but you can help us to translate it to your own language. Just choose it from the following list and filling the fields with the translated texts. You don't need to fill all the fields to submit the form, any help will be very appreciated.<br/><br/>If your language is not in the list, please contact us for adding it.<br/><br/>"
 "BetaTranslation";"This language translation is in testing phase. If you find a missing or wrong translation, please report it <a href='%s'>here</a>."
