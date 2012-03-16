@@ -35,7 +35,7 @@ if ( APPLICATION_ENV == 'production' || (APPLICATION_ENV == 'staging' && preg_ma
     defined('STATIC_PATH') || define('STATIC_PATH',  'http://static.foof.in');
     if(strlen($serverName)==0 || !in_array($serverName, $allowedDomains)) {
         header("HTTP/1.1 301 Moved Permanently");
-        header("Location: ".$allowedDomains[0].$_SERVER["REQUEST_URI"]);
+        header("Location: http://".$allowedDomains[1].$_SERVER["REQUEST_URI"]);
         exit();
     }
 } else {
