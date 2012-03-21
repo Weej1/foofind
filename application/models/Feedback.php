@@ -40,7 +40,7 @@ class Model_Feedback
         {
             if (strlen($url)<3) continue;
             $un = new Net_URL2(trim($url));
-            $this->db->vlinks->save(array("_id"=>$un->getNormalizedURL()));
+            $this->db->visited_links->save(array("_id"=>$un->getNormalizedURL()));
         }
     }
 }
