@@ -129,6 +129,7 @@ class UserController extends Zend_Controller_Action
         $type = $this->getRequest()->getParam('type');
         $step = $this->getRequest()->getParam('step');
 
+        
         // for all steps
         switch ($type){
             case "tw":
@@ -248,7 +249,8 @@ class UserController extends Zend_Controller_Action
                         break;
                 }
 
-                $oauthid = $oauthid.'@'.$type;
+                $serviceUrl = array("tw"=>"twitter.com", "fb"=>"facebook.com");
+                $oauthid = $oauthid.'@'.$serviceUrl[$type];
                 $model = $this->_getModel();
 
                 $user = $model->fetchUserByOauthid($oauthid);
