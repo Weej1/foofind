@@ -24,7 +24,7 @@ class Model_Feedback
         {
             if (strlen($url)<3) continue;
             $un = new Net_URL2(trim($url));
-            $this->db->links->save(array("_id"=>$un->getNormalizedURL()));
+            $this->db->old_links->save(array("_id"=>$un->getNormalizedURL()));
         }
     }
 
