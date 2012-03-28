@@ -39,7 +39,7 @@ class TamingController extends Zend_Controller_Action
         } else {
             $tamingServer = explode(":", $this->config->taming->server);
 
-            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1], $this->config->taming->timeout);
+            $taming = new TamingTextClient($tamingServer[0], ((int)$tamingServer[1])+rand(0,4), $this->config->taming->timeout);
             
             $w = array("c"=>1, $this->lang=>200);
             if ($t) {
