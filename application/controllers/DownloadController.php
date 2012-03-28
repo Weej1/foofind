@@ -126,7 +126,7 @@ class DownloadController extends Zend_Controller_Action
             $obj = $oCache->load( $key  );
         } else {
             $tamingServer = explode(":", $this->config->taming->server);
-            $taming = new TamingTextClient($tamingServer[0], (int)$tamingServer[1], $this->config->taming->timeout);
+            $taming = new TamingTextClient($tamingServer[0], ((int)$tamingServer[1])+rand(0,4), $this->config->taming->timeout);
 
             $obj['file'] = $this->fmodel->getFile($hexuri);
 
