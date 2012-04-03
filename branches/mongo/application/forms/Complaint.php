@@ -14,7 +14,7 @@ class Form_Complaint extends Zend_Form {
                 $this->addElement ( 'text', 'name', array ('label' => 'Your name:', 'required' => true, 'filters' => array ( 'StringTrim' ), 'validators' => array ('alnum') ) );
                 
                 //add surname
-                $this->addElement ( 'text', 'surname', array ('label' => 'Your surname:', 'filters' => array ( 'StringTrim' ), 'validators' => array ('alnum', array ('regex', false, array ('/^[a-z]/i' ) ), array ('StringLength', false, array (3, 20 ) ) ), 'required' => true ) );
+                $this->addElement ( 'text', 'surname', array ('label' => 'Your surname:', 'filters' => array ( 'StringTrim' ), 'validators' => array ('alnum', array ('regex', false, array ('/^[a-z ]/i' ) ), array ('StringLength', false, array (3, 20 ) ) ), 'required' => true ) );
 
                 //add company
                 $this->addElement ( 'text', 'company', array ('label' => 'Your company:', 'filters' => array ( 'StringTrim' ), 'validators' => array ( array ('StringLength', false, array (2, 120 ) ) ), 'required' => false ) );
@@ -28,14 +28,14 @@ class Form_Complaint extends Zend_Form {
                 //add link reported
                 $foofyLink = new Zend_Validate_Regex("|^(?!https?://[^/]*".WEB_PATH."/?).*$|i");
                 $foofyLink->setMessage("Link can't be a Foofind page");
-                $this->addElement ( 'text', 'linkreported', array ('label' => 'Please, insert the link to be reviewed:', 'filters' => array ('StringTrim', 'StringToLower' ),
+                $this->addElement ( 'text', 'linkreported', array ('label' => 'Please, insert the link to be reviewed:',
                     'validators' => array ( array ('StringLength', false, array (9, 256 ) ), $foofyLink),
                     'required' => true ) );
 
                  //add url reported
                 $foofyLink = new Zend_Validate_Regex("|^https?://".WEB_PATH."/\w\w/download/[a-zA-Z0-9!-]{16}(/.*)?$|i");
                 $foofyLink->setMessage("URL must be a valid Foofind download page");
-                $this->addElement ( 'text', 'urlreported', array ('label' => 'Please, insert the url where this content appears:', 'filters' => array ('StringTrim', 'StringToLower' ), 'validators' => array ( array ('StringLength', false, array (9, 256 ) ), $foofyLink ), 'required' => true ) );
+                $this->addElement ( 'text', 'urlreported', array ('label' => 'Please, insert the url where this content appears:', 'validators' => array ( array ('StringLength', false, array (9, 256 ) ), $foofyLink ), 'required' => true ) );
 
 
                  //add reason
