@@ -11,10 +11,10 @@ class Form_Complaint extends Zend_Form {
                 $this->setMethod ( 'post' );
 
                 // add an name element
-                $this->addElement ( 'text', 'name', array ('label' => 'Your name:', 'required' => true, 'filters' => array ( 'StringTrim' ), 'validators' => array ('alnum') ) );
+                $this->addElement ( 'text', 'name', array ('label' => 'Your name:', 'required' => true, 'filters' => array ( 'StringTrim' ), 'validators' => array ('alpha') ) );
                 
                 //add surname
-                $this->addElement ( 'text', 'surname', array ('label' => 'Your surname:', 'filters' => array ( 'StringTrim' ), 'validators' => array ('alnum', array ('regex', false, array ('/^[a-z ]/i' ) ), array ('StringLength', false, array (3, 20 ) ) ), 'required' => true ) );
+                $this->addElement ( 'text', 'surname', array ('label' => 'Your surname:', 'filters' => array ( 'StringTrim' ), 'validators' => array ('alpha', array ('StringLength', false, array (3, 20 ) ) ), 'required' => true ) );
 
                 //add company
                 $this->addElement ( 'text', 'company', array ('label' => 'Your company:', 'filters' => array ( 'StringTrim' ), 'validators' => array ( array ('StringLength', false, array (2, 120 ) ) ), 'required' => false ) );
