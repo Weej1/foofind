@@ -268,8 +268,9 @@ class PageController extends Zend_Controller_Action
                             $email = $f->filter ( $this->_request->getPost ( 'email' ) );
                             $phonenumber = $f->filter ( $this->_request->getPost ( 'phonenumber' ) );
                             $linkreported = $f->filter ( $this->_request->getPost ( 'linkreported' ) );
-                            $urlreported = $this->_request->getPost ( 'urlreported' );
+                            $urlreported = $f->filter ( $this->_request->getPost ( 'urlreported' ) );
                             $reason = $f->filter ( $request->getPost ( 'reason' ) );
+
 
                             $user_info = $_SERVER ['REMOTE_ADDR'];
                             $user_info .= ' ' . $_SERVER ['HTTP_USER_AGENT'];
